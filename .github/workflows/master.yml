@@ -17,4 +17,4 @@ jobs:
         server: ftp.udayghulaxe.me
         username: ${{secrets.ftp_username}}
         password: ${{secrets.ftp_password}}
-        serve-dir: /public_html/resume-builder/
+        server-dir: /public_html/resume-builder/
