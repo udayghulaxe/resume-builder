@@ -1,13 +1,11 @@
 import React from "react";
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Button from '@mui/material/Button';
+import {AppBar, Box, Toolbar, Button} from '@mui/material';
 import logo from '../../logo.svg';
+import { NavLink } from "react-router-dom";
+
+import GoogleLogin from '../Login/GoogleLogin'
+
 import './GlobalHeader.css'
-import {
-    NavLink
-  } from "react-router-dom";
 
 const GlobalHeader = () => {
     return (
@@ -47,13 +45,7 @@ const GlobalHeader = () => {
                             className="mobile-d-none header-menu-link">
                                 Contact
                         </Button>
-                        <Button 
-                            variant="contained"
-                            color="primary" 
-                            disableElevation
-                            className="header-login-button">
-                                Create Resume
-                        </Button>
+                        <GoogleLogin></GoogleLogin>
                     </nav>
                 </Toolbar>
             </AppBar>
