@@ -5,9 +5,11 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 class GoogleLogin extends Component {
     state = {isSignedIn: null};
+
+    // If not using arrow function then we need to bind `this` like below
     // constructor(props) {
     //     super(props);
-        
+    //     this.state = {isSignedIn: null};
     //     this.onAuthChange = this.onAuthChange.bind(this)
     // }
 
@@ -30,20 +32,34 @@ class GoogleLogin extends Component {
         this.setState({ isSignedIn: this.auth.isSignedIn.get() });
     }
 
+    onSignInClick = () => {
+        this.auth.signIn();
+    }
+
+    onSignOutClick = () => {
+        this.auth.signOut();
+    }
+
     renderAuthButton()  {
         if (this.state.isSignedIn === null) {
-           return  <CircularProgress className="login-loader" size={18} />;
+           return (
+            <div className="header-login-button-wrap">
+                <CircularProgress className="login-loader" size={18} />
+            </div>
+           );
  
         } else if(this.state.isSignedIn) {
-            return <Button 
+            return <Button
+                onClick={this.onSignOutClick}
                 variant="contained"
                 color="primary" 
                 disableElevation
                 className="header-login-button">
-                    DashBoard
+                    Logout
             </Button>
         } else {
-            return <Button 
+            return <Button
+                onClick={this.onSignInClick}
                 variant="contained"
                 color="primary" 
                 disableElevation
