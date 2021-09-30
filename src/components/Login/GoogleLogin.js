@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
+import { connect } from "react-redux";
+import { signInAction, signOutAction } from '../../reducers/authReducer.js'
+//import { useSelector, useDispatch } from 'react-redux';
 
 
 class GoogleLogin extends Component {
-    state = {isSignedIn: null};
-
     // If not using arrow function then we need to bind `this` like below
     // constructor(props) {
     //     super(props);
@@ -20,16 +21,25 @@ class GoogleLogin extends Component {
                 scope: 'email profile',
             }).then(() => {
                 this.auth = window.gapi.auth2.getAuthInstance();
-                this.setState({
-                    isSignedIn: this.auth.isSignedIn.get()
-                });
+                this.onAuthChange(this.auth.isSignedIn.get());
+                // listen for auth changes in future
                 this.auth.isSignedIn.listen(this.onAuthChange);
             });
         });
     }
 
-    onAuthChange = () => {
-        this.setState({ isSignedIn: this.auth.isSignedIn.get() });
+    onAuthChange = (isSignedInStatus) => {
+        // var user = this.auth.currentUser.get();
+        // console.dir(user.getAuthResponse().id_token);
+        // console.dir(user.getBasicProfile());
+        console.dir(isSignedInStatus);
+        console.dir(this.props);
+        if (isSignedInStatus) {
+            this.props.signInAction();
+        } else {
+            this.props.signOutAction();
+        }
+        // this.setState({ isSignedIn: this.auth.isSignedIn.get() });
     }
 
     onSignInClick = () => {
@@ -41,14 +51,14 @@ class GoogleLogin extends Component {
     }
 
     renderAuthButton()  {
-        if (this.state.isSignedIn === null) {
+        if (this.props.isSignedIn === null) {
            return (
             <div className="header-login-button-wrap">
                 <CircularProgress className="login-loader" size={18} />
             </div>
            );
  
-        } else if(this.state.isSignedIn) {
+        } else if(this.props.isSignedIn) {
             return <Button
                 onClick={this.onSignOutClick}
                 variant="contained"
@@ -74,4 +84,21 @@ class GoogleLogin extends Component {
     }
 };
 
-export default GoogleLogin;
+const mapStateToProps = (state) => {
+    return {
+        isSignedIn: state.authReduce.isSignedIn
+    }
+}
+
+// const mapDispatchToProps = (dispatch) => ({ 
+//     signInAction, 
+//     signOutAction
+// });
+
+const mapDispatchToProps = { signInAction, signOutAction };
+
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(GoogleLogin);
