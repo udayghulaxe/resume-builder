@@ -3,8 +3,7 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import { connect } from "react-redux";
 import { signInAction, signOutAction } from '../../reducers/authReducer.js'
-//import { useSelector, useDispatch } from 'react-redux';
-
+import { withRouter } from 'react-router-dom';
 
 class GoogleLogin extends Component {
     // If not using arrow function then we need to bind `this` like below
@@ -21,6 +20,7 @@ class GoogleLogin extends Component {
                 scope: 'email profile',
             }).then(() => {
                 this.auth = window.gapi.auth2.getAuthInstance();
+                
                 this.onAuthChange(this.auth.isSignedIn.get());
                 // listen for auth changes in future
                 this.auth.isSignedIn.listen(this.onAuthChange);
@@ -29,25 +29,26 @@ class GoogleLogin extends Component {
     }
 
     onAuthChange = (isSignedInStatus) => {
-        // var user = this.auth.currentUser.get();
-        // console.dir(user.getAuthResponse().id_token);
-        // console.dir(user.getBasicProfile());
-        console.dir(isSignedInStatus);
-        console.dir(this.props);
         if (isSignedInStatus) {
-            this.props.signInAction();
+            this.props.signInAction('somedata');
         } else {
             this.props.signOutAction();
         }
-        // this.setState({ isSignedIn: this.auth.isSignedIn.get() });
     }
 
     onSignInClick = () => {
-        this.auth.signIn();
+        this.auth.signIn().then(() => {
+            this.props.signInAction('somedata');
+            localStorage.setItem('token', this.auth.currentUser.get().getAuthResponse().id_token)
+            this.props.history.replace('builder');
+        });
     }
 
     onSignOutClick = () => {
-        this.auth.signOut();
+        this.auth.signOut().then(() => {
+            localStorage.removeItem('token');
+           this.props.signOutAction();
+        });
     }
 
     renderAuthButton()  {
@@ -90,15 +91,10 @@ const mapStateToProps = (state) => {
     }
 }
 
-// const mapDispatchToProps = (dispatch) => ({ 
-//     signInAction, 
-//     signOutAction
-// });
-
 const mapDispatchToProps = { signInAction, signOutAction };
 
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(GoogleLogin);
+)(withRouter(GoogleLogin));
