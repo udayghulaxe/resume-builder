@@ -1,6 +1,7 @@
 html {
   --color-text: black;
   --color-border-light: #d3d3d3;
+  --color-light-bg: #f3f3f3;
   --color-border-dark: #2f2f2f;
   --color-primary: #09915A;
   --color-primary-wop: rgba(9, 145, 90, 0.04);

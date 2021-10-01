@@ -1,0 +1,31 @@
+
+.builder-wrap {
+    background-color: var(--color-light-bg);
+}
+
+
+.MuiLink-root.builder-header-menu-link {
+    padding-left: 20px;
+    text-transform: none;
+    margin: 0 10px 0 6px;
+    text-decoration: none;
+    color: darkgray;
+}
+
+.MuiLink-root.builder-header-menu-link.active {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.MuiLink-root.builder-header-menu-link:hover {
+    background-color: none !important;
+}
+
+.resume-paper-wrap {
+    padding: 60px 40px;
+}
+
+.MuiPaper-rounded.resume-paper {
+    width: 600px;
+    height: 600px;
+}
