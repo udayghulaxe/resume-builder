@@ -1,15 +1,10 @@
 
-.builder-wrap {
-    background-color: var(--color-light-bg);
-}
-
-
 .MuiLink-root.builder-header-menu-link {
     padding-left: 20px;
     text-transform: none;
     margin: 0 10px 0 6px;
     text-decoration: none;
-    color: darkgray;
+    color: var(--color-font-secondary);
 }
 
 .MuiLink-root.builder-header-menu-link.active {
@@ -22,10 +17,27 @@
 }
 
 .resume-paper-wrap {
-    padding: 60px 40px;
+    padding: 80px 40px;
+    background-color: var(--color-light-bg);
 }
 
 .MuiPaper-rounded.resume-paper {
-    width: 650px;
-    height: 600px;
+    width: 600px;
+    height: auto;
+    padding: 20px 40px;
+}
+
+@media screen and (max-width: 480px) {
+    .MuiPaper-rounded.resume-paper {
+      width: auto;
+    }
+
+    .resume-paper-wrap {
+        padding: 60px 10px;
+    }
+}
+
+/* BASIC INFO COMPONENT */
+.basic-info.variant-1.name {
+    text-transform: uppercase;
 }

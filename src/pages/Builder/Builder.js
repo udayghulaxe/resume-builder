@@ -1,8 +1,11 @@
 import React from "react";
 import logo from '../../logo.svg';
 import './Builder.css'
+import {AppBar, Box, Toolbar, Link, Paper} from '@mui/material';
 
-import {AppBar, Box, Toolbar, Button, Link, Paper} from '@mui/material';
+import BasicInfo from "../../components/BasicInfo/BasicInfo";
+import Education from "../../components/Education/Education";
+
 function Builder() {
   return (
     <div className="builder-wrap">
@@ -22,15 +25,14 @@ function Builder() {
               </AppBar>
           </Box>
           <div className="resume-paper-wrap">
-            <center>
               <Paper className="resume-paper" elevation={3} >
                 <div className="resume-paper-content">
-                  <center>
-                    <h1>Uday Ghulaxe</h1>
-                  </center>
+                    <BasicInfo></BasicInfo>
+                    <Education></Education>
+                    <Education></Education>
+                    <Education></Education>
                 </div>
               </Paper>
-            </center>
           </div>
         </div>
   );

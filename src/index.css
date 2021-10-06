@@ -5,8 +5,14 @@ html {
   --color-border-dark: #2f2f2f;
   --color-primary: #09915A;
   --color-primary-wop: rgba(9, 145, 90, 0.04);
+  --color-font-secondary: #505050;
   --gutter: 16px;
 }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -20,6 +26,33 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* ====================
+   RESUME SECTION START 
+   ==================== */
+
+.resume-section {
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+
+.resume-section-title {
+  display: block;
+  margin: 0 0 10px 0;
+  border-bottom: 3px solid #000;
+  text-transform: uppercase;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.full-width-field {
+  width: 100%;
+  display: block;
+}
+
+/* ====================
+   RESUME SECTION END 
+   ==================== */
 
 
 @media screen and (max-width: 480px) {

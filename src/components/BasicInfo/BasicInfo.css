@@ -1,0 +1,9 @@
+/* VARIANT_ONE */
+.basic-info.name {
+    font-size: 36px;
+}
+
+.basic-info.current-role {
+    margin: 0;
+    font-size: 18px;
+}

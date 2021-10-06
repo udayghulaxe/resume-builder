@@ -1,0 +1,8 @@
+.education-item {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed var(--color-border-light);
+}
+.education-title {
+    font-weight: 600;
+}
