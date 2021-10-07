@@ -24,17 +24,17 @@ const Education = () => {
                     <span className="education-university full-width-field">The University of Arizona</span>
                     <Grid
                         container 
-                        justifyContent="center" 
+                        justifyContent="start" 
                         alignItems="center" 
                         rowSpacing={0.5} 
                         columnSpacing={{ xs: 0.5, sm: 0.5, md: 0.5 }}>
-                        <Grid item xs={6}>
+                        <Grid item md={4} xs={6}>
                             <Item>
                                 <CalendarTodayIcon fontSize="15"></CalendarTodayIcon> 
                                 <Box component="span" sx={{ pl: 1}}>2010 - 2014</Box>
                             </Item>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item md={4} xs={6}>
                             <Item>
                                 <SchoolIcon fontSize="15"></SchoolIcon>
                                 <Box component="span" sx={{ pl: 1}}>CGPA 09/10</Box>
@@ -42,22 +42,24 @@ const Education = () => {
                         </Grid>
                     </Grid>
                 </div>
+
+
                 <div className="education-item">
                     <span className="education-title full-width-field">Executive MBA, Engineering Management</span>
                     <span className="education-university full-width-field">The University of Arizona</span>
                     <Grid
                         container 
-                        justifyContent="center" 
+                        justifyContent="left" 
                         alignItems="center" 
                         rowSpacing={0.5} 
                         columnSpacing={{ xs: 0.5, sm: 0.5, md: 0.5 }}>
-                        <Grid item xs={6}>
+                        <Grid item md={4} xs={6}>
                             <Item>
                                 <CalendarTodayIcon fontSize="15"></CalendarTodayIcon> 
                                 <Box component="span" sx={{ pl: 1}}>2010 - 2014</Box>
                             </Item>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item md={4} xs={6}>
                             <Item>
                                 <SchoolIcon fontSize="15"></SchoolIcon>
                                 <Box component="span" sx={{ pl: 1}}>CGPA 09/10</Box>

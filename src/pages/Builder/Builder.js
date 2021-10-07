@@ -5,6 +5,8 @@ import {AppBar, Box, Toolbar, Link, Paper} from '@mui/material';
 
 import BasicInfo from "../../components/BasicInfo/BasicInfo";
 import Education from "../../components/Education/Education";
+import Experience from "../../components/Experience/Experience";
+import Skills from "../../components/Skills/Skills";
 
 function Builder() {
   return (
@@ -29,8 +31,8 @@ function Builder() {
                 <div className="resume-paper-content">
                     <BasicInfo></BasicInfo>
                     <Education></Education>
-                    <Education></Education>
-                    <Education></Education>
+                    <Experience></Experience>
+                    <Skills></Skills>
                 </div>
               </Paper>
           </div>
