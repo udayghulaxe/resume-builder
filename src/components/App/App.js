@@ -36,7 +36,7 @@ const isSignedIn = useSelector(state => state.authReduce.isSignedIn);
             <Route exact path="/">
               <Container maxWidth="sm">
                 <Box m="auto" textAlign="center">
-                  <h1>Home Page</h1>
+                  <h1>Home-Page</h1>
                 </Box> 
               </Container>
             </Route>
