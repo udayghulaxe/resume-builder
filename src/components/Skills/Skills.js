@@ -12,7 +12,7 @@ const Skills = () => {
                 <Chip className="skills-chip" label="CSS" variant="outlined" />
                 <Chip className="skills-chip" label="Angular" variant="outlined" />   
                 <Chip className="skills-chip" label="Some Long Long String" variant="outlined" />
-                <Chip className="skills-chip no-rounded" label="React" variant="outlined" />
+                <Chip className="skills-chip" label="React" variant="outlined" />
             </div>
         </div>
     );
