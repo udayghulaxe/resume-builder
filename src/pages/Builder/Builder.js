@@ -14,6 +14,7 @@ import BasicInfo from "../../components/BasicInfo/BasicInfo";
 import Education from "../../components/Education/Education";
 import Experience from "../../components/Experience/Experience";
 import Skills from "../../components/Skills/Skills";
+import Achievement from "../../components/Achievements/Achievement";
 
 function Builder() {
   const [items, setItems] = React.useState({
@@ -61,7 +62,7 @@ function Builder() {
                         <Link underline="none" className="builder-header-menu-link" href="#">Education</Link>
                         <Link underline="none" className="builder-header-menu-link" href="#">Skills</Link>
                         <Link underline="none" className="builder-header-menu-link" href="#">Languages</Link>
-                        <Link underline="none" className="builder-header-menu-link" href="#">Awards</Link>
+                        <Link underline="none" className="builder-header-menu-link" href="#">Achievement</Link>
                       </div>
                   </Toolbar>
               </AppBar>
@@ -70,12 +71,11 @@ function Builder() {
           <div className="resume-paper-wrap">
               <Paper className="resume-paper" elevation={3} >
                 <div className="resume-paper-content">
-                  
                     <BasicInfo></BasicInfo>
-                   
+                    <Education></Education>
                     <Experience></Experience>
                     <Skills></Skills>
-                    <Education></Education>
+                    <Achievement></Achievement>
                 </div>
               </Paper>
           </div>
