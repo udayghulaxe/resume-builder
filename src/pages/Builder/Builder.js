@@ -1,7 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import logo from '../../logo.svg';
 import './Builder.css'
 import {AppBar, Box, Toolbar, Link, Paper} from '@mui/material';
+import {
+  GridContextProvider,
+  GridDropZone,
+  GridItem,
+  swap,
+  move
+} from "react-grid-dnd";
 
 import BasicInfo from "../../components/BasicInfo/BasicInfo";
 import Education from "../../components/Education/Education";
@@ -9,6 +16,39 @@ import Experience from "../../components/Experience/Experience";
 import Skills from "../../components/Skills/Skills";
 
 function Builder() {
+  const [items, setItems] = React.useState({
+    left: [
+      { id: 1, name: "ben" },
+      { id: 2, name: "joe" },
+      { id: 3, name: "jason" },
+      { id: 4, name: "chris" },
+      { id: 5, name: "heather" },
+      { id: 6, name: "Richard" }
+    ],
+  });
+ 
+  function onChange(sourceId, sourceIndex, targetIndex, targetId) {
+    if (targetId) {
+      const result = move(
+        items[sourceId],
+        items[targetId],
+        sourceIndex,
+        targetIndex
+      );
+      return setItems({
+        ...items,
+        [sourceId]: result[0],
+        [targetId]: result[1]
+      });
+    }
+ 
+    const result = swap(items[sourceId], sourceIndex, targetIndex);
+    return setItems({
+      ...items,
+      [sourceId]: result
+    });
+  }
+
   return (
     <div className="builder-wrap">
       <Box sx={{ flexGrow: 1 }}>
@@ -26,16 +66,38 @@ function Builder() {
                   </Toolbar>
               </AppBar>
           </Box>
+          
           <div className="resume-paper-wrap">
               <Paper className="resume-paper" elevation={3} >
                 <div className="resume-paper-content">
+                  
                     <BasicInfo></BasicInfo>
-                    <Education></Education>
+                   
                     <Experience></Experience>
                     <Skills></Skills>
+                    <Education></Education>
                 </div>
               </Paper>
           </div>
+
+          <GridContextProvider onChange={onChange}>
+            <div className="drop-container">
+              <GridDropZone
+                className="dropzone left"
+                id="left"
+                boxesPerRow={4}
+                rowHeight={200}
+              >
+                {items.left.map(item => (
+                  <GridItem key={item.name}>
+                    <div className="grid-item" style={{cursor: 'grab'}}>
+                    <BasicInfo></BasicInfo>
+                    </div>
+                  </GridItem>
+                ))}
+              </GridDropZone>
+            </div>
+          </GridContextProvider>
         </div>
   );
 }
