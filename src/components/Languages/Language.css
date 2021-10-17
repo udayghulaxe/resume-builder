@@ -1,0 +1,11 @@
+.language-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2px;
+    font-size: small;
+}
+
+.language-wrapper {
+    margin-bottom: 10px;
+}
