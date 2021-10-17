@@ -1,7 +1,7 @@
 import React from "react";
 import LinearProgress from '@mui/material/LinearProgress';
 
-import "./Language.css";
+import "./Languages.css";
 
 const Languages = () => {
   return (
