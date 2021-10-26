@@ -45,6 +45,12 @@ code {
   font-weight: 700;
 }
 
+.component-dragging {
+  border: 1px dashed var(--color-border-dark);
+  border-radius: 5px;
+  background-color: rgb(250, 250, 250);
+}
+
 .full-width-field {
   width: 100%;
   display: block;
