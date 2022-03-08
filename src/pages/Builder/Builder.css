@@ -22,7 +22,7 @@
 }
 
 .MuiPaper-rounded.resume-paper {
-    width: 600px;
+    width: 700px;
     height: auto;
     padding: 20px 40px;
 }
@@ -42,26 +42,6 @@
     text-transform: uppercase;
 }
 
-
-
-
-.drop-container {
-    display: flex;
-    touch-action: none;
-    width: 800px;
-    margin: 1rem auto;
-  }
-  
-  .dropzone {
-    flex: 1;
-    height: 900px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 1rem;
-  }
-  
-  .dropzone.left {
-    margin-right: 10px;
-  }
   
   .grid-item {
     padding: 10px;

@@ -32,15 +32,26 @@ code {
    ==================== */
 
 .resume-section {
-  padding-bottom: 5px;
+  padding: 5px;
   margin-bottom: 5px;
+}
+
+.resume-section:hover {
+  outline: 1px dashed rgb(90, 89, 89);
+  border-radius: 4px;
+  /* background-color: rgb(250, 250, 250); */
+}
+
+.component-dragging {
+  outline: 1px dashed rgb(90, 89, 89);
+  border-radius: 4px;
+  background-color: rgb(250, 250, 250);
 }
 
 .resume-section-title {
   display: block;
   margin: 0 0 10px 0;
   border-bottom: 3px solid #000;
-  /* text-transform: uppercase; */
   font-size: 24px;
   font-weight: 700;
 }
@@ -50,10 +61,33 @@ code {
   display: block;
 }
 
+.resume-section-wrap {
+  position: relative;
+}
+
+.drag-handle {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 10px;
+  color: var(--color-font-secondary);
+}
+
+.resume-section-wrap:hover .drag-handle, .component-dragging .drag-handle {
+  display: block;
+}
+
+.resume-paper-content-draggin-over {
+  background-color: #e6ffe9;
+}
+
 /* ====================
    RESUME SECTION END 
    ==================== */
 
+.d-none {
+  display: none !important;
+}   
 
 @media screen and (max-width: 480px) {
   .mobile-d-none {

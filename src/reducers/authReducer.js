@@ -9,11 +9,9 @@ export const authSlice = createSlice({
     initialState: INITIAL_STATE,
     reducers: {
         signInAction: (state, action) => {
-            console.log('coming here singIN');
             state.isSignedIn = true;
         },
         signOutAction: (state) => {
-            console.log('coming here singOut');
             state.isSignedIn = false;
         },
     },
