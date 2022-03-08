@@ -1,0 +1,28 @@
+{
+	"header": [
+		{
+			"name": "BasicInfo",
+			"path": "BasicInfo/BasicInfo"
+		}
+	],
+	"main": [
+		{
+			"name": "Education",
+			"path": "Education/Education"
+		},
+		{
+			"name": "Experience",
+			"path": "Experience/Experience"
+		}
+	],
+	"sidebar": [
+		{
+			"name": "Skills",
+			"path": "Skills/Skills"
+		},
+		{
+			"name": "Languages",
+			"path": "Languages/Languages"
+		}
+	]
+}

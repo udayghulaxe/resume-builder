@@ -24,7 +24,7 @@ const BasicInfo = () => {
             <div>
             <Grid mt={1} 
             container 
-            justifyContent="center" 
+            justifyContent="left" 
             alignItems="center" 
             rowSpacing={0.5} 
             columnSpacing={{ xs: 0.5, sm: 0.5, md: 0.5 }}>
