@@ -1,30 +1,31 @@
 import React from "react";
 import LinearProgress from '@mui/material/LinearProgress';
+import EditIcon from '@mui/icons-material/Edit';
 
 import "./Languages.css";
 
-const Languages = () => {
+const Languages = (props) => {
   return (
     <div className="resume-section resume-section-language">
-      <span className="resume-section-title">Languages</span>
-      <div className="language-wrapper">
-        <div className="language-header">
-            <div className="language-title">English</div>
-            <div className="language-level">Advanced</div>
-        </div>
-        <div className="language-progress">
-          <LinearProgress variant="determinate" value={60} />
-        </div>
+      <div className="resume-section-title">
+          <span>{props.componentData.title}</span>
+          <span className="edit-component">
+              <EditIcon/>
+          </span>
       </div>
-      <div className="language-wrapper">
-        <div className="language-header">
-            <div className="language-title">Marathi</div>
-            <div className="language-level">Native</div>
+      {props.componentData.items.map((item, index) => {
+        return (
+          <div key={index} className="language-wrapper">
+          <div className="language-header">
+              <div className="language-title">{item.language}</div>
+              <div className="language-level">{item.proficiency}</div>
+          </div>
+          <div className="language-progress">
+            <LinearProgress variant="determinate" value={60} />
+          </div>
         </div>
-        <div className="language-progress">
-          <LinearProgress variant="determinate" value={85} />
-        </div>
-      </div>
+        );
+      })}
     </div>
   );
 };

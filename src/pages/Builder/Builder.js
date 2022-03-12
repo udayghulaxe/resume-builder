@@ -1,7 +1,7 @@
 import React, { useState, lazy, Suspense } from "react";
 import logo from '../../logo.svg';
 import './Builder.css'
-import { AppBar, Box, Toolbar, Link, Paper, Grid } from '@mui/material';
+import { AppBar, Box, Toolbar, Link, Paper, Grid, Autocomplete, TextField } from '@mui/material';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
@@ -18,33 +18,122 @@ function Builder() {
       header: [
         {
           name: 'BasicInfo',
-          path: 'BasicInfo/BasicInfo'
+          path: 'BasicInfo/BasicInfo',
         }
       ],
       main: [
         {
           name: 'Education',
-          path: 'Education/Education'
+          path: 'Education/Education',
+          componentData: {
+            title: 'Education',
+            items: [
+              {
+                educationTitle: 'Executive MBA, Engineering Management',
+                university: 'The University of Arizona',
+                date: '2010 - 2014',
+                gpa: 'CGPA 09/10',
+              }, 
+              {
+                educationTitle: 'Engineering Management',
+                university: 'The University of California, Berkeley',
+                date: '2008 - 2010',
+                gpa: 'CGPA 7.5/10',
+              }
+            ],
+          }
+
         },
         {
           name: 'Experience',
-          path: 'Experience/Experience'
+          path: 'Experience/Experience',
+          componentData: {
+            title: 'Experience',
+            items: [
+              {
+                experienceTitle: 'Android Developer',
+                company: 'Google',
+                date: '2018 - 2020',
+                location: 'New York',
+                experienceSummary: 'Worked with team of 5 members and provided end-to-end solutions for clients & Lead developer in 3 key projects of major clients.',
+              }, 
+              {
+                experienceTitle: 'Front End Developer',
+                company: 'Amazon',
+                date: '2014 - 2018',
+                location: 'New York',
+                experienceSummary: 'Worked with team of 5 members and provided end-to-end solutions for clients & Lead developer in 4 key projects of major clients.',
+              }
+            ],
+          }
         }
       ],
       sidebar: [
         {
           name: 'Languages',
-          path: 'Languages/Languages'
+          path: 'Languages/Languages',
+          componentData: {
+            title: 'Languages',
+            items: [
+              {
+                language: 'English',
+                proficiency: 'Native',
+              },
+              {
+                language: 'Spanish',
+                proficiency: 'Intermediate',
+              }
+            ],
+          }
         },
         {
           name: 'Skills',
-          path: 'Skills/Skills'
+          path: 'Skills/Skills',
+          componentData: {
+            title: 'Skills',
+            variant: 'outlined',
+            items: [
+              {
+                title: 'Javascript',
+              }, 
+              {
+                title: 'HTML',
+              },
+              {
+                title: 'CSS',
+              },
+              {
+                title: 'Angular',
+              },
+              {
+                title: 'React',
+              }
+            ],
+          }
         }
       ],
-      full: [
+      componentLibrary: [
         {
-          name: 'Languages2',
-          path: 'Languages/Languages'
+          name: 'Tools',
+          path: 'Skills/Skills',
+          componentData: {
+            title: 'Tools',
+            variant: 'filled',
+            items: [
+              {
+                title: 'GIT',
+              }, 
+              {
+                title: 'Webpack',
+              },
+              {
+                title: 'Gulp',
+              },
+              {
+                title: 'Grunt',
+              }
+            ],
+          }
         },
       ]
     }
@@ -93,14 +182,6 @@ function Builder() {
       setItems(newColumn);
     }
   }
-
-  // const Item = styled(Box)(({ theme }) => ({
-  //   ...theme.typography.caption,
-  //   textAlign: 'left',
-  //   display: 'flex',
-  //   alignItems: 'center',
-  //   color: theme.palette.text.secondary,
-  // }));
 
   return (
     <div className="builder-wrap">
@@ -152,7 +233,7 @@ function Builder() {
                                       <span className="drag-handle" {...provided.dragHandleProps}>
                                         <DragIndicatorIcon/>
                                       </span>
-                                      <MainColumnComponent/>
+                                      <MainColumnComponent componentData={item.componentData}/>
                                     </div>
                                   )}
                                 </Draggable>
@@ -185,7 +266,7 @@ function Builder() {
                                       <span className="drag-handle" {...provided.dragHandleProps}>
                                         <DragIndicatorIcon/>
                                       </span> 
-                                      <SideBarComponent />
+                                      <SideBarComponent componentData={item.componentData}/>
                                     </div>
                                   )}
                                 </Draggable>
@@ -202,14 +283,28 @@ function Builder() {
                 </Paper>
               </Grid>
               <Grid item xs={4}>
+                <div className="component-library-header">
+                  <div>
+                    <span className="component-library-title">All Widgets</span>
+                  </div>
+                  <Autocomplete
+                    id="component-library-filter"
+                    options={[
+                      { label: 'Education', id: 1 },
+                      { label: 'Skills', id: 2 },
+                    ]}
+                    sx={{ width: 150 }}
+                    renderInput={(params) => <TextField {...params} placeholder="Filter"  variant="standard" />}
+                  />
+                </div>            
                 <Paper style={{padding: '20px'}} className="widget-library" elevation={0}>
 
-                <Droppable droppableId="full">
+                <Droppable droppableId="componentLibrary">
                       {(provided, snapshot) => (
                         <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over' : 'resume-paper-content'}>
                           {provided.isDragging}
                           <Suspense fallback={<div>Loading</div>}>
-                            {arr.full.map((item, index) => {
+                            {arr.componentLibrary.map((item, index) => {
                               const WidgetComponent = renderLazyComponent(`${item.path}`);
                               return (
                                 <Draggable key={item.name} draggableId={item.name} index={index}>
@@ -221,7 +316,7 @@ function Builder() {
                                       <span className="drag-handle" {...provided.dragHandleProps}>
                                         <DragIndicatorIcon/>
                                       </span> 
-                                      <WidgetComponent />
+                                      <WidgetComponent componentData={item.componentData}/>
                                     </div>
                                   )}
                                 </Draggable>

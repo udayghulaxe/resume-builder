@@ -49,11 +49,35 @@ code {
 }
 
 .resume-section-title {
-  display: block;
+  display: flex;
   margin: 0 0 10px 0;
   border-bottom: 3px solid #000;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.edit-component {
+  display: none;
+  margin-right: 25px;
+  cursor: pointer;
+  color: var(--color-font-secondary);
+  width: 18px;
+  height: 18px;
+}
+
+.edit-component svg {
+  width: 20px;
+  height: 20px;
+}
+
+.edit-component svg:hover, .drag-handle svg:hover {
+  color: #000;
+}
+
+.resume-section-wrap:hover .edit-component {
+  display: block;
 }
 
 .full-width-field {
@@ -84,6 +108,29 @@ code {
 /* ====================
    RESUME SECTION END 
    ==================== */
+
+
+/* =============================
+COMPONENT LIBRARY SECTION START 
+=============================== */
+
+.component-library-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 10px 0;
+}
+
+.component-library-title {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* =============================
+COMPONENT LIBRARY SECTION END 
+=============================== */
+
+
 
 .d-none {
   display: none !important;
