@@ -15,7 +15,6 @@ import About from '../../pages/About/About';
 import Contact from '../../pages/Contact/Contact';
 import Builder from '../../pages/Builder/Builder';
 
-
 function App() {
 const isSignedIn = useSelector(state => state.authReduce.isSignedIn);
   return (

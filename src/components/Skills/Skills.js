@@ -11,17 +11,27 @@ import './Skills.css'
 import SkillsEditor from "./SkillsEditor";
 const Skills = (props) => {
     const [open, setOpen] = React.useState(false);
+
     const handleClickOpen = () => {
         setOpen(true);
     };
     const handleClose = () => {
         setOpen(false);
     };
-
+    
     return (
         <div className="resume-section resume-section-skills">
             {/* Component Edit Modal START */}
             <div>
+                {/* <Popup 
+                    title="Skills"
+                    onCancel={handleClose}
+                    onSave={handleSave}
+                >
+                    <SkillsEditor />
+                </Popup> */}
+
+
                 <Dialog open={open} onClose={handleClose}>
                     <DialogTitle>Skills</DialogTitle>
                     <DialogContent>

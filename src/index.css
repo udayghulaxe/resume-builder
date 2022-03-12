@@ -141,3 +141,19 @@ COMPONENT LIBRARY SECTION END
     display: none !important;
   }
 }
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .resume-paper * {
+    visibility: visible;
+    
+  }
+  .resume-paper {
+    position: absolute;
+    width: 765px !important;
+    left: 0;
+    top: 0;
+  }
+}

@@ -30,7 +30,11 @@ class GoogleLogin extends Component {
 
     onAuthChange = (isSignedInStatus) => {
         if (isSignedInStatus) {
-            this.props.signInAction('somedata');
+            this.props.signInAction({
+                userId: this.auth.currentUser.get().getId(), 
+                name: this.auth.currentUser.get().getBasicProfile().getName(), 
+                email: this.auth.currentUser.get().getBasicProfile().getEmail()
+            });
         } else {
             this.props.signOutAction();
         }
@@ -38,7 +42,11 @@ class GoogleLogin extends Component {
 
     onSignInClick = () => {
         this.auth.signIn().then(() => {
-            this.props.signInAction('somedata');
+            this.props.signInAction({
+                userId: this.auth.currentUser.get().getId(), 
+                name: this.auth.currentUser.get().getBasicProfile().getName(), 
+                email: this.auth.currentUser.get().getBasicProfile().getEmail()
+            });
             localStorage.setItem('token', this.auth.currentUser.get().getAuthResponse().id_token)
             this.props.history.replace('builder');
         });
