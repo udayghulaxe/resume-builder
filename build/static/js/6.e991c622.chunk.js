@@ -1,0 +1,2 @@
+(this["webpackJsonpresume-builder"]=this["webpackJsonpresume-builder"]||[]).push([[6],{128:function(e,r,s){"use strict";s.r(r);s(0);var t=s(2);r.default=function(){return Object(t.jsx)(t.Fragment,{children:Object(t.jsx)("h1",{children:"Skills Editor"})})}}}]);
+//# sourceMappingURL=6.e991c622.chunk.js.map
