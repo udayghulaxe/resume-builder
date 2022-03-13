@@ -20,13 +20,13 @@ const Experience = (props) => {
     return (
         <div className="resume-section resume-section-experience">
             <div className="resume-section-title">
-                <span>{props.componentData.title}</span>
+                <span>{props.componentItem.componentData.title}</span>
                 <span className="edit-component">
                     <EditIcon/>
                 </span>
                 </div>     
             <div className="experience-item-wrap">
-            {props.componentData.items.map((item, index) => {
+            {props.componentItem.componentData.items.map((item, index) => {
                 return (
                     <div key={index} className="experience-item">
                         <span className="experience-title full-width-field">{item.experienceTitle}</span>

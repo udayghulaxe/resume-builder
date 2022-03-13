@@ -1,61 +1,47 @@
-import React from "react";
+import React, {useState} from 'react';
 import {Chip} from '@mui/material';
-import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
 import EditIcon from '@mui/icons-material/Edit';
+import SkillsEditor from "./SkillsEditor";
 
 import './Skills.css'
-import SkillsEditor from "./SkillsEditor";
 const Skills = (props) => {
-    const [open, setOpen] = React.useState(false);
-
-    const handleClickOpen = () => {
+    const [open, setOpen] = useState(false);
+    console.log('calling skills', open);
+    
+    const  openEditor = () => {
         setOpen(true);
-    };
-    const handleClose = () => {
+    }
+
+    const closeEditor = () => {
         setOpen(false);
     };
-    
+
+
     return (
         <div className="resume-section resume-section-skills">
-            {/* Component Edit Modal START */}
-            <div>
-                {/* <Popup 
-                    title="Skills"
-                    onCancel={handleClose}
-                    onSave={handleSave}
-                >
-                    <SkillsEditor />
-                </Popup> */}
-
-
-                <Dialog open={open} onClose={handleClose}>
-                    <DialogTitle>Skills</DialogTitle>
-                    <DialogContent>
-                        <SkillsEditor></SkillsEditor>
-                    </DialogContent>
-                    <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleClose}>Save</Button>
-                    </DialogActions>
-                </Dialog>
-            </div>
-            {/* Component Edit Modal END */}
+ 
+            <Dialog maxWidth='sm' fullWidth={true} open={open} onClose={closeEditor}>
+                <DialogContent>
+                    <SkillsEditor open={open} setOpen={setOpen} componentColumn={props.componentColumn} componentName={props.componentItem.name} editorData={props.componentItem.componentData} />
+                </DialogContent>
+                <DialogActions>
+                </DialogActions>
+            </Dialog>
 
             <div className="resume-section-title">
-                <span>{props.componentData.title}</span>
+                <span>{props.componentItem.componentData.title}</span>
                 <span className="edit-component">
-                    <EditIcon onClick={handleClickOpen}/>
+                    <EditIcon onClick={openEditor}/>
                 </span>
             </div>   
             
             <div className="skills-item-wrap">
-            {props.componentData.items.map((item, index) => {
+            {props.componentItem.componentData.items.map((item, index) => {
                 return (
-                    <Chip key={index} label={item.title} className="skills-chip" variant={props.componentData.variant} />
+                    <Chip key={index} label={item.title} className="skills-chip" variant={props.componentItem.componentData.variant} />
                 );
             })}
             </div>

@@ -26,6 +26,6 @@ export const authSlice = createSlice({
     },
   });
   
-  export const { signInAction, signOutAction } = authSlice.actions;
+export const { signInAction, signOutAction } = authSlice.actions;
 
 export default authSlice.reducer;

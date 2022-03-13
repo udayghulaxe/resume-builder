@@ -8,12 +8,12 @@ const Languages = (props) => {
   return (
     <div className="resume-section resume-section-language">
       <div className="resume-section-title">
-          <span>{props.componentData.title}</span>
+          <span>{props.componentItem.componentData.title}</span>
           <span className="edit-component">
               <EditIcon/>
           </span>
       </div>
-      {props.componentData.items.map((item, index) => {
+      {props.componentItem.componentData.items.map((item, index) => {
         return (
           <div key={index} className="language-wrapper">
           <div className="language-header">

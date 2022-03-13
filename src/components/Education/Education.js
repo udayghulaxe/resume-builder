@@ -19,13 +19,13 @@ const Education = (props) => {
     return (
         <div className="resume-section resume-section-education">
             <div className="resume-section-title">
-                <span>{props.componentData.title}</span>
+                <span>{props.componentItem.componentData.title}</span>
                 <span className="edit-component">
                     <EditIcon/>
                 </span>
             </div>     
             <div className="education-item-wrap">
-                {props.componentData.items.map((item, index) => {
+                {props.componentItem.componentData.items.map((item, index) => {
                     return (
                         <div key={index} className="education-item">
                             <span className="education-title full-width-field">{item.educationTitle}</span>

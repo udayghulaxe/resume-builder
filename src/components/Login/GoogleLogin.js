@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import { connect } from "react-redux";
-import { signInAction, signOutAction } from '../../reducers/authReducer.js'
+import { signInAction, signOutAction } from '../../reducers/authSlice.js'
 import { withRouter } from 'react-router-dom';
 
 class GoogleLogin extends Component {
@@ -95,7 +95,7 @@ class GoogleLogin extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        isSignedIn: state.authReduce.isSignedIn
+        isSignedIn: state.authReducer.isSignedIn
     }
 }
 

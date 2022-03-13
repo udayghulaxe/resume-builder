@@ -1,14 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import authReducer from "./authReducer";
+import authSlice from "./authSlice";
+import resumeDataSlice from "./resumeDataSlice";
 
 // export default combineReducers({
-//     authReduce: authReducer
+//     authReducer: authReducer
 // });
 
 
 export const store = configureStore({
   reducer: {
-    authReduce: authReducer,
+    authReducer: authSlice,
+    resumeDataReducer: resumeDataSlice
   },
 });
