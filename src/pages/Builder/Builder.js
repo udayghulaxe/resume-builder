@@ -106,14 +106,43 @@ function Builder() {
       <Grid container spacing={2}>
           <Grid item xs={8}>
             <Paper className="resume-paper" elevation={3} >
-              <Suspense fallback={<div>Loading</div>}>
+              {/* <Suspense fallback={<div>Loading</div>}>
                 {arr.header.map((item, index) => {
                   const BasicInfoComponent = renderLazyComponent(`${item.path}`);
                   return (
                     <BasicInfoComponent key={item.name} />
                   )
                 })}  
-              </Suspense>
+              </Suspense> */}
+
+              <Droppable droppableId="header">
+                  {(provided, snapshot) => (
+                    <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over' : 'resume-paper-content'}>
+                      <Suspense fallback={<div>Loading</div>}>
+                        {arr.header.map((item, index) => {
+                          const HeaderColumnComponent = renderLazyComponent(`${item.path}`);
+                          return (
+                            <Draggable key={item.name} draggableId={item.name} index={index}>
+                              {(provided, snapshot) => (
+                                <div className={snapshot.isDragging ? 'component-dragging' : 'resume-section-wrap'} 
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    key={item.name}>
+                                  <span className="drag-handle" {...provided.dragHandleProps}>
+                                    <DragIndicatorIcon/>
+                                  </span>
+                                  <HeaderColumnComponent componentColumn='header' componentItem={item}/>
+                                </div>
+                              )}
+                            </Draggable>
+                          );
+                        }
+                        )}
+                        {provided.placeholder}
+                      </Suspense>
+                    </div>
+                  )}
+                </Droppable>
               <Grid container spacing={1}>
                 <Grid item xs={arr.sidebar.length ? 7 : 12}>
                 <Droppable droppableId="main">

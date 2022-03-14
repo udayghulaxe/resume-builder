@@ -20,7 +20,7 @@ const Education = (props) => {
         <div className="resume-section resume-section-education">
             <div className="resume-section-title">
                 <span>{props.componentItem.componentData.title}</span>
-                <span className="edit-component">
+                <span className="edit-component-icon">
                     <EditIcon/>
                 </span>
             </div>     

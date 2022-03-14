@@ -21,7 +21,7 @@ const Experience = (props) => {
         <div className="resume-section resume-section-experience">
             <div className="resume-section-title">
                 <span>{props.componentItem.componentData.title}</span>
-                <span className="edit-component">
+                <span className="edit-component-icon">
                     <EditIcon/>
                 </span>
                 </div>     
@@ -32,23 +32,23 @@ const Experience = (props) => {
                         <span className="experience-title full-width-field">{item.experienceTitle}</span>
                         <Grid
                             container 
-                            justifyContent="center" 
+                            justifyContent="start" 
                             alignItems="center" 
                             rowSpacing={0.5} 
                             columnSpacing={{ xs: 0.5, sm: 0.5, md: 0.5 }}>
-                            <Grid item xs={4}>
+                            <Grid item md={4} xs={6}>
                                 <Item>
                                     <BusinessIcon fontSize="15"></BusinessIcon> 
                                     <Box component="span" sx={{ pl: 1}}>{item.company}</Box>
                                 </Item>
                             </Grid>
-                            <Grid item xs={4}>
+                            <Grid item md={4} xs={6}>
                                 <Item>
                                     <CalendarTodayIcon fontSize="15"></CalendarTodayIcon> 
                                     <Box component="span" sx={{ pl: 1}}>{item.date}</Box>
                                 </Item>
                             </Grid>
-                            <Grid item xs={4}>
+                            <Grid item md={4} xs={6}>
                                 <Item>
                                     <LocationOnIcon fontSize="15"></LocationOnIcon>
                                     <Box component="span" sx={{ pl: 1}}>{item.location}</Box>

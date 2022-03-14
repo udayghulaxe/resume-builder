@@ -2,7 +2,10 @@ const json = {
     "header": [
         {
             "name": "BasicInfo",
-            "path": "BasicInfo/BasicInfo"
+            "path": "BasicInfo/BasicInfo",
+            "componentData": {
+                "title": "Experience"
+            }
         }
     ],
     "main": [

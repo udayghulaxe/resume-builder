@@ -9,14 +9,14 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 
+// import './SkillsEditor.css'
 
-const SkillsEditor = (props) => {
+const AchievementEditor = (props) => {
     const [editorData, setEditorData] = useState(props.editorData);
     const [firstime, setFirstTime] = useState(false);
     const [title, setTitle] = useState(editorData.title);
-    const [skillItems, setSkillItems] = useState(editorData.items);
-    const [rounded, setRounded] = useState(editorData.rounded);
-    const [filled, setFilled] = useState(editorData.filled);
+    const [achievementItems, setAchievementItems] = useState(editorData.items);
+    const [showIcon, setShowIcon] = useState(editorData.showIcon);
     const dispatch = useDispatch();
 
     const onTitleChange = (event) => {
@@ -24,33 +24,30 @@ const SkillsEditor = (props) => {
         setTitle(newVal);
     }
 
-    const onRoundedChange = (event) => {
-        setRounded(event.target.checked);
+    const onShowIconChange = (event) => {
+        setShowIcon(event.target.checked);
     }
 
-    const onFilledChange = (event) => {
-        setFilled(event.target.checked);
-    }
 
-    const onSkillChange = (event, index) => {
-        let skills = [...skillItems];
+    const onAchievementChange = (event, index) => {
+        let skills = [...achievementItems];
         skills[index] = { title: event.target.value };
-        setSkillItems(skills);
+        setAchievementItems(skills);
     }
 
-    const onAddSkill = (event, index) => {
-        let skills = [...skillItems];
+    const onAddAchievement = (event, index) => {
+        let skills = [...achievementItems];
         skills.splice(index + 1, 0, { title: '' });
-        setSkillItems(skills);
+        setAchievementItems(skills);
     }
-    const onDeleteSkill = (event, index) => {
-        let skills = [...skillItems];
+    const onDeleteAchievement = (event, index) => {
+        let skills = [...achievementItems];
         skills.splice(index, 1);
-        setSkillItems(skills);
+        setAchievementItems(skills);
     }
 
     const onSave = (event) => {
-        setEditorData({ ...editorData, rounded: rounded, filled: filled, title: title, items: skillItems.filter((item, index) => item.title.length > 0) });
+        setEditorData({ ...editorData, title: title, showIcon: showIcon, items: achievementItems.filter((item, index) => item.title.length > 0) });
         setFirstTime(true);
         console.log(editorData);
     }
@@ -67,6 +64,7 @@ const SkillsEditor = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [editorData]);
 
+
     return (
         <Dialog maxWidth='sm' fullWidth={true} open={props.open} onClose={closeEditor}>
             <DialogContent>
@@ -74,28 +72,30 @@ const SkillsEditor = (props) => {
                     <div className='editor-heading-wrap'>
                         <TextField fullWidth autoComplete='off' id="editor-title" onChange={onTitleChange} value={title} variant="standard" />
                     </div>
+
                     <div className="editor-options-wrap">
                         <div>
-                            Rounded: <Switch label="Rounded" onChange={onRoundedChange} checked={rounded} />
-                        </div>
-                        <div>
-                            Filled: <Switch label="Filled" onChange={onFilledChange} checked={filled} />
+                            Show Icon: <Switch label="Rounded" onChange={onShowIconChange} checked={showIcon} />
                         </div>
                     </div>
+
                     <div className="editor-items-wrap">
-                        {skillItems.map((item, index) => {
+                        {achievementItems.map((item, index) => {
                             return (
                                 <div className='editor-item' key={index}>
                                     <TextField
                                         label={"Option " + (index + 1)}
-                                        sx={{ mb: 1, mt: 1, mr: 1 }}
-                                        onChange={(event) => onSkillChange(event, index)}
+                                        sx={{ mb: 1, mt: 1, mr: 1}}
+                                        onChange={(event) => onAchievementChange(event, index)}
                                         value={item.title}
                                         data-key={index}
-                                        size="small"
+                                        multiline
+                                        rows={2}
+                                        inputProps={{style: {fontSize: 14, lineHeight: 1.2}}}
+                                        style = {{width: 380}}
                                     />
-                                    <AddCircleIcon onClick={(event) => onAddSkill(event, index)} className='add-item-icon'></AddCircleIcon>
-                                    <DeleteForeverIcon onClick={(event) => onDeleteSkill(event, index)} className={`delete-item-icon ${index === 0 ? 'd-none' : ''}`}></DeleteForeverIcon>
+                                    <AddCircleIcon onClick={(event) => onAddAchievement(event, index)} className='add-item-icon'></AddCircleIcon>
+                                    <DeleteForeverIcon onClick={(event) => onDeleteAchievement(event, index)} className={`delete-item-icon ${index === 0 ? 'd-none' : ''}`}></DeleteForeverIcon>
                                 </div>
                             );
                         })}
@@ -105,10 +105,10 @@ const SkillsEditor = (props) => {
             
             <DialogActions>
                 <Button onClick={closeEditor}>Cancel</Button>
-                <Button onClick={onSave} disabled={!skillItems.filter(item => item.title.length > 0).length} >Save</Button>
+                <Button onClick={onSave} disabled={!achievementItems.filter(item => item.title.length > 0).length}>Save</Button>
             </DialogActions>
         </Dialog>
     );
 }
 
-export default SkillsEditor;
+export default AchievementEditor;
