@@ -67,3 +67,13 @@ border-radius: 50%;
 .builder-header {
     justify-content: space-between;
 }
+
+.header-filters {
+    display: flex;
+    align-items: center;
+}
+
+.MuiButton-root.header-download-button {
+    margin-right: 20px !important;
+    text-transform: none;
+}

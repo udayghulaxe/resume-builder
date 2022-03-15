@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import {Grid, Box} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import SchoolIcon from '@mui/icons-material/School';
 import EditIcon from '@mui/icons-material/Edit';
+
+import EducationEditor from "./EducationEditor";
 
 import './Education.css'
 
@@ -16,19 +18,26 @@ const Item = styled(Box)(({ theme }) => ({
   }));
 
 const Education = (props) => {
+    const [open, setOpen] = useState(false);
+    console.log('calling achievment', open);
+
+    const  openEditor = () => {
+        setOpen(true);
+    }
+
     return (
         <div className="resume-section resume-section-education">
             <div className="resume-section-title">
-                <span>{props.componentData.title}</span>
-                <span className="edit-component">
-                    <EditIcon/>
+                <span>{props.componentItem.componentData.title}</span>
+                <span className="edit-component-icon">
+                    <EditIcon onClick={openEditor} />
                 </span>
             </div>     
             <div className="education-item-wrap">
-                {props.componentData.items.map((item, index) => {
+                {props.componentItem.componentData.items.map((item, index) => {
                     return (
                         <div key={index} className="education-item">
-                            <span className="education-title full-width-field">{item.educationTitle}</span>
+                            <span className="education-title full-width-field">{item.title}</span>
                             <span className="education-university full-width-field">{item.university}</span>
                             <Grid
                                 container 
@@ -53,6 +62,8 @@ const Education = (props) => {
                     );
                 })}
             </div>
+
+            <EducationEditor open={open} setOpen={setOpen} componentColumn={props.componentColumn} componentName={props.componentItem.name} editorData={props.componentItem.componentData} />
         </div>
     );
 }

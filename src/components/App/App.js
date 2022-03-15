@@ -16,7 +16,7 @@ import Contact from '../../pages/Contact/Contact';
 import Builder from '../../pages/Builder/Builder';
 
 function App() {
-const isSignedIn = useSelector(state => state.authReduce.isSignedIn);
+const isSignedIn = useSelector(state => state.authReducer.isSignedIn);
   return (
       <Router>
         <GlobalHeader/>

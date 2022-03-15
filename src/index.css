@@ -1,10 +1,12 @@
 html {
   --color-text: black;
-  --color-border-light: #d3d3d3;
   --color-light-bg: #f3f3f3;
+  --color-border: #bdbdbd;
+  --color-border-light: #d3d3d3;
   --color-border-dark: #2f2f2f;
   --color-primary: #09915A;
   --color-primary-wop: rgba(9, 145, 90, 0.04);
+  --color-error: #ff0000;
   --color-font-secondary: #505050;
   --gutter: 16px;
 }
@@ -18,8 +20,6 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 code {
@@ -46,6 +46,7 @@ code {
   outline: 1px dashed rgb(90, 89, 89);
   border-radius: 4px;
   background-color: rgb(250, 250, 250);
+  max-width: 400px;
 }
 
 .resume-section-title {
@@ -58,7 +59,7 @@ code {
   justify-content: space-between;
 }
 
-.edit-component {
+.edit-component-icon {
   display: none;
   margin-right: 25px;
   cursor: pointer;
@@ -67,16 +68,16 @@ code {
   height: 18px;
 }
 
-.edit-component svg {
+.edit-component-icon svg {
   width: 20px;
   height: 20px;
 }
 
-.edit-component svg:hover, .drag-handle svg:hover {
+.edit-component-icon svg:hover, .drag-handle svg:hover {
   color: #000;
 }
 
-.resume-section-wrap:hover .edit-component {
+.resume-section-wrap:hover .edit-component-icon {
   display: block;
 }
 
@@ -107,7 +108,41 @@ code {
 
 /* ====================
    RESUME SECTION END 
-   ==================== */
+==================== */
+
+
+/* ====================
+EDITOR SECTION START 
+==================== */
+.editor-heading-wrap {
+  margin-bottom: 20px;
+}
+
+.editor-options-wrap {
+  display: flex;
+  margin-bottom: 10px;
+  flex-direction: column;
+}
+
+.MuiSvgIcon-root.add-item-icon {
+  color: var(--color-primary);
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.MuiSvgIcon-root.delete-item-icon {
+  color: var(--color-error);
+  cursor: pointer;
+}
+
+.editor-item {
+  display: flex;
+  align-items: center;
+}
+
+/* ====================
+  EDITOR SECTION END 
+==================== */
 
 
 /* =============================

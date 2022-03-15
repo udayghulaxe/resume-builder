@@ -1,38 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import StarIcon from "@mui/icons-material/Star";
+import EditIcon from '@mui/icons-material/Edit';
+import AchievementEditor from "./AchievementEditor";
 
 import "./Achievement.css";
 
-const Achievement = () => {
+const Achievement = (props) => {
+  const [open, setOpen] = useState(false);
+  console.log('calling achievment', open);
+  
+  const  openEditor = () => {
+      setOpen(true);
+  }
+
   return (
     <div className="resume-section resume-section-achievement">
-      <span className="resume-section-title">Achievements</span>
+      <div className="resume-section-title">
+        <span>{props.componentItem.componentData.title}</span>
+        <span className="edit-component-icon">
+          <EditIcon onClick={openEditor} />
+        </span>
+      </div> 
+
       <div className="achievement-item-wrap">
-        <div className="achievement-item">
-          <span className="achievement-icon">
-            <StarIcon/>
-          </span>
-          <span className="achievement-summary">
-            Won Best Employee Award for last 2 consecutive year (2020 & 2021).
-          </span>
-        </div>
-        <div className="achievement-item">
-          <span className="achievement-icon">
-            <StarIcon/>
-          </span>
-          <span className="achievement-summary">
-            Won inter-zone cricket competition (2020).
-          </span>
-        </div>
-        <div className="achievement-item">
-          <span className="achievement-icon">
-            <StarIcon/>
-          </span>
-          <span className="achievement-summary">
-            Runner up for state level table tennis competition (2020).
-          </span>
-        </div>
+        {props.componentItem.componentData.items.map((item, index) => {
+          return (
+            <div key={`achievement-${index}`} className="achievement-item">
+              <span className={`achievement-icon ${props.componentItem.componentData.showIcon ? '' : 'd-none'}`}>
+                <StarIcon />
+              </span>
+              <span className="achievement-summary">
+                {item.title}
+              </span>
+            </div>
+          );
+        })}
       </div>
+
+      <AchievementEditor open={open} setOpen={setOpen} componentColumn={props.componentColumn} componentName={props.componentItem.name} editorData={props.componentItem.componentData} />
+
     </div>
   );
 };

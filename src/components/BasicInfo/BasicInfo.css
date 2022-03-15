@@ -1,9 +1,9 @@
 /* VARIANT_ONE */
 .basic-info.name {
-    font-size: 36px;
+    font-size: 30px;
 }
 
 .basic-info.current-role {
     margin: 0;
-    font-size: 18px;
+    font-size: 16px;
 }

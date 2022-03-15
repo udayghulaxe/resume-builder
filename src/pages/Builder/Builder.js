@@ -1,58 +1,59 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
-import firebase from '../../firebase';
-import { AppBar, Box, Toolbar, Link, Paper, Grid, Autocomplete, TextField } from '@mui/material';
+import { AppBar, Button, Box, Toolbar, Link, Paper, Grid, Autocomplete, TextField } from '@mui/material';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import GoogleLogin from '../../components/Login/GoogleLogin'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
+import { getResumeDataByUserId, updateResumeDataByUserId } from '../../reducers/resumeDataSlice';
+
 
 import './Builder.css'
 import logo from '../../logo.svg';
 
 function Builder() {
   
+  const {authReducer, resumeDataReducer} = useSelector((state) => state);
   const [arr, setItems] = useState(null);
-  const {authReduce} = useSelector((state) => state);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+      console.log('calling builder effect');
+      setItems(resumeDataReducer.resumeData);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [resumeDataReducer]);
+    
+  useEffect(() => {
+    getResumeData();
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authReducer]);
+
+
   function getResumeData() {
-    if (authReduce.userId) {
-      console.log(authReduce.userId);
-      const ref = firebase.firestore().collection('userResume').doc(authReduce.userId);
-      ref.get().then((doc) => {
-        const items = doc.data();
-        console.log('data', items);
-        const data = JSON.parse(items.resumeJson);
-        setItems(data);
-      });
-    }
+    console.log('geting data again');
+    dispatch(getResumeDataByUserId(authReducer.userId)).then((res) => {
+      setItems(res.payload);
+    });
+
+    // if (authReducer.userId) {
+    //   console.log(authReducer.userId);
+    //   const ref = firebase.firestore().collection('users').doc(authReducer.userId);
+    //   ref.get().then((doc) => {
+    //     const items = doc.data();
+    //     console.log('data', items);
+    //     const data = JSON.parse(items.resumeJson);
+    //     setItems(data);
+    //   });
+    // }
     
   }
 
   function updateResumeData(newData) {
-    if (authReduce.userId) {
-      const resumeRef = firebase
-      .firestore()
-      .collection("userResume")
-      .doc(authReduce.userId);
-      resumeRef
-      .set({
-        resumeJson: JSON.stringify(newData)
-      }, { /* merge: true */ })
-      .then(() => {
-        console.log("Document merged");
-        // resumeRef
-        //   .get()
-        //   .then(doc => {
-        //   console.log("Merged document: ", doc.data());
-        // });
-      });
+    if (authReducer.userId) {
+      dispatch(updateResumeDataByUserId({data:newData, userId: authReducer.userId}));
     }
   }
 
-  useEffect(() => {
-    getResumeData();
-  }, [authReduce]);
-
-  let resume;
+  let resumeHTML;
 
   function renderLazyComponent(componentPath) {
     return lazy(() => import(`../../components/${componentPath}`));
@@ -100,19 +101,48 @@ function Builder() {
   }
 
   if (arr) {
-    resume = <DragDropContext onDragEnd={onDragEnd}>
+    resumeHTML = <DragDropContext onDragEnd={onDragEnd}>
     <div className="resume-paper-wrap">
       <Grid container spacing={2}>
           <Grid item xs={8}>
             <Paper className="resume-paper" elevation={3} >
-              <Suspense fallback={<div>Loading</div>}>
+              {/* <Suspense fallback={<div>Loading</div>}>
                 {arr.header.map((item, index) => {
                   const BasicInfoComponent = renderLazyComponent(`${item.path}`);
                   return (
                     <BasicInfoComponent key={item.name} />
                   )
                 })}  
-              </Suspense>
+              </Suspense> */}
+
+              <Droppable droppableId="header">
+                  {(provided, snapshot) => (
+                    <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over' : 'resume-paper-content'}>
+                      <Suspense fallback={<div>Loading</div>}>
+                        {arr.header.map((item, index) => {
+                          const HeaderColumnComponent = renderLazyComponent(`${item.path}`);
+                          return (
+                            <Draggable key={item.name} draggableId={item.name} index={index}>
+                              {(provided, snapshot) => (
+                                <div className={snapshot.isDragging ? 'component-dragging' : 'resume-section-wrap'} 
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    key={item.name}>
+                                  <span className="drag-handle" {...provided.dragHandleProps}>
+                                    <DragIndicatorIcon/>
+                                  </span>
+                                  <HeaderColumnComponent componentColumn='header' componentItem={item}/>
+                                </div>
+                              )}
+                            </Draggable>
+                          );
+                        }
+                        )}
+                        {provided.placeholder}
+                      </Suspense>
+                    </div>
+                  )}
+                </Droppable>
               <Grid container spacing={1}>
                 <Grid item xs={arr.sidebar.length ? 7 : 12}>
                 <Droppable droppableId="main">
@@ -131,7 +161,7 @@ function Builder() {
                                   <span className="drag-handle" {...provided.dragHandleProps}>
                                     <DragIndicatorIcon/>
                                   </span>
-                                  <MainColumnComponent componentData={item.componentData}/>
+                                  <MainColumnComponent componentColumn='main' componentItem={item}/>
                                 </div>
                               )}
                             </Draggable>
@@ -164,7 +194,7 @@ function Builder() {
                                   <span className="drag-handle" {...provided.dragHandleProps}>
                                     <DragIndicatorIcon/>
                                   </span> 
-                                  <SideBarComponent componentData={item.componentData}/>
+                                  <SideBarComponent componentColumn='sidebar' componentItem={item}/>
                                 </div>
                               )}
                             </Draggable>
@@ -214,7 +244,7 @@ function Builder() {
                                   <span className="drag-handle" {...provided.dragHandleProps}>
                                     <DragIndicatorIcon/>
                                   </span> 
-                                  <WidgetComponent componentData={item.componentData}/>
+                                  <WidgetComponent componentColumn='componentLibrary' componentItem={item}/>
                                 </div>
                               )}
                             </Draggable>
@@ -233,8 +263,7 @@ function Builder() {
     </div>
   </DragDropContext>;
   } else {
-    console.log('else');
-    resume = <div>Loading...</div>;
+    resumeHTML = <div>Loading...</div>;
   }
 
   return (
@@ -242,22 +271,31 @@ function Builder() {
         <Box sx={{ flexGrow: 1 }}>
           <AppBar elevation={0} className="global-header" color="inherit" position="fixed">
             <Toolbar className="builder-header">
-              <img src={logo} className="header-logo" alt="Resume Builder" />
-              <div>
-                <Link underline="none" className="builder-header-menu-link active" href="#">About</Link>
-                <Link underline="none" className="builder-header-menu-link" href="#">Experience</Link>
-                <Link underline="none" className="builder-header-menu-link" href="#">Education</Link>
-                <Link underline="none" className="builder-header-menu-link" href="#">Skills</Link>
-                <Link underline="none" className="builder-header-menu-link" href="#">Languages</Link>
-                <Link underline="none" className="builder-header-menu-link" href="#">Achievement</Link>
-                <Link underline="none" className="builder-header-menu-link" href="#">Languages</Link>
+              <div className="header-filters">
+                <img src={logo} className="header-logo" alt="Resume Builder" />
+                  <Link underline="none" className="builder-header-menu-link active" href="#">About</Link>
+                  <Link underline="none" className="builder-header-menu-link" href="#">Experience</Link>
+                  <Link underline="none" className="builder-header-menu-link" href="#">Education</Link>
+                  <Link underline="none" className="builder-header-menu-link" href="#">Skills</Link>
+                  <Link underline="none" className="builder-header-menu-link" href="#">Languages</Link>
+                  <Link underline="none" className="builder-header-menu-link" href="#">Achievement</Link>
               </div>
-              <GoogleLogin></GoogleLogin>
+              <div>
+                <Button
+                    onClick={window.print}
+                    variant="contained"
+                    color="primary" 
+                    disableElevation
+                    className="header-download-button">
+                        Download Resume
+                </Button>
+                <GoogleLogin></GoogleLogin>
+              </div>
             </Toolbar>
           </AppBar>
         </Box>
       
-      {resume}
+      {resumeHTML}
     </div>
   );
 }
