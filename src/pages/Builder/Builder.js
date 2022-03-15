@@ -5,7 +5,8 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import GoogleLogin from '../../components/Login/GoogleLogin'
 import { useSelector, useDispatch } from 'react-redux';
 import { getResumeDataByUserId, updateResumeDataByUserId } from '../../reducers/resumeDataSlice';
-
+import WebAssetOutlinedIcon from '@mui/icons-material/WebAssetOutlined';
+import WebOutlinedIcon from '@mui/icons-material/WebOutlined';
 
 import './Builder.css'
 import logo from '../../logo.svg';
@@ -14,6 +15,7 @@ function Builder() {
   
   const {authReducer, resumeDataReducer} = useSelector((state) => state);
   const [arr, setItems] = useState(null);
+  const [sidebar, setSidebar] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -105,6 +107,19 @@ function Builder() {
     <div className="resume-paper-wrap">
       <Grid container spacing={2}>
           <Grid item xs={8}>
+            <div className="layout-options">
+              <span>
+                Layout: 
+              </span>
+              <Box sx={{width: 5}}></Box>
+              <WebAssetOutlinedIcon onClick={() => {
+                setSidebar(false)
+                const newArr = {...arr, main: [...arr['main'], ...arr['sidebar']], sidebar: []};
+                setItems(newArr);
+                }}></WebAssetOutlinedIcon>
+              <Box sx={{width: 8}}></Box>
+              <WebOutlinedIcon onClick={() => {setSidebar(true)}}></WebOutlinedIcon>
+            </div>
             <Paper className="resume-paper" elevation={3} >
               {/* <Suspense fallback={<div>Loading</div>}>
                 {arr.header.map((item, index) => {
@@ -144,7 +159,7 @@ function Builder() {
                   )}
                 </Droppable>
               <Grid container spacing={1}>
-                <Grid item xs={arr.sidebar.length ? 7 : 12}>
+                <Grid item xs={sidebar ? 7 : 12}>
                 <Droppable droppableId="main">
                   {(provided, snapshot) => (
                     <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over' : 'resume-paper-content'}>
@@ -175,11 +190,11 @@ function Builder() {
                 </Droppable>
                 </Grid>
                 
-                {arr.sidebar.length ? 
+                {sidebar ? 
                 <Grid item xs={5}>
-                <Droppable droppableId="sidebar">
+                <Droppable droppableId="sidebar" className="">
                   {(provided, snapshot) => (
-                    <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over' : 'resume-paper-content'}>
+                    <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over sidebar-column' : 'resume-paper-content sidebar-column'}>
                       {provided.isDragging}
                       <Suspense fallback={<div>Loading</div>}>
                         {arr.sidebar.map((item, index) => {

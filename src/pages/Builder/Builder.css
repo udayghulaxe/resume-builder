@@ -77,3 +77,15 @@ border-radius: 50%;
     margin-right: 20px !important;
     text-transform: none;
 }
+
+.sidebar-column {
+    height: 100%;
+}
+
+.layout-options {
+    display: flex;
+}
+
+.layout-options svg {
+    cursor: pointer;
+}
