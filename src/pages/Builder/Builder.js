@@ -36,7 +36,7 @@ function Builder() {
 
     // if (authReducer.userId) {
     //   console.log(authReducer.userId);
-    //   const ref = firebase.firestore().collection('userResume').doc(authReducer.userId);
+    //   const ref = firebase.firestore().collection('users').doc(authReducer.userId);
     //   ref.get().then((doc) => {
     //     const items = doc.data();
     //     console.log('data', items);
