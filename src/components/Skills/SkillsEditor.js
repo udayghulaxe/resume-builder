@@ -72,7 +72,7 @@ const SkillsEditor = (props) => {
             <DialogContent>
                 <div className='editor-wrap'>
                     <div className='editor-heading-wrap'>
-                        <TextField fullWidth autoComplete='off' id="editor-title" onChange={onTitleChange} value={title} variant="standard" />
+                        <TextField fullWidth autoComplete='off' onChange={onTitleChange} value={title} variant="standard" />
                     </div>
                     <div className="editor-options-wrap">
                         <div>

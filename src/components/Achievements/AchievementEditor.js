@@ -9,8 +9,6 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 
-// import './SkillsEditor.css'
-
 const AchievementEditor = (props) => {
     const [editorData, setEditorData] = useState(props.editorData);
     const [firstime, setFirstTime] = useState(false);
@@ -70,7 +68,7 @@ const AchievementEditor = (props) => {
             <DialogContent>
                 <div className='editor-wrap'>
                     <div className='editor-heading-wrap'>
-                        <TextField fullWidth autoComplete='off' id="editor-title" onChange={onTitleChange} value={title} variant="standard" />
+                        <TextField fullWidth autoComplete='off' onChange={onTitleChange} value={title} variant="standard" />
                     </div>
 
                     <div className="editor-options-wrap">
