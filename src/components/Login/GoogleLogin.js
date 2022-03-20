@@ -61,6 +61,14 @@ class GoogleLogin extends Component {
                     localStorage.setItem('token', this.auth.currentUser.get().getAuthResponse().id_token)
                     this.props.history.replace('builder');
                 } else {
+                    initialData.header.filter(item => item.name === 'BasicInfo')[0].componentData = {
+                        fullName: name,
+                        email: email,
+                        website: 'www.example.com',
+                        phone: '1234567890',
+                        address: '123, ABC Street, XYZ City, ABC State, 123456',
+
+                    };
                     firebase.firestore().collection("users").doc(userId).set({ 
                         resumeJson: JSON.stringify(initialData),
                         userId: userId, 

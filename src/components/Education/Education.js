@@ -19,7 +19,7 @@ const Item = styled(Box)(({ theme }) => ({
 
 const Education = (props) => {
     const [open, setOpen] = useState(false);
-    console.log('calling achievment', open);
+    console.log('calling education', open);
 
     const  openEditor = () => {
         setOpen(true);
@@ -45,13 +45,13 @@ const Education = (props) => {
                                 alignItems="center" 
                                 rowSpacing={0.5} 
                                 columnSpacing={{ xs: 0.5, sm: 0.5, md: 0.5 }}>
-                                <Grid item md={4} xs={6} justifyContent="start" alignItems="center">
+                                <Grid item md={6} xs={6} justifyContent="start" alignItems="center">
                                     <Item>
                                         <CalendarTodayIcon fontSize="15"></CalendarTodayIcon> 
                                         <Box component="span" sx={{ pl: 0.8}}>{item.date}</Box>
                                     </Item>
                                 </Grid>
-                                <Grid item md={4} xs={6} justifyContent="start" alignItems="center" >
+                                <Grid item md={6} xs={6} justifyContent="start" alignItems="center" >
                                     <Item>
                                         <SchoolIcon fontSize="15"></SchoolIcon>
                                         <Box component="span" sx={{ pl: 0.8}}>{item.gpa}</Box>
