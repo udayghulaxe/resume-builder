@@ -1,6 +1,18 @@
 /* VARIANT_ONE */
+
+.basic-section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .basic-info.name {
     font-size: 30px;
+    font-weight: 700;
+}
+
+.resume-section-basic-info .edit-component-icon {
+    margin-top: -10px;
 }
 
 .basic-info.current-role {
