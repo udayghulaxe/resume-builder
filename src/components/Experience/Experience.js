@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import {Grid, Box} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
@@ -7,6 +7,7 @@ import BusinessIcon from '@mui/icons-material/Business';
 import EditIcon from '@mui/icons-material/Edit';
 
 import './Experience.css'
+import ExperienceEditor from "./ExperienceEditor";
 
 const Item = styled(Box)(({ theme }) => ({
     ...theme.typography.caption,
@@ -17,12 +18,19 @@ const Item = styled(Box)(({ theme }) => ({
   }));
 
 const Experience = (props) => {
+    const [open, setOpen] = useState(false);
+
+
+    const  openEditor = () => {
+        setOpen(true);
+    }
+
     return (
         <div className="resume-section resume-section-experience">
             <div className="resume-section-title">
                 <span>{props.componentItem.componentData.title}</span>
                 <span className="edit-component-icon">
-                    <EditIcon/>
+                    <EditIcon onClick={openEditor} />
                 </span>
                 </div>     
             <div className="experience-item-wrap">
@@ -58,10 +66,12 @@ const Experience = (props) => {
                         <span className="experience-summary">
                         {item.experienceSummary}
                         </span>    
+                        
                     </div>
                 );
             })}
             </div>
+            <ExperienceEditor open={open} setOpen={setOpen} componentColumn={props.componentColumn} componentName={props.componentItem.name} editorData={props.componentItem.componentData} />
         </div>
     );
 }
