@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { TextField, Button, Divider, Box } from "@mui/material";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { useDispatch } from "react-redux";
 import { updateResumeDataReducer } from "../../reducers/resumeDataSlice";
 
@@ -17,8 +17,14 @@ const ExperienceEditor = (props) => {
   const [experienceItems, setExperienceItems] = useState(editorData.items);
 
   const onSave = (event) => {
-    console.log('experienceItems', experienceItems);
-    setEditorData({ ...editorData, title: title,  items: experienceItems.filter((item, index) => item.experienceTitle.length > 0) });
+    console.log("experienceItems", experienceItems);
+    setEditorData({
+      ...editorData,
+      title: title,
+      items: experienceItems.filter(
+        (item, index) => item.experienceTitle.length > 0
+      ),
+    });
     setFirstTime(true);
     console.log(editorData);
   };
@@ -121,6 +127,41 @@ const ExperienceEditor = (props) => {
                         inputProps={{ style: { fontSize: 14 } }}
                         size="small"
                       />
+
+                      <TextField
+                        label="date"
+                        sx={{ mb: 1, mt: 1, mr: 1 }}
+                        onChange={(event) =>
+                          onFieldChange(event, index, "date")
+                        }
+                        value={item.date}
+                        inputProps={{ style: { fontSize: 14 } }}
+                        size="small"
+                      />
+
+                      <TextField
+                        label="location"
+                        sx={{ mb: 1, mt: 1, mr: 1 }}
+                        onChange={(event) =>
+                          onFieldChange(event, index, "location")
+                        }
+                        value={item.location}
+                        inputProps={{ style: { fontSize: 14 } }}
+                        size="small"
+                      />
+
+                      <TextField
+                        label="experienceSummary"
+                        sx={{ mb: 1, mt: 1, mr: 1 }}
+                        onChange={(event) =>
+                          onFieldChange(event, index, "experienceSummary")
+                        }
+                        value={item.experienceSummary}
+                        inputProps={{ style: { fontSize: 14 } }}
+                        size="small"
+                        multiline="true"
+                        
+                      />
                     </div>
                     <AddCircleIcon
                       onClick={(event) => onAddExperience(event, index)}
@@ -145,8 +186,8 @@ const ExperienceEditor = (props) => {
 
       <DialogActions>
         <Button onClick={closeEditor}>Cancel</Button>
-        <Button onClick={onSave}>Save</Button>
-        {/* disabled={!experienceItems.filter(item => item.title.length > 0).length} */}
+        <Button onClick={onSave} disabled={!experienceItems.filter(item => item.experienceTitle.length > 0).length}>Save</Button>
+        {/*  */}
       </DialogActions>
     </Dialog>
   );
