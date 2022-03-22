@@ -5,7 +5,10 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import GoogleLogin from '../../components/Login/GoogleLogin'
 import { useSelector, useDispatch } from 'react-redux';
 import { getResumeDataByUserId, updateResumeDataByUserId } from '../../reducers/resumeDataSlice';
-
+import WebAssetOutlinedIcon from '@mui/icons-material/WebAssetOutlined';
+import WebOutlinedIcon from '@mui/icons-material/WebOutlined';
+import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 import './Builder.css'
 import logo from '../../logo.svg';
@@ -14,6 +17,7 @@ function Builder() {
   
   const {authReducer, resumeDataReducer} = useSelector((state) => state);
   const [arr, setItems] = useState(null);
+  const [sidebar, setSidebar] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -57,6 +61,25 @@ function Builder() {
 
   function renderLazyComponent(componentPath) {
     return lazy(() => import(`../../components/${componentPath}`));
+  }
+
+  const getUniqueId = () => {
+    return Math.floor(Math.random() * Date.now())
+  }
+
+  const copyComponent = (event, item, index, column) => {
+    item = {...item, copy: true, name: `${item.name}-${getUniqueId()}`};
+    let newArr = JSON.parse(JSON.stringify(arr));
+    newArr[column].splice(index + 1, 0, item);
+    setItems(newArr);
+    updateResumeData(newArr);
+  }
+
+  const deleteComponent = (event, item, index, column) => {
+    let newArr = JSON.parse(JSON.stringify(arr));
+    newArr[column].splice(index, 1);
+    setItems(newArr);
+    updateResumeData(newArr);
   }
 
   function onDragEnd(result) {
@@ -105,6 +128,19 @@ function Builder() {
     <div className="resume-paper-wrap">
       <Grid container spacing={2}>
           <Grid item xs={8}>
+            <div className="layout-options">
+              <span>
+                Layout: 
+              </span>
+              <Box sx={{width: 5}}></Box>
+              <WebAssetOutlinedIcon onClick={() => {
+                setSidebar(false)
+                const newArr = {...arr, main: [...arr['main'], ...arr['sidebar']], sidebar: []};
+                setItems(newArr);
+                }}></WebAssetOutlinedIcon>
+              <Box sx={{width: 8}}></Box>
+              <WebOutlinedIcon onClick={() => {setSidebar(true)}}></WebOutlinedIcon>
+            </div>
             <Paper className="resume-paper" elevation={3} >
               {/* <Suspense fallback={<div>Loading</div>}>
                 {arr.header.map((item, index) => {
@@ -115,36 +151,47 @@ function Builder() {
                 })}  
               </Suspense> */}
 
-              <Droppable droppableId="header">
-                  {(provided, snapshot) => (
-                    <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over' : 'resume-paper-content'}>
-                      <Suspense fallback={<div>Loading</div>}>
-                        {arr.header.map((item, index) => {
-                          const HeaderColumnComponent = renderLazyComponent(`${item.path}`);
-                          return (
-                            <Draggable key={item.name} draggableId={item.name} index={index}>
-                              {(provided, snapshot) => (
-                                <div className={snapshot.isDragging ? 'component-dragging' : 'resume-section-wrap'} 
-                                    ref={provided.innerRef}
-                                    {...provided.draggableProps}
-                                    key={item.name}>
-                                  <span className="drag-handle" {...provided.dragHandleProps}>
-                                    <DragIndicatorIcon/>
-                                  </span>
-                                  <HeaderColumnComponent componentColumn='header' componentItem={item}/>
-                                </div>
-                              )}
-                            </Draggable>
-                          );
-                        }
-                        )}
-                        {provided.placeholder}
-                      </Suspense>
-                    </div>
-                  )}
-                </Droppable>
-              <Grid container spacing={1}>
-                <Grid item xs={arr.sidebar.length ? 7 : 12}>
+              
+              <Grid container>
+                <Grid item xs={12} id="header">
+                  <Droppable droppableId="header">
+                    {(provided, snapshot) => (
+                      <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over' : 'resume-paper-content'}>
+                        <Suspense fallback={<div>Loading</div>}>
+                          {arr.header.map((item, index) => {
+                            const HeaderColumnComponent = renderLazyComponent(`${item.path}`);
+                            return (
+                              <Draggable key={item.name} draggableId={item.name} index={index}>
+                                {(provided, snapshot) => (
+                                  <div className={snapshot.isDragging ? 'component-dragging' : 'resume-section-wrap'} 
+                                      ref={provided.innerRef}
+                                      {...provided.draggableProps}
+                                      key={item.name}>
+                                    <HeaderColumnComponent componentColumn='header' componentItem={item}/>
+                                    <div className="overlay">
+                                      <span className="drag-handle" {...provided.dragHandleProps}>
+                                        <DragIndicatorIcon/>
+                                      </span>
+                                      <span className="copy-component">
+                                        <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'header')}/>
+                                      </span>
+                                      <span className={item.copy ? 'delete-component' : 'd-none'}>
+                                        <DeleteForeverIcon onClick={(event) => deleteComponent(event, item, index, 'header')}/>
+                                      </span>
+                                    </div>
+                                  </div>
+                                )}
+                              </Draggable>
+                            );
+                          }
+                          )}
+                          {provided.placeholder}
+                        </Suspense>
+                      </div>
+                    )}
+                  </Droppable>
+                </Grid>
+                <Grid item xs={sidebar ? 7 : 12} id="main">
                 <Droppable droppableId="main">
                   {(provided, snapshot) => (
                     <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over' : 'resume-paper-content'}>
@@ -154,14 +201,23 @@ function Builder() {
                           return (
                             <Draggable key={item.name} draggableId={item.name} index={index}>
                               {(provided, snapshot) => (
-                                <div className={snapshot.isDragging ? 'component-dragging' : 'resume-section-wrap'} 
+                                <div className={snapshot.isDragging ? 'resume-section-wrap component-dragging' : 'resume-section-wrap'} 
                                     ref={provided.innerRef}
                                     {...provided.draggableProps}
                                     key={item.name}>
-                                  <span className="drag-handle" {...provided.dragHandleProps}>
-                                    <DragIndicatorIcon/>
-                                  </span>
+                                  
                                   <MainColumnComponent componentColumn='main' componentItem={item}/>
+                                  <div className="overlay">
+                                    <span className="drag-handle" {...provided.dragHandleProps}>
+                                      <DragIndicatorIcon/>
+                                    </span>
+                                    <span className="copy-component">
+                                      <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'main')}/>
+                                    </span>
+                                    <span className={item.copy ? 'delete-component' : 'd-none'}>
+                                        <DeleteForeverIcon onClick={(event) => deleteComponent(event, item, index, 'main')}/>
+                                      </span>
+                                  </div>
                                 </div>
                               )}
                             </Draggable>
@@ -175,11 +231,11 @@ function Builder() {
                 </Droppable>
                 </Grid>
                 
-                {arr.sidebar.length ? 
-                <Grid item xs={5}>
+                {sidebar ? 
+                <Grid item xs={5} id="sidebar">
                 <Droppable droppableId="sidebar">
                   {(provided, snapshot) => (
-                    <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over' : 'resume-paper-content'}>
+                    <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over sidebar-column' : 'resume-paper-content sidebar-column'}>
                       {provided.isDragging}
                       <Suspense fallback={<div>Loading</div>}>
                         {arr.sidebar.map((item, index) => {
@@ -191,10 +247,18 @@ function Builder() {
                                       ref={provided.innerRef}
                                       {...provided.draggableProps}
                                       key={item.name}>
-                                  <span className="drag-handle" {...provided.dragHandleProps}>
-                                    <DragIndicatorIcon/>
-                                  </span> 
                                   <SideBarComponent componentColumn='sidebar' componentItem={item}/>
+                                  <div className="overlay">
+                                    <span className="drag-handle" {...provided.dragHandleProps}>
+                                      <DragIndicatorIcon/>
+                                    </span>
+                                    <span className="copy-component">
+                                      <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'sidebar')}/>
+                                    </span>
+                                    <span className={item.copy ? 'delete-component' : 'd-none'}>
+                                        <DeleteForeverIcon onClick={(event) => deleteComponent(event, item, index, 'sidebar')}/>
+                                      </span>
+                                  </div>
                                 </div>
                               )}
                             </Draggable>
@@ -237,14 +301,23 @@ function Builder() {
                           return (
                             <Draggable key={item.name} draggableId={item.name} index={index}>
                               {(provided, snapshot) => (
-                                <div className={snapshot.isDragging ? 'component-dragging' : 'resume-section-wrap'}
+                                <div className={snapshot.isDragging ? 'resume-section-wrap component-dragging' : 'resume-section-wrap'}
                                       ref={provided.innerRef}
                                       {...provided.draggableProps}
                                       key={item.name}>
-                                  <span className="drag-handle" {...provided.dragHandleProps}>
-                                    <DragIndicatorIcon/>
-                                  </span> 
+                                  
                                   <WidgetComponent componentColumn='componentLibrary' componentItem={item}/>
+                                  <div className="overlay">
+                                    <span className="drag-handle" {...provided.dragHandleProps}>
+                                      <DragIndicatorIcon/>
+                                    </span>
+                                    <span className="copy-component">
+                                      <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'componentLibrary')}/>
+                                    </span>
+                                    <span className={item.copy ? 'delete-component' : 'd-none'}>
+                                        <DeleteForeverIcon onClick={(event) => deleteComponent(event, item, index, 'componentLibrary')}/>
+                                      </span>
+                                  </div>
                                 </div>
                               )}
                             </Draggable>

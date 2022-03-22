@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack://src/components/BasicInfo/BasicInfo.css"],"names":[],"mappings":"AACA,iBACI,cACJ,CAEA,yBACI,QAAS,CACT,cACJ","file":"3.7fa736ae.chunk.css","sourcesContent":["/* VARIANT_ONE */\r\n.basic-info.name {\r\n    font-size: 30px;\r\n}\r\n\r\n.basic-info.current-role {\r\n    margin: 0;\r\n    font-size: 16px;\r\n}"]}
