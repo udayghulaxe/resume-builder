@@ -8,6 +8,7 @@ import { getResumeDataByUserId, updateResumeDataByUserId } from '../../reducers/
 import WebAssetOutlinedIcon from '@mui/icons-material/WebAssetOutlined';
 import WebOutlinedIcon from '@mui/icons-material/WebOutlined';
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 import './Builder.css'
 import logo from '../../logo.svg';
@@ -67,10 +68,18 @@ function Builder() {
   }
 
   const copyComponent = (event, item, index, column) => {
-    item = {...item, name: `${item.name}-${getUniqueId()}`};
+    item = {...item, copy: true, name: `${item.name}-${getUniqueId()}`};
     let newArr = JSON.parse(JSON.stringify(arr));
     newArr[column].splice(index + 1, 0, item);
     setItems(newArr);
+    updateResumeData(newArr);
+  }
+
+  const deleteComponent = (event, item, index, column) => {
+    let newArr = JSON.parse(JSON.stringify(arr));
+    newArr[column].splice(index, 1);
+    setItems(newArr);
+    updateResumeData(newArr);
   }
 
   function onDragEnd(result) {
@@ -158,9 +167,6 @@ function Builder() {
                                       ref={provided.innerRef}
                                       {...provided.draggableProps}
                                       key={item.name}>
-                                    <span className="drag-handle" {...provided.dragHandleProps}>
-                                      <DragIndicatorIcon/>
-                                    </span>
                                     <HeaderColumnComponent componentColumn='header' componentItem={item}/>
                                     <div className="overlay">
                                       <span className="drag-handle" {...provided.dragHandleProps}>
@@ -168,6 +174,9 @@ function Builder() {
                                       </span>
                                       <span className="copy-component">
                                         <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'header')}/>
+                                      </span>
+                                      <span className={item.copy ? 'delete-component' : 'd-none'}>
+                                        <DeleteForeverIcon onClick={(event) => deleteComponent(event, item, index, 'header')}/>
                                       </span>
                                     </div>
                                   </div>
@@ -205,6 +214,9 @@ function Builder() {
                                     <span className="copy-component">
                                       <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'main')}/>
                                     </span>
+                                    <span className={item.copy ? 'delete-component' : 'd-none'}>
+                                        <DeleteForeverIcon onClick={(event) => deleteComponent(event, item, index, 'main')}/>
+                                      </span>
                                   </div>
                                 </div>
                               )}
@@ -243,6 +255,9 @@ function Builder() {
                                     <span className="copy-component">
                                       <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'sidebar')}/>
                                     </span>
+                                    <span className={item.copy ? 'delete-component' : 'd-none'}>
+                                        <DeleteForeverIcon onClick={(event) => deleteComponent(event, item, index, 'sidebar')}/>
+                                      </span>
                                   </div>
                                 </div>
                               )}
@@ -299,6 +314,9 @@ function Builder() {
                                     <span className="copy-component">
                                       <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'componentLibrary')}/>
                                     </span>
+                                    <span className={item.copy ? 'delete-component' : 'd-none'}>
+                                        <DeleteForeverIcon onClick={(event) => deleteComponent(event, item, index, 'componentLibrary')}/>
+                                      </span>
                                   </div>
                                 </div>
                               )}

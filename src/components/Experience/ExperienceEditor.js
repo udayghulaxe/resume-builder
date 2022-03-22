@@ -129,7 +129,7 @@ const ExperienceEditor = (props) => {
                       />
 
                       <TextField
-                        label="date"
+                        label="Date"
                         sx={{ mb: 1, mt: 1, mr: 1 }}
                         onChange={(event) =>
                           onFieldChange(event, index, "date")
@@ -151,15 +151,16 @@ const ExperienceEditor = (props) => {
                       />
 
                       <TextField
-                        label="experienceSummary"
+                        label="Summary"
                         sx={{ mb: 1, mt: 1, mr: 1 }}
                         onChange={(event) =>
                           onFieldChange(event, index, "experienceSummary")
                         }
                         value={item.experienceSummary}
                         inputProps={{ style: { fontSize: 14 } }}
-                        size="small"
-                        multiline="true"
+                        rows={3}
+                        style = {{width: 380}}
+                        multiline
                         
                       />
                     </div>

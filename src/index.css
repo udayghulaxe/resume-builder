@@ -146,7 +146,20 @@ code {
   padding: 5px;
 }
 
-.resume-section-wrap:hover .drag-handle, .component-dragging .drag-handle, .resume-section-wrap:hover .copy-component {
+.delete-component {
+  display: none;
+  cursor: pointer;
+  color: #ffffff;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 10%;
+  right: 2%;
+  transform: translate(0%, 0px);
+  z-index: 99;
+}
+
+.resume-section-wrap:hover .drag-handle, .component-dragging .drag-handle, .resume-section-wrap:hover .copy-component, .resume-section-wrap:hover .delete-component {
   display: block;
 }
 
