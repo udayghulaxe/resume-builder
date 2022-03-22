@@ -1,4 +1,4 @@
-.language-header {
+.skill-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -6,8 +6,12 @@
     font-size: small;
 }
 
-.language-wrapper {
+.skill-wrapper {
     margin-bottom: 16px;
+}
+
+.skill-wrapper.min-margin {
+    margin-bottom: 5px;
 }
 
 .progress-wrap {

@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getResumeDataByUserId, updateResumeDataByUserId } from '../../reducers/resumeDataSlice';
 import WebAssetOutlinedIcon from '@mui/icons-material/WebAssetOutlined';
 import WebOutlinedIcon from '@mui/icons-material/WebOutlined';
+import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
 
 import './Builder.css'
 import logo from '../../logo.svg';
@@ -59,6 +60,17 @@ function Builder() {
 
   function renderLazyComponent(componentPath) {
     return lazy(() => import(`../../components/${componentPath}`));
+  }
+
+  const getUniqueId = () => {
+    return Math.floor(Math.random() * Date.now())
+  }
+
+  const copyComponent = (event, item, index, column) => {
+    item = {...item, name: `${item.name}-${getUniqueId()}`};
+    let newArr = JSON.parse(JSON.stringify(arr));
+    newArr[column].splice(index + 1, 0, item);
+    setItems(newArr);
   }
 
   function onDragEnd(result) {
@@ -150,6 +162,14 @@ function Builder() {
                                       <DragIndicatorIcon/>
                                     </span>
                                     <HeaderColumnComponent componentColumn='header' componentItem={item}/>
+                                    <div className="overlay">
+                                      <span className="drag-handle" {...provided.dragHandleProps}>
+                                        <DragIndicatorIcon/>
+                                      </span>
+                                      <span className="copy-component">
+                                        <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'header')}/>
+                                      </span>
+                                    </div>
                                   </div>
                                 )}
                               </Draggable>
@@ -176,10 +196,16 @@ function Builder() {
                                     ref={provided.innerRef}
                                     {...provided.draggableProps}
                                     key={item.name}>
-                                  <span className="drag-handle" {...provided.dragHandleProps}>
-                                    <DragIndicatorIcon/>
-                                  </span>
+                                  
                                   <MainColumnComponent componentColumn='main' componentItem={item}/>
+                                  <div className="overlay">
+                                    <span className="drag-handle" {...provided.dragHandleProps}>
+                                      <DragIndicatorIcon/>
+                                    </span>
+                                    <span className="copy-component">
+                                      <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'main')}/>
+                                    </span>
+                                  </div>
                                 </div>
                               )}
                             </Draggable>
@@ -209,10 +235,15 @@ function Builder() {
                                       ref={provided.innerRef}
                                       {...provided.draggableProps}
                                       key={item.name}>
-                                  <span className="drag-handle" {...provided.dragHandleProps}>
-                                    <DragIndicatorIcon/>
-                                  </span> 
                                   <SideBarComponent componentColumn='sidebar' componentItem={item}/>
+                                  <div className="overlay">
+                                    <span className="drag-handle" {...provided.dragHandleProps}>
+                                      <DragIndicatorIcon/>
+                                    </span>
+                                    <span className="copy-component">
+                                      <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'sidebar')}/>
+                                    </span>
+                                  </div>
                                 </div>
                               )}
                             </Draggable>
@@ -255,14 +286,20 @@ function Builder() {
                           return (
                             <Draggable key={item.name} draggableId={item.name} index={index}>
                               {(provided, snapshot) => (
-                                <div className={snapshot.isDragging ? 'component-dragging' : 'resume-section-wrap'}
+                                <div className={snapshot.isDragging ? 'resume-section-wrap component-dragging' : 'resume-section-wrap'}
                                       ref={provided.innerRef}
                                       {...provided.draggableProps}
                                       key={item.name}>
-                                  <span className="drag-handle" {...provided.dragHandleProps}>
-                                    <DragIndicatorIcon/>
-                                  </span> 
+                                  
                                   <WidgetComponent componentColumn='componentLibrary' componentItem={item}/>
+                                  <div className="overlay">
+                                    <span className="drag-handle" {...provided.dragHandleProps}>
+                                      <DragIndicatorIcon/>
+                                    </span>
+                                    <span className="copy-component">
+                                      <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'componentLibrary')}/>
+                                    </span>
+                                  </div>
                                 </div>
                               )}
                             </Draggable>

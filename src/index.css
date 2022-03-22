@@ -60,20 +60,23 @@ code {
 
 .edit-component-icon {
   display: none;
-  margin-right: 25px;
   cursor: pointer;
-  color: var(--color-font-secondary);
-  width: 18px;
-  height: 18px;
+  color: #ffffff;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 40%;
+  left: 60%;
+  transform: translate(0%, 0px);
+  z-index: 99;
 }
 
 .edit-component-icon svg {
   width: 20px;
   height: 20px;
-}
-
-.edit-component-icon svg:hover, .drag-handle svg:hover {
-  color: #000;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  padding: 5px;
 }
 
 .resume-section-wrap:hover .edit-component-icon {
@@ -103,13 +106,47 @@ code {
 
 .drag-handle {
   display: none;
+  cursor: pointer;
+  color: #ffffff;
+  width: 30px;
+  height: 30px;
   position: absolute;
-  right: 0;
-  top: 10px;
-  color: var(--color-font-secondary);
+  top: 40%;
+  left: 45%;
+  transform: translate(0%, 0px);
+  z-index: 99;
 }
 
-.resume-section-wrap:hover .drag-handle, .component-dragging .drag-handle {
+.drag-handle svg {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.copy-component {
+  display: none;
+  cursor: pointer;
+  color: #ffffff;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 40%;
+  left: 30%;
+  transform: translate(0%, 0px);
+  z-index: 99;
+}
+
+.copy-component svg {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.resume-section-wrap:hover .drag-handle, .component-dragging .drag-handle, .resume-section-wrap:hover .copy-component {
   display: block;
 }
 
