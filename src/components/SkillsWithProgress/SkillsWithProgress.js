@@ -7,7 +7,7 @@ import "./SkillsWithProgress.css";
 
 const SkillsWithProgress = (props) => {
   const [open, setOpen] = useState(false);
-  console.log('calling languages', open);
+  console.log('calling SkillsWith Progress Bar', open);
   
   const  openEditor = () => {
       setOpen(true);
