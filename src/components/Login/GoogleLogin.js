@@ -7,24 +7,42 @@ import { withRouter } from "react-router-dom";
 import firebase from "../../firebase";
 
 const initialData = {
-  header: [{ name: "BasicInfo", path: "BasicInfo/BasicInfo" }],
+    header: [
+        {
+            name: "BasicInfo",
+            path: "BasicInfo/BasicInfo"
+        },
+        {
+            name: "ProfessionalSummary",
+            path: "ProfessionalSummary/ProfessionalSummary",
+            componentData: {
+                title: "Professional Summary",
+                items: [
+                  {
+                    summary: "This is summary body."
+                  },
+                ],
+            }
+        }
+
+    ],
   main: [
     {
-      name: "Social",
-      path: "Social/Social",
-      componentData: {
-        title: "Social",
-        items: [
-          {
-            socialPlatform: "Facebook",
-            username: "@username",
-          },
-          {
-            socialPlatform: "Twitter",
-            username: "@username",
-          },
-        ],
-      },
+        name: "Social",
+        path: "Social/Social",
+        componentData: {
+          title: "Social",
+          items: [
+            {
+              socialPlatform: "Facebook",
+              username: "@username",
+            },
+            {
+              socialPlatform: "Twitter",
+              username: "@username",
+            },
+          ],
+        },
     },
     {
       name: "Education",
