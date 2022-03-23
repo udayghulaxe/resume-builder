@@ -77,7 +77,6 @@ const SocialEditor = (props) => {
               onChange={onTitleChange}
               value={title}
               variant="standard"
-              multiline="true"
             />
           </div>
 
