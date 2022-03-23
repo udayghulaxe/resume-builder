@@ -22,7 +22,7 @@ const SocialEditor = (props) => {
       ...editorData,
       title: title,
       items: socialItems.filter(
-        (item, index) => item.experienceTitle.length > 0
+        (item, index) => item.socialPlatform.length > 0
       ),
     });
     setFirstTime(true);

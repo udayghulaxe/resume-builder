@@ -14,30 +14,56 @@ const ProfessionalSummary = (props) => {
   };
 
   return (
-    <div className="resume-section resume-section-ProfessionalSummary">
-      <div className="resume-section-title">
-        <span>{props.componentItem.name}</span>
-        <span className="edit-component-icon">
-          <EditIcon onClick={openEditor} />
-        </span>
-      </div>
 
-      <div className="ProfessionalSummary-item-wrap">
 
-            <div className="ProfessionalSummary-item">              
-              <span className="ProfessionalSummary-summary">{props.componentItem.componentData.summaryBody}</span>
+
+<div className="resume-section resume-section-professional-summary">
+            <div className="resume-section-title">
+                <span>{props.componentItem.componentData.title}</span>
+                <span className="edit-component-icon">
+                    <EditIcon onClick={openEditor}/>
+                </span>
+            </div>   
+            
+            <div className="professional-summary-item-wrap">
+                {props.componentItem.componentData.items.map((item, index) => {
+                    return (
+                        <div className='professional-summary-item' key={index}>
+                             <span className="professional-summary-summary-body">{item.summary}</span>
+                        </div>
+                        
+                    );
+                })}
             </div>
-        
-      </div>
 
-      <ProfessionalSummaryEditor
-        open={open}
-        setOpen={setOpen}
-        componentColumn={props.componentColumn}
-        componentName={props.componentItem.name}
-        editorData={props.componentItem}
-      />
-    </div>
+            <ProfessionalSummaryEditor open={open} setOpen={setOpen} componentColumn={props.componentColumn} componentName={props.componentItem.name} editorData={props.componentItem.componentData} />
+        </div>
+
+
+    // <div className="resume-section resume-section-ProfessionalSummary">
+    //   <div className="resume-section-title">
+    //     <span>{props.componentItem.name}</span>
+    //     <span className="edit-component-icon">
+    //       <EditIcon onClick={openEditor} />
+    //     </span>
+    //   </div>
+
+    //   <div className="ProfessionalSummary-item-wrap">
+
+    //         <div className="ProfessionalSummary-item">              
+    //           <span className="ProfessionalSummary-summary">{props.componentItem.componentData.summaryBody}</span>
+    //         </div>
+        
+    //   </div>
+
+    //   <ProfessionalSummaryEditor
+    //     open={open}
+    //     setOpen={setOpen}
+    //     componentColumn={props.componentColumn}
+    //     componentName={props.componentItem.name}
+    //     editorData={props.componentItem}
+    //   />
+    // </div>
   );
 };
 

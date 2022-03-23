@@ -7,29 +7,39 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 
-const ProfessionalSummaryEditor=(props)=>{
-console.log(props.editorData);
-    const [editorData, setEditorData] = useState(props.editorData);
+const SocialEditor = (props) => {
+  const [editorData, setEditorData] = useState(props.editorData);
   const [firstime, setFirstTime] = useState(false);
+  const [title, setTitle] = useState(editorData.title);
   const dispatch = useDispatch();
-  const [professionalItems, setProfessionalItems] = useState(editorData.componentData);
+  const [professionalSummaryItems, setprofessionalSummaryItems] = useState(editorData.items);
 
   const onSave = (event) => {
-    console.log("professionalItems", professionalItems);
+    console.log("professionalSummaryItems", professionalSummaryItems);
     setEditorData({
-        ...editorData,
-      summaryBody: professionalItems.summaryBody
+      ...editorData,
+      title: title,
+      items: professionalSummaryItems.filter(
+        (item, index) => item.summary.length > 0
+      ),
     });
     setFirstTime(true);
-    
+    console.log(editorData);
   };
 
-
+  const onTitleChange = (event) => {
+    const newVal = event.target.value;
+    setTitle(newVal);
+  };
 
   const onFieldChange = (event, index, property) => {
     const newValue = event.target.value;
-    
-    setProfessionalItems({...professionalItems, summaryBody:newValue});
+    let newprofessionalSummaryItems = [...professionalSummaryItems];
+    newprofessionalSummaryItems[index] = {
+      ...newprofessionalSummaryItems[index],
+      [property]: newValue,
+    };
+    setprofessionalSummaryItems(newprofessionalSummaryItems);
   };
 
   const closeEditor = () => {
@@ -50,8 +60,9 @@ console.log(props.editorData);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editorData]);
-    return (
-        <Dialog
+
+  return (
+    <Dialog
       maxWidth="sm"
       fullWidth={true}
       open={props.open}
@@ -59,28 +70,56 @@ console.log(props.editorData);
     >
       <DialogContent>
         <div className="editor-wrap">
-          <div className="editor-item">
+          <div className="editor-heading-wrap">
             <TextField
               fullWidth
               autoComplete="off"
-              onChange={onFieldChange}
-              value={professionalItems.summaryBody}
+              onChange={onTitleChange}
+              value={title}
               variant="standard"
             />
           </div>
 
+          <div className="editor-items-wrap">
+            {professionalSummaryItems.map((item, index) => {
+              return (
+                <div key={index}>
+                  <div className="editor-item">
+                    <div>
+                      <TextField
+                        label="Summary"
+                        sx={{ mb: 1, mt: 1, mr: 1 }}
+                        onChange={(event) =>
+                          onFieldChange(event, index, "summary")
+                        }
+                        fullWidth
+                        value={item.summary}
+                        inputProps={{ style: { fontSize: 14 } }}
+                        style = {{width: 380}}
+                        size="small"
+                        rows={5}
+                        multiline
+                      />
 
+                    </div>
+                  </div>
+                  <Box sx={{ height: 20 }}></Box>
+                  <Divider></Divider>
+                  <Box sx={{ height: 20 }}></Box>
+                </div>
+              );
+            })}
           </div>
+        </div>
       </DialogContent>
 
       <DialogActions>
         <Button onClick={closeEditor}>Cancel</Button>
-        <Button onClick={onSave}>Save</Button>
+        <Button onClick={onSave} disabled={!professionalSummaryItems.filter(item => item.summary.length > 0).length}>Save</Button>
         {/*  */}
       </DialogActions>
     </Dialog>
-    );
-
+  );
 };
 
-export default ProfessionalSummaryEditor;
+export default SocialEditor;
