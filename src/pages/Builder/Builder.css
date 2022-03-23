@@ -104,7 +104,6 @@
 
 .resume-section-wrap:hover .overlay, .component-dragging .overlay {
     display: block;
-    background-color: black;
+    background-color: #0000006e;
     top: 0;
-    opacity: 0.75;
 }

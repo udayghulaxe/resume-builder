@@ -1,0 +1,17 @@
+.social-item-wrap {
+    display: flex;
+    align-items: initial;
+    justify-content: flex-start;
+}
+
+.social-item {
+    margin-right: 25px;
+}
+
+.social-platform {
+    font-weight: 700;
+}
+
+.social-username {
+    font-size: 13px;
+}
