@@ -66,6 +66,7 @@ console.log(props.editorData);
               onChange={onFieldChange}
               value={professionalItems.summaryBody}
               variant="standard"
+              multiline="true"
             />
           </div>
 
