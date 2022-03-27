@@ -10,10 +10,12 @@ const initialData = {
     header: [
         {
             name: "BasicInfo",
+            componentType: 'BasicInfo',
             path: "BasicInfo/BasicInfo"
         },
         {
             name: "ProfessionalSummary",
+            componentType: 'ProfessionalSummary',
             path: "ProfessionalSummary/ProfessionalSummary",
             componentData: {
                 title: "Professional Summary",
@@ -29,6 +31,7 @@ const initialData = {
   main: [
     {
         name: "Social",
+        componentType: 'Social',
         path: "Social/Social",
         componentData: {
           title: "Social",
@@ -46,6 +49,7 @@ const initialData = {
     },
     {
       name: "Education",
+      componentType: 'Education',
       path: "Education/Education",
       componentData: {
         title: "Education",
@@ -67,6 +71,7 @@ const initialData = {
     },
     {
       name: "Achievements",
+      componentType: 'Achievements',
       path: "Achievements/Achievement",
       componentData: {
         title: "Achievements",
@@ -85,6 +90,7 @@ const initialData = {
     },
     {
       name: "Experience",
+      componentType: 'Experience',
       path: "Experience/Experience",
       componentData: {
         title: "Experience",
@@ -112,6 +118,7 @@ const initialData = {
   sidebar: [
     {
       name: "SkillsWithProgress",
+      componentType: 'SkillsWithProgress',
       path: "SkillsWithProgress/SkillsWithProgress",
       componentData: {
         title: "Skills",
@@ -127,6 +134,7 @@ const initialData = {
     },
     {
       name: "Skills",
+      componentType: 'Skills',
       path: "Skills/Skills",
       componentData: {
         title: "Skills",
@@ -142,6 +150,7 @@ const initialData = {
     },
     {
       name: "Tools",
+      componentType: 'Skills',
       path: "Skills/Skills",
       componentData: {
         title: "Tools",
@@ -152,6 +161,7 @@ const initialData = {
     },
     {
       name: "Hobbies",
+      componentType: 'Skills',
       path: "Skills/Skills",
       componentData: {
         title: "Hobbies",
@@ -168,6 +178,7 @@ const initialData = {
   componentLibrary: [
     {
       name: "Languages",
+      componentType: 'Languages',
       path: "Languages/Languages",
       componentData: {
         title: "Languages",

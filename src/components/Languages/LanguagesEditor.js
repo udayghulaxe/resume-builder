@@ -76,6 +76,7 @@ const LanguagesEditor = (props) => {
 
     const onSave = (event) => {
         setEditorData({ ...editorData, title: title, showProficiency: showProficiency, showProficiencyProgress: showProficiencyProgress, items: languageItems.filter((item, index) => item.language.length > 0) });
+        closeEditor();
         setFirstTime(true);
     }
 

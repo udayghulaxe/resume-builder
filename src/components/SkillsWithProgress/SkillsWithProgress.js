@@ -41,4 +41,4 @@ const SkillsWithProgress = (props) => {
   );
 };
 
-export default SkillsWithProgress;
+export default  React.memo(SkillsWithProgress);

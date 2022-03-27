@@ -3,7 +3,7 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 2px;
-    font-size: small;
+    /* font-size: small; */
 }
 
 .language-wrapper {

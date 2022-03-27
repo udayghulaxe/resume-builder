@@ -26,6 +26,7 @@ const ExperienceEditor = (props) => {
       ),
     });
     setFirstTime(true);
+    closeEditor();
     console.log(editorData);
   };
 

@@ -52,6 +52,7 @@ const SkillsEditor = (props) => {
     const onSave = (event) => {
         setEditorData({ ...editorData, rounded: rounded, filled: filled, title: title, items: skillItems.filter((item, index) => item.title.length > 0) });
         setFirstTime(true);
+        closeEditor();
         console.log(editorData);
     }
 

@@ -58,6 +58,7 @@ const SkillsWithProgressEditor = (props) => {
     const onSave = (event) => {
         setEditorData({ ...editorData, title: title, showProficiency: showProficiency, showProficiencyProgress: showProficiencyProgress, items: skillsProgressItems.filter((item, index) => item.title.length > 0) });
         setFirstTime(true);
+        closeEditor();
     }
 
     const closeEditor = () => {

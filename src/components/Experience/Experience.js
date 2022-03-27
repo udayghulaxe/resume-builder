@@ -20,7 +20,8 @@ const Item = styled(Box)(({ theme }) => ({
 const Experience = (props) => {
     const [open, setOpen] = useState(false);
 
-
+    console.log('calling experience', open);
+    
     const  openEditor = () => {
         setOpen(true);
     }
@@ -76,4 +77,4 @@ const Experience = (props) => {
     );
 }
 
-export default Experience;
+export default React.memo(Experience);
