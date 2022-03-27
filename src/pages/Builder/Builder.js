@@ -8,7 +8,7 @@ import { getResumeDataByUserId, updateResumeDataByUserId } from '../../reducers/
 import WebAssetOutlinedIcon from '@mui/icons-material/WebAssetOutlined';
 import WebOutlinedIcon from '@mui/icons-material/WebOutlined';
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 
 import './Builder.css'
 import logo from '../../logo.svg';
@@ -176,7 +176,7 @@ function Builder() {
                                         <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'header')}/>
                                       </span>
                                       <span className={item.copy ? 'delete-component' : 'd-none'}>
-                                        <DeleteForeverIcon onClick={(event) => deleteComponent(event, item, index, 'header')}/>
+                                        <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'header')}/>
                                       </span>
                                     </div>
                                   </div>
@@ -215,7 +215,7 @@ function Builder() {
                                       <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'main')}/>
                                     </span>
                                     <span className={item.copy ? 'delete-component' : 'd-none'}>
-                                        <DeleteForeverIcon onClick={(event) => deleteComponent(event, item, index, 'main')}/>
+                                        <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'main')}/>
                                       </span>
                                   </div>
                                 </div>
@@ -256,7 +256,7 @@ function Builder() {
                                       <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'sidebar')}/>
                                     </span>
                                     <span className={item.copy ? 'delete-component' : 'd-none'}>
-                                        <DeleteForeverIcon onClick={(event) => deleteComponent(event, item, index, 'sidebar')}/>
+                                        <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'sidebar')}/>
                                       </span>
                                   </div>
                                 </div>
@@ -315,7 +315,7 @@ function Builder() {
                                       <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'componentLibrary')}/>
                                     </span>
                                     <span className={item.copy ? 'delete-component' : 'd-none'}>
-                                        <DeleteForeverIcon onClick={(event) => deleteComponent(event, item, index, 'componentLibrary')}/>
+                                        <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'componentLibrary')}/>
                                       </span>
                                   </div>
                                 </div>

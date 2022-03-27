@@ -36,7 +36,7 @@ code {
   margin-bottom: 5px;
 }
 
-.resume-section:hover {
+.resume-section-wrap:hover {
   outline: 1px dashed rgb(90, 89, 89);
   border-radius: 4px;
   /* background-color: rgb(250, 250, 250); */
@@ -66,7 +66,7 @@ code {
   height: 20px;
   position: absolute;
   top: 6px;
-  right: 50px;
+  right: 25px;
   transform: translate(0%, 0px);
   z-index: 99;
 }
@@ -109,11 +109,11 @@ code {
   display: none;
   cursor: pointer;
   color: #ffffff;
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
   position: relative;
-  top: 15%;
-  left: 35%;
+  top: -8%;
+  left: 38%;
   transform: translate(0%, 0px);
   z-index: 99;
 }
@@ -152,14 +152,19 @@ code {
 .delete-component {
   display: none;
   cursor: pointer;
-  color: #000;
-  width: 20px;
-  height: 20px;
+  color: var(--color-error);
+  width: 15px;
+  height: 15px;
   position: absolute;
-  top: 8px;
-  right: 5%;
+  top: 0px;
+  right: 3px;
   transform: translate(0%, 0px);
   z-index: 99;
+}
+
+.delete-component svg {
+  width: 18px;
+  height: 18px;
 }
 
 .resume-section-wrap:hover .drag-handle, .component-dragging .drag-handle, .resume-section-wrap:hover .copy-component, .resume-section-wrap:hover .delete-component {
