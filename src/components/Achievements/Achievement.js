@@ -43,4 +43,4 @@ const Achievement = (props) => {
   );
 };
 
-export default Achievement;
+export default  React.memo(Achievement);

@@ -68,4 +68,4 @@ const Education = (props) => {
     );
 }
 
-export default Education;
+export default  React.memo(Education);

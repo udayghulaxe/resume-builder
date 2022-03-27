@@ -24,6 +24,7 @@ const SocialEditor = (props) => {
       ),
     });
     setFirstTime(true);
+    closeEditor();
     console.log(editorData);
   };
 
