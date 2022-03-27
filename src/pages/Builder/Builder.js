@@ -77,10 +77,6 @@ function Builder() {
 
   let resumeHTML;
 
-  function renderLazyComponent(componentPath) {
-    return lazy(() => import(`../../components/${componentPath}`));
-  }
-
   const getUniqueId = () => {
     return Math.floor(Math.random() * Date.now())
   }
