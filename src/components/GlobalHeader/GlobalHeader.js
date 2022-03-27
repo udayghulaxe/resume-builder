@@ -53,4 +53,4 @@ const GlobalHeader = () => {
     ) : <span></span>
 }
 
-export default GlobalHeader;
+export default  React.memo(GlobalHeader);

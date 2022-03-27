@@ -47,6 +47,7 @@ const AchievementEditor = (props) => {
     const onSave = (event) => {
         setEditorData({ ...editorData, title: title, showIcon: showIcon, items: achievementItems.filter((item, index) => item.title.length > 0) });
         setFirstTime(true);
+        closeEditor();
         console.log(editorData);
     }
 

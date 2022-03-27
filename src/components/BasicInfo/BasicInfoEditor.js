@@ -23,6 +23,7 @@ const BasicInfoEditor = (props) => {
     const onSave = (event) => {
         setEditorData({ ...editorData });
         setFirstTime(true);
+        closeEditor();
         console.log(editorData);
     }
 

@@ -1,0 +1,20 @@
+.social-item-wrap {
+    display: flex;
+    align-items: initial;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.social-item {
+    margin-right: 25px;
+    margin-bottom: 5px;
+    min-width: 90px;
+}
+
+.social-platform {
+    font-weight: 700;
+}
+
+/* .social-username {
+    font-size: 13px;
+} */

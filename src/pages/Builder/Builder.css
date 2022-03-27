@@ -92,19 +92,19 @@
 }
 
 .overlay {
-    width: 100%;
-    height: 100%;
+    width: 130px;
+    height: 40px;
     display: none;
     position: absolute;
     top: 0px;
-    left: 0px;
-    outline: 1px dashed rgb(90, 89, 89);
+    outline: 1px solid #000;
     border-radius: 4px;
+    right: 0;
 }
 
 .resume-section-wrap:hover .overlay, .component-dragging .overlay {
-    display: block;
-    background-color: black;
-    top: 0;
-    opacity: 0.75;
+    display: flex;
+    background-color: #fff;
+    box-shadow: -1px 2px 6px #0000004a;
+    align-items: center;
 }

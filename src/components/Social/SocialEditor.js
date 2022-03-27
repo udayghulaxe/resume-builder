@@ -9,20 +9,20 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 
-const ExperienceEditor = (props) => {
+const SocialEditor = (props) => {
   const [editorData, setEditorData] = useState(props.editorData);
   const [firstime, setFirstTime] = useState(false);
   const [title, setTitle] = useState(editorData.title);
   const dispatch = useDispatch();
-  const [experienceItems, setExperienceItems] = useState(editorData.items);
+  const [socialItems, setSocialItems] = useState(editorData.items);
 
   const onSave = (event) => {
-    console.log("experienceItems", experienceItems);
+    console.log("socialItems", socialItems);
     setEditorData({
       ...editorData,
       title: title,
-      items: experienceItems.filter(
-        (item, index) => item.experienceTitle.length > 0
+      items: socialItems.filter(
+        (item, index) => item.socialPlatform.length > 0
       ),
     });
     setFirstTime(true);
@@ -37,30 +37,27 @@ const ExperienceEditor = (props) => {
 
   const onFieldChange = (event, index, property) => {
     const newValue = event.target.value;
-    let newExperienceItems = [...experienceItems];
-    newExperienceItems[index] = {
-      ...newExperienceItems[index],
+    let newSocialItems = [...socialItems];
+    newSocialItems[index] = {
+      ...newSocialItems[index],
       [property]: newValue,
     };
-    setExperienceItems(newExperienceItems);
+    setSocialItems(newSocialItems);
   };
 
-  const onAddExperience = (event, index) => {
-    let newExperienceItems = [...experienceItems];
-    newExperienceItems.splice(index + 1, 0, {
-      experienceTitle: "",
-      company: "",
-      date: "",
-      location: "",
-      experienceSummary: "",
+  const onAddSocial = (event, index) => {
+    let newSocialItems = [...socialItems];
+    newSocialItems.splice(index + 1, 0, {
+        socialPlatform: "",
+        username: ""
     });
-    setExperienceItems(newExperienceItems);
+    setSocialItems(newSocialItems);
   };
 
   const onDeleteExperience = (event, index) => {
-    let newExperienceItems = [...experienceItems];
-    newExperienceItems.splice(index, 1);
-    setExperienceItems(newExperienceItems);
+    let newSocialItems = [...socialItems];
+    newSocialItems.splice(index, 1);
+    setSocialItems(newSocialItems);
   };
 
   const closeEditor = () => {
@@ -102,71 +99,36 @@ const ExperienceEditor = (props) => {
           </div>
 
           <div className="editor-items-wrap">
-            {experienceItems.map((item, index) => {
+            {socialItems.map((item, index) => {
               return (
                 <div key={index}>
                   <div className="editor-item">
                     <div>
                       <TextField
-                        label="Job Role"
+                        label="Social Platform"
                         sx={{ mb: 1, mt: 1, mr: 1 }}
                         onChange={(event) =>
-                          onFieldChange(event, index, "experienceTitle")
+                          onFieldChange(event, index, "socialPlatform")
                         }
-                        value={item.experienceTitle}
+                        value={item.socialPlatform}
                         inputProps={{ style: { fontSize: 14 } }}
                         size="small"
                       />
 
                       <TextField
-                        label="Company"
+                        label="Username or URL"
                         sx={{ mb: 1, mt: 1, mr: 1 }}
                         onChange={(event) =>
-                          onFieldChange(event, index, "company")
+                          onFieldChange(event, index, "username")
                         }
-                        value={item.company}
+                        value={item.username}
                         inputProps={{ style: { fontSize: 14 } }}
                         size="small"
                       />
 
-                      <TextField
-                        label="Date"
-                        sx={{ mb: 1, mt: 1, mr: 1 }}
-                        onChange={(event) =>
-                          onFieldChange(event, index, "date")
-                        }
-                        value={item.date}
-                        inputProps={{ style: { fontSize: 14 } }}
-                        size="small"
-                      />
-
-                      <TextField
-                        label="location"
-                        sx={{ mb: 1, mt: 1, mr: 1 }}
-                        onChange={(event) =>
-                          onFieldChange(event, index, "location")
-                        }
-                        value={item.location}
-                        inputProps={{ style: { fontSize: 14 } }}
-                        size="small"
-                      />
-
-                      <TextField
-                        label="Summary"
-                        sx={{ mb: 1, mt: 1, mr: 1 }}
-                        onChange={(event) =>
-                          onFieldChange(event, index, "experienceSummary")
-                        }
-                        value={item.experienceSummary}
-                        inputProps={{ style: { fontSize: 14 } }}
-                        rows={3}
-                        style = {{width: 380}}
-                        multiline
-                        
-                      />
                     </div>
                     <AddCircleIcon
-                      onClick={(event) => onAddExperience(event, index)}
+                      onClick={(event) => onAddSocial(event, index)}
                       className="add-item-icon"
                     ></AddCircleIcon>
                     <DeleteForeverIcon
@@ -188,11 +150,11 @@ const ExperienceEditor = (props) => {
 
       <DialogActions>
         <Button onClick={closeEditor}>Cancel</Button>
-        <Button onClick={onSave} disabled={!experienceItems.filter(item => item.experienceTitle.length > 0).length}>Save</Button>
+        <Button onClick={onSave} disabled={!socialItems.filter(item => item.socialPlatform.length > 0).length}>Save</Button>
         {/*  */}
       </DialogActions>
     </Dialog>
   );
 };
 
-export default ExperienceEditor;
+export default SocialEditor;
