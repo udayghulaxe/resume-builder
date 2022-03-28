@@ -58,6 +58,26 @@ code {
   justify-content: space-between;
 }
 
+.heading-font-x-small .resume-section-title, .subheading-font-x-small .resume-section-subtitle, .body-font-x-small .resume-section-body {
+  font-size: x-small;
+}
+
+.heading-font-small .resume-section-title, .subheading-font-small .resume-section-subtitle, .body-font-small .resume-section-body {
+  font-size: small;
+}
+
+.heading-font-medium .resume-section-title, .subheading-font-medium .resume-section-subtitle, .body-font-medium .resume-section-body {
+  font-size: medium;
+}
+
+.heading-font-large .resume-section-title, .subheading-font-large .resume-section-subtitle, .body-font-large .resume-section-body {
+  font-size: large;
+}
+
+.heading-font-larger .resume-section-title, .subheading-font-larger .resume-section-subtitle, .body-font-larger .resume-section-body {
+  font-size: 20px;
+}
+
 .edit-component-icon {
   display: none;
   cursor: pointer;

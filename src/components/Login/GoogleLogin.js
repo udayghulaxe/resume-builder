@@ -30,24 +30,6 @@ const initialData = {
     ],
   main: [
     {
-        name: "Social",
-        componentType: 'Social',
-        path: "Social/Social",
-        componentData: {
-          title: "Social",
-          items: [
-            {
-              socialPlatform: "Facebook",
-              username: "@username",
-            },
-            {
-              socialPlatform: "Twitter",
-              username: "@username",
-            },
-          ],
-        },
-    },
-    {
       name: "Education",
       componentType: 'Education',
       path: "Education/Education",
@@ -174,6 +156,24 @@ const initialData = {
         ],
       },
     },
+    {
+      name: "Social",
+      componentType: 'Social',
+      path: "Social/Social",
+      componentData: {
+        title: "Social",
+        items: [
+          {
+            socialPlatform: "Facebook",
+            username: "@username",
+          },
+          {
+            socialPlatform: "Twitter",
+            username: "@username",
+          },
+        ],
+      },
+    }
   ],
   componentLibrary: [
     {
