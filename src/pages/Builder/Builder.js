@@ -178,7 +178,7 @@ function Builder() {
   if (arr) {
     resumeHTML = <DragDropContext onDragEnd={onDragEnd}>
     <div className="resume-paper-wrap">
-    <GlobalResumeSetting setHeadingFontSize={setHeadingFontSize} setSubeadingFontSize={setSubeadingFontSize} setBodyFontSize={setBodyFontSize} open={open} setOpen={setOpen}></GlobalResumeSetting>
+    <GlobalResumeSetting headingFontSize={headingFontSize} subheadingFontSize={subheadingFontSize} bodyFontSize={bodyFontSize} setHeadingFontSize={setHeadingFontSize} setSubeadingFontSize={setSubeadingFontSize} setBodyFontSize={setBodyFontSize} open={open} setOpen={setOpen}></GlobalResumeSetting>
       <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="layout-options">
