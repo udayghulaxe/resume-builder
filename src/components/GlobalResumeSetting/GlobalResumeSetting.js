@@ -71,7 +71,7 @@ const GlobalResumeSetting = (props) => {
               <div className="resume-setting-item-body">
                 {fontSizes.map((font, index) => {
                   return (
-                    <div key={index} className="font-size-div" onClick={(event) => changeHeadingFont(event, font.value)}>{font.label}</div>
+                    <div key={index} className={`font-size-div ${props.headingFontSize === font.value ? 'active' : ''}`} onClick={(event) => changeHeadingFont(event, font.value)}>{font.label}</div>
                   );
                 })}
               </div>
@@ -88,7 +88,7 @@ const GlobalResumeSetting = (props) => {
               <div className="resume-setting-item-body">
                 {fontSizes.map((font, index) => {
                   return (
-                    <div key={index} className="font-size-div" onClick={(event) => changeSubheadingFont(event, font.value)}>{font.label}</div>
+                    <div key={index} className={`font-size-div ${props.subheadingFontSize === font.value ? 'active' : ''}`} onClick={(event) => changeSubheadingFont(event, font.value)}>{font.label}</div>
                   );
                 })}
               </div>
@@ -104,7 +104,7 @@ const GlobalResumeSetting = (props) => {
               <div className="resume-setting-item-body">
                 {fontSizes.map((font, index) => {
                   return (
-                    <div key={index} className="font-size-div" onClick={(event) => changeBodyFont(event, font.value)}>{font.label}</div>
+                    <div key={index} className={`font-size-div ${props.bodyFontSize === font.value ? 'active' : ''}`} onClick={(event) => changeBodyFont(event, font.value)}>{font.label}</div>
                   );
                 })}
               </div>
