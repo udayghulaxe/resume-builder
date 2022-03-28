@@ -38,7 +38,7 @@ const Experience = (props) => {
             {props.componentItem.componentData.items.map((item, index) => {
                 return (
                     <div key={index} className="experience-item">
-                        <span className="experience-title full-width-field">{item.experienceTitle}</span>
+                        <span className="experience-title full-width-field resume-section-subtitle">{item.experienceTitle}</span>
                         <Grid
                             container 
                             justifyContent="start" 

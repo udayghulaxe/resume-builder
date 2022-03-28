@@ -37,8 +37,10 @@ const Education = (props) => {
                 {props.componentItem.componentData.items.map((item, index) => {
                     return (
                         <div key={index} className="education-item">
-                            <span className="education-title full-width-field">{item.title}</span>
-                            <span className="education-university full-width-field">{item.university}</span>
+                            <div className="resume-section-subtitle">
+                                <span className="education-title full-width-field">{item.title}</span>
+                                <span className="education-university full-width-field">{item.university}</span>
+                            </div>
                             <Grid
                                 container 
                                 justifyContent="start" 

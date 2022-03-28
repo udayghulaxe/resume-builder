@@ -25,7 +25,7 @@ const Skills = (props) => {
             <div className="skills-item-wrap">
             {props.componentItem.componentData.items.map((item, index) => {
                 return (
-                    <Chip key={index} label={item.title} className={`skills-chip ${props.componentItem.componentData.rounded ? '' : 'no-rounded'}`} variant={props.componentItem.componentData.filled ? 'filled' : 'outlined'} />
+                    <Chip key={index} label={item.title} className={`resume-section-body skills-chip ${props.componentItem.componentData.rounded ? '' : 'no-rounded'}`} variant={props.componentItem.componentData.filled ? 'filled' : 'outlined'} />
                 );
             })}
             </div>

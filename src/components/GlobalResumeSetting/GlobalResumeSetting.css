@@ -1,0 +1,51 @@
+.resume-setting-section {
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 10px;
+}
+
+
+.resume-setting-heading {
+    margin-bottom: 10px;
+}
+
+.resume-setting-heading span {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.resume-setting-item-label {
+    color: rgb(43, 43, 43);
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 8px;
+    margin-top: 2px;
+}
+
+.resume-setting-item-body {
+    display: flex;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.font-size-div {
+    text-transform: uppercase;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(187, 187, 187);
+    color: rgb(79, 79, 79);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.font-size-div.active {
+    background-color: rgba(9, 145, 90, 0.1);
+    border: 1px solid var(--color-primary);;
+    color: var(--color-primary);
+}

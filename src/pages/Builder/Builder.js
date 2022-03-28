@@ -27,12 +27,16 @@ import Social from '../../components/Social/Social';
 
 
 function Builder() {
-  
+  let resumeHTML;
   const {authReducer, resumeDataReducer} = useSelector((state) => state);
   const [arr, setItems] = useState(null);
   const [sidebar, setSidebar] = useState(true);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
+
+  const [bodyFontSize, setBodyFontSize] = useState('small');
+  const [headingFontSize, setHeadingFontSize] = useState('large');
+  const [subheadingFontSize, setSubeadingFontSize] = useState('medium');
 
   const  openGlobalSetting = () => {
       setOpen(true);
@@ -75,7 +79,6 @@ function Builder() {
     }
   }
 
-  let resumeHTML;
 
   const getUniqueId = () => {
     return Math.floor(Math.random() * Date.now())
@@ -175,6 +178,7 @@ function Builder() {
   if (arr) {
     resumeHTML = <DragDropContext onDragEnd={onDragEnd}>
     <div className="resume-paper-wrap">
+    <GlobalResumeSetting setHeadingFontSize={setHeadingFontSize} setSubeadingFontSize={setSubeadingFontSize} setBodyFontSize={setBodyFontSize} open={open} setOpen={setOpen}></GlobalResumeSetting>
       <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="layout-options">
@@ -197,7 +201,7 @@ function Builder() {
               <Box sx={{width: 8}}></Box>
               <WebOutlinedIcon onClick={() => {setSidebar(true)}}></WebOutlinedIcon>
             </div>
-            <Paper className="resume-paper" sx={{fontSize: 'small'}} elevation={3} >
+            <Paper className={`resume-paper heading-font-${headingFontSize} subheading-font-${subheadingFontSize} body-font-${bodyFontSize}`} sx={{fontSize: bodyFontSize}} elevation={3} >
               <Grid container>
                 <Grid item xs={12} id="header">
                   <Droppable droppableId="header">
@@ -377,7 +381,6 @@ function Builder() {
       
     </div>
 
-    <GlobalResumeSetting open={open} setOpen={setOpen}></GlobalResumeSetting>
   </DragDropContext>;
   } else {
     resumeHTML = <div>Loading...</div>;
