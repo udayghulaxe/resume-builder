@@ -5,7 +5,11 @@ const theme = createTheme({
     palette: {
       primary: {
         main: '#09915A'
-      }
+      },
+      // text: {
+      //   primary: 'rgba(0, 0, 0, 0.90)',
+      //   secondary: 'red',
+      // }
     },
     components: {
       MuiButton: {

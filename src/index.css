@@ -8,6 +8,9 @@ html {
   --color-primary-wop: rgba(9, 145, 90, 0.04);
   --color-error: #ff0000;
   --color-font-secondary: #505050;
+  --color-font-heading: #000000;
+  --color-font-subheading: #000000;
+  --color-font-body: #000000;
   --gutter: 16px;
 }
 
@@ -78,6 +81,30 @@ code {
   font-size: 20px;
 }
 
+.resume-paper .resume-section-title {
+  color: var(--color-font-heading);
+}
+
+.resume-paper .resume-section-subtitle {
+  color: var(--color-font-subheading);
+}
+
+.resume-paper .resume-section-body {
+  color: var(--color-font-body) !important;
+}
+
+.no-padding {
+  padding: 0 !important;
+}
+
+.padding {
+  padding-top: 20px !important;
+}
+
+#sidebar.padding {
+  padding-top: 25px !important;
+}
+
 .edit-component-icon {
   display: none;
   cursor: pointer;
@@ -114,15 +141,15 @@ code {
 }
 
 .resume-paper .MuiGrid-grid-xs-12 {
-  padding: 10px 40px 10px 40px;
+  padding: 10px 40px 5px 40px;
 }
 
 .resume-paper .MuiGrid-grid-xs-7 {
-  padding: 0px 10px 10px 40px;
+  padding: 5px 10px 10px 40px;
 }
 
 .resume-paper .MuiGrid-grid-xs-5 {
-  padding: 0px 40px 0 10px;
+  padding: 5px 40px 0 10px;
 }
 
 .drag-handle {
@@ -254,7 +281,10 @@ COMPONENT LIBRARY SECTION START
 COMPONENT LIBRARY SECTION END 
 =============================== */
 
-
+.github-picker {
+  box-shadow: none !important;
+  width: 400px !important;
+}
 
 .d-none {
   display: none !important;

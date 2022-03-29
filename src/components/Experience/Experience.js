@@ -13,8 +13,7 @@ const Item = styled(Box)(({ theme }) => ({
     ...theme.typography.caption,
     textAlign: 'left',
     display: 'flex',
-    alignItems: 'center',
-    color: theme.palette.text.secondary,
+    alignItems: 'center'
   }));
 
 const Experience = (props) => {

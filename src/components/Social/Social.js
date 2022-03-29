@@ -25,7 +25,7 @@ const Social = (props) => {
                 {props.componentItem.componentData.items.map((item, index) => {
                     return (
                         <div className='social-item' key={index}>
-                            <div className='social-platform'>{item.socialPlatform}</div>
+                            <div className='social-platform resume-section-subtitle'>{item.socialPlatform}</div>
                             <div className='social-username'>{item.username}</div>
                         </div>
                         

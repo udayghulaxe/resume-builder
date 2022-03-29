@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 // import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 // import { useDispatch } from "react-redux";
 // import { updateResumeDataReducer } from "../../reducers/resumeDataSlice";
+import { GithubPicker } from 'react-color';
 
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -35,10 +36,44 @@ const GlobalResumeSetting = (props) => {
     }
   ];
 
+  const colors = ['#000000', '#ffffff', '#483d8b', '#f0f8ff', '#2f4f4f', '#bdb76b', '#183141', '#ffd700', '#D9E2E9', '#141428', '#94AA9E', '#B5282E', '#808000', '#191970', '#FBECD7', '#dc143c' ];
+
   const closeEditor = () => {
     props.setOpen(false);
   };
 
+  const changeFontColor = (property, color) => {
+    const root = document.querySelector(":root");
+    root.style.setProperty(property, color)
+  }
+
+  const changeAboutSectionFontColor = (color) => {
+    props.setAboutSectionFontColor(color.hex);
+  }
+
+  const changeHeadingFontColor = (color) => {
+   props.setHeadingFontColor(color.hex);
+   changeFontColor("--color-font-heading", color.hex);
+  }
+
+  const changeSubheadingFontColor = (color) => {
+    props.setSubheadingFontColor(color.hex);
+    changeFontColor("--color-font-subheading", color.hex);
+  }
+
+  const changeBodyFontColor = (color) => {
+    props.setBodyFontColor(color.hex);
+    changeFontColor("--color-font-body", color.hex);
+  }
+
+  const changeHeaderBackgroundColor = (color) => {
+    props.setHeaderBackgroundColor(color.hex);
+  }
+
+  const changeSidebarBackgroundColor = (color) => {
+    props.setSidebarBackgroundColor(color.hex);
+  }
+  
   const changeHeadingFont = (e, size) => {
     props.setHeadingFontSize(size)
   }
@@ -62,6 +97,31 @@ const GlobalResumeSetting = (props) => {
       <DialogContent>
         <div className="resume-setting-wrap">
 
+        <div className="resume-setting-section">
+          {/* ABOUT SECTION SETTING */}
+            <div className="resume-setting-heading">
+              <span>About Section</span>
+            </div>
+            {/* <div className="resume-setting-item">
+              <span className="resume-setting-item-label">Font Size</span>
+              <div className="resume-setting-item-body">
+                {fontSizes.map((font, index) => {
+                  return (
+                    <div key={index} className={`font-size-div ${props.headingFontSize === font.value ? 'active' : ''}`} onClick={(event) => changeHeadingFont(event, font.value)}>{font.label}</div>
+                  );
+                })}
+              </div>
+            </div> */}
+
+            <div className="resume-setting-item">
+              <span className="resume-setting-item-label">Font Color</span>
+              <div className="resume-setting-item-body">
+                <GithubPicker color={ props.aboutSectionFontColor } onChangeComplete={changeAboutSectionFontColor} colors={colors} triangle="hide" />
+              </div>
+            </div>
+          </div>
+
+          {/* HEADING FONTS SETTING */} 
           <div className="resume-setting-section">
             <div className="resume-setting-heading">
               <span>Heading</span>
@@ -76,9 +136,16 @@ const GlobalResumeSetting = (props) => {
                 })}
               </div>
             </div>
+
+            <div className="resume-setting-item">
+              <span className="resume-setting-item-label">Font Color</span>
+              <div className="resume-setting-item-body">
+                <GithubPicker color={ props.headingFontColor } onChangeComplete={changeHeadingFontColor} colors={colors} triangle="hide" />
+              </div>
+            </div>
           </div>
 
-
+          {/* SUBHEADING FONTS SETTING */} 
           <div className="resume-setting-section">
             <div className="resume-setting-heading">
               <span>Subheading</span>
@@ -93,8 +160,16 @@ const GlobalResumeSetting = (props) => {
                 })}
               </div>
             </div>
+
+            <div className="resume-setting-item">
+              <span className="resume-setting-item-label">Font Color</span>
+              <div className="resume-setting-item-body">
+                <GithubPicker color={props.subheadingFontColor} onChangeComplete={changeSubheadingFontColor} colors={colors} triangle="hide" />
+              </div>
+            </div>
           </div>
 
+          {/* BODY FONTS SETTING */}      
           <div className="resume-setting-section">
             <div className="resume-setting-heading">
               <span>Body</span>
@@ -107,6 +182,33 @@ const GlobalResumeSetting = (props) => {
                     <div key={index} className={`font-size-div ${props.bodyFontSize === font.value ? 'active' : ''}`} onClick={(event) => changeBodyFont(event, font.value)}>{font.label}</div>
                   );
                 })}
+              </div>
+            </div>
+
+            <div className="resume-setting-item">
+              <span className="resume-setting-item-label">Font Color</span>
+              <div className="resume-setting-item-body">
+                <GithubPicker color={props.bodyFontColor} onChangeComplete={changeBodyFontColor} colors={colors} triangle="hide" />
+              </div>
+            </div>
+          </div>
+
+          {/* BACKGROUNDS SETTING */}
+          <div className="resume-setting-section">
+            <div className="resume-setting-heading">
+              <span>Backgrounds</span>
+            </div>
+            <div className="resume-setting-item">
+              <span className="resume-setting-item-label">Header Background Color</span>
+              <div className="resume-setting-item-body">
+                <GithubPicker color={props.bodyFontColor} onChangeComplete={changeHeaderBackgroundColor} colors={colors} triangle="hide" />
+              </div>
+            </div>
+
+            <div className="resume-setting-item">
+              <span className="resume-setting-item-label">Sidebar Background Color</span>
+              <div className="resume-setting-item-body">
+                <GithubPicker color={props.bodyFontColor} onChangeComplete={changeSidebarBackgroundColor} colors={colors} triangle="hide" />
               </div>
             </div>
           </div>
