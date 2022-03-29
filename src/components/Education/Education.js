@@ -49,14 +49,14 @@ const Education = (props) => {
                                 columnSpacing={{ xs: 0.5, sm: 0.5, md: 0.5 }}>
                                 <Grid item md={6} xs={6} justifyContent="start" alignItems="center">
                                     <Item>
-                                        <CalendarTodayIcon fontSize="15"></CalendarTodayIcon> 
-                                        <Box component="span" sx={{ pl: 0.8}}>{item.date}</Box>
+                                        <CalendarTodayIcon className="resume-section-body"></CalendarTodayIcon> 
+                                        <Box className="resume-section-body" component="span" sx={{ pl: 0.8}}>{item.date}</Box>
                                     </Item>
                                 </Grid>
                                 <Grid item md={6} xs={6} justifyContent="start" alignItems="center" >
                                     <Item>
-                                        <SchoolIcon fontSize="15"></SchoolIcon>
-                                        <Box component="span" sx={{ pl: 0.8}}>{item.gpa}</Box>
+                                        <SchoolIcon className="resume-section-body"></SchoolIcon>
+                                        <Box className="resume-section-body" component="span" sx={{ pl: 0.8}}>{item.gpa}</Box>
                                     </Item>
                                 </Grid>
                             </Grid>

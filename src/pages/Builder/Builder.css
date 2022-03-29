@@ -108,3 +108,9 @@
     box-shadow: -1px 2px 6px #0000004a;
     align-items: center;
 }
+
+.component-library-wrap {
+    position: fixed;
+    width: 33.3333%;
+    right: 40px;
+}

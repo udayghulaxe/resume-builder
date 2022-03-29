@@ -38,6 +38,14 @@ function Builder() {
   const [headingFontSize, setHeadingFontSize] = useState('large');
   const [subheadingFontSize, setSubeadingFontSize] = useState('medium');
 
+  const [aboutSectionFontColor, setAboutSectionFontColor] = useState('#000000');
+  const [bodyFontColor, setBodyFontColor] = useState('#000000');
+  const [headingFontColor, setHeadingFontColor] = useState('#000000');
+  const [subheadingFontColor, setSubheadingFontColor] = useState('#000000');
+
+  const [headerBackgroundColor, setHeaderBackgroundColor] = useState('#FFFFFF');
+  const [sidebarBackgroundColor, setSidebarBackgroundColor] = useState('#FFF');
+
   const  openGlobalSetting = () => {
       setOpen(true);
   }
@@ -178,7 +186,29 @@ function Builder() {
   if (arr) {
     resumeHTML = <DragDropContext onDragEnd={onDragEnd}>
     <div className="resume-paper-wrap">
-    <GlobalResumeSetting headingFontSize={headingFontSize} subheadingFontSize={subheadingFontSize} bodyFontSize={bodyFontSize} setHeadingFontSize={setHeadingFontSize} setSubeadingFontSize={setSubeadingFontSize} setBodyFontSize={setBodyFontSize} open={open} setOpen={setOpen}></GlobalResumeSetting>
+    <GlobalResumeSetting 
+      aboutSectionFontColor={aboutSectionFontColor}
+      setAboutSectionFontColor={setAboutSectionFontColor}
+      headerBackgroundColor={headerBackgroundColor}
+      sidebarBackgroundColor={sidebarBackgroundColor}
+      setHeaderBackgroundColor={setHeaderBackgroundColor}
+      setSidebarBackgroundColor={setSidebarBackgroundColor}
+      bodyFontColor={bodyFontColor}
+      headingFontColor={headingFontColor}
+      subheadingFontColor={subheadingFontColor}
+      setBodyFontColor={setBodyFontColor}
+      setHeadingFontColor={setHeadingFontColor}
+      setSubheadingFontColor={setSubheadingFontColor} 
+      headingFontSize={headingFontSize} 
+      subheadingFontSize={subheadingFontSize} 
+      bodyFontSize={bodyFontSize} 
+      setHeadingFontSize={setHeadingFontSize} 
+      setSubeadingFontSize={setSubeadingFontSize} 
+      setBodyFontSize={setBodyFontSize} 
+      open={open} 
+      setOpen={setOpen}>
+
+    </GlobalResumeSetting>
       <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="layout-options">
@@ -201,9 +231,9 @@ function Builder() {
               <Box sx={{width: 8}}></Box>
               <WebOutlinedIcon onClick={() => {setSidebar(true)}}></WebOutlinedIcon>
             </div>
-            <Paper className={`resume-paper heading-font-${headingFontSize} subheading-font-${subheadingFontSize} body-font-${bodyFontSize}`} sx={{fontSize: bodyFontSize}} elevation={3} >
+            <Paper className={`resume-paper heading-font-${headingFontSize} subheading-font-${subheadingFontSize} body-font-${bodyFontSize}`} sx={{fontSize: bodyFontSize, color: bodyFontColor}} elevation={3} >
               <Grid container>
-                <Grid item xs={12} id="header">
+                <Grid item xs={12} id="header" className={`${arr.header.length > 0 ? '' : 'no-padding'}`} sx={{backgroundColor: headerBackgroundColor, color: aboutSectionFontColor}}>
                   <Droppable droppableId="header">
                     {(provided, snapshot) => (
                       <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over' : 'resume-paper-content'}>
@@ -240,7 +270,7 @@ function Builder() {
                     )}
                   </Droppable>
                 </Grid>
-                <Grid item xs={sidebar ? 7 : 12} id="main">
+                <Grid item xs={sidebar ? 7 : 12} id="main" className={`${arr.header.length > 0 ? '' : 'padding'}`}>
                 <Droppable droppableId="main">
                   {(provided, snapshot) => (
                     <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over' : 'resume-paper-content'}>
@@ -280,7 +310,7 @@ function Builder() {
                 </Grid>
                 
                 {sidebar ? 
-                <Grid item xs={5} id="sidebar">
+                <Grid item xs={5} id="sidebar" sx={{backgroundColor: sidebarBackgroundColor}} className={`${arr.header.length > 0 ? '' : 'padding'}`}>
                 <Droppable droppableId="sidebar">
                   {(provided, snapshot) => (
                     <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over sidebar-column' : 'resume-paper-content sidebar-column'}>
@@ -321,7 +351,7 @@ function Builder() {
               </Grid>
             </Paper>
           </Grid>
-          <Grid item xs={4}>
+          <Grid className="component-library-wrap" item xs={4}>
             <div className="component-library-header">
               <div>
                 <span className="component-library-title">All Widgets</span>
