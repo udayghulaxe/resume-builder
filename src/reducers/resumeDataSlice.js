@@ -20,7 +20,7 @@ export const getResumeDataByUserId = createAsyncThunk(
 export const updateResumeDataByUserId = createAsyncThunk(
   'resume/updateResumeDataByUserId',
   async (apiData, thunkAPI) => {
-    await (await firebase.firestore().collection("users").doc(apiData.userId).set({resumeJson: JSON.stringify(apiData.data)}));
+    await (await firebase.firestore().collection("users").doc(apiData.userId).update({resumeJson: JSON.stringify(apiData.data)}));
     return apiData.data;
   }
 )
