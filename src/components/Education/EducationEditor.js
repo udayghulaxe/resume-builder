@@ -67,6 +67,7 @@ const EducationEditor = (props) => {
         console.log('educationItems', educationItems);
         setEditorData({ ...editorData, title: title,  items: educationItems.filter((item, index) => item.title.length > 0) });
         setFirstTime(true);
+        closeEditor();
         console.log(editorData);
     }
 

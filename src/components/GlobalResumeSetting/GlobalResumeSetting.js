@@ -11,6 +11,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 
 import "./GlobalResumeSetting.css";
+import { Box } from "@mui/system";
 
 const GlobalResumeSetting = (props) => {
   const fontSizes = [
@@ -100,7 +101,7 @@ const GlobalResumeSetting = (props) => {
         <div className="resume-setting-section">
           {/* ABOUT SECTION SETTING */}
             <div className="resume-setting-heading">
-              <span>About Section</span>
+              <span>Resume Header Section</span>
             </div>
             {/* <div className="resume-setting-item">
               <span className="resume-setting-item-label">Font Size</span>
@@ -114,7 +115,10 @@ const GlobalResumeSetting = (props) => {
             </div> */}
 
             <div className="resume-setting-item">
-              <span className="resume-setting-item-label">Font Color</span>
+              <span className="resume-setting-item-label">
+                Font Color
+                <Box className="resume-setting-selected-color" sx={{backgroundColor: props.aboutSectionFontColor}}></Box>
+              </span>
               <div className="resume-setting-item-body">
                 <GithubPicker color={ props.aboutSectionFontColor } onChangeComplete={changeAboutSectionFontColor} colors={colors} triangle="hide" />
               </div>
@@ -138,7 +142,10 @@ const GlobalResumeSetting = (props) => {
             </div>
 
             <div className="resume-setting-item">
-              <span className="resume-setting-item-label">Font Color</span>
+              <span className="resume-setting-item-label">
+                Font Color
+                <Box className="resume-setting-selected-color" sx={{backgroundColor: props.headingFontColor}}></Box>
+              </span>
               <div className="resume-setting-item-body">
                 <GithubPicker color={ props.headingFontColor } onChangeComplete={changeHeadingFontColor} colors={colors} triangle="hide" />
               </div>
@@ -162,7 +169,10 @@ const GlobalResumeSetting = (props) => {
             </div>
 
             <div className="resume-setting-item">
-              <span className="resume-setting-item-label">Font Color</span>
+              <span className="resume-setting-item-label">
+                Font Color
+                <Box className="resume-setting-selected-color" sx={{backgroundColor: props.subheadingFontColor}}></Box>
+              </span>
               <div className="resume-setting-item-body">
                 <GithubPicker color={props.subheadingFontColor} onChangeComplete={changeSubheadingFontColor} colors={colors} triangle="hide" />
               </div>
@@ -186,7 +196,10 @@ const GlobalResumeSetting = (props) => {
             </div>
 
             <div className="resume-setting-item">
-              <span className="resume-setting-item-label">Font Color</span>
+              <span className="resume-setting-item-label">
+                Font Color
+                <Box className="resume-setting-selected-color" sx={{backgroundColor: props.bodyFontColor}}></Box>
+              </span>
               <div className="resume-setting-item-body">
                 <GithubPicker color={props.bodyFontColor} onChangeComplete={changeBodyFontColor} colors={colors} triangle="hide" />
               </div>
@@ -199,16 +212,22 @@ const GlobalResumeSetting = (props) => {
               <span>Backgrounds</span>
             </div>
             <div className="resume-setting-item">
-              <span className="resume-setting-item-label">Header Background Color</span>
+              <span className="resume-setting-item-label">
+                Header Background Color 
+                <Box className="resume-setting-selected-color" sx={{backgroundColor: props.headerBackgroundColor}}></Box>
+              </span>
               <div className="resume-setting-item-body">
-                <GithubPicker color={props.bodyFontColor} onChangeComplete={changeHeaderBackgroundColor} colors={colors} triangle="hide" />
+                <GithubPicker color={props.headerBackgroundColor} onChangeComplete={changeHeaderBackgroundColor} colors={colors} triangle="hide" />
               </div>
             </div>
 
             <div className="resume-setting-item">
-              <span className="resume-setting-item-label">Sidebar Background Color</span>
+              <span className="resume-setting-item-label">
+                Sidebar Background Color 
+                <Box className="resume-setting-selected-color" sx={{backgroundColor: props.sidebarBackgroundColor}}></Box>
+              </span>
               <div className="resume-setting-item-body">
-                <GithubPicker color={props.bodyFontColor} onChangeComplete={changeSidebarBackgroundColor} colors={colors} triangle="hide" />
+                <GithubPicker color={props.sidebarBackgroundColor} onChangeComplete={changeSidebarBackgroundColor} colors={colors} triangle="hide" />
               </div>
             </div>
           </div>
