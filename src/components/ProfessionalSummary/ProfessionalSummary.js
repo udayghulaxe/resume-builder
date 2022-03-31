@@ -29,7 +29,7 @@ const ProfessionalSummary = (props) => {
                 {props.componentItem.componentData.items.map((item, index) => {
                     return (
                         <div className='professional-summary-item' key={index}>
-                             <span className="professional-summary-summary-body">{item.summary}</span>
+                             <span className="professional-summary-summary-body rich-text-div" dangerouslySetInnerHTML={{__html: item.summary}}></span>
                         </div>
                         
                     );

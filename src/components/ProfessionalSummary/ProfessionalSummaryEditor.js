@@ -3,6 +3,10 @@ import { TextField, Button, Divider, Box } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { updateResumeDataReducer } from "../../reducers/resumeDataSlice";
 
+import { richEditorSettings } from "../../globals.js";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -33,8 +37,8 @@ const SocialEditor = (props) => {
     setTitle(newVal);
   };
 
-  const onFieldChange = (event, index, property) => {
-    const newValue = event.target.value;
+  const onFieldChange = (val, index, property) => {
+    const newValue = val;
     let newprofessionalSummaryItems = [...professionalSummaryItems];
     newprofessionalSummaryItems[index] = {
       ...newprofessionalSummaryItems[index],
@@ -87,21 +91,14 @@ const SocialEditor = (props) => {
                 <div key={index}>
                   <div className="editor-item">
                     <div>
-                      <TextField
-                        label="Summary"
-                        sx={{ mb: 1, mt: 1, mr: 1 }}
-                        onChange={(event) =>
-                          onFieldChange(event, index, "summary")
-                        }
-                        fullWidth
-                        value={item.summary}
-                        inputProps={{ style: { fontSize: 14 } }}
-                        style = {{width: 380}}
-                        size="small"
-                        rows={5}
-                        multiline
-                      />
 
+                    <ReactQuill 
+                      defaultValue={item.summary}
+                      modules={richEditorSettings}
+                      theme={"snow"}
+                      onChange={(val) =>
+                        onFieldChange(val, index, "summary")
+                      } />
                     </div>
                   </div>
                   <Box sx={{ height: 20 }}></Box>

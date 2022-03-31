@@ -63,9 +63,9 @@ const Experience = (props) => {
                                 </Item>
                             </Grid>
                         </Grid>
-                        <span className="experience-summary">
-                        {item.experienceSummary}
-                        </span>    
+                        <div className="experience-summary rich-text-div" dangerouslySetInnerHTML={{__html: item.experienceSummary}}>
+
+                        </div>    
                         
                     </div>
                 );

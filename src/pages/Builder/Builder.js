@@ -14,6 +14,7 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import './Builder.css'
 import logo from '../../logo.svg';
 import GlobalResumeSetting from "../../components/GlobalResumeSetting/GlobalResumeSetting";
+import 'react-quill/dist/quill.snow.css';
 
 import Achievement from '../../components/Achievements/Achievement'
 import BasicInfo from '../../components/BasicInfo/BasicInfo'
@@ -175,7 +176,7 @@ function Builder() {
           return <SkillsWithProgress componentColumn={columnName} componentItem={item} />;
 
         case 'Social':
-            return <Social componentColumn={columnName} componentItem={item} />;  
+            return <Social componentColumn={columnName} componentItem={item} />;
             
         default:
             return null;

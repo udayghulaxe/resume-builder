@@ -4,6 +4,9 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { useDispatch } from "react-redux";
 import { updateResumeDataReducer } from "../../reducers/resumeDataSlice";
+import { richEditorSettings } from "../../globals.js";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -44,6 +47,15 @@ const ExperienceEditor = (props) => {
     };
     setExperienceItems(newExperienceItems);
   };
+
+  const onSummaryChange = (val, index) => {
+    let newExperienceItems = [...experienceItems];
+    newExperienceItems[index] = {
+      ...newExperienceItems[index],
+      experienceSummary: val,
+    };
+    setExperienceItems(newExperienceItems);
+  }
 
   const onAddExperience = (event, index) => {
     let newExperienceItems = [...experienceItems];
@@ -151,19 +163,14 @@ const ExperienceEditor = (props) => {
                         size="small"
                       />
 
-                      <TextField
-                        label="Summary"
-                        sx={{ mb: 1, mt: 1, mr: 1 }}
-                        onChange={(event) =>
-                          onFieldChange(event, index, "experienceSummary")
-                        }
-                        value={item.experienceSummary}
-                        inputProps={{ style: { fontSize: 14 } }}
-                        rows={3}
-                        style = {{width: 380}}
-                        multiline
-                        
-                      />
+
+                      <ReactQuill 
+                      defaultValue={item.experienceSummary}
+                      modules={richEditorSettings}
+                      theme={"snow"}
+                      onChange={(val) =>
+                        onSummaryChange(val, index)
+                      } />
                     </div>
                     <AddCircleIcon
                       onClick={(event) => onAddExperience(event, index)}
