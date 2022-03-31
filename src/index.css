@@ -93,6 +93,10 @@ code {
   color: var(--color-font-body) !important;
 }
 
+.resume-paper .resume-section-devider .resume-section-title {
+  display: none;
+}
+
 .no-padding {
   padding: 0 !important;
 }
@@ -288,7 +292,23 @@ COMPONENT LIBRARY SECTION END
 
 .d-none {
   display: none !important;
-}   
+}
+
+.rich-text-div ol, .rich-text-div ul {
+  padding-left: 15px;
+}
+
+.rich-text-div p {
+  margin: 0;
+}
+
+.rich-text-div a {
+  text-decoration: none;
+}
+
+.quill {
+  max-width: 380px;
+}
 
 @media screen and (max-width: 480px) {
   .mobile-d-none {
