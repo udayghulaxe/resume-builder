@@ -117,7 +117,7 @@ const EducationEditor = (props) => {
                                                 size='small'
                                             />
                                             <TextField
-                                                label='Year'
+                                                label='Date (From - To)'
                                                 sx={{ mb: 1, mt: 1, mr: 1}}
                                                 onChange={(event) => onDateChange(event, index)}
                                                 value={item.date}

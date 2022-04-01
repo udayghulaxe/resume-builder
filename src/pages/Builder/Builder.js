@@ -5,6 +5,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import GoogleLogin from '../../components/Login/GoogleLogin'
 import { useSelector, useDispatch } from 'react-redux';
 import { getResumeDataByUserId, updateResumeDataByUserId } from '../../reducers/resumeDataSlice';
+import { getGlobalSettingsByUserId, updateGlobalSettingsUserId } from '../../reducers/globalSettingsSlice';
 import WebAssetOutlinedIcon from '@mui/icons-material/WebAssetOutlined';
 import WebOutlinedIcon from '@mui/icons-material/WebOutlined';
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
@@ -29,23 +30,13 @@ import Social from '../../components/Social/Social';
 
 function Builder() {
   let resumeHTML;
-  const {authReducer, resumeDataReducer} = useSelector((state) => state);
+  const {authReducer, resumeDataReducer, globalSettingsReducer} = useSelector((state) => state);
   const [arr, setItems] = useState(null);
   const [sidebar, setSidebar] = useState(true);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
 
-  const [bodyFontSize, setBodyFontSize] = useState('small');
-  const [headingFontSize, setHeadingFontSize] = useState('large');
-  const [subheadingFontSize, setSubeadingFontSize] = useState('medium');
-
-  const [aboutSectionFontColor, setAboutSectionFontColor] = useState('#000000');
-  const [bodyFontColor, setBodyFontColor] = useState('#000000');
-  const [headingFontColor, setHeadingFontColor] = useState('#000000');
-  const [subheadingFontColor, setSubheadingFontColor] = useState('#000000');
-
-  const [headerBackgroundColor, setHeaderBackgroundColor] = useState('#FFFFFF');
-  const [sidebarBackgroundColor, setSidebarBackgroundColor] = useState('#FFF');
+  const [globalResumeSettings, setGlobalResumeSettings] = useState(null);
 
   const  openGlobalSetting = () => {
       setOpen(true);
@@ -54,6 +45,7 @@ function Builder() {
   useEffect(() => {
       console.log('calling builder effect');
       setItems(resumeDataReducer.resumeData);
+      setGlobalResumeSettings(globalSettingsReducer.globalSettings);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [resumeDataReducer]);
     
@@ -64,27 +56,24 @@ function Builder() {
 
 
   function getResumeData() {
-    console.log('geting data again');
     dispatch(getResumeDataByUserId(authReducer.userId)).then((res) => {
       setItems(res.payload);
     });
 
-    // if (authReducer.userId) {
-    //   console.log(authReducer.userId);
-    //   const ref = firebase.firestore().collection('users').doc(authReducer.userId);
-    //   ref.get().then((doc) => {
-    //     const items = doc.data();
-    //     console.log('data', items);
-    //     const data = JSON.parse(items.resumeJson);
-    //     setItems(data);
-    //   });
-    // }
-    
+    dispatch(getGlobalSettingsByUserId(authReducer.userId)).then((res) => {
+      setGlobalResumeSettings(res.payload);
+    });
   }
 
   function updateResumeData(newData) {
     if (authReducer.userId) {
       dispatch(updateResumeDataByUserId({data:newData, userId: authReducer.userId}));
+    }
+  }
+
+  function updateGlobalSetting(newData) {
+    if (authReducer.userId) {
+      dispatch(updateGlobalSettingsUserId({data:newData, userId: authReducer.userId}));
     }
   }
 
@@ -188,24 +177,9 @@ function Builder() {
     resumeHTML = <DragDropContext onDragEnd={onDragEnd}>
     <div className="resume-paper-wrap">
     <GlobalResumeSetting 
-      aboutSectionFontColor={aboutSectionFontColor}
-      setAboutSectionFontColor={setAboutSectionFontColor}
-      headerBackgroundColor={headerBackgroundColor}
-      sidebarBackgroundColor={sidebarBackgroundColor}
-      setHeaderBackgroundColor={setHeaderBackgroundColor}
-      setSidebarBackgroundColor={setSidebarBackgroundColor}
-      bodyFontColor={bodyFontColor}
-      headingFontColor={headingFontColor}
-      subheadingFontColor={subheadingFontColor}
-      setBodyFontColor={setBodyFontColor}
-      setHeadingFontColor={setHeadingFontColor}
-      setSubheadingFontColor={setSubheadingFontColor} 
-      headingFontSize={headingFontSize} 
-      subheadingFontSize={subheadingFontSize} 
-      bodyFontSize={bodyFontSize} 
-      setHeadingFontSize={setHeadingFontSize} 
-      setSubeadingFontSize={setSubeadingFontSize} 
-      setBodyFontSize={setBodyFontSize} 
+      globalResumeSettings={globalResumeSettings}
+      setGlobalResumeSettings={setGlobalResumeSettings}
+      updateGlobalSetting={updateGlobalSetting}
       open={open} 
       setOpen={setOpen}>
 
@@ -232,9 +206,9 @@ function Builder() {
               <Box sx={{width: 8}}></Box>
               <WebOutlinedIcon onClick={() => {setSidebar(true)}}></WebOutlinedIcon>
             </div>
-            <Paper className={`resume-paper heading-font-${headingFontSize} subheading-font-${subheadingFontSize} body-font-${bodyFontSize}`} sx={{fontSize: bodyFontSize, color: bodyFontColor}} elevation={3} >
+            <Paper className={`resume-paper heading-alignment-${globalResumeSettings.headingAlignment} heading-font-${globalResumeSettings.headingFontSize} subheading-font-${globalResumeSettings.subheadingFontSize} body-font-${globalResumeSettings.bodyFontSize}`} sx={{fontSize: globalResumeSettings.bodyFontSize, color: globalResumeSettings.bodyFontColor}} elevation={3} >
               <Grid container>
-                <Grid item xs={12} id="header" className={`${arr.header.length > 0 ? '' : 'no-padding'}`} sx={{backgroundColor: headerBackgroundColor, color: aboutSectionFontColor}}>
+                <Grid item xs={12} id="header" className={`${arr.header.length > 0 ? '' : 'no-padding'}`} sx={{backgroundColor: globalResumeSettings.headerBackgroundColor, color: globalResumeSettings.aboutSectionFontColor}}>
                   <Droppable droppableId="header">
                     {(provided, snapshot) => (
                       <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over' : 'resume-paper-content'}>
@@ -311,7 +285,7 @@ function Builder() {
                 </Grid>
                 
                 {sidebar ? 
-                <Grid item xs={5} id="sidebar" sx={{backgroundColor: sidebarBackgroundColor}} className={`${arr.header.length > 0 ? '' : 'padding'}`}>
+                <Grid item xs={5} id="sidebar" sx={{backgroundColor: globalResumeSettings.sidebarBackgroundColor}} className={`${arr.header.length > 0 ? '' : 'padding'}`}>
                 <Droppable droppableId="sidebar">
                   {(provided, snapshot) => (
                     <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over sidebar-column' : 'resume-paper-content sidebar-column'}>

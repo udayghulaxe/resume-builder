@@ -142,7 +142,7 @@ const ExperienceEditor = (props) => {
                       />
 
                       <TextField
-                        label="Date"
+                        label="Date (From - To)"
                         sx={{ mb: 1, mt: 1, mr: 1 }}
                         onChange={(event) =>
                           onFieldChange(event, index, "date")

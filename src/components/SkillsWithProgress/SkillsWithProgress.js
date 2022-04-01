@@ -26,7 +26,7 @@ const SkillsWithProgress = (props) => {
           <div key={index} className={props.componentItem.componentData.showProficiencyProgress ? 'skill-wrapper' : 'skill-wrapper min-margin'}>
           <div className="skill-header">
               <div className="skill-title">{item.title}</div>
-              <div className={`skill-percentage ${props.componentItem.componentData.showProficiency ? '' : 'd-none'}`}> - {item.proficiency}%</div>
+              <div className={`skill-percentage ${props.componentItem.componentData.showProficiency ? '' : 'd-none'}`}> - {item.proficiency}</div>
           </div>
           <div className="skill-progress">
             <LinearProgress className={props.componentItem.componentData.showProficiencyProgress ? '' : 'd-none'} variant="determinate" value={Number(item.proficiency)} />

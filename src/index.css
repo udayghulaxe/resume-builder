@@ -54,7 +54,7 @@ code {
 .resume-section-title {
   display: flex;
   margin: 0 0 10px 0;
-  border-bottom: 3px solid #000;
+  border-bottom: 2px solid #000;
   font-size: 20px;
   font-weight: 700;
   align-items: center;
@@ -83,6 +83,18 @@ code {
 
 .resume-paper .resume-section-title {
   color: var(--color-font-heading);
+}
+
+.resume-paper.heading-alignment-left .resume-section-title {
+  justify-content: left;
+}
+
+.resume-paper.heading-alignment-center .resume-section-title {
+  justify-content: center;
+}
+
+.resume-paper.heading-alignment-right .resume-section-title {
+  justify-content: right;
 }
 
 .resume-paper .resume-section-subtitle {
@@ -155,6 +167,10 @@ code {
 .resume-paper .MuiGrid-grid-xs-5 {
   padding: 5px 40px 0 10px;
 }
+
+/* #header {
+  z-index: 1;
+} */
 
 .drag-handle {
   display: none;
@@ -294,8 +310,16 @@ COMPONENT LIBRARY SECTION END
   display: none !important;
 }
 
+
+/* =============================
+RICH TEXT EDITOR SECTION START
+=============================== */
 .rich-text-div ol, .rich-text-div ul {
   padding-left: 15px;
+}
+
+.rich-text-div img {
+  width: 100%;
 }
 
 .rich-text-div p {
@@ -309,6 +333,10 @@ COMPONENT LIBRARY SECTION END
 .quill {
   max-width: 380px;
 }
+
+/* =============================
+RICH TEXT EDITOR SECTION END 
+=============================== */
 
 @media screen and (max-width: 480px) {
   .mobile-d-none {
@@ -326,7 +354,7 @@ COMPONENT LIBRARY SECTION END
   }
   .resume-paper {
     position: absolute;
-    width: 795px !important;
+    width: 820px !important;
     left: 0;
     top: 0;
   }
