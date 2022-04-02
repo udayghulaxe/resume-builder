@@ -1,15 +1,17 @@
 import React, { useState, useEffect, Suspense } from "react";
-import { AppBar, Button, Box, Toolbar, Link, Paper, Grid, Autocomplete, TextField } from '@mui/material';
+import { AppBar, Button, Box, Toolbar, Link, Paper, Grid, Autocomplete, TextField, CircularProgress, Chip } from '@mui/material';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import GoogleLogin from '../../components/Login/GoogleLogin'
 import { useSelector, useDispatch } from 'react-redux';
 import { getResumeDataByUserId, updateResumeDataByUserId } from '../../reducers/resumeDataSlice';
+import { getGlobalSettingsByUserId, updateGlobalSettingsUserId } from '../../reducers/globalSettingsSlice';
 import WebAssetOutlinedIcon from '@mui/icons-material/WebAssetOutlined';
 import WebOutlinedIcon from '@mui/icons-material/WebOutlined';
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 
 import './Builder.css'
 import logo from '../../logo.svg';
@@ -29,23 +31,14 @@ import Social from '../../components/Social/Social';
 
 function Builder() {
   let resumeHTML;
-  const {authReducer, resumeDataReducer} = useSelector((state) => state);
+  const {authReducer, resumeDataReducer, globalSettingsReducer} = useSelector((state) => state);
   const [arr, setItems] = useState(null);
   const [sidebar, setSidebar] = useState(true);
+  const [pageTwo, setPageTwo] = useState(false);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
 
-  const [bodyFontSize, setBodyFontSize] = useState('small');
-  const [headingFontSize, setHeadingFontSize] = useState('large');
-  const [subheadingFontSize, setSubeadingFontSize] = useState('medium');
-
-  const [aboutSectionFontColor, setAboutSectionFontColor] = useState('#000000');
-  const [bodyFontColor, setBodyFontColor] = useState('#000000');
-  const [headingFontColor, setHeadingFontColor] = useState('#000000');
-  const [subheadingFontColor, setSubheadingFontColor] = useState('#000000');
-
-  const [headerBackgroundColor, setHeaderBackgroundColor] = useState('#FFFFFF');
-  const [sidebarBackgroundColor, setSidebarBackgroundColor] = useState('#FFF');
+  const [globalResumeSettings, setGlobalResumeSettings] = useState(null);
 
   const  openGlobalSetting = () => {
       setOpen(true);
@@ -54,6 +47,7 @@ function Builder() {
   useEffect(() => {
       console.log('calling builder effect');
       setItems(resumeDataReducer.resumeData);
+      setGlobalResumeSettings(globalSettingsReducer.globalSettings);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [resumeDataReducer]);
     
@@ -64,27 +58,37 @@ function Builder() {
 
 
   function getResumeData() {
-    console.log('geting data again');
     dispatch(getResumeDataByUserId(authReducer.userId)).then((res) => {
-      setItems(res.payload);
+      if (res.payload) {
+        setItems(res.payload);
+        console.log(res.payload)
+        setPageTwo(res.payload.pageTwo.length > 0);
+      }
     });
 
-    // if (authReducer.userId) {
-    //   console.log(authReducer.userId);
-    //   const ref = firebase.firestore().collection('users').doc(authReducer.userId);
-    //   ref.get().then((doc) => {
-    //     const items = doc.data();
-    //     console.log('data', items);
-    //     const data = JSON.parse(items.resumeJson);
-    //     setItems(data);
-    //   });
-    // }
+    dispatch(getGlobalSettingsByUserId(authReducer.userId)).then((res) => {
+      setGlobalResumeSettings(res.payload);
+      if (res.payload) {
+        
+        const root = document.querySelector(":root");
+        root.style.setProperty("--color-font-heading", res.payload.headingFontColor);
+        root.style.setProperty("--color-font-subheading", res.payload.subheadingFontColor);
+        root.style.setProperty("--color-font-body", res.payload.bodyFontColor);
+      }
+    });
+
     
   }
 
   function updateResumeData(newData) {
     if (authReducer.userId) {
       dispatch(updateResumeDataByUserId({data:newData, userId: authReducer.userId}));
+    }
+  }
+
+  function updateGlobalSetting(newData) {
+    if (authReducer.userId) {
+      dispatch(updateGlobalSettingsUserId({data:newData, userId: authReducer.userId}));
     }
   }
 
@@ -104,6 +108,28 @@ function Builder() {
   const deleteComponent = (event, item, index, column) => {
     let newArr = JSON.parse(JSON.stringify(arr));
     newArr[column].splice(index, 1);
+    setItems(newArr);
+    updateResumeData(newArr);
+  }
+
+
+  const addResumePage = () => {
+    setPageTwo(true); 
+    setTimeout(() => {
+    const body = document.getElementById('pageTwo');
+    body.scrollIntoView({
+        behavior: 'smooth'
+    }, 500)
+    } , 500);
+  }
+
+  const removeResumePage = () => {
+    setPageTwo(false);
+
+    let newArr = JSON.parse(JSON.stringify(arr));
+    const mergedArr = [...newArr.componentLibrary, ...newArr.pageTwo];
+    newArr.componentLibrary = mergedArr;
+    newArr.pageTwo = [];
     setItems(newArr);
     updateResumeData(newArr);
   }
@@ -184,57 +210,49 @@ function Builder() {
   }
 
 
-  if (arr) {
+  if (arr && globalResumeSettings) {
     resumeHTML = <DragDropContext onDragEnd={onDragEnd}>
     <div className="resume-paper-wrap">
     <GlobalResumeSetting 
-      aboutSectionFontColor={aboutSectionFontColor}
-      setAboutSectionFontColor={setAboutSectionFontColor}
-      headerBackgroundColor={headerBackgroundColor}
-      sidebarBackgroundColor={sidebarBackgroundColor}
-      setHeaderBackgroundColor={setHeaderBackgroundColor}
-      setSidebarBackgroundColor={setSidebarBackgroundColor}
-      bodyFontColor={bodyFontColor}
-      headingFontColor={headingFontColor}
-      subheadingFontColor={subheadingFontColor}
-      setBodyFontColor={setBodyFontColor}
-      setHeadingFontColor={setHeadingFontColor}
-      setSubheadingFontColor={setSubheadingFontColor} 
-      headingFontSize={headingFontSize} 
-      subheadingFontSize={subheadingFontSize} 
-      bodyFontSize={bodyFontSize} 
-      setHeadingFontSize={setHeadingFontSize} 
-      setSubeadingFontSize={setSubeadingFontSize} 
-      setBodyFontSize={setBodyFontSize} 
+      globalResumeSettings={globalResumeSettings}
+      setGlobalResumeSettings={setGlobalResumeSettings}
+      updateGlobalSetting={updateGlobalSetting}
       open={open} 
       setOpen={setOpen}>
-
     </GlobalResumeSetting>
+
       <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="layout-options">
-            <span>
-                Setting: 
-              </span>
-              <Box sx={{width: 5}}></Box>
-              <SettingsOutlinedIcon onClick={openGlobalSetting}></SettingsOutlinedIcon>
-              <Box sx={{width: 10}}></Box>
-              <span>
-                Layout: 
-              </span>
-              <Box sx={{width: 5}}></Box>
+              <div className="layout-option-item">
+                <Chip  color="primary" icon={<SettingsOutlinedIcon />} onClick={openGlobalSetting} label="Settings" />
+              </div>
               
-              <WebAssetOutlinedIcon onClick={() => {
+              <div className="layout-option-item">
+                <Chip color="primary" icon={<WebAssetOutlinedIcon />} onClick={() => {
                 setSidebar(false)
                 const newArr = {...arr, main: [...arr['main'], ...arr['sidebar']], sidebar: []};
                 setItems(newArr);
-                }}></WebAssetOutlinedIcon>
-              <Box sx={{width: 8}}></Box>
-              <WebOutlinedIcon onClick={() => {setSidebar(true)}}></WebOutlinedIcon>
+                }} label="Single Column" />
+              </div>
+
+              <div className="layout-option-item">
+              <Chip color="primary" icon={<WebOutlinedIcon />} onClick={() => { setSidebar(true) }} label="Sidebar" />
+              </div>
+
+              <div className="layout-option-item">
+                {
+                  pageTwo ? 
+                  <Chip color="primary" icon={<AddCircleOutlineOutlinedIcon />} onClick={removeResumePage} label="Remove Page" /> 
+                  : <Chip color="primary" icon={<AddCircleOutlineOutlinedIcon />} onClick={addResumePage} label="Add Page" />
+                }
+                
+              </div>
+              
             </div>
-            <Paper className={`resume-paper heading-font-${headingFontSize} subheading-font-${subheadingFontSize} body-font-${bodyFontSize}`} sx={{fontSize: bodyFontSize, color: bodyFontColor}} elevation={3} >
+            <Paper className={`resume-paper heading-alignment-${globalResumeSettings.headingAlignment} heading-font-${globalResumeSettings.headingFontSize} subheading-font-${globalResumeSettings.subheadingFontSize} body-font-${globalResumeSettings.bodyFontSize}`} sx={{fontSize: globalResumeSettings.bodyFontSize, color: globalResumeSettings.bodyFontColor}} elevation={3} >
               <Grid container>
-                <Grid item xs={12} id="header" className={`${arr.header.length > 0 ? '' : 'no-padding'}`} sx={{backgroundColor: headerBackgroundColor, color: aboutSectionFontColor}}>
+                <Grid item xs={12} id="header" className={`${arr.header.length > 0 ? '' : 'no-padding'}`} sx={{backgroundColor: globalResumeSettings.headerBackgroundColor, color: globalResumeSettings.aboutSectionFontColor}}>
                   <Droppable droppableId="header">
                     {(provided, snapshot) => (
                       <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over' : 'resume-paper-content'}>
@@ -311,7 +329,7 @@ function Builder() {
                 </Grid>
                 
                 {sidebar ? 
-                <Grid item xs={5} id="sidebar" sx={{backgroundColor: sidebarBackgroundColor}} className={`${arr.header.length > 0 ? '' : 'padding'}`}>
+                <Grid item xs={5} id="sidebar" sx={{backgroundColor: globalResumeSettings.sidebarBackgroundColor}} className={`${arr.header.length > 0 ? '' : 'padding'}`}>
                 <Droppable droppableId="sidebar">
                   {(provided, snapshot) => (
                     <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over sidebar-column' : 'resume-paper-content sidebar-column'}>
@@ -351,6 +369,51 @@ function Builder() {
                 </Grid> : null}
               </Grid>
             </Paper>
+            <Box sx={{height: 30}}></Box>             
+            {pageTwo ?
+            <Paper className={`resume-paper heading-alignment-${globalResumeSettings.headingAlignment} heading-font-${globalResumeSettings.headingFontSize} subheading-font-${globalResumeSettings.subheadingFontSize} body-font-${globalResumeSettings.bodyFontSize}`} sx={{fontSize: globalResumeSettings.bodyFontSize, color: globalResumeSettings.bodyFontColor}} elevation={3} >
+              <Grid container>
+                <Grid item xs={12} id="pageTwo" className={`${arr.header.length > 0 ? '' : 'padding'}`}>
+                <Droppable droppableId="pageTwo">
+                  {(provided, snapshot) => (
+                    <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over' : 'resume-paper-content'}>
+                      <Suspense fallback={<div>Loading</div>}>
+                        {arr.pageTwo.map((item, index) => {
+                          return (
+                            <Draggable key={item.name} draggableId={item.name} index={index}>
+                              {(provided, snapshot) => (
+                                <div className={snapshot.isDragging ? 'resume-section-wrap component-dragging' : 'resume-section-wrap'} 
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    key={item.name}>
+                                  
+                                  { getComponent(item.componentType, item, 'pageTwo') }
+                                  <div className="overlay">
+                                    <span className="drag-handle" {...provided.dragHandleProps}>
+                                      <DragIndicatorIcon/>
+                                    </span>
+                                    <span className="copy-component">
+                                      <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'pageTwo')}/>
+                                    </span>
+                                    <span className={item.copy ? 'delete-component' : 'd-none'}>
+                                        <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'pageTwo')}/>
+                                      </span>
+                                  </div>
+                                </div>
+                              )}
+                            </Draggable>
+                          );
+                        }
+                        )}
+                        {provided.placeholder}
+                      </Suspense>
+                    </div>
+                  )}
+                </Droppable>
+                </Grid>
+              </Grid>
+            </Paper>
+            : null}     
           </Grid>
           <Grid className="component-library-wrap" item xs={4}>
             <div className="component-library-header">
@@ -414,7 +477,9 @@ function Builder() {
 
   </DragDropContext>;
   } else {
-    resumeHTML = <div>Loading...</div>;
+    resumeHTML = <div className="initial-loader">
+                    <CircularProgress />
+                </div>;
   }
 
   return (

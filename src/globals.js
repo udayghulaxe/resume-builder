@@ -1,10 +1,255 @@
 export const richEditorSettings = {
-    toolbar: [
-      [{ 'header': [1, 2, false] }],
-      ['bold', 'italic', 'underline','strike', 'blockquote'],
-      [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
-      [{ 'color': [] }, { 'background': [] }],
-      ['link', 'image'],
-      ['clean']
-    ],
-  };
+  toolbar: [
+    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+    ['bold', 'italic', 'underline','strike', 'blockquote'],
+    [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+    [{ 'color': [] }, { 'background': [] }],
+    ['link', 'image'],
+    ['clean']
+  ],
+};
+
+export const initialData = {
+  globalSettings: {
+    bodyFontSize: 'small',
+    headingFontSize: 'large',
+    subheadingFontSize: 'small',
+    bodyFontColor: '#000000',
+    headingFontColor: '#000000',
+    subheadingFontColor: '#000000',
+    headerBackgroundColor: '#ffffff',
+    sidebarBackgroundColor: '#ffffff',
+    aboutSectionFontColor: '#000000',
+    headingAlignment: 'left',
+  },
+  resumeJson: {
+  header: [
+      {
+          name: "BasicInfo",
+          componentType: 'BasicInfo',
+          path: "BasicInfo/BasicInfo"
+      },
+      {
+          name: "ProfessionalSummary",
+          componentType: 'ProfessionalSummary',
+          path: "ProfessionalSummary/ProfessionalSummary",
+          componentData: {
+              title: "Professional Summary",
+              items: [
+                {
+                  summary: "This is summary body."
+                },
+              ],
+          }
+      }
+
+  ],
+  main: [
+    {
+      name: "Education",
+      componentType: 'Education',
+      path: "Education/Education",
+      componentData: {
+        title: "Education",
+        items: [
+          {
+            title: "Executive MBA, Engineering Management",
+            university: "The University of Arizona",
+            date: "2010 - 2014",
+            gpa: "CGPA 09/10",
+          },
+          {
+            title: "Engineering Management",
+            university: "The University of California, Berkeley",
+            date: "2008 - 2010",
+            gpa: "CGPA 7.5/10",
+          },
+        ],
+      },
+    },
+    {
+      name: "Achievements",
+      componentType: 'Achievements',
+      path: "Achievements/Achievement",
+      componentData: {
+        title: "Achievements",
+        showIcon: true,
+        items: [
+          {
+            title:
+              "Won Best Employee Award for last 2 consecutive year (2020 & 2021). Won Best Employee Award for last 2 consecutive year (2020 & 2021).",
+          },
+          { title: "Won inter-zone cricket competition (2020). " },
+          {
+            title: "Runner up for state level table tennis competition (2020).",
+          },
+        ],
+      },
+    },
+    {
+      name: "Experience",
+      componentType: 'Experience',
+      path: "Experience/Experience",
+      componentData: {
+        title: "Experience",
+        items: [
+          {
+            experienceTitle: "Android Developer",
+            company: "Google",
+            date: "2018 - 2020",
+            location: "New York",
+            experienceSummary:
+              "Worked with team of 5 members and provided end-to-end solutions for clients & Lead developer in 3 key projects of major clients.",
+          },
+          {
+            experienceTitle: "Front End Developer",
+            company: "Amazon",
+            date: "2014 - 2018",
+            location: "New York",
+            experienceSummary:
+              "Worked with team of 5 members and provided end-to-end solutions for clients & Lead developer in 4 key projects of major clients.",
+          },
+        ],
+      },
+    },
+  ],
+  sidebar: [
+    {
+      name: "Skills",
+      componentType: 'Skills',
+      path: "Skills/Skills",
+      componentData: {
+        title: "Skills",
+        filled: false,
+        rounded: true,
+        items: [
+          { title: "HTML" },
+          { title: "CSS" },
+          { title: "JavaScript" },
+          { title: "React" },
+        ],
+      },
+    },
+    {
+      name: "Tools",
+      componentType: 'Skills',
+      path: "Skills/Skills",
+      componentData: {
+        title: "Tools",
+        filled: false,
+        rounded: true,
+        items: [{ title: "Git" }, { title: "Webpack" }, { title: "Gulp" }],
+      },
+    },
+    {
+      name: "Hobbies",
+      componentType: 'Skills',
+      path: "Skills/Skills",
+      componentData: {
+        title: "Hobbies",
+        filled: false,
+        rounded: true,
+        items: [
+          { title: "Reading" },
+          { title: "Swimming" },
+          { title: "Hiking" },
+        ],
+      },
+    },
+    {
+      name: "Social",
+      componentType: 'Social',
+      path: "Social/Social",
+      componentData: {
+        title: "Social",
+        items: [
+          {
+            socialPlatform: "Github",
+            username: "@username",
+          },
+          {
+            socialPlatform: "LinkedIn",
+            username: "@username",
+          },
+        ],
+      },
+    }
+  ],
+  pageTwo: [
+    {
+      name: "SkillsWithProgress",
+      componentType: 'SkillsWithProgress',
+      path: "SkillsWithProgress/SkillsWithProgress",
+      componentData: {
+        title: "Skills",
+        showProficiency: true,
+        showProficiencyProgress: true,
+        items: [
+          { title: "HTML", proficiency: 80 },
+          { title: "CSS", proficiency: 80 },
+          { title: "Javascript", proficiency: "70" },
+          { title: "React", proficiency: 50 },
+        ],
+      },
+    }
+  ],
+  componentLibrary: [
+    {
+      name: "Languages",
+      componentType: 'Languages',
+      path: "Languages/Languages",
+      componentData: {
+        title: "Languages",
+        showProficiency: true,
+        showProficiencyProgress: true,
+        items: [
+          { language: "English", proficiency: "Proficient" },
+          { language: "Hindi", proficiency: "Native" },
+          { language: "Spanish", proficiency: "Beginner" },
+        ],
+      },
+    },
+  ],
+}
+};
+
+export const colors = ['#000000', '#ffffff', '#483d8b', '#f0f8ff', '#2f4f4f', '#bdb76b', '#183141', '#ffd700', '#D9E2E9', '#141428', '#94AA9E', '#B5282E', '#808000', '#191970', '#FBECD7', '#dc143c' ];
+
+
+export const fontSizes = [
+  {
+    value: "x-small",
+    label: "XS",
+  },
+  {
+    value: "small",
+    label: "S",
+  },
+  {
+    value: "medium",
+    label: "M",
+  },
+  {
+    value: "large",
+    label: "L",
+  },
+  {
+    value: "larger",
+    label: "XL",
+  }
+];
+
+export const headingAlignment = [
+  {
+    value: "left",
+    label: "Left",
+  },
+  {
+    value: "center",
+    label: "Center",
+  },
+  {
+    value: "right",
+    label: "Right",
+  }
+];

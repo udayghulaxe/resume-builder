@@ -47,13 +47,13 @@ const Education = (props) => {
                                 alignItems="center" 
                                 rowSpacing={0.5} 
                                 columnSpacing={{ xs: 0.5, sm: 0.5, md: 0.5 }}>
-                                <Grid item md={6} xs={6} justifyContent="start" alignItems="center">
+                                <Grid item md={4} xs={4} justifyContent="start" alignItems="center">
                                     <Item>
                                         <CalendarTodayIcon className="resume-section-body"></CalendarTodayIcon> 
                                         <Box className="resume-section-body" component="span" sx={{ pl: 0.8}}>{item.date}</Box>
                                     </Item>
                                 </Grid>
-                                <Grid item md={6} xs={6} justifyContent="start" alignItems="center" >
+                                <Grid item md={4} xs={4} justifyContent="start" alignItems="center" >
                                     <Item>
                                         <SchoolIcon className="resume-section-body"></SchoolIcon>
                                         <Box className="resume-section-body" component="span" sx={{ pl: 0.8}}>{item.gpa}</Box>
