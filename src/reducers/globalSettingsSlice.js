@@ -2,18 +2,7 @@ import {createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import firebase from '../firebase';
 
 const INITIAL_STATE = {
-    globalSettings: {
-        bodyFontSize: 'small',
-        headingFontSize: 'large',
-        subheadingFontSize: 'medium',
-        bodyFontColor: '#000000',
-        headingFontColor: '#000000',
-        subheadingFontColor: '#000000',
-        headerBackgroundColor: '#ffffff',
-        sidebarBackgroundColor: '#ffffff',
-        aboutSectionFontColor: '#000000',
-        headingAlignment: 'left',
-    }
+    globalSettings: null
 };
 
 

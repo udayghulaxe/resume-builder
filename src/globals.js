@@ -13,7 +13,7 @@ export const initialData = {
   globalSettings: {
     bodyFontSize: 'small',
     headingFontSize: 'large',
-    subheadingFontSize: 'medium',
+    subheadingFontSize: 'small',
     bodyFontColor: '#000000',
     headingFontColor: '#000000',
     subheadingFontColor: '#000000',

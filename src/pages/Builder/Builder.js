@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Suspense } from "react";
-import { AppBar, Button, Box, Toolbar, Link, Paper, Grid, Autocomplete, TextField } from '@mui/material';
+import { AppBar, Button, Box, Toolbar, Link, Paper, Grid, Autocomplete, TextField, CircularProgress } from '@mui/material';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import GoogleLogin from '../../components/Login/GoogleLogin'
@@ -62,6 +62,12 @@ function Builder() {
 
     dispatch(getGlobalSettingsByUserId(authReducer.userId)).then((res) => {
       setGlobalResumeSettings(res.payload);
+      if (res.payload) {
+        const root = document.querySelector(":root");
+        root.style.setProperty("--color-font-heading", res.payload.headingFontColor);
+        root.style.setProperty("--color-font-subheading", res.payload.subheadingFontColor);
+        root.style.setProperty("--color-font-body", res.payload.bodyFontColor);
+      }
     });
   }
 
@@ -173,7 +179,7 @@ function Builder() {
   }
 
 
-  if (arr) {
+  if (arr && globalResumeSettings) {
     resumeHTML = <DragDropContext onDragEnd={onDragEnd}>
     <div className="resume-paper-wrap">
     <GlobalResumeSetting 
@@ -388,7 +394,9 @@ function Builder() {
 
   </DragDropContext>;
   } else {
-    resumeHTML = <div>Loading...</div>;
+    resumeHTML = <div className="initial-loader">
+                    <CircularProgress />
+                </div>;
   }
 
   return (
