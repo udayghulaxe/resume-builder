@@ -23,7 +23,9 @@
 
 .MuiPaper-rounded.resume-paper {
     width: 700px;
-    height: 1210px;
+    min-height: 750px;
+    height: auto;
+    max-height: 1210px;
     /* padding: 20px 40px; */
     /* margin-top: 10px; */
     overflow: hidden;
