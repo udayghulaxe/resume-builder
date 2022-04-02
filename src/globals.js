@@ -23,27 +23,27 @@ export const initialData = {
     headingAlignment: 'left',
   },
   resumeJson: {
-    header: [
-        {
-            name: "BasicInfo",
-            componentType: 'BasicInfo',
-            path: "BasicInfo/BasicInfo"
-        },
-        {
-            name: "ProfessionalSummary",
-            componentType: 'ProfessionalSummary',
-            path: "ProfessionalSummary/ProfessionalSummary",
-            componentData: {
-                title: "Professional Summary",
-                items: [
-                  {
-                    summary: "This is summary body."
-                  },
-                ],
-            }
-        }
+  header: [
+      {
+          name: "BasicInfo",
+          componentType: 'BasicInfo',
+          path: "BasicInfo/BasicInfo"
+      },
+      {
+          name: "ProfessionalSummary",
+          componentType: 'ProfessionalSummary',
+          path: "ProfessionalSummary/ProfessionalSummary",
+          componentData: {
+              title: "Professional Summary",
+              items: [
+                {
+                  summary: "This is summary body."
+                },
+              ],
+          }
+      }
 
-    ],
+  ],
   main: [
     {
       name: "Education",
@@ -115,22 +115,6 @@ export const initialData = {
   ],
   sidebar: [
     {
-      name: "SkillsWithProgress",
-      componentType: 'SkillsWithProgress',
-      path: "SkillsWithProgress/SkillsWithProgress",
-      componentData: {
-        title: "Skills",
-        showProficiency: true,
-        showProficiencyProgress: true,
-        items: [
-          { title: "HTML", proficiency: 80 },
-          { title: "CSS", proficiency: 80 },
-          { title: "Javascript", proficiency: "70" },
-          { title: "React", proficiency: 50 },
-        ],
-      },
-    },
-    {
       name: "Skills",
       componentType: 'Skills',
       path: "Skills/Skills",
@@ -187,6 +171,24 @@ export const initialData = {
             socialPlatform: "LinkedIn",
             username: "@username",
           },
+        ],
+      },
+    }
+  ],
+  pageTwo: [
+    {
+      name: "SkillsWithProgress",
+      componentType: 'SkillsWithProgress',
+      path: "SkillsWithProgress/SkillsWithProgress",
+      componentData: {
+        title: "Skills",
+        showProficiency: true,
+        showProficiencyProgress: true,
+        items: [
+          { title: "HTML", proficiency: 80 },
+          { title: "CSS", proficiency: 80 },
+          { title: "Javascript", proficiency: "70" },
+          { title: "React", proficiency: 50 },
         ],
       },
     }

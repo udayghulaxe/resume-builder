@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Suspense } from "react";
-import { AppBar, Button, Box, Toolbar, Link, Paper, Grid, Autocomplete, TextField, CircularProgress } from '@mui/material';
+import { AppBar, Button, Box, Toolbar, Link, Paper, Grid, Autocomplete, TextField, CircularProgress, Chip } from '@mui/material';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import GoogleLogin from '../../components/Login/GoogleLogin'
@@ -11,6 +11,7 @@ import WebOutlinedIcon from '@mui/icons-material/WebOutlined';
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 
 import './Builder.css'
 import logo from '../../logo.svg';
@@ -33,6 +34,7 @@ function Builder() {
   const {authReducer, resumeDataReducer, globalSettingsReducer} = useSelector((state) => state);
   const [arr, setItems] = useState(null);
   const [sidebar, setSidebar] = useState(true);
+  const [pageTwo, setPageTwo] = useState(false);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
 
@@ -57,18 +59,25 @@ function Builder() {
 
   function getResumeData() {
     dispatch(getResumeDataByUserId(authReducer.userId)).then((res) => {
-      setItems(res.payload);
+      if (res.payload) {
+        setItems(res.payload);
+        console.log(res.payload)
+        setPageTwo(res.payload.pageTwo.length > 0);
+      }
     });
 
     dispatch(getGlobalSettingsByUserId(authReducer.userId)).then((res) => {
       setGlobalResumeSettings(res.payload);
       if (res.payload) {
+        
         const root = document.querySelector(":root");
         root.style.setProperty("--color-font-heading", res.payload.headingFontColor);
         root.style.setProperty("--color-font-subheading", res.payload.subheadingFontColor);
         root.style.setProperty("--color-font-body", res.payload.bodyFontColor);
       }
     });
+
+    
   }
 
   function updateResumeData(newData) {
@@ -99,6 +108,28 @@ function Builder() {
   const deleteComponent = (event, item, index, column) => {
     let newArr = JSON.parse(JSON.stringify(arr));
     newArr[column].splice(index, 1);
+    setItems(newArr);
+    updateResumeData(newArr);
+  }
+
+
+  const addResumePage = () => {
+    setPageTwo(true); 
+    setTimeout(() => {
+    const body = document.getElementById('pageTwo');
+    body.scrollIntoView({
+        behavior: 'smooth'
+    }, 500)
+    } , 500);
+  }
+
+  const removeResumePage = () => {
+    setPageTwo(false);
+
+    let newArr = JSON.parse(JSON.stringify(arr));
+    const mergedArr = [...newArr.componentLibrary, ...newArr.pageTwo];
+    newArr.componentLibrary = mergedArr;
+    newArr.pageTwo = [];
     setItems(newArr);
     updateResumeData(newArr);
   }
@@ -188,29 +219,36 @@ function Builder() {
       updateGlobalSetting={updateGlobalSetting}
       open={open} 
       setOpen={setOpen}>
-
     </GlobalResumeSetting>
+
       <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="layout-options">
-            <span>
-                Setting: 
-              </span>
-              <Box sx={{width: 5}}></Box>
-              <SettingsOutlinedIcon onClick={openGlobalSetting}></SettingsOutlinedIcon>
-              <Box sx={{width: 10}}></Box>
-              <span>
-                Layout: 
-              </span>
-              <Box sx={{width: 5}}></Box>
+              <div className="layout-option-item">
+                <Chip  color="primary" icon={<SettingsOutlinedIcon />} onClick={openGlobalSetting} label="Settings" />
+              </div>
               
-              <WebAssetOutlinedIcon onClick={() => {
+              <div className="layout-option-item">
+                <Chip color="primary" icon={<WebAssetOutlinedIcon />} onClick={() => {
                 setSidebar(false)
                 const newArr = {...arr, main: [...arr['main'], ...arr['sidebar']], sidebar: []};
                 setItems(newArr);
-                }}></WebAssetOutlinedIcon>
-              <Box sx={{width: 8}}></Box>
-              <WebOutlinedIcon onClick={() => {setSidebar(true)}}></WebOutlinedIcon>
+                }} label="Single Column" />
+              </div>
+
+              <div className="layout-option-item">
+              <Chip color="primary" icon={<WebOutlinedIcon />} onClick={() => { setSidebar(true) }} label="Sidebar" />
+              </div>
+
+              <div className="layout-option-item">
+                {
+                  pageTwo ? 
+                  <Chip color="primary" icon={<AddCircleOutlineOutlinedIcon />} onClick={removeResumePage} label="Remove Page" /> 
+                  : <Chip color="primary" icon={<AddCircleOutlineOutlinedIcon />} onClick={addResumePage} label="Add Page" />
+                }
+                
+              </div>
+              
             </div>
             <Paper className={`resume-paper heading-alignment-${globalResumeSettings.headingAlignment} heading-font-${globalResumeSettings.headingFontSize} subheading-font-${globalResumeSettings.subheadingFontSize} body-font-${globalResumeSettings.bodyFontSize}`} sx={{fontSize: globalResumeSettings.bodyFontSize, color: globalResumeSettings.bodyFontColor}} elevation={3} >
               <Grid container>
@@ -331,6 +369,51 @@ function Builder() {
                 </Grid> : null}
               </Grid>
             </Paper>
+            <Box sx={{height: 30}}></Box>             
+            {pageTwo ?
+            <Paper className={`resume-paper heading-alignment-${globalResumeSettings.headingAlignment} heading-font-${globalResumeSettings.headingFontSize} subheading-font-${globalResumeSettings.subheadingFontSize} body-font-${globalResumeSettings.bodyFontSize}`} sx={{fontSize: globalResumeSettings.bodyFontSize, color: globalResumeSettings.bodyFontColor}} elevation={3} >
+              <Grid container>
+                <Grid item xs={12} id="pageTwo" className={`${arr.header.length > 0 ? '' : 'padding'}`}>
+                <Droppable droppableId="pageTwo">
+                  {(provided, snapshot) => (
+                    <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over' : 'resume-paper-content'}>
+                      <Suspense fallback={<div>Loading</div>}>
+                        {arr.pageTwo.map((item, index) => {
+                          return (
+                            <Draggable key={item.name} draggableId={item.name} index={index}>
+                              {(provided, snapshot) => (
+                                <div className={snapshot.isDragging ? 'resume-section-wrap component-dragging' : 'resume-section-wrap'} 
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    key={item.name}>
+                                  
+                                  { getComponent(item.componentType, item, 'pageTwo') }
+                                  <div className="overlay">
+                                    <span className="drag-handle" {...provided.dragHandleProps}>
+                                      <DragIndicatorIcon/>
+                                    </span>
+                                    <span className="copy-component">
+                                      <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'pageTwo')}/>
+                                    </span>
+                                    <span className={item.copy ? 'delete-component' : 'd-none'}>
+                                        <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'pageTwo')}/>
+                                      </span>
+                                  </div>
+                                </div>
+                              )}
+                            </Draggable>
+                          );
+                        }
+                        )}
+                        {provided.placeholder}
+                      </Suspense>
+                    </div>
+                  )}
+                </Droppable>
+                </Grid>
+              </Grid>
+            </Paper>
+            : null}     
           </Grid>
           <Grid className="component-library-wrap" item xs={4}>
             <div className="component-library-header">

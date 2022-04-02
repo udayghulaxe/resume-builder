@@ -354,6 +354,7 @@ RICH TEXT EDITOR SECTION END
   .resume-paper {
     position: absolute;
     width: 820px !important;
+    height: 1160px !important;
     left: 0;
     top: 0;
   }

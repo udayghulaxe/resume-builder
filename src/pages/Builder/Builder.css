@@ -23,9 +23,10 @@
 
 .MuiPaper-rounded.resume-paper {
     width: 700px;
-    height: auto;
+    height: 1210px;
     /* padding: 20px 40px; */
     /* margin-top: 10px; */
+    overflow: hidden;
 }
 
 @media screen and (max-width: 480px) {
@@ -84,7 +85,17 @@
 
 .layout-options {
     display: flex;
-    margin-bottom: 18px;
+    margin-bottom: 12px;
+}
+
+.layout-option-item {
+    display: flex;
+    margin-right: 10px;
+}
+
+.layout-option-item svg {
+    width: 18px;
+    height: 18px;
 }
 
 .layout-options svg {
