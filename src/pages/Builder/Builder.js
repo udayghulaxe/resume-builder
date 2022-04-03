@@ -250,6 +250,7 @@ function Builder() {
               </div>
               
             </div>
+            <div className="resume-paper-container" id="resumPaperContainer">
             <Paper className={`resume-paper heading-alignment-${globalResumeSettings.headingAlignment} heading-font-${globalResumeSettings.headingFontSize} subheading-font-${globalResumeSettings.subheadingFontSize} body-font-${globalResumeSettings.bodyFontSize}`} sx={{fontSize: globalResumeSettings.bodyFontSize, color: globalResumeSettings.bodyFontColor}} elevation={3} >
               <Grid container>
                 <Grid item xs={12} id="header" className={`${arr.header.length > 0 ? '' : 'no-padding'}`} sx={{backgroundColor: globalResumeSettings.headerBackgroundColor, color: globalResumeSettings.aboutSectionFontColor}}>
@@ -413,7 +414,8 @@ function Builder() {
                 </Grid>
               </Grid>
             </Paper>
-            : null}     
+            : null}
+            </div>     
           </Grid>
           <Grid className="component-library-wrap" item xs={4}>
             <div className="component-library-header">
