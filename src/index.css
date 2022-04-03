@@ -157,15 +157,21 @@ code {
 }
 
 .resume-paper .MuiGrid-grid-xs-12 {
-  padding: 10px 40px 5px 40px;
+  padding: 15px 40px 5px 40px;
 }
 
 .resume-paper .MuiGrid-grid-xs-7 {
   padding: 5px 10px 10px 40px;
+  margin-top: 2px;
 }
 
 .resume-paper .MuiGrid-grid-xs-5 {
   padding: 5px 40px 0 10px;
+  margin-top: 2px;
+}
+
+#pageTwo {
+  padding-top: 20px;
 }
 
 /* #header {
@@ -343,18 +349,28 @@ RICH TEXT EDITOR SECTION END
   }
 }
 
+@page {
+  size: A4;
+  scale: 1;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 @media print {
   body * {
     visibility: hidden;
   }
+
   .resume-paper-container * {
     visibility: visible;
     
   }
-  .resume-paper-container .resume-paper{
+  .resume-paper-container .resume-paper {
     width: 820px !important;
     height: 1130px !important;
     box-shadow: none !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important; 
   }
 
   .resume-paper-container {
