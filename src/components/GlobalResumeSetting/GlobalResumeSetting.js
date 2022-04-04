@@ -36,6 +36,7 @@ const GlobalResumeSetting = (props) => {
   const changeAboutSectionFontColor = (color) => {
     props.setGlobalResumeSettings({...props.globalResumeSettings, aboutSectionFontColor: color.hex});
     openColorToggle('headerFontColorToggle');
+    changeFontColor("--color-font-about-section", color.hex);
   }
 
   const changeHeadingFontColor = (color) => {
