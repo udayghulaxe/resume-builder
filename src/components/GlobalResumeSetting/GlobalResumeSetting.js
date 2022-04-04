@@ -34,57 +34,57 @@ const GlobalResumeSetting = (props) => {
   }
 
   const changeAboutSectionFontColor = (color) => {
-    props.setGlobalResumeSettings({...props.globalResumeSettings, aboutSectionFontColor: color.hex});
+    props.setResumeSettings({...props.resumeSettings, aboutSectionFontColor: color.hex});
     openColorToggle('headerFontColorToggle');
     changeFontColor("--color-font-about-section", color.hex);
   }
 
   const changeHeadingFontColor = (color) => {
-   props.setGlobalResumeSettings({...props.globalResumeSettings, headingFontColor: color.hex});
+   props.setResumeSettings({...props.resumeSettings, headingFontColor: color.hex});
    changeFontColor("--color-font-heading", color.hex);
    openColorToggle('headingFontColorToggle');
   }
 
   const changeSubheadingFontColor = (color) => {
-    props.setGlobalResumeSettings({...props.globalResumeSettings, subheadingFontColor: color.hex});
+    props.setResumeSettings({...props.resumeSettings, subheadingFontColor: color.hex});
     changeFontColor("--color-font-subheading", color.hex);
     openColorToggle('subheadingFontColorToggle');
   }
 
   const changeBodyFontColor = (color) => {
-    props.setGlobalResumeSettings({...props.globalResumeSettings, bodyFontColor: color.hex});
+    props.setResumeSettings({...props.resumeSettings, bodyFontColor: color.hex});
     changeFontColor("--color-font-body", color.hex);
     openColorToggle('bodyFontColorToggle');
   }
 
   const changeHeaderBackgroundColor = (color) => {
-    props.setGlobalResumeSettings({...props.globalResumeSettings, headerBackgroundColor: color.hex});
+    props.setResumeSettings({...props.resumeSettings, headerBackgroundColor: color.hex});
     openColorToggle('headerBackgroundColorToggle');
   }
 
   const changeSidebarBackgroundColor = (color) => {
-    props.setGlobalResumeSettings({...props.globalResumeSettings, sidebarBackgroundColor: color.hex});
+    props.setResumeSettings({...props.resumeSettings, sidebarBackgroundColor: color.hex});
     openColorToggle('sidebarBackgroundColorToggle');
   }
   
   const changeHeadingFont = (e, size) => {
-    props.setGlobalResumeSettings({...props.globalResumeSettings, headingFontSize: size});
+    props.setResumeSettings({...props.resumeSettings, headingFontSize: size});
   }
 
   const changeSubheadingFont = (e, size) => {
-    props.setGlobalResumeSettings({...props.globalResumeSettings, subheadingFontSize: size});
+    props.setResumeSettings({...props.resumeSettings, subheadingFontSize: size});
   }
 
   const changeBodyFont = (e, size) => {
-    props.setGlobalResumeSettings({...props.globalResumeSettings, bodyFontSize: size});
+    props.setResumeSettings({...props.resumeSettings, bodyFontSize: size});
   }
 
   const changeHeadingAlignment = (e, alignment) => {
-    props.setGlobalResumeSettings({...props.globalResumeSettings, headingAlignment: alignment});
+    props.setResumeSettings({...props.resumeSettings, headingAlignment: alignment});
   }
 
   const onSave = () => {
-    props.updateGlobalSetting(props.globalResumeSettings);
+    props.updateGlobalSetting(props.resumeSettings);
     closeEditor();
   }
 
@@ -111,10 +111,10 @@ const GlobalResumeSetting = (props) => {
             <div className="resume-setting-item">
               <span className="resume-setting-item-label">
                 Font Color
-                <Box className='resume-setting-selected-color'  onClick={() => { openColorToggle('headerFontColorToggle'); }} sx={{backgroundColor: props.globalResumeSettings.aboutSectionFontColor}}></Box>
+                <Box className='resume-setting-selected-color'  onClick={() => { openColorToggle('headerFontColorToggle'); }} sx={{backgroundColor: props.resumeSettings.aboutSectionFontColor}}></Box>
               </span>
               <div className={`resume-setting-item-body ${colorsToggles.headerFontColorToggle === true ? '' : 'd-none'}`}>
-                <GithubPicker color={ props.globalResumeSettings.aboutSectionFontColor } onChangeComplete={changeAboutSectionFontColor} colors={colors} triangle="hide" />
+                <GithubPicker color={ props.resumeSettings.aboutSectionFontColor } onChangeComplete={changeAboutSectionFontColor} colors={colors} triangle="hide" />
               </div>
             </div>
           </div>
@@ -129,7 +129,7 @@ const GlobalResumeSetting = (props) => {
               <div className="resume-setting-item-body">
                 {fontSizes.map((font, index) => {
                   return (
-                    <div key={index} className={`font-size-div ${props.globalResumeSettings.headingFontSize === font.value ? 'active' : ''}`} onClick={(event) => changeHeadingFont(event, font.value)}>{font.label}</div>
+                    <div key={index} className={`font-size-div ${props.resumeSettings.headingFontSize === font.value ? 'active' : ''}`} onClick={(event) => changeHeadingFont(event, font.value)}>{font.label}</div>
                   );
                 })}
               </div>
@@ -138,10 +138,10 @@ const GlobalResumeSetting = (props) => {
             <div className="resume-setting-item">
               <span className="resume-setting-item-label">
                 Font Color
-                <Box className="resume-setting-selected-color" onClick={() => { openColorToggle('headingFontColorToggle'); }} sx={{backgroundColor: props.globalResumeSettings.headingFontColor}}></Box>
+                <Box className="resume-setting-selected-color" onClick={() => { openColorToggle('headingFontColorToggle'); }} sx={{backgroundColor: props.resumeSettings.headingFontColor}}></Box>
               </span>
               <div className={`resume-setting-item-body ${colorsToggles.headingFontColorToggle === true ? '' : 'd-none'}`}>
-                <GithubPicker color={ props.globalResumeSettings.headingFontColor } onChangeComplete={changeHeadingFontColor} colors={colors} triangle="hide" />
+                <GithubPicker color={ props.resumeSettings.headingFontColor } onChangeComplete={changeHeadingFontColor} colors={colors} triangle="hide" />
               </div>
             </div>
 
@@ -151,15 +151,15 @@ const GlobalResumeSetting = (props) => {
                 Heading Alignment
               </span>
               <div className="resume-setting-item-body">
-                  <div className={`heading-alignment-div ${props.globalResumeSettings.headingAlignment === 'left' ? 'active' : ''}`} onClick={(event) => changeHeadingAlignment(event, 'left')}>
+                  <div className={`heading-alignment-div ${props.resumeSettings.headingAlignment === 'left' ? 'active' : ''}`} onClick={(event) => changeHeadingAlignment(event, 'left')}>
                     <FormatAlignLeftOutlinedIcon></FormatAlignLeftOutlinedIcon>
                   </div>
 
-                  <div className={`heading-alignment-div ${props.globalResumeSettings.headingAlignment === 'center' ? 'active' : ''}`} onClick={(event) => changeHeadingAlignment(event, 'center')}>
+                  <div className={`heading-alignment-div ${props.resumeSettings.headingAlignment === 'center' ? 'active' : ''}`} onClick={(event) => changeHeadingAlignment(event, 'center')}>
                     <FormatAlignCenterOutlinedIcon></FormatAlignCenterOutlinedIcon>
                   </div>
 
-                  <div className={`heading-alignment-div ${props.globalResumeSettings.headingAlignment === 'right' ? 'active' : ''}`} onClick={(event) => changeHeadingAlignment(event, 'right')}>
+                  <div className={`heading-alignment-div ${props.resumeSettings.headingAlignment === 'right' ? 'active' : ''}`} onClick={(event) => changeHeadingAlignment(event, 'right')}>
                     <FormatAlignRightOutlinedIcon></FormatAlignRightOutlinedIcon>
                   </div>
               </div>
@@ -176,7 +176,7 @@ const GlobalResumeSetting = (props) => {
               <div className="resume-setting-item-body">
                 {fontSizes.map((font, index) => {
                   return (
-                    <div key={index} className={`font-size-div ${props.globalResumeSettings.subheadingFontSize === font.value ? 'active' : ''}`} onClick={(event) => changeSubheadingFont(event, font.value)}>{font.label}</div>
+                    <div key={index} className={`font-size-div ${props.resumeSettings.subheadingFontSize === font.value ? 'active' : ''}`} onClick={(event) => changeSubheadingFont(event, font.value)}>{font.label}</div>
                   );
                 })}
               </div>
@@ -185,10 +185,10 @@ const GlobalResumeSetting = (props) => {
             <div className="resume-setting-item">
               <span className="resume-setting-item-label">
                 Font Color
-                <Box className="resume-setting-selected-color" onClick={() => { openColorToggle('subheadingFontColorToggle'); }} sx={{backgroundColor: props.globalResumeSettings.subheadingFontColor}}></Box>
+                <Box className="resume-setting-selected-color" onClick={() => { openColorToggle('subheadingFontColorToggle'); }} sx={{backgroundColor: props.resumeSettings.subheadingFontColor}}></Box>
               </span>
               <div className={`resume-setting-item-body ${colorsToggles.subheadingFontColorToggle === true ? '' : 'd-none'}`}>
-                <GithubPicker color={props.globalResumeSettings.subheadingFontColor} onChangeComplete={changeSubheadingFontColor} colors={colors} triangle="hide" />
+                <GithubPicker color={props.resumeSettings.subheadingFontColor} onChangeComplete={changeSubheadingFontColor} colors={colors} triangle="hide" />
               </div>
             </div>
           </div>
@@ -203,7 +203,7 @@ const GlobalResumeSetting = (props) => {
               <div className="resume-setting-item-body">
                 {fontSizes.map((font, index) => {
                   return (
-                    <div key={index} className={`font-size-div ${props.globalResumeSettings.bodyFontSize === font.value ? 'active' : ''}`} onClick={(event) => changeBodyFont(event, font.value)}>{font.label}</div>
+                    <div key={index} className={`font-size-div ${props.resumeSettings.bodyFontSize === font.value ? 'active' : ''}`} onClick={(event) => changeBodyFont(event, font.value)}>{font.label}</div>
                   );
                 })}
               </div>
@@ -212,7 +212,7 @@ const GlobalResumeSetting = (props) => {
             <div className="resume-setting-item">
               <span className="resume-setting-item-label">
                 Font Color
-                <Box className="resume-setting-selected-color" onClick={() => { openColorToggle('bodyFontColorToggle'); }} sx={{backgroundColor: props.globalResumeSettings.bodyFontColor}}></Box>
+                <Box className="resume-setting-selected-color" onClick={() => { openColorToggle('bodyFontColorToggle'); }} sx={{backgroundColor: props.resumeSettings.bodyFontColor}}></Box>
               </span>
               <div className={`resume-setting-item-body ${colorsToggles.bodyFontColorToggle === true ? '' : 'd-none'}`}>
                 <GithubPicker color={props.bodyFontColor} onChangeComplete={changeBodyFontColor} colors={colors} triangle="hide" />
@@ -228,20 +228,20 @@ const GlobalResumeSetting = (props) => {
             <div className="resume-setting-item">
               <span className="resume-setting-item-label">
                 Header Background Color 
-                <Box className="resume-setting-selected-color" onClick={() => { openColorToggle('headerBackgroundColorToggle'); }} sx={{backgroundColor: props.globalResumeSettings.headerBackgroundColor}}></Box>
+                <Box className="resume-setting-selected-color" onClick={() => { openColorToggle('headerBackgroundColorToggle'); }} sx={{backgroundColor: props.resumeSettings.headerBackgroundColor}}></Box>
               </span>
               <div className={`resume-setting-item-body ${colorsToggles.headerBackgroundColorToggle === true ? '' : 'd-none'}`}>
-                <GithubPicker color={props.globalResumeSettings.headerBackgroundColor} onChangeComplete={changeHeaderBackgroundColor} colors={colors} triangle="hide" />
+                <GithubPicker color={props.resumeSettings.headerBackgroundColor} onChangeComplete={changeHeaderBackgroundColor} colors={colors} triangle="hide" />
               </div>
             </div>
 
             <div className="resume-setting-item">
               <span className="resume-setting-item-label">
                 Sidebar Background Color 
-                <Box className="resume-setting-selected-color" onClick={() => { openColorToggle('sidebarBackgroundColorToggle'); }} sx={{backgroundColor: props.globalResumeSettings.sidebarBackgroundColor}}></Box>
+                <Box className="resume-setting-selected-color" onClick={() => { openColorToggle('sidebarBackgroundColorToggle'); }} sx={{backgroundColor: props.resumeSettings.sidebarBackgroundColor}}></Box>
               </span>
               <div className={`resume-setting-item-body ${colorsToggles.sidebarBackgroundColorToggle === true ? '' : 'd-none'}`}>
-                <GithubPicker color={props.globalResumeSettings.sidebarBackgroundColor} onChangeComplete={changeSidebarBackgroundColor} colors={colors} triangle="hide" />
+                <GithubPicker color={props.resumeSettings.sidebarBackgroundColor} onChangeComplete={changeSidebarBackgroundColor} colors={colors} triangle="hide" />
               </div>
             </div>
           </div>

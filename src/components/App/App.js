@@ -22,7 +22,7 @@ const isSignedIn = useSelector(state => state.authReducer.isSignedIn);
         <GlobalHeader/>
         <div>
           <Switch>
-            <Route path="/builder">
+            <Route path="/builder/:resumeId?">
               {(isSignedIn || localStorage.getItem('token') !== null) &&(<Builder></Builder>)}
               {(!isSignedIn && localStorage.getItem('token') == null) &&(<Redirect to="/"></Redirect>)}
             </Route>

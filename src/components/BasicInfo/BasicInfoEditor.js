@@ -24,7 +24,6 @@ const BasicInfoEditor = (props) => {
         setEditorData({ ...editorData });
         setFirstTime(true);
         closeEditor();
-        console.log(editorData);
     }
 
     const closeEditor = () => {

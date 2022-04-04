@@ -14,16 +14,33 @@ export const getResumeDataByUserId = createAsyncThunk(
     const response = await (await firebase.firestore().collection('users').doc(userId).get()).data();
     return JSON.parse(response.resumeJson);
   }
-)
+);
 
-// First, create the thunk
 export const updateResumeDataByUserId = createAsyncThunk(
   'resume/updateResumeDataByUserId',
   async (apiData, thunkAPI) => {
     await (await firebase.firestore().collection("users").doc(apiData.userId).update({resumeJson: JSON.stringify(apiData.data)}));
     return apiData.data;
   }
+);
+
+export const getResumeDataByResumeId = createAsyncThunk(
+  'resume/getResumeDataByResumeId',
+  async (resumeId, thunkAPI) => {
+    console.log('calling api');
+    const response = await (await firebase.firestore().collection('resumes').doc(resumeId).get()).data();
+    return JSON.parse(response.resumeJson);
+  }
 )
+
+// First, create the thunk
+export const updateResumeDataByResumeId = createAsyncThunk(
+  'resume/updateResumeDataByResumeId',
+  async (apiData, thunkAPI) => {
+    await (await firebase.firestore().collection("resumes").doc(apiData.resumeId).update({resumeJson: JSON.stringify(apiData.data)}));
+    return apiData.data;
+  }
+);
   
 
 export const resumeDataSlice = createSlice({
@@ -40,11 +57,19 @@ export const resumeDataSlice = createSlice({
         // Add reducers for additional action types here, and handle loading state as needed
         builder.addCase(getResumeDataByUserId.fulfilled, (state, action) => {
             state.resumeData = action.payload;
+        });
+
+        builder.addCase(updateResumeDataByUserId.fulfilled, (state, action) => {
+          state.resumeData = action.payload;
         })
 
-        .addCase(updateResumeDataByUserId.fulfilled, (state, action) => {
+        builder.addCase(getResumeDataByResumeId.fulfilled, (state, action) => {
           state.resumeData = action.payload;
-      })
+        });
+
+        builder.addCase(updateResumeDataByResumeId.fulfilled, (state, action) => {
+          state.resumeData = action.payload;
+        });
     },
   });
 

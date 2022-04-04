@@ -4,8 +4,8 @@ import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import GoogleLogin from '../../components/Login/GoogleLogin'
 import { useSelector, useDispatch } from 'react-redux';
-import { getResumeDataByUserId, updateResumeDataByUserId } from '../../reducers/resumeDataSlice';
-import { getGlobalSettingsByUserId, updateGlobalSettingsUserId } from '../../reducers/globalSettingsSlice';
+import { getResumeDataByResumeId, updateResumeDataByResumeId } from '../../reducers/resumeDataSlice';
+import { getResumeSettingsByResumeId, updateResumeSettingsByResumeId } from '../../reducers/resumeSettingsSlice';
 import WebAssetOutlinedIcon from '@mui/icons-material/WebAssetOutlined';
 import WebOutlinedIcon from '@mui/icons-material/WebOutlined';
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
@@ -13,6 +13,7 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import RemoveCircleOutlineOutlinedIcon from '@mui/icons-material/RemoveCircleOutlineOutlined';
+import { useParams } from "react-router-dom";
 
 import './Builder.css'
 import logo from '../../logo.svg';
@@ -32,16 +33,17 @@ import Social from '../../components/Social/Social';
 
 function Builder() {
   let resumeHTML;
-  const {authReducer, resumeDataReducer, globalSettingsReducer} = useSelector((state) => state);
+  const {authReducer, resumeDataReducer, resumeSettingsReducer} = useSelector((state) => state);
   const [arr, setItems] = useState(null);
   const [sidebar, setSidebar] = useState(true);
   const [pageTwo, setPageTwo] = useState(false);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [openSnackbar, setopenSnackbar] = useState(false);
+  let { resumeId } = useParams();
 
 
-  const [globalResumeSettings, setGlobalResumeSettings] = useState(null);
+  const [resumeSettings, setResumeSettings] = useState(null);
 
   const  openGlobalSetting = () => {
       setOpen(true);
@@ -50,18 +52,21 @@ function Builder() {
   useEffect(() => {
       console.log('calling builder effect');
       setItems(resumeDataReducer.resumeData);
-      setGlobalResumeSettings(globalSettingsReducer.globalSettings);
+      setResumeSettings(resumeSettingsReducer.resumeSettings);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [resumeDataReducer]);
     
   useEffect(() => {
-    getResumeData();
+    if(authReducer.userId) {
+      console.log('calling builder auth effect');
+      getResumeData();
+    }
      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authReducer]);
 
 
   function getResumeData() {
-    dispatch(getResumeDataByUserId(authReducer.userId)).then((res) => {
+    dispatch(getResumeDataByResumeId(resumeId)).then((res) => {
       if (res.payload) {
         setItems(res.payload);
         console.log(res.payload)
@@ -69,8 +74,8 @@ function Builder() {
       }
     });
 
-    dispatch(getGlobalSettingsByUserId(authReducer.userId)).then((res) => {
-      setGlobalResumeSettings(res.payload);
+    dispatch(getResumeSettingsByResumeId(resumeId)).then((res) => {
+      setResumeSettings(res.payload);
       if (res.payload) {
         
         setTimeout(() => {
@@ -90,13 +95,13 @@ function Builder() {
 
   function updateResumeData(newData) {
     if (authReducer.userId) {
-      dispatch(updateResumeDataByUserId({data:newData, userId: authReducer.userId}));
+      dispatch(updateResumeDataByResumeId({data:newData, resumeId: resumeId}));
     }
   }
 
   function updateGlobalSetting(newData) {
     if (authReducer.userId) {
-      dispatch(updateGlobalSettingsUserId({data:newData, userId: authReducer.userId}));
+      dispatch(updateResumeSettingsByResumeId({data:newData, resumeId: resumeId}));
     }
   }
 
@@ -222,7 +227,7 @@ function Builder() {
   }
 
 
-  if (arr && globalResumeSettings) {
+  if (arr && resumeSettings) {
     resumeHTML = <DragDropContext onDragEnd={onDragEnd}>
       <Snackbar open={openSnackbar} autoHideDuration={5000} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} onClose={closeSnackBar} >
         <Alert variant="filled" severity="success" color="primary" sx={{ width: '100%' }}>
@@ -231,8 +236,8 @@ function Builder() {
       </Snackbar>
     <div className="resume-paper-wrap">
     <GlobalResumeSetting 
-      globalResumeSettings={globalResumeSettings}
-      setGlobalResumeSettings={setGlobalResumeSettings}
+      resumeSettings={resumeSettings}
+      setResumeSettings={setResumeSettings}
       updateGlobalSetting={updateGlobalSetting}
       open={open} 
       setOpen={setOpen}>
@@ -268,9 +273,9 @@ function Builder() {
               
             </div>
             <div className="resume-paper-container" id="resumPaperContainer">
-            <Paper className={`resume-paper heading-alignment-${globalResumeSettings.headingAlignment} heading-font-${globalResumeSettings.headingFontSize} subheading-font-${globalResumeSettings.subheadingFontSize} body-font-${globalResumeSettings.bodyFontSize}`} sx={{fontSize: globalResumeSettings.bodyFontSize, color: globalResumeSettings.bodyFontColor}} elevation={3} >
+            <Paper className={`resume-paper heading-alignment-${resumeSettings.headingAlignment} heading-font-${resumeSettings.headingFontSize} subheading-font-${resumeSettings.subheadingFontSize} body-font-${resumeSettings.bodyFontSize}`} sx={{fontSize: resumeSettings.bodyFontSize, color: resumeSettings.bodyFontColor}} elevation={3} >
               <Grid container>
-                <Grid item xs={12} id="header" className={`${arr.header.length > 0 ? '' : 'no-padding'}`} sx={{backgroundColor: globalResumeSettings.headerBackgroundColor, color: globalResumeSettings.aboutSectionFontColor}}>
+                <Grid item xs={12} id="header" className={`${arr.header.length > 0 ? '' : 'no-padding'}`} sx={{backgroundColor: resumeSettings.headerBackgroundColor, color: resumeSettings.aboutSectionFontColor}}>
                   <Droppable droppableId="header">
                     {(provided, snapshot) => (
                       <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over' : 'resume-paper-content'}>
@@ -347,7 +352,7 @@ function Builder() {
                 </Grid>
                 
                 {sidebar ? 
-                <Grid item xs={5} id="sidebar" sx={{backgroundColor: globalResumeSettings.sidebarBackgroundColor}} className={`${arr.header.length > 0 ? '' : 'padding'}`}>
+                <Grid item xs={5} id="sidebar" sx={{backgroundColor: resumeSettings.sidebarBackgroundColor}} className={`${arr.header.length > 0 ? '' : 'padding'}`}>
                 <Droppable droppableId="sidebar">
                   {(provided, snapshot) => (
                     <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over sidebar-column' : 'resume-paper-content sidebar-column'}>
@@ -389,7 +394,7 @@ function Builder() {
             </Paper>
             <Box sx={{height: 30}} id='resumePageSeparator'></Box>             
             {pageTwo ?
-            <Paper className={`resume-paper heading-alignment-${globalResumeSettings.headingAlignment} heading-font-${globalResumeSettings.headingFontSize} subheading-font-${globalResumeSettings.subheadingFontSize} body-font-${globalResumeSettings.bodyFontSize}`} sx={{fontSize: globalResumeSettings.bodyFontSize, color: globalResumeSettings.bodyFontColor}} elevation={3} >
+            <Paper className={`resume-paper heading-alignment-${resumeSettings.headingAlignment} heading-font-${resumeSettings.headingFontSize} subheading-font-${resumeSettings.subheadingFontSize} body-font-${resumeSettings.bodyFontSize}`} sx={{fontSize: resumeSettings.bodyFontSize, color: resumeSettings.bodyFontColor}} elevation={3} >
               <Grid container>
                 <Grid item xs={12} id="pageTwo" className={`${arr.header.length > 0 ? '' : 'padding'}`}>
                 <Droppable droppableId="pageTwo">
