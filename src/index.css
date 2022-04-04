@@ -11,6 +11,7 @@ html {
   --color-font-heading: #000000;
   --color-font-subheading: #000000;
   --color-font-body: #000000;
+  --color-font-about-section: #000000;
   --gutter: 16px;
 }
 
@@ -83,6 +84,16 @@ code {
 
 .resume-paper .resume-section-title {
   color: var(--color-font-heading);
+  border-bottom: 2px solid var(--color-font-heading);
+}
+
+#header .resume-section-title {
+  color: var(--color-font-about-section);
+  border-bottom: 2px solid var(--color-font-about-section);
+}
+
+#header .resume-section-subtitle {
+  color: var(--color-font-about-section);
 }
 
 .resume-paper.heading-alignment-left .resume-section-title {

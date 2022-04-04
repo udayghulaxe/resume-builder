@@ -74,6 +74,7 @@ function Builder() {
         root.style.setProperty("--color-font-heading", res.payload.headingFontColor);
         root.style.setProperty("--color-font-subheading", res.payload.subheadingFontColor);
         root.style.setProperty("--color-font-body", res.payload.bodyFontColor);
+        root.style.setProperty("--color-font-about-section", res.payload.aboutSectionFontColor);
       }
     });
 
