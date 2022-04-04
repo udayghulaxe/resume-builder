@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Suspense } from "react";
-import { AppBar, Button, Box, Toolbar, Link, Paper, Grid, Autocomplete, TextField, CircularProgress, Chip } from '@mui/material';
+import { AppBar, Button, Box, Toolbar, Link, Paper, Grid, Autocomplete, TextField, CircularProgress, Chip, Alert, Snackbar} from '@mui/material';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import GoogleLogin from '../../components/Login/GoogleLogin'
@@ -12,6 +12,7 @@ import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import RemoveCircleOutlineOutlinedIcon from '@mui/icons-material/RemoveCircleOutlineOutlined';
 
 import './Builder.css'
 import logo from '../../logo.svg';
@@ -37,6 +38,8 @@ function Builder() {
   const [pageTwo, setPageTwo] = useState(false);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
+  const [openSnackbar, setopenSnackbar] = useState(false);
+
 
   const [globalResumeSettings, setGlobalResumeSettings] = useState(null);
 
@@ -70,6 +73,10 @@ function Builder() {
       setGlobalResumeSettings(res.payload);
       if (res.payload) {
         
+        setTimeout(() => {
+          setopenSnackbar(true);
+        }, 2000);
+
         const root = document.querySelector(":root");
         root.style.setProperty("--color-font-heading", res.payload.headingFontColor);
         root.style.setProperty("--color-font-subheading", res.payload.subheadingFontColor);
@@ -98,6 +105,10 @@ function Builder() {
     return Math.floor(Math.random() * Date.now())
   }
 
+  const closeSnackBar = () => {
+    setopenSnackbar(false);
+  }
+
   const copyComponent = (event, item, index, column) => {
     item = {...item, copy: true, name: `${item.name}-${getUniqueId()}`};
     let newArr = JSON.parse(JSON.stringify(arr));
@@ -117,11 +128,11 @@ function Builder() {
   const addResumePage = () => {
     setPageTwo(true); 
     setTimeout(() => {
-    const body = document.getElementById('pageTwo');
+    const body = document.getElementById('resumePageSeparator');
     body.scrollIntoView({
         behavior: 'smooth'
-    }, 500)
-    } , 500);
+    }, 300)
+    } , 200);
   }
 
   const removeResumePage = () => {
@@ -213,6 +224,11 @@ function Builder() {
 
   if (arr && globalResumeSettings) {
     resumeHTML = <DragDropContext onDragEnd={onDragEnd}>
+      <Snackbar open={openSnackbar} autoHideDuration={5000} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} onClose={closeSnackBar} >
+        <Alert variant="filled" severity="success" color="primary" sx={{ width: '100%' }}>
+          New Widgets Available. Try Out.
+        </Alert>
+      </Snackbar>
     <div className="resume-paper-wrap">
     <GlobalResumeSetting 
       globalResumeSettings={globalResumeSettings}
@@ -244,7 +260,7 @@ function Builder() {
               <div className="layout-option-item">
                 {
                   pageTwo ? 
-                  <Chip color="primary" icon={<AddCircleOutlineOutlinedIcon />} onClick={removeResumePage} label="Remove Page" /> 
+                  <Chip color="primary" icon={<RemoveCircleOutlineOutlinedIcon />} onClick={removeResumePage} label="Remove Page" /> 
                   : <Chip color="primary" icon={<AddCircleOutlineOutlinedIcon />} onClick={addResumePage} label="Add Page" />
                 }
                 
@@ -371,7 +387,7 @@ function Builder() {
                 </Grid> : null}
               </Grid>
             </Paper>
-            <Box sx={{height: 30}}></Box>             
+            <Box sx={{height: 30}} id='resumePageSeparator'></Box>             
             {pageTwo ?
             <Paper className={`resume-paper heading-alignment-${globalResumeSettings.headingAlignment} heading-font-${globalResumeSettings.headingFontSize} subheading-font-${globalResumeSettings.subheadingFontSize} body-font-${globalResumeSettings.bodyFontSize}`} sx={{fontSize: globalResumeSettings.bodyFontSize, color: globalResumeSettings.bodyFontColor}} elevation={3} >
               <Grid container>
