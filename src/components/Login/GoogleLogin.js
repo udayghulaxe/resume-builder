@@ -45,8 +45,13 @@ class GoogleLogin extends Component {
     }
   };
 
+  getUniqueId = () => {
+    return Math.floor(Math.random() * Date.now())
+  }
+
   onSignInClick = () => {
     this.auth.signIn().then(() => {
+      const uniqueId = this.getUniqueId();
       const userId = this.auth.currentUser.get().getId();
       const name = this.auth.currentUser.get().getBasicProfile().getName();
       const email = this.auth.currentUser.get().getBasicProfile().getEmail();
@@ -82,11 +87,18 @@ class GoogleLogin extends Component {
             };
             firebase
               .firestore()
-              .collection("users")
-              .doc(userId)
+              .collection("resumes")
+              .doc(`${uniqueId}`)
               .set({
                 resumeJson: JSON.stringify(initialData.resumeJson),
-                globalSettings: JSON.stringify(initialData.globalSettings),
+                resumeSettings: JSON.stringify(initialData.resumeSettings)
+            });
+            firebase
+              .firestore()
+              .collection("users")
+              .doc(`${userId}`)
+              .set({
+                userResumes: JSON.stringify([uniqueId]),
                 userId: userId,
                 name: name,
                 email: email,
@@ -96,7 +108,7 @@ class GoogleLogin extends Component {
                   "token",
                   this.auth.currentUser.get().getAuthResponse().id_token
                 );
-                this.props.history.replace("builder");
+                this.props.history.replace(`builder/${uniqueId}`);
               });
           }
         })
