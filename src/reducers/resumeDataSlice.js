@@ -2,7 +2,7 @@ import {createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import firebase from '../firebase';
 
 const INITIAL_STATE = {
-    resumeData: null, loading: 'idle'
+    resumeData: null, loading: 'idle',
 };
 
 
@@ -61,7 +61,7 @@ export const resumeDataSlice = createSlice({
 
         builder.addCase(updateResumeDataByUserId.fulfilled, (state, action) => {
           state.resumeData = action.payload;
-        })
+        });
 
         builder.addCase(getResumeDataByResumeId.fulfilled, (state, action) => {
           state.resumeData = action.payload;
