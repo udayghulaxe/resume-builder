@@ -2,7 +2,7 @@ import {createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import firebase from '../firebase';
 
 const INITIAL_STATE = {
-    resumeSettings: null
+    resumeSettings: null,
 };
 
 
@@ -40,11 +40,11 @@ export const resumeSettingsSlice = createSlice({
         // Add reducers for additional action types here, and handle loading state as needed
         builder.addCase(getResumeSettingsByResumeId.fulfilled, (state, action) => {
             state.resumeSettings = action.payload;
-        })
+        });
 
-        .addCase(updateResumeSettingsByResumeId.fulfilled, (state, action) => {
+        builder.addCase(updateResumeSettingsByResumeId.fulfilled, (state, action) => {
           state.resumeSettings = action.payload;
-      })
+        });
     },
   });
 

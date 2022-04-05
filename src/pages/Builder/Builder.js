@@ -69,7 +69,7 @@ function Builder() {
     dispatch(getResumeDataByResumeId(resumeId)).then((res) => {
       if (res.payload) {
         setItems(res.payload);
-        console.log(res.payload)
+        console.log(res.payload);
         setPageTwo(res.payload.pageTwo.length > 0);
       }
     });
