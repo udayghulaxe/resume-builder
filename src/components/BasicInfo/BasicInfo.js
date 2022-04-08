@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Grid, Box} from '@mui/material';
+import {Grid, Box, Tooltip} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import PhoneIcon from '@mui/icons-material/Phone';
 import MailIcon from '@mui/icons-material/Mail';
@@ -34,7 +34,9 @@ const BasicInfo = (props) => {
             <div className="basic-section-title">
                 <span className="basic-info name">{props.componentItem.componentData.fullName}</span>
                 <span className="edit-component-icon">
-                    <EditIcon onClick={openEditor} />
+                    <Tooltip title="Edit" placement="top" arrow>
+                        <EditIcon onClick={openEditor} />
+                    </Tooltip>    
                 </span>
             </div>
             <p className="basic-info current-role">{props.componentItem.componentData.currentRole}</p>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Tooltip } from '@mui/material';
 import LinearProgress from '@mui/material/LinearProgress';
 import EditIcon from '@mui/icons-material/Edit';
 import LanguagesEditor from "./LanguagesEditor";
@@ -42,7 +43,9 @@ const Languages = (props) => {
       <div className="resume-section-title">
           <span>{props.componentItem.componentData.title}</span>
           <span className="edit-component-icon">
-              <EditIcon onClick={openEditor}/>
+            <Tooltip title="Edit" placement="top" arrow>
+              <EditIcon onClick={openEditor} />
+            </Tooltip>
           </span>
       </div>
       {props.componentItem.componentData.items.map((item, index) => {
