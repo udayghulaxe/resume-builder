@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import {Grid, Box} from '@mui/material';
+import {Grid, Box, Tooltip} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -30,7 +30,9 @@ const Experience = (props) => {
             <div className="resume-section-title">
                 <span>{props.componentItem.componentData.title}</span>
                 <span className="edit-component-icon">
-                    <EditIcon onClick={openEditor} />
+                    <Tooltip title="Edit" placement="top" arrow>
+                        <EditIcon onClick={openEditor} />
+                    </Tooltip>    
                 </span>
                 </div>     
             <div className="experience-item-wrap">

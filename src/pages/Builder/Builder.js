@@ -1,6 +1,5 @@
 import React, { useState, useEffect, Suspense } from "react";
-import { AppBar, Button, Box, Toolbar, Link, Paper, Grid, Autocomplete, TextField, CircularProgress, Chip, Alert, Snackbar} from '@mui/material';
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
+import { AppBar, Button, Box, Toolbar, Link, Paper, Grid, Autocomplete, TextField, CircularProgress, Chip, Alert, Snackbar, Tooltip } from '@mui/material';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import GoogleLogin from '../../components/Login/GoogleLogin'
 import { useSelector, useDispatch } from 'react-redux';
@@ -13,6 +12,7 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import RemoveCircleOutlineOutlinedIcon from '@mui/icons-material/RemoveCircleOutlineOutlined';
+import OpenWithIcon from '@mui/icons-material/OpenWith';
 import { useParams } from "react-router-dom";
 import html2canvas from "html2canvas";
 
@@ -280,9 +280,9 @@ function Builder() {
                 
               </div>
 
-              <div className="layout-option-item">
+              {/* <div className="layout-option-item">
               <Chip color="primary" icon={<WebOutlinedIcon />} onClick={clickPhoto} label="Click Photo" />
-              </div>
+              </div> */}
               
             </div>
             <div className="resume-paper-container" id="resumPaperContainer">
@@ -304,10 +304,14 @@ function Builder() {
                                     { getComponent(item.componentType, item, 'header') }
                                     <div className="overlay">
                                       <span className="drag-handle" {...provided.dragHandleProps}>
-                                        <DragIndicatorIcon/>
+                                          <Tooltip title="Grab & Move" placement="top" arrow>
+                                            <OpenWithIcon/>
+                                          </Tooltip>
                                       </span>
                                       <span className="copy-component">
-                                        <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'header')}/>
+                                        <Tooltip title="Copy" placement="top" arrow>
+                                          <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'header')}/>
+                                        </Tooltip>  
                                       </span>
                                       <span className={item.copy ? 'delete-component' : 'd-none'}>
                                         <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'header')}/>
@@ -342,10 +346,14 @@ function Builder() {
                                   { getComponent(item.componentType, item, 'main') }
                                   <div className="overlay">
                                     <span className="drag-handle" {...provided.dragHandleProps}>
-                                      <DragIndicatorIcon/>
+                                      <Tooltip title="Grab & Move" placement="top" arrow>
+                                        <OpenWithIcon/>
+                                      </Tooltip>
                                     </span>
                                     <span className="copy-component">
-                                      <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'main')}/>
+                                      <Tooltip title="Copy" placement="top" arrow>
+                                        <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'main')}/>
+                                      </Tooltip>  
                                     </span>
                                     <span className={item.copy ? 'delete-component' : 'd-none'}>
                                         <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'main')}/>
@@ -382,10 +390,14 @@ function Builder() {
                                   { getComponent(item.componentType, item, 'sidebar') }
                                   <div className="overlay">
                                     <span className="drag-handle" {...provided.dragHandleProps}>
-                                      <DragIndicatorIcon/>
+                                      <Tooltip title="Grab & Move" placement="top" arrow>
+                                          <OpenWithIcon/>
+                                      </Tooltip>
                                     </span>
                                     <span className="copy-component">
-                                      <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'sidebar')}/>
+                                      <Tooltip title="Copy" placement="top" arrow>
+                                        <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'sidebar')}/>
+                                      </Tooltip>  
                                     </span>
                                     <span className={item.copy ? 'delete-component' : 'd-none'}>
                                         <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'sidebar')}/>
@@ -426,10 +438,14 @@ function Builder() {
                                   { getComponent(item.componentType, item, 'pageTwo') }
                                   <div className="overlay">
                                     <span className="drag-handle" {...provided.dragHandleProps}>
-                                      <DragIndicatorIcon/>
+                                      <Tooltip title="Grab & Move" placement="top" arrow>
+                                          <OpenWithIcon/>
+                                      </Tooltip>
                                     </span>
                                     <span className="copy-component">
-                                      <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'pageTwo')}/>
+                                      <Tooltip title="Copy" placement="top" arrow>
+                                        <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'pageTwo')}/>
+                                      </Tooltip>
                                     </span>
                                     <span className={item.copy ? 'delete-component' : 'd-none'}>
                                         <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'pageTwo')}/>
@@ -486,10 +502,14 @@ function Builder() {
                                   { getComponent(item.componentType, item, 'componentLibrary') }
                                   <div className="overlay">
                                     <span className="drag-handle" {...provided.dragHandleProps}>
-                                      <DragIndicatorIcon/>
+                                      <Tooltip title="Grab & Move" placement="top" arrow>
+                                          <OpenWithIcon/>
+                                      </Tooltip>
                                     </span>
                                     <span className="copy-component">
-                                      <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'componentLibrary')}/>
+                                      <Tooltip title="Copy" placement="top" arrow>
+                                        <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'componentLibrary')}/>
+                                      </Tooltip>  
                                     </span>
                                     <span className={item.copy ? 'delete-component' : 'd-none'}>
                                         <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'componentLibrary')}/>
