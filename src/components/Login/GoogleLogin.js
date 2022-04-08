@@ -3,9 +3,8 @@ import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 import { connect } from "react-redux";
 import { signInAction, signOutAction } from "../../reducers/authSlice.js";
-import { withRouter } from "react-router-dom";
+import { withRouter, NavLink } from "react-router-dom";
 import firebase from "../../firebase";
-import { initialData } from '../../globals.js';
 
 class GoogleLogin extends Component {
   // If not using arrow function then we need to bind `this` like below
@@ -45,13 +44,8 @@ class GoogleLogin extends Component {
     }
   };
 
-  getUniqueId = () => {
-    return Math.floor(Math.random() * Date.now())
-  }
-
   onSignInClick = () => {
     this.auth.signIn().then(() => {
-      const uniqueId = this.getUniqueId();
       const userId = this.auth.currentUser.get().getId();
       const name = this.auth.currentUser.get().getBasicProfile().getName();
       const email = this.auth.currentUser.get().getBasicProfile().getEmail();
@@ -74,31 +68,14 @@ class GoogleLogin extends Component {
               "token",
               this.auth.currentUser.get().getAuthResponse().id_token
             );
-            this.props.history.replace("builder");
+            this.props.history.replace("resumes");
           } else {
-            initialData.resumeJson.header.filter(
-              (item) => item.name === "BasicInfo"
-            )[0].componentData = {
-              fullName: name,
-              email: email,
-              website: "www.example.com",
-              phone: "1234567890",
-              address: "123, ABC Street, XYZ City, ABC State, 123456",
-            };
-            firebase
-              .firestore()
-              .collection("resumes")
-              .doc(`${uniqueId}`)
-              .set({
-                resumeJson: JSON.stringify(initialData.resumeJson),
-                resumeSettings: JSON.stringify(initialData.resumeSettings)
-            });
             firebase
               .firestore()
               .collection("users")
               .doc(`${userId}`)
               .set({
-                userResumes: JSON.stringify([uniqueId]),
+                userResumes: JSON.stringify([]),
                 userId: userId,
                 name: name,
                 email: email,
@@ -108,7 +85,7 @@ class GoogleLogin extends Component {
                   "token",
                   this.auth.currentUser.get().getAuthResponse().id_token
                 );
-                this.props.history.replace(`builder/${uniqueId}`);
+                this.props.history.replace(`resumes`);
               });
           }
         })
@@ -134,15 +111,27 @@ class GoogleLogin extends Component {
       );
     } else if (this.props.isSignedIn) {
       return (
-        <Button
-          onClick={this.onSignOutClick}
-          variant="contained"
-          color="primary"
-          disableElevation
-          className="header-login-button"
-        >
-          Logout
-        </Button>
+        <>
+          <Button
+              component={NavLink}
+              to="/resumes"
+              exact
+              variant="text"
+              color="primary" 
+              disableElevation
+              className="mobile-d-none header-menu-link">
+                  My Resumes
+          </Button>
+          <Button
+            onClick={this.onSignOutClick}
+            variant="contained"
+            color="primary"
+            disableElevation
+            className="header-login-button"
+          >
+            Logout
+          </Button>
+        </>
       );
     } else {
       return (

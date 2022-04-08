@@ -27,7 +27,8 @@ const GlobalHeader = () => {
                             className="mobile-d-none header-menu-link">
                                 Home
                         </Button>
-                        <Button 
+                        
+                        {/* <Button 
                             component={NavLink}
                             to="/about"
                             variant="text"
@@ -44,7 +45,7 @@ const GlobalHeader = () => {
                             disableElevation
                             className="mobile-d-none header-menu-link">
                                 Contact
-                        </Button>
+                        </Button> */}
                         <GoogleLogin></GoogleLogin>
                     </nav>
                 </Toolbar>

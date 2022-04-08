@@ -1,6 +1,7 @@
 export const richEditorSettings = {
   toolbar: [
     [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+    [{ 'align': [] }],
     ['bold', 'italic', 'underline','strike', 'blockquote'],
     [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
     [{ 'color': [] }, { 'background': [] }],
@@ -175,24 +176,7 @@ export const initialData = {
       },
     }
   ],
-  pageTwo: [
-    {
-      name: "SkillsWithProgress",
-      componentType: 'SkillsWithProgress',
-      path: "SkillsWithProgress/SkillsWithProgress",
-      componentData: {
-        title: "Skills",
-        showProficiency: true,
-        showProficiencyProgress: true,
-        items: [
-          { title: "HTML", proficiency: 80 },
-          { title: "CSS", proficiency: 80 },
-          { title: "Javascript", proficiency: "70" },
-          { title: "React", proficiency: 50 },
-        ],
-      },
-    }
-  ],
+  pageTwo: [],
   componentLibrary: [
     {
       name: "Languages",
@@ -209,6 +193,22 @@ export const initialData = {
         ],
       },
     },
+    {
+      name: "SkillsWithProgress",
+      componentType: 'SkillsWithProgress',
+      path: "SkillsWithProgress/SkillsWithProgress",
+      componentData: {
+        title: "Skills",
+        showProficiency: true,
+        showProficiencyProgress: true,
+        items: [
+          { title: "HTML", proficiency: 80 },
+          { title: "CSS", proficiency: 80 },
+          { title: "Javascript", proficiency: "70" },
+          { title: "React", proficiency: 50 },
+        ],
+      },
+    }
   ],
 }
 };
