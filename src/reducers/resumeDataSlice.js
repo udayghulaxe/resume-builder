@@ -5,25 +5,6 @@ const INITIAL_STATE = {
     resumeData: null, loading: 'idle',
 };
 
-
-
-// First, create the thunk
-export const getResumeDataByUserId = createAsyncThunk(
-  'resume/getResumeDataByUserId',
-  async (userId, thunkAPI) => {
-    const response = await (await firebase.firestore().collection('users').doc(userId).get()).data();
-    return JSON.parse(response.resumeJson);
-  }
-);
-
-export const updateResumeDataByUserId = createAsyncThunk(
-  'resume/updateResumeDataByUserId',
-  async (apiData, thunkAPI) => {
-    await (await firebase.firestore().collection("users").doc(apiData.userId).update({resumeJson: JSON.stringify(apiData.data)}));
-    return apiData.data;
-  }
-);
-
 export const getResumeDataByResumeId = createAsyncThunk(
   'resume/getResumeDataByResumeId',
   async (resumeId, thunkAPI) => {
@@ -54,15 +35,6 @@ export const resumeDataSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        // Add reducers for additional action types here, and handle loading state as needed
-        builder.addCase(getResumeDataByUserId.fulfilled, (state, action) => {
-            state.resumeData = action.payload;
-        });
-
-        builder.addCase(updateResumeDataByUserId.fulfilled, (state, action) => {
-          state.resumeData = action.payload;
-        });
-
         builder.addCase(getResumeDataByResumeId.fulfilled, (state, action) => {
           state.resumeData = action.payload;
         });

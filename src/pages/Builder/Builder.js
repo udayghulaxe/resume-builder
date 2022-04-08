@@ -14,6 +14,7 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import RemoveCircleOutlineOutlinedIcon from '@mui/icons-material/RemoveCircleOutlineOutlined';
 import { useParams } from "react-router-dom";
+import html2canvas from "html2canvas";
 
 import './Builder.css'
 import logo from '../../logo.svg';
@@ -226,6 +227,14 @@ function Builder() {
     }
   }
 
+  const clickPhoto = () => {
+    console.log('click photo');
+    const test = document.querySelector("#pageOne");
+    html2canvas(test).then(function(canvas) {
+      console.dir(canvas.toDataURL("image/jpeg"));
+  });
+  }
+
 
   if (arr && resumeSettings) {
     resumeHTML = <DragDropContext onDragEnd={onDragEnd}>
@@ -270,11 +279,15 @@ function Builder() {
                 }
                 
               </div>
+
+              <div className="layout-option-item">
+              <Chip color="primary" icon={<WebOutlinedIcon />} onClick={clickPhoto} label="Click Photo" />
+              </div>
               
             </div>
             <div className="resume-paper-container" id="resumPaperContainer">
             <Paper className={`resume-paper heading-alignment-${resumeSettings.headingAlignment} heading-font-${resumeSettings.headingFontSize} subheading-font-${resumeSettings.subheadingFontSize} body-font-${resumeSettings.bodyFontSize}`} sx={{fontSize: resumeSettings.bodyFontSize, color: resumeSettings.bodyFontColor}} elevation={3} >
-              <Grid container>
+              <Grid container id="pageOne">
                 <Grid item xs={12} id="header" className={`${arr.header.length > 0 ? '' : 'no-padding'}`} sx={{backgroundColor: resumeSettings.headerBackgroundColor, color: resumeSettings.aboutSectionFontColor}}>
                   <Droppable droppableId="header">
                     {(provided, snapshot) => (
