@@ -9,7 +9,7 @@ export const getResumeDataByResumeId = createAsyncThunk(
   'resume/getResumeDataByResumeId',
   async (resumeId, thunkAPI) => {
     console.log('calling api');
-    const response = await (await firebase.firestore().collection('resumes').doc(resumeId).get()).data();
+    const response = await (await firebase.firestore().collection('resumes').doc(`${resumeId}`).get()).data();
     return JSON.parse(response.resumeJson);
   }
 )
@@ -18,7 +18,7 @@ export const getResumeDataByResumeId = createAsyncThunk(
 export const updateResumeDataByResumeId = createAsyncThunk(
   'resume/updateResumeDataByResumeId',
   async (apiData, thunkAPI) => {
-    await (await firebase.firestore().collection("resumes").doc(apiData.resumeId).update({resumeJson: JSON.stringify(apiData.data)}));
+    await (await firebase.firestore().collection("resumes").doc(`${apiData.resumeId}`).update({resumeJson: JSON.stringify(apiData.data)}));
     return apiData.data;
   }
 );
@@ -36,6 +36,7 @@ export const resumeDataSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(getResumeDataByResumeId.fulfilled, (state, action) => {
+          console.log(action);
           state.resumeData = action.payload;
         });
 

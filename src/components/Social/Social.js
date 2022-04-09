@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import { Tooltip } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import SocialEditor from "./SocialEditor";
 
@@ -18,9 +17,7 @@ const Social = (props) => {
             <div className="resume-section-title">
                 <span>{props.componentItem.componentData.title}</span>
                 <span className="edit-component-icon">
-                <Tooltip title="Edit" placement="top" arrow>
                     <EditIcon onClick={openEditor} />
-                </Tooltip>
                 </span>
             </div>   
             

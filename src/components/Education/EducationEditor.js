@@ -86,7 +86,7 @@ const EducationEditor = (props) => {
 
 
     return (
-        <Dialog maxWidth='sm' fullWidth={true} open={props.open} onClose={closeEditor}>
+        <Dialog maxWidth='sm' open={props.open} onClose={closeEditor}>
             <DialogContent>
                 <div className='editor-wrap'>
                     <div className='editor-heading-wrap'>

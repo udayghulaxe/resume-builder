@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 
 import { useSelector, useDispatch } from 'react-redux';
-import { getUserDataByUserId, updateUserDataByUserId } from '../../reducers/userDataSlice';
-import { Button, Grid, CircularProgress, Box } from '@mui/material';
+import { getUserDataByUserId, createNewReumseByUserId, updateUserResumeDataByUserId, deleteResumeByResumeId, copyResumeByResumeId } from '../../reducers/userDataSlice';
+import { Button, Grid, CircularProgress, Box, LinearProgress, Dialog, DialogContent } from '@mui/material';
 import { useHistory } from "react-router-dom";
-import firebase from "../../firebase";
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
@@ -18,6 +17,9 @@ const Resumes = () => {
   const {authReducer, userDataReducer} = useSelector((state) => state);
   const [userData, setUserData] = useState(null);
   const [userResumes, setUserResumes] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [previewResumeImageSrc, setPreviewResumeImageSrc] = useState('');
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -36,6 +38,15 @@ const Resumes = () => {
   //     // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [userDataReducer]);
 
+  const closeEditor = () => {
+    setOpen(false);
+  };
+
+  const previewResume = (resumeImage) => {
+    setOpen(true);
+    setPreviewResumeImageSrc(resumeImage);
+  }
+
 
   const getUserData = () => {
     dispatch(getUserDataByUserId(authReducer.userId)).then((res) => {
@@ -51,40 +62,63 @@ const Resumes = () => {
   }
 
   const createNewResume = () => {
+    setIsLoading(true);
     const uniqueId = getUniqueId();
 
     if (authReducer.userId) {
-      dispatch(updateUserDataByUserId({data:userResumes, userData: userData, uniqueId: uniqueId})).then((res) => {
+      dispatch(createNewReumseByUserId({data:userResumes, userData: userData, uniqueId: uniqueId})).then((res) => {
         setUserResumes(res.payload);
+        setIsLoading(false);
         history.push(`builder/${uniqueId}`);
       });
     }
   }
 
   const onDeleteResume = (resumeId) => {
-    const userResumeData = [...userResumes];
-    const newResumeData = userResumeData.filter((item) => item.resumeId !== resumeId)
+    setIsLoading(true);
+    const userResumeData = JSON.parse(JSON.stringify(userResumes));
+    const newResumeData = userResumeData.filter((item) => item.resumeId !== resumeId);
 
+    dispatch(deleteResumeByResumeId(resumeId));
+    
     setUserResumes(newResumeData);
-
-    firebase.firestore()
-    .collection("users")
-    .doc(`${authReducer.userId}`)
-    .update({
-      userResumes: JSON.stringify(newResumeData),
+    dispatch(updateUserResumeDataByUserId({userId: authReducer.userId, data: JSON.stringify(newResumeData)})).then((res) => {
+      setIsLoading(false);
     });
 
-    firebase.firestore()
-      .collection("resumes")
-      .doc(`${resumeId}`)
-      .delete();
+  }
+
+  const onDuplicateResume = (resumeId) => {
+    setIsLoading(true);
+    const uniqueId = getUniqueId();
+    const userResumeData = JSON.parse(JSON.stringify(userResumes));
+    const copyFrom = userResumeData.filter((item) => item.resumeId === resumeId)[0];
+    userResumeData.push({
+      resumeId: uniqueId.toString(),
+      resumeName: `${copyFrom.resumeName} (copy)`,
+      resumeImage: copyFrom.resumeImage,
+    });
+    
+    dispatch(updateUserResumeDataByUserId({userId: authReducer.userId, data: JSON.stringify(userResumeData)}));
+    dispatch(copyResumeByResumeId({resumeId: resumeId, uniqueId: uniqueId})).then((res) => {
+      setUserResumes(userResumeData);
+      setIsLoading(false);
+    });
   }
 
   return (
     <div className="user-resumes-wrap">
+
+      <Dialog open={open} onClose={closeEditor} scroll='body'>
+        <DialogContent className="preview-dialog-content">
+          <img alt="Resume Preview" className="resume-preview" src={previewResumeImageSrc}/>
+        </DialogContent>
+      </Dialog>
+
+
       <div className="resume-header">
         <h1>My Resumes</h1>
-        <Button
+        {userResumes && userResumes.length <= 1 && <Button
             startIcon={<AddCircleOutlineOutlinedIcon />}
             size="small"
             onClick={createNewResume}
@@ -93,8 +127,9 @@ const Resumes = () => {
             disableElevation
             className="header-create-resume-button">
                 New Resume
-        </Button>
+        </Button>}
       </div>
+      <LinearProgress className={isLoading ? '' : 'd-none'} color="primary" />
 
        
       {userResumes ?
@@ -135,7 +170,8 @@ const Resumes = () => {
                         </div>
 
                         {/* COPY ACTION */}
-                        <div className="resume-action-item link">
+                        { userResumes.length <= 1 && 
+                        <div className={`resume-action-item link ${isLoading ? 'item-disabled' : ''}`} onClick={() => { onDuplicateResume(item.resumeId); }}>
                           <span className="resume-action-item-link-icon">
                             <CopyAllOutlinedIcon />
                           </span>
@@ -143,9 +179,10 @@ const Resumes = () => {
                             Duplicate
                           </span>
                         </div>
+                        }
 
                         {/* PREVIEW ACTION */}
-                        <div className="resume-action-item link">
+                        <div className="resume-action-item link" onClick={() => { previewResume(item.resumeImage); }}>
                           <span className="resume-action-item-link-icon">
                             <VisibilityOutlinedIcon />
                           </span>

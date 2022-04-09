@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Chip, Tooltip } from '@mui/material';
+import { Chip } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import SkillsEditor from "./SkillsEditor";
 
@@ -18,9 +18,7 @@ const Skills = (props) => {
             <div className="resume-section-title">
                 <span>{props.componentItem.componentData.title}</span>
                 <span className="edit-component-icon">
-                <Tooltip title="Edit" placement="top" arrow>
                     <EditIcon onClick={openEditor} />
-                </Tooltip>
                 </span>
             </div>   
             
