@@ -19,9 +19,53 @@ export const getUserDataByUserId = createAsyncThunk(
   }
 )
 
-// create the thunk
-export const updateUserDataByUserId = createAsyncThunk(
+// First, create the thunk
+export const updateUserResumeDataByUserId = createAsyncThunk(
   'resume/updateUserDataByUserId',
+  async (apiData, thunkAPI) => {
+      
+    await firebase.firestore()
+    .collection("users")
+    .doc(`${apiData.userId}`)
+    .update({
+      userResumes: apiData.data,
+    });
+    return apiData.data;
+  }
+)
+
+// First, create the thunk
+export const deleteResumeByResumeId = createAsyncThunk(
+  'resume/deleteResumeByResumeId',
+  async (resumeId, thunkAPI) => {
+      
+    firebase.firestore()
+      .collection("resumes")
+      .doc(`${resumeId}`)
+      .delete();
+  }
+)
+
+export const copyResumeByResumeId = createAsyncThunk(
+  'resume/copyResumeByResumeId',
+  async (apiData, thunkAPI) => {
+
+    const response = await (await firebase.firestore().collection('resumes').doc(apiData.resumeId).get()).data();
+    await firebase.firestore()
+      .collection("resumes")
+      .doc(`${apiData.uniqueId}`)
+      .set({
+        resumeJson: response.resumeJson,
+        resumeSettings: response.resumeSettings
+    });
+
+    return JSON.parse(response.resumeJson);
+  }
+)
+
+// create the thunk
+export const createNewReumseByUserId = createAsyncThunk(
+  'resume/createNewReumseByUserId',
   async (apiData, thunkAPI) => {
     console.log(apiData);
     const userResumeData = [
@@ -71,7 +115,11 @@ export const userDataSlice = createSlice({
             state.userData = action.payload;
         });
 
-        builder.addCase(updateUserDataByUserId.fulfilled, (state, action) => {
+        builder.addCase(createNewReumseByUserId.fulfilled, (state, action) => {
+          state.userData.userResumes = action.payload;
+        });
+
+        builder.addCase(updateUserResumeDataByUserId.fulfilled, (state, action) => {
           state.userData.userResumes = action.payload;
         });
     },

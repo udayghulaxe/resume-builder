@@ -1,10 +1,12 @@
 import React, { useState, useEffect, Suspense } from "react";
-import { AppBar, Button, Box, Toolbar, Link, Paper, Grid, Autocomplete, TextField, CircularProgress, Chip, Alert, Snackbar, Tooltip } from '@mui/material';
+import { AppBar, Button, Box, Toolbar, Link, Paper, Grid, Autocomplete, TextField, CircularProgress, Chip, Alert, Snackbar } from '@mui/material';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import GoogleLogin from '../../components/Login/GoogleLogin'
 import { useSelector, useDispatch } from 'react-redux';
 import { getResumeDataByResumeId, updateResumeDataByResumeId } from '../../reducers/resumeDataSlice';
 import { getResumeSettingsByResumeId, updateResumeSettingsByResumeId } from '../../reducers/resumeSettingsSlice';
+import { getUserDataByUserId, updateUserResumeDataByUserId } from '../../reducers/userDataSlice';
+
 import WebAssetOutlinedIcon from '@mui/icons-material/WebAssetOutlined';
 import WebOutlinedIcon from '@mui/icons-material/WebOutlined';
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
@@ -12,6 +14,7 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import RemoveCircleOutlineOutlinedIcon from '@mui/icons-material/RemoveCircleOutlineOutlined';
+import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import OpenWithIcon from '@mui/icons-material/OpenWith';
 import { useParams } from "react-router-dom";
 import html2canvas from "html2canvas";
@@ -34,9 +37,8 @@ import Social from '../../components/Social/Social';
 
 function Builder() {
   let resumeHTML;
-  const {authReducer, resumeDataReducer, resumeSettingsReducer} = useSelector((state) => state);
+  const {authReducer, resumeDataReducer, resumeSettingsReducer, userDataReducer} = useSelector((state) => state);
   const [arr, setItems] = useState(null);
-  const [sidebar, setSidebar] = useState(true);
   const [pageTwo, setPageTwo] = useState(false);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
@@ -71,17 +73,19 @@ function Builder() {
       if (res.payload) {
         setItems(res.payload);
         console.log(res.payload);
-        setPageTwo(res.payload.pageTwo.length > 0);
+        setPageTwo(res.payload.pageTwo && res.payload.pageTwo.length > 0);
       }
     });
+
+    dispatch(getUserDataByUserId(authReducer.userId));
 
     dispatch(getResumeSettingsByResumeId(resumeId)).then((res) => {
       setResumeSettings(res.payload);
       if (res.payload) {
         
-        setTimeout(() => {
-          setopenSnackbar(true);
-        }, 2000);
+        // setTimeout(() => {
+        //   setopenSnackbar(true);
+        // }, 2000);
 
         const root = document.querySelector(":root");
         root.style.setProperty("--color-font-heading", res.payload.headingFontColor);
@@ -90,8 +94,6 @@ function Builder() {
         root.style.setProperty("--color-font-about-section", res.payload.aboutSectionFontColor);
       }
     });
-
-    
   }
 
   function updateResumeData(newData) {
@@ -104,6 +106,32 @@ function Builder() {
     if (authReducer.userId) {
       dispatch(updateResumeSettingsByResumeId({data:newData, resumeId: resumeId}));
     }
+  }
+
+  const onSidebarSettingClick = () => {
+    if (resumeSettings.sidebar) {
+      const newArr = {...arr, main: [...arr['main'], ...arr['sidebar']], sidebar: []};
+      setItems(newArr);
+    }
+    
+    setResumeSettings({...resumeSettings, sidebar : !resumeSettings.sidebar});
+    updateGlobalSetting({...resumeSettings, sidebar : !resumeSettings.sidebar});
+  }
+
+  const saveChanges = () => {
+    if (authReducer.userId) {
+      updateResumeData(arr);
+      updateResumeThumbnail();
+    }
+  }
+  
+  const updateResumeThumbnail = () => {
+    const pageOneElement = document.querySelector("#pageOne");
+    html2canvas(pageOneElement).then(function(canvas) {
+      const userResumesData = JSON.parse(userDataReducer.userData.userResumes);
+      userResumesData.filter(resume => resume.resumeId.toString() === resumeId.toString())[0].resumeImage = canvas.toDataURL("image/jpeg");
+      dispatch(updateUserResumeDataByUserId({userId: authReducer.userId, data: JSON.stringify(userResumesData)}));
+    });
   }
 
 
@@ -227,15 +255,6 @@ function Builder() {
     }
   }
 
-  const clickPhoto = () => {
-    console.log('click photo');
-    const test = document.querySelector("#pageOne");
-    html2canvas(test).then(function(canvas) {
-      console.dir(canvas.toDataURL("image/jpeg"));
-  });
-  }
-
-
   if (arr && resumeSettings) {
     resumeHTML = <DragDropContext onDragEnd={onDragEnd}>
       <Snackbar open={openSnackbar} autoHideDuration={5000} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} onClose={closeSnackBar} >
@@ -260,15 +279,11 @@ function Builder() {
               </div>
               
               <div className="layout-option-item">
-                <Chip color="primary" icon={<WebAssetOutlinedIcon />} onClick={() => {
-                setSidebar(false)
-                const newArr = {...arr, main: [...arr['main'], ...arr['sidebar']], sidebar: []};
-                setItems(newArr);
-                }} label="Single Column" />
-              </div>
-
-              <div className="layout-option-item">
-              <Chip color="primary" icon={<WebOutlinedIcon />} onClick={() => { setSidebar(true) }} label="Sidebar" />
+                {
+                  resumeSettings.sidebar ? 
+                  <Chip color="primary" icon={<WebAssetOutlinedIcon />} onClick={onSidebarSettingClick} label="Single Column" /> 
+                  : <Chip color="primary" icon={<WebOutlinedIcon />} onClick={onSidebarSettingClick} label="Sidebar" />
+                }
               </div>
 
               <div className="layout-option-item">
@@ -278,6 +293,10 @@ function Builder() {
                   : <Chip color="primary" icon={<AddCircleOutlineOutlinedIcon />} onClick={addResumePage} label="Add Page" />
                 }
                 
+              </div>
+
+              <div className="layout-option-item">
+                <Chip color="primary" icon={<SaveOutlinedIcon />} onClick={saveChanges} label="Save Changes" />
               </div>
 
               {/* <div className="layout-option-item">
@@ -304,14 +323,10 @@ function Builder() {
                                     { getComponent(item.componentType, item, 'header') }
                                     <div className="overlay">
                                       <span className="drag-handle" {...provided.dragHandleProps}>
-                                          <Tooltip title="Grab & Move" placement="top" arrow>
-                                            <OpenWithIcon/>
-                                          </Tooltip>
+                                        <OpenWithIcon titleAccess="Grab & Move"/>
                                       </span>
                                       <span className="copy-component">
-                                        <Tooltip title="Copy" placement="top" arrow>
-                                          <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'header')}/>
-                                        </Tooltip>  
+                                        <ContentCopyOutlinedIcon titleAccess="Copy" onClick={(event) => copyComponent(event, item, index, 'header')}/>
                                       </span>
                                       <span className={item.copy ? 'delete-component' : 'd-none'}>
                                         <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'header')}/>
@@ -329,7 +344,7 @@ function Builder() {
                     )}
                   </Droppable>
                 </Grid>
-                <Grid item xs={sidebar ? 7 : 12} id="main" className={`${arr.header.length > 0 ? '' : 'padding'}`}>
+                <Grid item xs={resumeSettings.sidebar ? 7 : 12} id="main" className={`${arr.header.length > 0 ? '' : 'padding'}`}>
                 <Droppable droppableId="main">
                   {(provided, snapshot) => (
                     <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over' : 'resume-paper-content'}>
@@ -346,14 +361,10 @@ function Builder() {
                                   { getComponent(item.componentType, item, 'main') }
                                   <div className="overlay">
                                     <span className="drag-handle" {...provided.dragHandleProps}>
-                                      <Tooltip title="Grab & Move" placement="top" arrow>
-                                        <OpenWithIcon/>
-                                      </Tooltip>
+                                      <OpenWithIcon titleAccess="Grab & Move"/>
                                     </span>
                                     <span className="copy-component">
-                                      <Tooltip title="Copy" placement="top" arrow>
-                                        <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'main')}/>
-                                      </Tooltip>  
+                                      <ContentCopyOutlinedIcon titleAccess="Copy" onClick={(event) => copyComponent(event, item, index, 'main')}/>
                                     </span>
                                     <span className={item.copy ? 'delete-component' : 'd-none'}>
                                         <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'main')}/>
@@ -372,7 +383,7 @@ function Builder() {
                 </Droppable>
                 </Grid>
                 
-                {sidebar ? 
+                {resumeSettings.sidebar ? 
                 <Grid item xs={5} id="sidebar" sx={{backgroundColor: resumeSettings.sidebarBackgroundColor}} className={`${arr.header.length > 0 ? '' : 'padding'}`}>
                 <Droppable droppableId="sidebar">
                   {(provided, snapshot) => (
@@ -390,14 +401,10 @@ function Builder() {
                                   { getComponent(item.componentType, item, 'sidebar') }
                                   <div className="overlay">
                                     <span className="drag-handle" {...provided.dragHandleProps}>
-                                      <Tooltip title="Grab & Move" placement="top" arrow>
-                                          <OpenWithIcon/>
-                                      </Tooltip>
+                                        <OpenWithIcon titleAccess="Grab & Move"/>
                                     </span>
                                     <span className="copy-component">
-                                      <Tooltip title="Copy" placement="top" arrow>
-                                        <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'sidebar')}/>
-                                      </Tooltip>  
+                                      <ContentCopyOutlinedIcon titleAccess="Copy" onClick={(event) => copyComponent(event, item, index, 'sidebar')}/>
                                     </span>
                                     <span className={item.copy ? 'delete-component' : 'd-none'}>
                                         <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'sidebar')}/>
@@ -438,14 +445,10 @@ function Builder() {
                                   { getComponent(item.componentType, item, 'pageTwo') }
                                   <div className="overlay">
                                     <span className="drag-handle" {...provided.dragHandleProps}>
-                                      <Tooltip title="Grab & Move" placement="top" arrow>
-                                          <OpenWithIcon/>
-                                      </Tooltip>
+                                      <OpenWithIcon titleAccess="Grab & Move"/>
                                     </span>
                                     <span className="copy-component">
-                                      <Tooltip title="Copy" placement="top" arrow>
-                                        <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'pageTwo')}/>
-                                      </Tooltip>
+                                      <ContentCopyOutlinedIcon titleAccess="Copy" onClick={(event) => copyComponent(event, item, index, 'pageTwo')}/>
                                     </span>
                                     <span className={item.copy ? 'delete-component' : 'd-none'}>
                                         <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'pageTwo')}/>
@@ -502,14 +505,10 @@ function Builder() {
                                   { getComponent(item.componentType, item, 'componentLibrary') }
                                   <div className="overlay">
                                     <span className="drag-handle" {...provided.dragHandleProps}>
-                                      <Tooltip title="Grab & Move" placement="top" arrow>
-                                          <OpenWithIcon/>
-                                      </Tooltip>
+                                      <OpenWithIcon titleAccess="Grab & Move"/>
                                     </span>
                                     <span className="copy-component">
-                                      <Tooltip title="Copy" placement="top" arrow>
-                                        <ContentCopyOutlinedIcon onClick={(event) => copyComponent(event, item, index, 'componentLibrary')}/>
-                                      </Tooltip>  
+                                      <ContentCopyOutlinedIcon titleAccess="Copy" onClick={(event) => copyComponent(event, item, index, 'componentLibrary')}/>
                                     </span>
                                     <span className={item.copy ? 'delete-component' : 'd-none'}>
                                         <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'componentLibrary')}/>

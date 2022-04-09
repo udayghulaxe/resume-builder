@@ -11,7 +11,7 @@ const INITIAL_STATE = {
 export const getResumeSettingsByResumeId = createAsyncThunk(
   'resume/getResumeSettingsByResumeId',
   async (resumeId, thunkAPI) => {
-    const response = await (await firebase.firestore().collection('resumes').doc(resumeId).get()).data();
+    const response = await (await firebase.firestore().collection('resumes').doc(`${resumeId}`).get()).data();
     return JSON.parse(response.resumeSettings);
   }
 )
@@ -20,7 +20,7 @@ export const getResumeSettingsByResumeId = createAsyncThunk(
 export const updateResumeSettingsByResumeId = createAsyncThunk(
   'resume/updateResumeSettingsByResumeId',
   async (apiData, thunkAPI) => {
-    await (await firebase.firestore().collection("resumes").doc(apiData.resumeId).update({resumeSettings: JSON.stringify(apiData.data)}));
+    await (await firebase.firestore().collection("resumes").doc(`${apiData.resumeId}`).update({resumeSettings: JSON.stringify(apiData.data)}));
     return apiData.data;
   }
 )

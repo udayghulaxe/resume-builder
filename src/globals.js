@@ -22,6 +22,7 @@ export const initialData = {
     sidebarBackgroundColor: '#ffffff',
     aboutSectionFontColor: '#000000',
     headingAlignment: 'left',
+    sidebar: true
   },
   resumeJson: {
   header: [

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import StarIcon from "@mui/icons-material/Star";
 import EditIcon from '@mui/icons-material/Edit';
-import { Tooltip } from '@mui/material';
 import AchievementEditor from "./AchievementEditor";
 
 import "./Achievement.css";
@@ -19,9 +18,7 @@ const Achievement = (props) => {
       <div className="resume-section-title">
         <span>{props.componentItem.componentData.title}</span>
         <span className="edit-component-icon">
-          <Tooltip title="Edit" placement="top" arrow>
-            <EditIcon onClick={openEditor} />
-          </Tooltip> 
+          <EditIcon onClick={openEditor} />
         </span>
       </div> 
 
