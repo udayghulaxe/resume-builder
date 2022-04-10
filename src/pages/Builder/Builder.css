@@ -21,11 +21,24 @@
     background-color: var(--color-light-bg);
 }
 
+#pageOne, #pageTwo, #pageThree {
+    display: block;
+    height: 100%;
+}
+
+.resume-paper-main-content {
+    display: flex;
+    height: 100%;
+}
+
+.resume-paper-main-content.sidebar-left {
+    flex-direction: row-reverse;
+}
+
 .MuiPaper-rounded.resume-paper {
     width: 700px;
-    min-height: 750px;
-    height: auto;
-    max-height: 1200px;
+    height: 1250px;
+    max-height: 1250px;
     /* padding: 20px 40px; */
     /* margin-top: 10px; */
     overflow: hidden;
@@ -122,11 +135,11 @@
     align-items: center;
 }
 
-.component-library-wrap {
+/* .component-library-wrap {
     position: fixed;
     width: 33.3333%;
     right: 40px;
-}
+} */
 
 .initial-loader {
     width: 100px;

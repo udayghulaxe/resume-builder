@@ -37,7 +37,7 @@ import Social from '../../components/Social/Social';
 
 function Builder() {
   let resumeHTML;
-  const {authReducer, resumeDataReducer, resumeSettingsReducer, userDataReducer} = useSelector((state) => state);
+  const { authReducer, resumeDataReducer, resumeSettingsReducer, userDataReducer } = useSelector((state) => state);
   const [arr, setItems] = useState(null);
   const [pageTwo, setPageTwo] = useState(false);
   const dispatch = useDispatch();
@@ -48,23 +48,23 @@ function Builder() {
 
   const [resumeSettings, setResumeSettings] = useState(null);
 
-  const  openGlobalSetting = () => {
-      setOpen(true);
+  const openGlobalSetting = () => {
+    setOpen(true);
   }
 
   useEffect(() => {
-      console.log('calling builder effect');
-      setItems(resumeDataReducer.resumeData);
-      setResumeSettings(resumeSettingsReducer.resumeSettings);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [resumeDataReducer]);
-    
+    console.log('calling builder effect');
+    setItems(resumeDataReducer.resumeData);
+    setResumeSettings(resumeSettingsReducer.resumeSettings);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resumeDataReducer]);
+
   useEffect(() => {
-    if(authReducer.userId) {
+    if (authReducer.userId) {
       console.log('calling builder auth effect');
       getResumeData();
     }
-     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authReducer]);
 
 
@@ -82,7 +82,7 @@ function Builder() {
     dispatch(getResumeSettingsByResumeId(resumeId)).then((res) => {
       setResumeSettings(res.payload);
       if (res.payload) {
-        
+
         // setTimeout(() => {
         //   setopenSnackbar(true);
         // }, 2000);
@@ -92,30 +92,35 @@ function Builder() {
         root.style.setProperty("--color-font-subheading", res.payload.subheadingFontColor);
         root.style.setProperty("--color-font-body", res.payload.bodyFontColor);
         root.style.setProperty("--color-font-about-section", res.payload.aboutSectionFontColor);
+        root.style.setProperty("--color-sidebar-body", res.payload.sidebarBodyColor);
+        root.style.setProperty("--color-sidebar-heading", res.payload.sidebarHeadingColor);
+
+
+
       }
     });
   }
 
   function updateResumeData(newData) {
     if (authReducer.userId) {
-      dispatch(updateResumeDataByResumeId({data:newData, resumeId: resumeId}));
+      dispatch(updateResumeDataByResumeId({ data: newData, resumeId: resumeId }));
     }
   }
 
   function updateGlobalSetting(newData) {
     if (authReducer.userId) {
-      dispatch(updateResumeSettingsByResumeId({data:newData, resumeId: resumeId}));
+      dispatch(updateResumeSettingsByResumeId({ data: newData, resumeId: resumeId }));
     }
   }
 
   const onSidebarSettingClick = () => {
     if (resumeSettings.sidebar) {
-      const newArr = {...arr, main: [...arr['main'], ...arr['sidebar']], sidebar: []};
+      const newArr = { ...arr, main: [...arr['main'], ...arr['sidebar']], sidebar: [] };
       setItems(newArr);
     }
-    
-    setResumeSettings({...resumeSettings, sidebar : !resumeSettings.sidebar});
-    updateGlobalSetting({...resumeSettings, sidebar : !resumeSettings.sidebar});
+
+    setResumeSettings({ ...resumeSettings, sidebar: !resumeSettings.sidebar });
+    updateGlobalSetting({ ...resumeSettings, sidebar: !resumeSettings.sidebar });
   }
 
   const saveChanges = () => {
@@ -124,13 +129,13 @@ function Builder() {
       updateResumeThumbnail();
     }
   }
-  
+
   const updateResumeThumbnail = () => {
     const pageOneElement = document.querySelector("#pageOne");
-    html2canvas(pageOneElement).then(function(canvas) {
+    html2canvas(pageOneElement).then(function (canvas) {
       const userResumesData = JSON.parse(userDataReducer.userData.userResumes);
       userResumesData.filter(resume => resume.resumeId.toString() === resumeId.toString())[0].resumeImage = canvas.toDataURL("image/jpeg");
-      dispatch(updateUserResumeDataByUserId({userId: authReducer.userId, data: JSON.stringify(userResumesData)}));
+      dispatch(updateUserResumeDataByUserId({ userId: authReducer.userId, data: JSON.stringify(userResumesData) }));
     });
   }
 
@@ -144,7 +149,7 @@ function Builder() {
   }
 
   const copyComponent = (event, item, index, column) => {
-    item = {...item, copy: true, name: `${item.name}-${getUniqueId()}`};
+    item = { ...item, copy: true, name: `${item.name}-${getUniqueId()}` };
     let newArr = JSON.parse(JSON.stringify(arr));
     newArr[column].splice(index + 1, 0, item);
     setItems(newArr);
@@ -160,13 +165,13 @@ function Builder() {
 
 
   const addResumePage = () => {
-    setPageTwo(true); 
+    setPageTwo(true);
     setTimeout(() => {
-    const body = document.getElementById('resumePageSeparator');
-    body.scrollIntoView({
+      const body = document.getElementById('resumePageSeparator');
+      body.scrollIntoView({
         behavior: 'smooth'
-    }, 300)
-    } , 200);
+      }, 300)
+    }, 200);
   }
 
   const removeResumePage = () => {
@@ -189,18 +194,18 @@ function Builder() {
 
     // if rearranging in same column
     if (destination.droppableId === source.droppableId) {
-        const newArr = Array.from(arr[source.droppableId]);
-        newArr.splice(source.index, 1);
-        newArr.splice(destination.index, 0, arr[destination.droppableId].filter(x => x.name === draggableId)[0]);
-        
-        const colId = destination.droppableId;
-        
-        const newColumn = {
-          ...arr,
-          [colId]: newArr
-        }
-        setItems(newColumn);
-        updateResumeData(newColumn);
+      const newArr = Array.from(arr[source.droppableId]);
+      newArr.splice(source.index, 1);
+      newArr.splice(destination.index, 0, arr[destination.droppableId].filter(x => x.name === draggableId)[0]);
+
+      const colId = destination.droppableId;
+
+      const newColumn = {
+        ...arr,
+        [colId]: newArr
+      }
+      setItems(newColumn);
+      updateResumeData(newColumn);
     } else {
       // Else if moving from sidebar to main column or vice-versa
       const sourceId = source.droppableId;
@@ -219,39 +224,49 @@ function Builder() {
       setItems(newColumn);
       updateResumeData(newColumn);
     }
+
+    // const paperheight = document.querySelector('.resume-paper').getBoundingClientRect().height + 30;
+    // const divHeight  = document.getElementById('pageOne').getBoundingClientRect().height;
+    // console.log(paperheight, divHeight);
+    // if(divHeight > paperheight) {
+    //   console.dir(arr);
+    //   setPageTwo(true);
+    // } else {
+    //   setPageTwo(false);
+    // }
   }
 
   function getComponent(componentType, item, columnName) {
-      switch (componentType) {
-        case 'Achievements':
-            return <Achievement componentColumn={columnName} componentItem={item} />;
+    switch (componentType) {
+      case 'Achievements':
+        return <Achievement componentColumn={columnName} componentItem={item} />;
 
-        case 'BasicInfo':
-          return <BasicInfo componentColumn={columnName} componentItem={item} />;    
+      case 'BasicInfo':
+        return <BasicInfo componentColumn={columnName} componentItem={item} />;
 
-        case 'Experience':
-            return <Experience componentColumn={columnName} componentItem={item} />;
+      case 'Experience':
+        return <Experience componentColumn={columnName} componentItem={item} />;
 
-        case 'Education':
-            return <Education componentColumn={columnName} componentItem={item} />;
+      case 'Education':
+        return <Education componentColumn={columnName} componentItem={item} />;
 
-        case 'Languages':
-            return <Languages componentColumn={columnName} componentItem={item} />;
+      case 'Languages':
+        return <Languages componentColumn={columnName} componentItem={item} />;
 
-        case 'ProfessionalSummary':
-          return <ProfessionalSummary componentColumn={columnName} componentItem={item} />;    
+      case 'ProfessionalSummary':
+        return <ProfessionalSummary componentColumn={columnName} componentItem={item} />;
 
-        case 'Skills':
-          return <Skills componentColumn={columnName} componentItem={item} />;
+      case 'Skills':
+        return <Skills componentColumn={columnName} componentItem={item} />;
 
-        case 'SkillsWithProgress':
-          return <SkillsWithProgress componentColumn={columnName} componentItem={item} />;
+      case 'SkillsWithProgress':
+        return <SkillsWithProgress componentColumn={columnName} componentItem={item} />;
 
-        case 'Social':
-            return <Social componentColumn={columnName} componentItem={item} />;
-            
-        default:
-            return null;
+      case 'Social':
+        return <Social componentColumn={columnName} componentItem={item} />;
+
+      default:
+        return null;
     }
   }
 
@@ -262,37 +277,37 @@ function Builder() {
           New Widgets Available. Try Out.
         </Alert>
       </Snackbar>
-    <div className="resume-paper-wrap">
-    <GlobalResumeSetting 
-      resumeSettings={resumeSettings}
-      setResumeSettings={setResumeSettings}
-      updateGlobalSetting={updateGlobalSetting}
-      open={open} 
-      setOpen={setOpen}>
-    </GlobalResumeSetting>
+      <div className="resume-paper-wrap">
+        <GlobalResumeSetting
+          resumeSettings={resumeSettings}
+          setResumeSettings={setResumeSettings}
+          updateGlobalSetting={updateGlobalSetting}
+          open={open}
+          setOpen={setOpen}>
+        </GlobalResumeSetting>
 
-      <Grid container spacing={2}>
+        <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="layout-options">
               <div className="layout-option-item">
-                <Chip  color="primary" icon={<SettingsOutlinedIcon />} onClick={openGlobalSetting} label="Settings" />
+                <Chip color="primary" icon={<SettingsOutlinedIcon />} onClick={openGlobalSetting} label="Settings" />
               </div>
-              
+
               <div className="layout-option-item">
                 {
-                  resumeSettings.sidebar ? 
-                  <Chip color="primary" icon={<WebAssetOutlinedIcon />} onClick={onSidebarSettingClick} label="Single Column" /> 
-                  : <Chip color="primary" icon={<WebOutlinedIcon />} onClick={onSidebarSettingClick} label="Sidebar" />
+                  resumeSettings.sidebar ?
+                    <Chip color="primary" icon={<WebAssetOutlinedIcon />} onClick={onSidebarSettingClick} label="Single Column" />
+                    : <Chip color="primary" icon={<WebOutlinedIcon />} onClick={onSidebarSettingClick} label="Sidebar" />
                 }
               </div>
 
               <div className="layout-option-item">
                 {
-                  pageTwo ? 
-                  <Chip color="primary" icon={<RemoveCircleOutlineOutlinedIcon />} onClick={removeResumePage} label="Remove Page" /> 
-                  : <Chip color="primary" icon={<AddCircleOutlineOutlinedIcon />} onClick={addResumePage} label="Add Page" />
+                  pageTwo ?
+                    <Chip color="primary" icon={<RemoveCircleOutlineOutlinedIcon />} onClick={removeResumePage} label="Remove Page" />
+                    : <Chip color="primary" icon={<AddCircleOutlineOutlinedIcon />} onClick={addResumePage} label="Add Page" />
                 }
-                
+
               </div>
 
               <div className="layout-option-item">
@@ -302,34 +317,33 @@ function Builder() {
               {/* <div className="layout-option-item">
               <Chip color="primary" icon={<WebOutlinedIcon />} onClick={clickPhoto} label="Click Photo" />
               </div> */}
-              
+
             </div>
             <div className="resume-paper-container" id="resumPaperContainer">
-            <Paper className={`resume-paper heading-alignment-${resumeSettings.headingAlignment} heading-font-${resumeSettings.headingFontSize} subheading-font-${resumeSettings.subheadingFontSize} body-font-${resumeSettings.bodyFontSize}`} sx={{fontSize: resumeSettings.bodyFontSize, color: resumeSettings.bodyFontColor}} elevation={3} >
-              <Grid container id="pageOne">
-                <Grid item xs={12} id="header" className={`${arr.header.length > 0 ? '' : 'no-padding'}`} sx={{backgroundColor: resumeSettings.headerBackgroundColor, color: resumeSettings.aboutSectionFontColor}}>
-                  <Droppable droppableId="header">
-                    {(provided, snapshot) => (
-                      <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over' : 'resume-paper-content'}>
-                        <Suspense fallback={<div>Loading</div>}>
+              <Paper className={`resume-paper heading-alignment-${resumeSettings.headingAlignment} heading-font-${resumeSettings.headingFontSize} subheading-font-${resumeSettings.subheadingFontSize} body-font-${resumeSettings.bodyFontSize}`} sx={{ fontSize: resumeSettings.bodyFontSize === 'medium' ? '15px' : resumeSettings.bodyFontSize }} elevation={3} >
+                <div id="pageOne">
+                  <Grid item xs={12} id="header" className={`${arr.header.length > 0 ? '' : 'no-padding'}`} sx={{ backgroundColor: resumeSettings.headerBackgroundColor, color: resumeSettings.aboutSectionFontColor }}>
+                    <Droppable droppableId="header">
+                      {(provided, snapshot) => (
+                        <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over' : 'resume-paper-content'}>
                           {arr.header.map((item, index) => {
                             return (
                               <Draggable key={item.name} draggableId={item.name} index={index}>
                                 {(provided, snapshot) => (
-                                  <div className={snapshot.isDragging ? 'component-dragging' : 'resume-section-wrap'} 
-                                      ref={provided.innerRef}
-                                      {...provided.draggableProps}
-                                      key={item.name}>
-                                    { getComponent(item.componentType, item, 'header') }
+                                  <div className={snapshot.isDragging ? 'component-dragging' : 'resume-section-wrap'}
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    key={item.name}>
+                                    {getComponent(item.componentType, item, 'header')}
                                     <div className="overlay">
                                       <span className="drag-handle" {...provided.dragHandleProps}>
-                                        <OpenWithIcon titleAccess="Grab & Move"/>
+                                        <OpenWithIcon titleAccess="Grab & Move" />
                                       </span>
                                       <span className="copy-component">
-                                        <ContentCopyOutlinedIcon titleAccess="Copy" onClick={(event) => copyComponent(event, item, index, 'header')}/>
+                                        <ContentCopyOutlinedIcon titleAccess="Copy" onClick={(event) => copyComponent(event, item, index, 'header')} />
                                       </span>
                                       <span className={item.copy ? 'delete-component' : 'd-none'}>
-                                        <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'header')}/>
+                                        <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'header')} />
                                       </span>
                                     </div>
                                   </div>
@@ -339,137 +353,134 @@ function Builder() {
                           }
                           )}
                           {provided.placeholder}
-                        </Suspense>
-                      </div>
-                    )}
-                  </Droppable>
-                </Grid>
-                <Grid item xs={resumeSettings.sidebar ? 7 : 12} id="main" className={`${arr.header.length > 0 ? '' : 'padding'}`}>
-                <Droppable droppableId="main">
-                  {(provided, snapshot) => (
-                    <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over' : 'resume-paper-content'}>
-                      <Suspense fallback={<div>Loading</div>}>
-                        {arr.main.map((item, index) => {
-                          return (
-                            <Draggable key={item.name} draggableId={item.name} index={index}>
-                              {(provided, snapshot) => (
-                                <div className={snapshot.isDragging ? 'resume-section-wrap component-dragging' : 'resume-section-wrap'} 
-                                    ref={provided.innerRef}
-                                    {...provided.draggableProps}
-                                    key={item.name}>
-                                  
-                                  { getComponent(item.componentType, item, 'main') }
-                                  <div className="overlay">
-                                    <span className="drag-handle" {...provided.dragHandleProps}>
-                                      <OpenWithIcon titleAccess="Grab & Move"/>
-                                    </span>
-                                    <span className="copy-component">
-                                      <ContentCopyOutlinedIcon titleAccess="Copy" onClick={(event) => copyComponent(event, item, index, 'main')}/>
-                                    </span>
-                                    <span className={item.copy ? 'delete-component' : 'd-none'}>
-                                        <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'main')}/>
-                                      </span>
-                                  </div>
-                                </div>
-                              )}
-                            </Draggable>
-                          );
-                        }
-                        )}
-                        {provided.placeholder}
-                      </Suspense>
-                    </div>
-                  )}
-                </Droppable>
-                </Grid>
-                
-                {resumeSettings.sidebar ? 
-                <Grid item xs={5} id="sidebar" sx={{backgroundColor: resumeSettings.sidebarBackgroundColor}} className={`${arr.header.length > 0 ? '' : 'padding'}`}>
-                <Droppable droppableId="sidebar">
-                  {(provided, snapshot) => (
-                    <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over sidebar-column' : 'resume-paper-content sidebar-column'}>
-                      {provided.isDragging}
-                      <Suspense fallback={<div>Loading</div>}>
-                        {arr.sidebar.map((item, index) => {
-                          return (
-                            <Draggable key={item.name} draggableId={item.name} index={index}>
-                              {(provided, snapshot) => (
-                                <div className={snapshot.isDragging ? 'component-dragging' : 'resume-section-wrap'}
+                        </div>
+                      )}
+                    </Droppable>
+                  </Grid>
+                  <div className={`resume-paper-main-content sidebar-${resumeSettings.sidebarPosition}`}>
+                    <Grid item xs={resumeSettings.sidebar ? 7 : 12} id="main" className={`${arr.header.length > 0 ? '' : 'padding'}`} sx={{ backgroundColor: resumeSettings.mainBackgroundColor, color: resumeSettings.bodyFontColor }}>
+                      <Droppable droppableId="main">
+                        {(provided, snapshot) => (
+                          <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over' : 'resume-paper-content'}>
+                            {arr.main.map((item, index) => {
+                              return (
+                                <Draggable key={item.name} draggableId={item.name} index={index}>
+                                  {(provided, snapshot) => (
+                                    <div className={snapshot.isDragging ? 'resume-section-wrap component-dragging' : 'resume-section-wrap'}
                                       ref={provided.innerRef}
                                       {...provided.draggableProps}
                                       key={item.name}>
-                                  { getComponent(item.componentType, item, 'sidebar') }
-                                  <div className="overlay">
-                                    <span className="drag-handle" {...provided.dragHandleProps}>
-                                        <OpenWithIcon titleAccess="Grab & Move"/>
-                                    </span>
-                                    <span className="copy-component">
-                                      <ContentCopyOutlinedIcon titleAccess="Copy" onClick={(event) => copyComponent(event, item, index, 'sidebar')}/>
-                                    </span>
-                                    <span className={item.copy ? 'delete-component' : 'd-none'}>
-                                        <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'sidebar')}/>
-                                      </span>
-                                  </div>
-                                </div>
-                              )}
-                            </Draggable>
-                          );
-                        }
+
+                                      {getComponent(item.componentType, item, 'main')}
+                                      <div className="overlay">
+                                        <span className="drag-handle" {...provided.dragHandleProps}>
+                                          <OpenWithIcon titleAccess="Grab & Move" />
+                                        </span>
+                                        <span className="copy-component">
+                                          <ContentCopyOutlinedIcon titleAccess="Copy" onClick={(event) => copyComponent(event, item, index, 'main')} />
+                                        </span>
+                                        <span className={item.copy ? 'delete-component' : 'd-none'}>
+                                          <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'main')} />
+                                        </span>
+                                      </div>
+                                    </div>
+                                  )}
+                                </Draggable>
+                              );
+                            }
+                            )}
+                            {provided.placeholder}
+                          </div>
                         )}
-                        {provided.placeholder}
-                      </Suspense>
-                    </div>
-                  )}
-                </Droppable>
-                </Grid> : null}
-              </Grid>
-            </Paper>
-            <Box sx={{height: 30}} id='resumePageSeparator'></Box>             
-            {pageTwo ?
-            <Paper className={`resume-paper heading-alignment-${resumeSettings.headingAlignment} heading-font-${resumeSettings.headingFontSize} subheading-font-${resumeSettings.subheadingFontSize} body-font-${resumeSettings.bodyFontSize}`} sx={{fontSize: resumeSettings.bodyFontSize, color: resumeSettings.bodyFontColor}} elevation={3} >
-              <Grid container>
-                <Grid item xs={12} id="pageTwo" className={`${arr.header.length > 0 ? '' : 'padding'}`}>
-                <Droppable droppableId="pageTwo">
-                  {(provided, snapshot) => (
-                    <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over' : 'resume-paper-content'}>
-                      <Suspense fallback={<div>Loading</div>}>
-                        {arr.pageTwo.map((item, index) => {
-                          return (
-                            <Draggable key={item.name} draggableId={item.name} index={index}>
-                              {(provided, snapshot) => (
-                                <div className={snapshot.isDragging ? 'resume-section-wrap component-dragging' : 'resume-section-wrap'} 
-                                    ref={provided.innerRef}
-                                    {...provided.draggableProps}
-                                    key={item.name}>
-                                  
-                                  { getComponent(item.componentType, item, 'pageTwo') }
-                                  <div className="overlay">
-                                    <span className="drag-handle" {...provided.dragHandleProps}>
-                                      <OpenWithIcon titleAccess="Grab & Move"/>
-                                    </span>
-                                    <span className="copy-component">
-                                      <ContentCopyOutlinedIcon titleAccess="Copy" onClick={(event) => copyComponent(event, item, index, 'pageTwo')}/>
-                                    </span>
-                                    <span className={item.copy ? 'delete-component' : 'd-none'}>
-                                        <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'pageTwo')}/>
-                                      </span>
-                                  </div>
-                                </div>
+                      </Droppable>
+                    </Grid>
+
+                    {resumeSettings.sidebar ?
+                      <Grid item xs={5} id="sidebar" sx={{ backgroundColor: resumeSettings.sidebarBackgroundColor, color: resumeSettings.sidebarBodyColor }} className={`${arr.header.length > 0 ? '' : 'padding'}`}>
+                        <Droppable droppableId="sidebar">
+                          {(provided, snapshot) => (
+                            <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over sidebar-column' : 'resume-paper-content sidebar-column'}>
+                              {provided.isDragging}
+                              {arr.sidebar.map((item, index) => {
+                                return (
+                                  <Draggable key={item.name} draggableId={item.name} index={index}>
+                                    {(provided, snapshot) => (
+                                      <div className={snapshot.isDragging ? 'component-dragging' : 'resume-section-wrap'}
+                                        ref={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        key={item.name}>
+                                        {getComponent(item.componentType, item, 'sidebar')}
+                                        <div className="overlay">
+                                          <span className="drag-handle" {...provided.dragHandleProps}>
+                                            <OpenWithIcon titleAccess="Grab & Move" />
+                                          </span>
+                                          <span className="copy-component">
+                                            <ContentCopyOutlinedIcon titleAccess="Copy" onClick={(event) => copyComponent(event, item, index, 'sidebar')} />
+                                          </span>
+                                          <span className={item.copy ? 'delete-component' : 'd-none'}>
+                                            <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'sidebar')} />
+                                          </span>
+                                        </div>
+                                      </div>
+                                    )}
+                                  </Draggable>
+                                );
+                              }
                               )}
-                            </Draggable>
-                          );
-                        }
+                              {provided.placeholder}
+                            </div>
+                          )}
+                        </Droppable>
+                      </Grid> : null}
+                  </div>
+                </div>
+              </Paper>
+              <Box sx={{ height: 30 }} id='resumePageSeparator'></Box>
+              {pageTwo ?
+                <Paper className={`resume-paper heading-alignment-${resumeSettings.headingAlignment} heading-font-${resumeSettings.headingFontSize} subheading-font-${resumeSettings.subheadingFontSize} body-font-${resumeSettings.bodyFontSize}`} sx={{ fontSize: resumeSettings.bodyFontSize, color: resumeSettings.bodyFontColor }} elevation={3} >
+                  <div id="pageTwo">
+                    <Grid item xs={12} className={`${arr.header.length > 0 ? '' : 'padding'}`}>
+                      <Droppable droppableId="pageTwo">
+                        {(provided, snapshot) => (
+                          <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over' : 'resume-paper-content'}>
+                            <Suspense fallback={<div>Loading</div>}>
+                              {arr.pageTwo.map((item, index) => {
+                                return (
+                                  <Draggable key={item.name} draggableId={item.name} index={index}>
+                                    {(provided, snapshot) => (
+                                      <div className={snapshot.isDragging ? 'resume-section-wrap component-dragging' : 'resume-section-wrap'}
+                                        ref={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        key={item.name}>
+
+                                        {getComponent(item.componentType, item, 'pageTwo')}
+                                        <div className="overlay">
+                                          <span className="drag-handle" {...provided.dragHandleProps}>
+                                            <OpenWithIcon titleAccess="Grab & Move" />
+                                          </span>
+                                          <span className="copy-component">
+                                            <ContentCopyOutlinedIcon titleAccess="Copy" onClick={(event) => copyComponent(event, item, index, 'pageTwo')} />
+                                          </span>
+                                          <span className={item.copy ? 'delete-component' : 'd-none'}>
+                                            <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'pageTwo')} />
+                                          </span>
+                                        </div>
+                                      </div>
+                                    )}
+                                  </Draggable>
+                                );
+                              }
+                              )}
+                              {provided.placeholder}
+                            </Suspense>
+                          </div>
                         )}
-                        {provided.placeholder}
-                      </Suspense>
-                    </div>
-                  )}
-                </Droppable>
-                </Grid>
-              </Grid>
-            </Paper>
-            : null}
-            </div>     
+                      </Droppable>
+                    </Grid>
+                  </div>
+                </Paper>
+                : null}
+            </div>
           </Grid>
           <Grid className="component-library-wrap" item xs={4}>
             <div className="component-library-header">
@@ -483,90 +494,90 @@ function Builder() {
                   { label: 'Skills', id: 2 },
                 ]}
                 sx={{ width: 150 }}
-                renderInput={(params) => <TextField {...params} placeholder="Filter"  variant="standard" />}
+                renderInput={(params) => <TextField {...params} placeholder="Filter" variant="standard" />}
               />
-            </div>            
-            <Paper style={{padding: '20px'}} className="widget-library" elevation={0}>
+            </div>
+            <Paper style={{ padding: '20px' }} className="widget-library" elevation={0}>
 
-            <Droppable droppableId="componentLibrary">
-                  {(provided, snapshot) => (
-                    <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over' : 'resume-paper-content'}>
-                      {provided.isDragging}
-                      <Suspense fallback={<div>Loading</div>}>
-                        {arr.componentLibrary.map((item, index) => {
-                          return (
-                            <Draggable key={item.name} draggableId={item.name} index={index}>
-                              {(provided, snapshot) => (
-                                <div className={snapshot.isDragging ? 'resume-section-wrap component-dragging' : 'resume-section-wrap'}
-                                      ref={provided.innerRef}
-                                      {...provided.draggableProps}
-                                      key={item.name}>
+              <Droppable droppableId="componentLibrary">
+                {(provided, snapshot) => (
+                  <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over' : 'resume-paper-content'}>
+                    {provided.isDragging}
+                    <Suspense fallback={<div>Loading</div>}>
+                      {arr.componentLibrary.map((item, index) => {
+                        return (
+                          <Draggable key={item.name} draggableId={item.name} index={index}>
+                            {(provided, snapshot) => (
+                              <div className={snapshot.isDragging ? 'resume-section-wrap component-dragging' : 'resume-section-wrap'}
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                key={item.name}>
 
-                                  { getComponent(item.componentType, item, 'componentLibrary') }
-                                  <div className="overlay">
-                                    <span className="drag-handle" {...provided.dragHandleProps}>
-                                      <OpenWithIcon titleAccess="Grab & Move"/>
-                                    </span>
-                                    <span className="copy-component">
-                                      <ContentCopyOutlinedIcon titleAccess="Copy" onClick={(event) => copyComponent(event, item, index, 'componentLibrary')}/>
-                                    </span>
-                                    <span className={item.copy ? 'delete-component' : 'd-none'}>
-                                        <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'componentLibrary')}/>
-                                      </span>
-                                  </div>
+                                {getComponent(item.componentType, item, 'componentLibrary')}
+                                <div className="overlay">
+                                  <span className="drag-handle" {...provided.dragHandleProps}>
+                                    <OpenWithIcon titleAccess="Grab & Move" />
+                                  </span>
+                                  <span className="copy-component">
+                                    <ContentCopyOutlinedIcon titleAccess="Copy" onClick={(event) => copyComponent(event, item, index, 'componentLibrary')} />
+                                  </span>
+                                  <span className={item.copy ? 'delete-component' : 'd-none'}>
+                                    <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'componentLibrary')} />
+                                  </span>
                                 </div>
-                              )}
-                            </Draggable>
-                          );
-                        }
-                        )}
-                        {provided.placeholder}
-                      </Suspense>
-                    </div>
-                  )}
-                </Droppable>
+                              </div>
+                            )}
+                          </Draggable>
+                        );
+                      }
+                      )}
+                      {provided.placeholder}
+                    </Suspense>
+                  </div>
+                )}
+              </Droppable>
             </Paper>
           </Grid>
-      </Grid>
-      
-    </div>
+        </Grid>
 
-  </DragDropContext>;
+      </div>
+
+    </DragDropContext>;
   } else {
     resumeHTML = <div className="initial-loader">
-                    <CircularProgress />
-                </div>;
+      <CircularProgress />
+    </div>;
   }
 
   return (
     <div className="builder-wrap">
-        <Box sx={{ flexGrow: 1 }}>
-          <AppBar elevation={0} className="global-header" color="inherit" position="fixed">
-            <Toolbar className="builder-header">
-              <div className="header-filters">
-                <img src={logo} className="header-logo" alt="Resume Builder" />
-                  <Link underline="none" className="builder-header-menu-link active" href="#">About</Link>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar elevation={0} className="global-header" color="inherit" position="fixed">
+          <Toolbar className="builder-header">
+            <div className="header-filters">
+              <img src={logo} className="header-logo" alt="Resume Builder" />
+              {/* <Link underline="none" className="builder-header-menu-link active" href="#">About</Link>
                   <Link underline="none" className="builder-header-menu-link" href="#">Experience</Link>
                   <Link underline="none" className="builder-header-menu-link" href="#">Education</Link>
                   <Link underline="none" className="builder-header-menu-link" href="#">Skills</Link>
                   <Link underline="none" className="builder-header-menu-link" href="#">Languages</Link>
-                  <Link underline="none" className="builder-header-menu-link" href="#">Achievement</Link>
-              </div>
-              <div>
-                <Button
-                    onClick={window.print}
-                    variant="contained"
-                    color="primary" 
-                    disableElevation
-                    className="header-download-button">
-                        Download Resume
-                </Button>
-                <GoogleLogin></GoogleLogin>
-              </div>
-            </Toolbar>
-          </AppBar>
-        </Box>
-      
+                  <Link underline="none" className="builder-header-menu-link" href="#">Achievement</Link> */}
+            </div>
+            <div>
+              <Button
+                onClick={window.print}
+                variant="contained"
+                color="primary"
+                disableElevation
+                className="header-download-button">
+                Download Resume
+              </Button>
+              <GoogleLogin></GoogleLogin>
+            </div>
+          </Toolbar>
+        </AppBar>
+      </Box>
+
       {resumeHTML}
     </div>
   );

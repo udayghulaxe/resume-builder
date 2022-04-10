@@ -19,10 +19,14 @@ export const initialData = {
     headingFontColor: '#000000',
     subheadingFontColor: '#000000',
     headerBackgroundColor: '#ffffff',
+    mainBackgroundColor: '#ffffff',
     sidebarBackgroundColor: '#ffffff',
+    sidebarHeadingColor: '#000000',
+    sidebarBodyColor: '#000000',
     aboutSectionFontColor: '#000000',
     headingAlignment: 'left',
-    sidebar: true
+    sidebar: true,
+    sidebarposition: 'right',
   },
   resumeJson: {
   header: [
