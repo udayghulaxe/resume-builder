@@ -21,6 +21,7 @@ const Resumes = () => {
   const [open, setOpen] = useState(false);
   const [previewResumeImageSrc, setPreviewResumeImageSrc] = useState('');
   const history = useHistory();
+  const maxResumeNumber = 2;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -90,20 +91,31 @@ const Resumes = () => {
 
   const onDuplicateResume = (resumeId) => {
     setIsLoading(true);
-    const uniqueId = getUniqueId();
-    const userResumeData = JSON.parse(JSON.stringify(userResumes));
-    const copyFrom = userResumeData.filter((item) => item.resumeId === resumeId)[0];
-    userResumeData.push({
-      resumeId: uniqueId.toString(),
-      resumeName: `${copyFrom.resumeName} (copy)`,
-      resumeImage: copyFrom.resumeImage,
+    dispatch(getUserDataByUserId(authReducer.userId)).then((res) => {
+      if (res.payload) {
+        if (JSON.parse(res.payload.userResumes).length < maxResumeNumber) {
+          const uniqueId = getUniqueId();
+          const userResumeData = JSON.parse(JSON.stringify(userResumes));
+          const copyFrom = userResumeData.filter((item) => item.resumeId === resumeId)[0];
+          userResumeData.push({
+            resumeId: uniqueId.toString(),
+            resumeName: `${copyFrom.resumeName} (copy)`,
+            resumeImage: copyFrom.resumeImage,
+          });
+          
+          dispatch(updateUserResumeDataByUserId({userId: authReducer.userId, data: JSON.stringify(userResumeData)}));
+          dispatch(copyResumeByResumeId({resumeId: resumeId, uniqueId: uniqueId})).then((res) => {
+            setUserResumes(userResumeData);
+            setIsLoading(false);
+          });
+        } else {
+          setIsLoading(false);
+          setUserData(res.payload);
+          setUserResumes(JSON.parse(res.payload.userResumes));
+        }
+      }
     });
     
-    dispatch(updateUserResumeDataByUserId({userId: authReducer.userId, data: JSON.stringify(userResumeData)}));
-    dispatch(copyResumeByResumeId({resumeId: resumeId, uniqueId: uniqueId})).then((res) => {
-      setUserResumes(userResumeData);
-      setIsLoading(false);
-    });
   }
 
   return (
@@ -118,7 +130,7 @@ const Resumes = () => {
 
       <div className="resume-header">
         <h1>My Resumes</h1>
-        {userResumes && userResumes.length <= 1 && <Button
+        {userResumes && userResumes.length < maxResumeNumber && <Button
             startIcon={<AddCircleOutlineOutlinedIcon />}
             size="small"
             onClick={createNewResume}
@@ -170,7 +182,7 @@ const Resumes = () => {
                         </div>
 
                         {/* COPY ACTION */}
-                        { userResumes.length <= 1 && 
+                        { userResumes.length < maxResumeNumber && 
                         <div className={`resume-action-item link ${isLoading ? 'item-disabled' : ''}`} onClick={() => { onDuplicateResume(item.resumeId); }}>
                           <span className="resume-action-item-link-icon">
                             <CopyAllOutlinedIcon />

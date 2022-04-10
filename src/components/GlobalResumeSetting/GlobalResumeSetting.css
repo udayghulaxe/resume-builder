@@ -31,7 +31,6 @@
 }
 
 .font-size-div, .heading-alignment-div {
-    text-transform: uppercase;
     background-color: rgb(255, 255, 255);
     border: 1px solid rgb(187, 187, 187);
     color: rgb(79, 79, 79);
@@ -40,10 +39,11 @@
     align-items: center;
     border-radius: 4px;
     font-size: 14px;
-    width: 30px;
-    height: 30px;
+    min-width: 20px;
+    min-height: 30px;
     margin-right: 10px;
     cursor: pointer;
+    padding: 0px 5px;
 }
 
 .font-size-div.active, .heading-alignment-div.active {

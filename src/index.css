@@ -12,6 +12,8 @@ html {
   --color-font-subheading: #000000;
   --color-font-body: #000000;
   --color-font-about-section: #000000;
+  --color-sidebar-body: #000000;
+  --color-sidebar-heading: #000000;
   --gutter: 16px;
 }
 
@@ -97,7 +99,7 @@ code {
 }
 
 .heading-font-medium .resume-section-title, .subheading-font-medium .resume-section-subtitle, .body-font-medium .resume-section-body {
-  font-size: medium;
+  font-size: 15px;
 }
 
 .heading-font-large .resume-section-title, .subheading-font-large .resume-section-subtitle, .body-font-large .resume-section-body {
@@ -106,20 +108,6 @@ code {
 
 .heading-font-larger .resume-section-title, .subheading-font-larger .resume-section-subtitle, .body-font-larger .resume-section-body {
   font-size: 20px;
-}
-
-.resume-paper .resume-section-title {
-  color: var(--color-font-heading);
-  border-bottom: 2px solid var(--color-font-heading);
-}
-
-#header .resume-section-title {
-  color: var(--color-font-about-section);
-  border-bottom: 2px solid var(--color-font-about-section);
-}
-
-#header .resume-section-subtitle {
-  color: var(--color-font-about-section);
 }
 
 .resume-paper.heading-alignment-left .resume-section-title {
@@ -134,12 +122,37 @@ code {
   justify-content: right;
 }
 
-.resume-paper .resume-section-subtitle {
-  color: var(--color-font-subheading);
+#header .resume-section-title {
+  color: var(--color-font-about-section);
+  border-bottom: 2px solid var(--color-font-about-section);
 }
 
-.resume-paper .resume-section-body {
+#header .resume-section-subtitle {
+  color: var(--color-font-about-section);
+}
+
+.resume-paper #main .resume-section-subtitle {
+  /* color: var(--color-font-subheading); */
   color: var(--color-font-body) !important;
+}
+
+.resume-paper #main .resume-section-body {
+  color: var(--color-font-body) !important;
+}
+
+.resume-paper #main .resume-section-title {
+  color: var(--color-font-heading);
+  border-bottom: 2px solid var(--color-font-heading);
+}
+
+
+.resume-paper #sidebar .resume-section-body {
+  color: var(--color-sidebar-body) !important;
+}
+
+.resume-paper #sidebar .resume-section-title {
+  color: var(--color-sidebar-heading);
+  border-bottom: 2px solid var(--color-sidebar-heading);
 }
 
 .resume-paper .resume-section-devider .resume-section-title {
@@ -207,12 +220,20 @@ code {
   padding: 15px 40px 5px 40px;
 }
 
-.resume-paper .MuiGrid-grid-xs-7 {
+.resume-paper #main {
   padding: 10px 10px 10px 40px;
 }
 
-.resume-paper .MuiGrid-grid-xs-5 {
+.resume-paper #sidebar {
   padding: 10px 40px 0 10px;
+}
+
+.sidebar-left #main {
+  padding: 10px 40px 0 10px;
+}
+
+.sidebar-left #sidebar {
+  padding: 10px 10px 10px 40px;
 }
 
 #pageTwo {
