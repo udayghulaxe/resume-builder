@@ -206,7 +206,7 @@ const GlobalResumeSetting = (props) => {
             <div className="resume-setting-item">
               <span className="resume-setting-item-label">
                 Body Font Color
-                <Box className='resume-setting-selected-color' onClick={() => { openColorToggle('sidebarBodyColorToggle'); }} sx={{ backgroundColor: props.resumeSettings.sidebarBodyColorToggle }}></Box>
+                <Box className='resume-setting-selected-color' onClick={() => { openColorToggle('sidebarBodyColorToggle'); }} sx={{ backgroundColor: props.resumeSettings.sidebarBodyColor }}></Box>
               </span>
               <div className={`resume-setting-item-body ${colorsToggles.sidebarBodyColorToggle === true ? '' : 'd-none'}`}>
                 <GithubPicker color={props.resumeSettings.sidebarBodyColor} onChangeComplete={changeSidebarBodyColor} colors={colors} triangle="hide" />
