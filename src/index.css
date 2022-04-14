@@ -216,20 +216,23 @@ code {
   position: relative;
 }
 
-.resume-paper .MuiGrid-grid-xs-12 {
+.resume-paper #header {
   padding: 15px 40px 5px 40px;
+  flex: 0;
 }
 
 .resume-paper #main {
   padding: 10px 10px 10px 40px;
+  height: 100%;
 }
 
 .resume-paper #sidebar {
-  padding: 10px 40px 0 10px;
+  padding: 10px 40px 10px 10px;
+  height: 100%;
 }
 
 .sidebar-left #main {
-  padding: 10px 40px 0 10px;
+  padding: 10px 40px 10px 10px;
 }
 
 .sidebar-left #sidebar {
