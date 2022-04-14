@@ -115,7 +115,7 @@ function Builder() {
 
   const onSidebarSettingClick = () => {
     if (resumeSettings.sidebar) {
-      const newArr = { ...arr, main: [...arr['main'], ...arr['sidebar']], sidebar: [] };
+      const newArr = { ...arr, componentLibrary: [...arr['componentLibrary'], ...arr['sidebar']], sidebar: [] };
       setItems(newArr);
     }
 

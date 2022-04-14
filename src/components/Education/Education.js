@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import {Grid, Box} from '@mui/material';
-import { styled } from '@mui/material/styles';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import SchoolIcon from '@mui/icons-material/School';
 import EditIcon from '@mui/icons-material/Edit';
@@ -8,14 +6,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import EducationEditor from "./EducationEditor";
 
 import './Education.css'
-
-const Item = styled(Box)(({ theme }) => ({
-    ...theme.typography.caption,
-    textAlign: 'left',
-    display: 'flex',
-    alignItems: 'center',
-    color: theme.palette.text.secondary,
-  }));
 
 const Education = (props) => {
     const [open, setOpen] = useState(false);
@@ -41,25 +31,16 @@ const Education = (props) => {
                                 <span className="education-title full-width-field">{item.title}</span>
                                 <span className="education-university full-width-field">{item.university}</span>
                             </div>
-                            <Grid
-                                container 
-                                justifyContent="start" 
-                                alignItems="center" 
-                                rowSpacing={0.5} 
-                                columnSpacing={{ xs: 0.5, sm: 0.5, md: 0.5 }}>
-                                <Grid item md={4} xs={4} justifyContent="start" alignItems="center">
-                                    <Item>
-                                        <CalendarTodayIcon className="resume-section-body"></CalendarTodayIcon> 
-                                        <Box className="resume-section-body" component="span" sx={{ pl: 0.8}}>{item.date}</Box>
-                                    </Item>
-                                </Grid>
-                                <Grid item md={4} xs={4} justifyContent="start" alignItems="center" >
-                                    <Item>
-                                        <SchoolIcon className="resume-section-body"></SchoolIcon>
-                                        <Box className="resume-section-body" component="span" sx={{ pl: 0.8}}>{item.gpa}</Box>
-                                    </Item>
-                                </Grid>
-                            </Grid>
+                            <div className="section-meta">
+                                {item.date && <div className="section-meta-item">
+                                    <CalendarTodayIcon className="section-meta-icon resume-section-body"></CalendarTodayIcon> 
+                                    <div className="resume-section-body" component="span" sx={{ pl: 0.8}}>{item.date}</div>
+                                </div>}
+                                {item.gpa && <div className="section-meta-item">
+                                    <SchoolIcon className="section-meta-icon resume-section-body"></SchoolIcon>
+                                    <div className="resume-section-body" component="span" sx={{ pl: 0.8}}>{item.gpa}</div>
+                                </div>}
+                            </div>
                         </div>
                     );
                 })}

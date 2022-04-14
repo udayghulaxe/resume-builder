@@ -90,6 +90,23 @@ code {
   justify-content: space-between;
 }
 
+.section-meta {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.section-meta-item {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  margin-bottom: 2px;
+  min-width: 80px;
+}
+
+.section-meta-icon {
+  padding-right: 6px;
+}
+
 .heading-font-x-small .resume-section-title, .subheading-font-x-small .resume-section-subtitle, .body-font-x-small .resume-section-body {
   font-size: x-small;
 }
@@ -255,7 +272,7 @@ code {
   height: 20px;
   position: relative;
   top: -8%;
-  left: 38%;
+  left: 10%;
   transform: translate(0%, 0px);
   z-index: 99;
 }
@@ -277,7 +294,7 @@ code {
   height: 20px;
   position: absolute;
   top: 15%;
-  left: 10%;
+  left: 38%;
   transform: translate(0%, 0px);
   z-index: 99;
 }
@@ -341,7 +358,7 @@ EDITOR SECTION START
 .MuiSvgIcon-root.add-item-icon {
   color: var(--color-primary);
   cursor: pointer;
-  margin-right: 5px;
+  margin-right: 20px;
 }
 
 .MuiSvgIcon-root.delete-item-icon {

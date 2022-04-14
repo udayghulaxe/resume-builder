@@ -11,6 +11,12 @@
 .skills-chip {
     margin-right: 10px;
     margin-bottom: 10px;
+    height: 26px !important;
+}
+
+.skills-chip .MuiChip-label {
+    padding-left: 7px;
+    padding-right: 7px;
 }
 
 .skills-chip.no-rounded {
