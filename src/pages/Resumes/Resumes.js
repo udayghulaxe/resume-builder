@@ -14,7 +14,7 @@ import resumeSvg from '../../assets/images/resume-2.svg';
 import './Resumes.css'
 
 const Resumes = () => {
-  const {authReducer, userDataReducer} = useSelector((state) => state);
+  const {authReducer} = useSelector((state) => state);
   const [userData, setUserData] = useState(null);
   const [userResumes, setUserResumes] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -171,16 +171,6 @@ const Resumes = () => {
                           </span>
                         </div>
 
-                        {/* DELETE ACTION */}
-                        <div className="resume-action-item link" onClick={() => { onDeleteResume(item.resumeId) }}>
-                          <span className="resume-action-item-link-icon">
-                            <DeleteOutlinedIcon />
-                          </span>
-                          <span className="resume-action-item-link-text">
-                            Delete
-                          </span>
-                        </div>
-
                         {/* COPY ACTION */}
                         { userResumes.length < maxResumeNumber && 
                         <div className={`resume-action-item link ${isLoading ? 'item-disabled' : ''}`} onClick={() => { onDuplicateResume(item.resumeId); }}>
@@ -210,6 +200,16 @@ const Resumes = () => {
                           </span>
                           <span className="resume-action-item-link-text">
                             Share
+                          </span>
+                        </div>
+
+                        {/* DELETE ACTION */}
+                        <div className="resume-action-item link" onClick={() => { onDeleteResume(item.resumeId) }}>
+                          <span className="resume-action-item-link-icon">
+                            <DeleteOutlinedIcon />
+                          </span>
+                          <span className="resume-action-item-link-text">
+                            Delete
                           </span>
                         </div>
                       </div>
