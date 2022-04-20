@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Suspense } from "react";
-import { AppBar, Button, Box, Toolbar, Paper, Grid, Autocomplete, TextField, CircularProgress, Chip, Alert, Snackbar } from '@mui/material';
+import { Button, Box, Paper, Grid, Autocomplete, TextField, CircularProgress, Alert, Snackbar } from '@mui/material';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import GoogleLogin from '../../components/Login/GoogleLogin'
 import { useSelector, useDispatch } from 'react-redux';
 import { getResumeDataByResumeId, updateResumeDataByResumeId } from '../../reducers/resumeDataSlice';
 import { getResumeSettingsByResumeId, updateResumeSettingsByResumeId } from '../../reducers/resumeSettingsSlice';
@@ -22,7 +21,6 @@ import { useParams } from "react-router-dom";
 import html2canvas from "html2canvas";
 
 import './Builder.css'
-import logo from '../../logo.svg';
 import GlobalResumeSetting from "../../components/GlobalResumeSetting/GlobalResumeSetting";
 import 'react-quill/dist/quill.snow.css';
 
@@ -331,28 +329,41 @@ function Builder() {
             <div className="layout-options">
               <div className="layout-option-items">
                 <div className="layout-option-item">
-                  <Chip variant="outlined" color="primary" icon={<SettingsOutlinedIcon />} onClick={openGlobalSetting} label="Settings" />
+                  <Button variant="outlined" color="primary" size="small" startIcon={<SettingsOutlinedIcon />} onClick={openGlobalSetting}>Settings</Button>
                 </div>
 
                 <div className="layout-option-item">
                   {
                     resumeSettings.sidebar ?
-                      <Chip variant="outlined" color="primary" icon={<WebAssetOutlinedIcon />} onClick={onSidebarSettingClick} label="Single Column" />
-                      : <Chip variant="outlined" color="primary" icon={<WebOutlinedIcon />} onClick={onSidebarSettingClick} label="Sidebar" />
+                      <Button variant="outlined" color="primary" size="small" startIcon={<WebAssetOutlinedIcon />} onClick={onSidebarSettingClick} >Single Column</Button>
+                      : <Button variant="outlined" color="primary" size="small" startIcon={<WebOutlinedIcon />} onClick={onSidebarSettingClick} >Sidebar</Button>
                   }
                 </div>
 
                 <div className="layout-option-item">
                   {
                     pageTwo ?
-                      <Chip variant="outlined" color="primary" icon={<RemoveCircleOutlineOutlinedIcon />} onClick={removeResumePage} label="Remove Page" />
-                      : <Chip variant="outlined" color="primary" icon={<AddCircleOutlineOutlinedIcon />} onClick={addResumePage} label="Add Page" />
+                      <Button variant="outlined" color="primary" size="small" startIcon={<RemoveCircleOutlineOutlinedIcon />} onClick={removeResumePage} >Remove Page</Button>
+                      : <Button variant="outlined" color="primary" size="small" startIcon={<AddCircleOutlineOutlinedIcon />} onClick={addResumePage} >Add Page</Button>
                   }
                 </div>
               </div>
 
-              <div className="layout-option-item">
-                <Chip color="primary" icon={<SaveOutlinedIcon />} onClick={saveChanges} label="Save Changes" />
+              <div className="layout-option-items">
+                <div className="layout-option-item">
+                  <Button color="primary" variant="contained" disableElevation size="small" startIcon={<SaveOutlinedIcon />} onClick={saveChanges} >Save Changes</Button>
+                </div>
+
+                <div className="layout-option-item">
+                  <Button
+                    onClick={window.print}
+                    variant="contained"
+                    color="primary"
+                    size="small"
+                    disableElevation>
+                    Download Resume
+                  </Button>
+                </div>
               </div>
 
             </div>
@@ -603,33 +614,6 @@ function Builder() {
 
   return (
     <div className="builder-wrap">
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar elevation={0} className="global-header" color="inherit" position="fixed">
-          <Toolbar className="builder-header">
-            <div className="header-filters">
-              <img src={logo} className="header-logo" alt="Resume Builder" />
-              {/* <Link underline="none" className="builder-header-menu-link active" href="#">About</Link>
-                  <Link underline="none" className="builder-header-menu-link" href="#">Experience</Link>
-                  <Link underline="none" className="builder-header-menu-link" href="#">Education</Link>
-                  <Link underline="none" className="builder-header-menu-link" href="#">Skills</Link>
-                  <Link underline="none" className="builder-header-menu-link" href="#">Languages</Link>
-                  <Link underline="none" className="builder-header-menu-link" href="#">Achievement</Link> */}
-            </div>
-            <div>
-              <Button
-                onClick={window.print}
-                variant="contained"
-                color="primary"
-                disableElevation
-                className="header-download-button">
-                Download Resume
-              </Button>
-              <GoogleLogin></GoogleLogin>
-            </div>
-          </Toolbar>
-        </AppBar>
-      </Box>
-
       {resumeHTML}
     </div>
   );
