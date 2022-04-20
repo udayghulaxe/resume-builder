@@ -94,11 +94,6 @@
     align-items: center;
 }
 
-.MuiButton-root.header-download-button {
-    margin-right: 20px !important;
-    text-transform: none;
-}
-
 .resume-paper-content {
     height: 100%;
 }
@@ -110,13 +105,17 @@
     justify-content: space-between;
 }
 
-.layout-option-item {
+.layout-option-item:not(:last-child) {
     display: flex;
     margin-right: 10px;
 }
 
 .layout-option-items {
     display: flex;
+}
+
+.layout-option-item .MuiButton-root {
+    text-transform: none;
 }
 
 .layout-option-item svg {
@@ -146,11 +145,12 @@
     align-items: center;
 }
 
-/* .component-library-wrap {
-    position: fixed;
-    width: 33.3333%;
+.component-library-wrap {
+    position: sticky;
     right: 40px;
-} */
+    top: 10px;
+    height: 100%;
+}
 
 .initial-loader {
     width: 100px;
