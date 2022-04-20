@@ -14,8 +14,11 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import RemoveCircleOutlineOutlinedIcon from '@mui/icons-material/RemoveCircleOutlineOutlined';
+import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined';
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import OpenWithIcon from '@mui/icons-material/OpenWith';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import { useParams } from "react-router-dom";
 import html2canvas from "html2canvas";
 
@@ -105,12 +108,44 @@ function Builder() {
     if (authReducer.userId) {
       dispatch(updateResumeDataByResumeId({ data: newData, resumeId: resumeId }));
     }
+
+    setTimeout(() => {
+      checkForPageTwo(newData);
+    }, 1000);
+    
   }
 
   function updateGlobalSetting(newData) {
     if (authReducer.userId) {
       dispatch(updateResumeSettingsByResumeId({ data: newData, resumeId: resumeId }));
     }
+  }
+
+  const checkForPageTwo = (newData) => {
+    const paperheight = document.querySelector('#main .resume-paper-content').clientHeight;
+    const childs = document.querySelector('#main .resume-paper-content').children;
+    let height = 0;
+    for (var i = 0; i < childs.length; i++) {
+      height += childs[i].clientHeight;
+    }
+    if(height + 30 > paperheight) {
+      console.log('if- need Page two');
+      setPageTwo(true);
+
+     moveLastComponentToPageTwo(newData);
+    } else {
+      console.log('else-');
+      // setPageTwo(false);
+      console.log(paperheight, height);
+    }
+  }
+
+  const moveLastComponentToPageTwo = (newData) => {
+    let newArr = JSON.parse(JSON.stringify(newData));
+    newArr.pageTwo.push(newArr.main[newArr.main.length - 1]);
+    newArr.main.pop();
+    setItems(newArr);
+    updateResumeData(newArr);
   }
 
   const onSidebarSettingClick = () => {
@@ -152,6 +187,22 @@ function Builder() {
     item = { ...item, copy: true, name: `${item.name}-${getUniqueId()}` };
     let newArr = JSON.parse(JSON.stringify(arr));
     newArr[column].splice(index + 1, 0, item);
+    setItems(newArr);
+    updateResumeData(newArr);
+  }
+
+  const removeComponent = (event, item, index, column) => {
+    let newArr = JSON.parse(JSON.stringify(arr));
+    newArr[column].splice(index, 1);
+    newArr.componentLibrary.push(item);
+    setItems(newArr);
+    updateResumeData(newArr);
+  }
+
+  const addComponentToResume = (event, item, index, column) => {
+    let newArr = JSON.parse(JSON.stringify(arr));
+    newArr[column].splice(index, 1);
+    newArr.main.push(item);
     setItems(newArr);
     updateResumeData(newArr);
   }
@@ -224,16 +275,6 @@ function Builder() {
       setItems(newColumn);
       updateResumeData(newColumn);
     }
-
-    // const paperheight = document.querySelector('.resume-paper').getBoundingClientRect().height + 30;
-    // const divHeight  = document.getElementById('pageOne').getBoundingClientRect().height;
-    // console.log(paperheight, divHeight);
-    // if(divHeight > paperheight) {
-    //   console.dir(arr);
-    //   setPageTwo(true);
-    // } else {
-    //   setPageTwo(false);
-    // }
   }
 
   function getComponent(componentType, item, columnName) {
@@ -342,8 +383,11 @@ function Builder() {
                                       <span className="copy-component">
                                         <ContentCopyOutlinedIcon titleAccess="Copy" onClick={(event) => copyComponent(event, item, index, 'header')} />
                                       </span>
+                                      <span className="remove-component">
+                                        <RemoveOutlinedIcon titleAccess="Remove From Resume" onClick={(event) => removeComponent(event, item, index, 'header')} />
+                                      </span>
                                       <span className={item.copy ? 'delete-component' : 'd-none'}>
-                                        <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'header')} />
+                                        <DeleteOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'header')} />
                                       </span>
                                     </div>
                                   </div>
@@ -379,8 +423,11 @@ function Builder() {
                                         <span className="copy-component">
                                           <ContentCopyOutlinedIcon titleAccess="Copy" onClick={(event) => copyComponent(event, item, index, 'main')} />
                                         </span>
+                                        <span className="remove-component">
+                                          <RemoveOutlinedIcon titleAccess="Remove From Resume" onClick={(event) => removeComponent(event, item, index, 'main')} />
+                                        </span>
                                         <span className={item.copy ? 'delete-component' : 'd-none'}>
-                                          <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'main')} />
+                                          <DeleteOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'main')} />
                                         </span>
                                       </div>
                                     </div>
@@ -399,7 +446,7 @@ function Builder() {
                       <Grid item xs={5} id="sidebar" sx={{ backgroundColor: resumeSettings.sidebarBackgroundColor, color: resumeSettings.sidebarBodyColor }} className={`${arr.header.length > 0 ? '' : 'padding'}`}>
                         <Droppable droppableId="sidebar">
                           {(provided, snapshot) => (
-                            <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over sidebar-column' : 'resume-paper-content sidebar-column'}>
+                            <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content resume-paper-content-draggin-over sidebar-column' : 'resume-paper-content sidebar-column'}>
                               {provided.isDragging}
                               {arr.sidebar.map((item, index) => {
                                 return (
@@ -417,8 +464,11 @@ function Builder() {
                                           <span className="copy-component">
                                             <ContentCopyOutlinedIcon titleAccess="Copy" onClick={(event) => copyComponent(event, item, index, 'sidebar')} />
                                           </span>
+                                          <span className="remove-component">
+                                            <RemoveOutlinedIcon titleAccess="Remove From Resume" onClick={(event) => removeComponent(event, item, index, 'sidebar')} />
+                                          </span>
                                           <span className={item.copy ? 'delete-component' : 'd-none'}>
-                                            <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'sidebar')} />
+                                            <DeleteOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'sidebar')} />
                                           </span>
                                         </div>
                                       </div>
@@ -461,8 +511,11 @@ function Builder() {
                                           <span className="copy-component">
                                             <ContentCopyOutlinedIcon titleAccess="Copy" onClick={(event) => copyComponent(event, item, index, 'pageTwo')} />
                                           </span>
+                                          <span className="remove-component">
+                                            <RemoveOutlinedIcon titleAccess="Remove From Resume" onClick={(event) => removeComponent(event, item, index, 'pageTwo')} />
+                                          </span>
                                           <span className={item.copy ? 'delete-component' : 'd-none'}>
-                                            <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'pageTwo')} />
+                                            <DeleteOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'pageTwo')} />
                                           </span>
                                         </div>
                                       </div>
@@ -521,8 +574,11 @@ function Builder() {
                                   <span className="copy-component">
                                     <ContentCopyOutlinedIcon titleAccess="Copy" onClick={(event) => copyComponent(event, item, index, 'componentLibrary')} />
                                   </span>
+                                  <span className="remove-component">
+                                    <AddOutlinedIcon titleAccess="Add to Resume" onClick={(event) => addComponentToResume(event, item, index, 'componentLibrary')} />
+                                  </span>
                                   <span className={item.copy ? 'delete-component' : 'd-none'}>
-                                    <CloseOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'componentLibrary')} />
+                                    <DeleteOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'componentLibrary')} />
                                   </span>
                                 </div>
                               </div>

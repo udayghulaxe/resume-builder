@@ -33,6 +33,7 @@
     display: flex;
     height: 100%;
     flex: 1;
+    overflow: hidden;
 }
 
 .resume-paper-main-content.sidebar-left {

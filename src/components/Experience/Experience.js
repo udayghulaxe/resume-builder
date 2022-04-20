@@ -1,6 +1,5 @@
 import React,{useState} from "react";
-import {Grid, Box} from '@mui/material';
-import { styled } from '@mui/material/styles';
+import {Box} from '@mui/material';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import BusinessIcon from '@mui/icons-material/Business';
@@ -9,12 +8,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import './Experience.css'
 import ExperienceEditor from "./ExperienceEditor";
 
-const Item = styled(Box)(({ theme }) => ({
-    ...theme.typography.caption,
-    textAlign: 'left',
-    display: 'flex',
-    alignItems: 'center'
-  }));
 
 const Experience = (props) => {
     const [open, setOpen] = useState(false);
