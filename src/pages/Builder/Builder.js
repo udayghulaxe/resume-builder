@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Suspense } from "react";
-import { Button, Box, Paper, Grid, Autocomplete, TextField, CircularProgress, Alert, Snackbar } from '@mui/material';
+import { Button, Box, Paper, Grid, Autocomplete, TextField, CircularProgress, Alert, Snackbar, LinearProgress } from '@mui/material';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { useSelector, useDispatch } from 'react-redux';
 import { getResumeDataByResumeId, updateResumeDataByResumeId } from '../../reducers/resumeDataSlice';
@@ -40,13 +40,13 @@ function Builder() {
   const { authReducer, resumeDataReducer, resumeSettingsReducer, userDataReducer } = useSelector((state) => state);
   const [arr, setItems] = useState(null);
   const [pageTwo, setPageTwo] = useState(false);
-  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [openSnackbar, setopenSnackbar] = useState(false);
-  let { resumeId } = useParams();
-
-
   const [resumeSettings, setResumeSettings] = useState(null);
+
+  let { resumeId } = useParams();
+  const dispatch = useDispatch();
 
   const openGlobalSetting = () => {
     setOpen(true);
@@ -103,13 +103,15 @@ function Builder() {
 
   function updateResumeData(newData) {
     if (authReducer.userId) {
-      dispatch(updateResumeDataByResumeId({ data: newData, resumeId: resumeId }));
+      dispatch(updateResumeDataByResumeId({ data: newData, resumeId: resumeId })).then((res) => {
+        setIsLoading(false);
+      });
     }
 
     setTimeout(() => {
       checkForPageTwo(newData);
     }, 1000);
-    
+
   }
 
   function updateGlobalSetting(newData) {
@@ -125,11 +127,11 @@ function Builder() {
     for (var i = 0; i < childs.length; i++) {
       height += childs[i].clientHeight;
     }
-    if(height + 30 > paperheight) {
+    if (height + 30 > paperheight) {
       console.log('if- need Page two');
       setPageTwo(true);
 
-     moveLastComponentToPageTwo(newData);
+      moveLastComponentToPageTwo(newData);
     } else {
       console.log('else-');
       // setPageTwo(false);
@@ -156,6 +158,7 @@ function Builder() {
   }
 
   const saveChanges = () => {
+    setIsLoading(true);
     if (authReducer.userId) {
       updateResumeData(arr);
       updateResumeThumbnail();
@@ -351,10 +354,6 @@ function Builder() {
 
               <div className="layout-option-items">
                 <div className="layout-option-item">
-                  <Button color="primary" variant="contained" disableElevation size="small" startIcon={<SaveOutlinedIcon />} onClick={saveChanges} >Save Changes</Button>
-                </div>
-
-                <div className="layout-option-item">
                   <Button
                     onClick={window.print}
                     variant="contained"
@@ -363,6 +362,9 @@ function Builder() {
                     disableElevation>
                     Download Resume
                   </Button>
+                </div>
+                <div className="layout-option-item">
+                  <Button className={isLoading ? 'item-disabled' : ''} color="primary" variant="contained" disableElevation size="small" startIcon={<SaveOutlinedIcon />} onClick={saveChanges} >Save Changes</Button>
                 </div>
               </div>
 
@@ -614,6 +616,7 @@ function Builder() {
 
   return (
     <div className="builder-wrap">
+      <LinearProgress className={isLoading ? '' : 'd-none'} color="primary" />
       {resumeHTML}
     </div>
   );

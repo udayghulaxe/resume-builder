@@ -118,10 +118,10 @@ const GlobalResumeSetting = (props) => {
 
   return (
     <Dialog
-      maxWidth="sm"
+      className="global-resume-setting"
       fullWidth={true}
       open={props.open}
-      onClose={closeEditor}
+      hideBackdrop
     >
       <DialogContent>
         <div className="resume-setting-wrap">
