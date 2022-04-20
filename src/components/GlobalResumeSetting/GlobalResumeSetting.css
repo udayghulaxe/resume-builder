@@ -1,3 +1,13 @@
+.global-resume-setting .MuiDialog-paper {
+    position: absolute;
+    right: 0;
+    top: 60px;
+    margin: 0;
+    box-shadow: none;
+    min-width: 35%;
+    width: 35%;
+}
+
 .resume-setting-section {
     margin-bottom: 10px;
     border-bottom: 2px solid var(--color-border-dark);
