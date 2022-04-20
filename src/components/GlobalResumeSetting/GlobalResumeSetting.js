@@ -412,9 +412,12 @@ const GlobalResumeSetting = (props) => {
         </div>
       </DialogContent>
 
-      <DialogActions>
-        <Button onClick={closeEditor}>Cancel</Button>
-        <Button onClick={onSave}>Save</Button>
+      <DialogActions >
+        
+        <Button size="small" variant="contained" onClick={onSave}>Save Changes</Button>
+        <Box sx={{marginRight: '15px'}}></Box>
+        <Button size="small" variant="outlined" onClick={closeEditor}>Cancel</Button>
+        <Box sx={{marginRight: '15px'}}></Box>
       </DialogActions>
     </Dialog>
   );

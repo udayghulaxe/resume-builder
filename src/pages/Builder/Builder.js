@@ -17,6 +17,7 @@ import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import OpenWithIcon from '@mui/icons-material/OpenWith';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import { useParams } from "react-router-dom";
 import html2canvas from "html2canvas";
 
@@ -332,10 +333,6 @@ function Builder() {
             <div className="layout-options">
               <div className="layout-option-items">
                 <div className="layout-option-item">
-                  <Button variant="outlined" color="primary" size="small" startIcon={<SettingsOutlinedIcon />} onClick={openGlobalSetting}>Settings</Button>
-                </div>
-
-                <div className="layout-option-item">
                   {
                     resumeSettings.sidebar ?
                       <Button variant="outlined" color="primary" size="small" startIcon={<WebAssetOutlinedIcon />} onClick={onSidebarSettingClick} >Single Column</Button>
@@ -350,17 +347,22 @@ function Builder() {
                       : <Button variant="outlined" color="primary" size="small" startIcon={<AddCircleOutlineOutlinedIcon />} onClick={addResumePage} >Add Page</Button>
                   }
                 </div>
+
+                <div className="layout-option-item">
+                  <Button variant="outlined" color="primary" size="small" startIcon={<SettingsOutlinedIcon />} onClick={openGlobalSetting}>Settings</Button>
+                </div>
               </div>
 
               <div className="layout-option-items">
                 <div className="layout-option-item">
                   <Button
                     onClick={window.print}
+                    startIcon={<FileDownloadOutlinedIcon />}
                     variant="contained"
                     color="primary"
                     size="small"
                     disableElevation>
-                    Download Resume
+                    Download
                   </Button>
                 </div>
                 <div className="layout-option-item">
