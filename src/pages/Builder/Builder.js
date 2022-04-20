@@ -329,34 +329,31 @@ function Builder() {
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="layout-options">
-              <div className="layout-option-item">
-                <Chip color="primary" icon={<SettingsOutlinedIcon />} onClick={openGlobalSetting} label="Settings" />
-              </div>
+              <div className="layout-option-items">
+                <div className="layout-option-item">
+                  <Chip variant="outlined" color="primary" icon={<SettingsOutlinedIcon />} onClick={openGlobalSetting} label="Settings" />
+                </div>
 
-              <div className="layout-option-item">
-                {
-                  resumeSettings.sidebar ?
-                    <Chip color="primary" icon={<WebAssetOutlinedIcon />} onClick={onSidebarSettingClick} label="Single Column" />
-                    : <Chip color="primary" icon={<WebOutlinedIcon />} onClick={onSidebarSettingClick} label="Sidebar" />
-                }
-              </div>
+                <div className="layout-option-item">
+                  {
+                    resumeSettings.sidebar ?
+                      <Chip variant="outlined" color="primary" icon={<WebAssetOutlinedIcon />} onClick={onSidebarSettingClick} label="Single Column" />
+                      : <Chip variant="outlined" color="primary" icon={<WebOutlinedIcon />} onClick={onSidebarSettingClick} label="Sidebar" />
+                  }
+                </div>
 
-              <div className="layout-option-item">
-                {
-                  pageTwo ?
-                    <Chip color="primary" icon={<RemoveCircleOutlineOutlinedIcon />} onClick={removeResumePage} label="Remove Page" />
-                    : <Chip color="primary" icon={<AddCircleOutlineOutlinedIcon />} onClick={addResumePage} label="Add Page" />
-                }
-
+                <div className="layout-option-item">
+                  {
+                    pageTwo ?
+                      <Chip variant="outlined" color="primary" icon={<RemoveCircleOutlineOutlinedIcon />} onClick={removeResumePage} label="Remove Page" />
+                      : <Chip variant="outlined" color="primary" icon={<AddCircleOutlineOutlinedIcon />} onClick={addResumePage} label="Add Page" />
+                  }
+                </div>
               </div>
 
               <div className="layout-option-item">
                 <Chip color="primary" icon={<SaveOutlinedIcon />} onClick={saveChanges} label="Save Changes" />
               </div>
-
-              {/* <div className="layout-option-item">
-              <Chip color="primary" icon={<WebOutlinedIcon />} onClick={clickPhoto} label="Click Photo" />
-              </div> */}
 
             </div>
             <div className="resume-paper-container" id="resumPaperContainer">

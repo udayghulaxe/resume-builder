@@ -106,11 +106,17 @@
 .layout-options {
     display: flex;
     margin-bottom: 12px;
+    width: 770px;
+    justify-content: space-between;
 }
 
 .layout-option-item {
     display: flex;
     margin-right: 10px;
+}
+
+.layout-option-items {
+    display: flex;
 }
 
 .layout-option-item svg {
