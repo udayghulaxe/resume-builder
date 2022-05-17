@@ -34,6 +34,7 @@ import ProfessionalSummary from '../../components/ProfessionalSummary/Profession
 import Skills from '../../components/Skills/Skills';
 import SkillsWithProgress from '../../components/SkillsWithProgress/SkillsWithProgress';
 import Social from '../../components/Social/Social';
+import Divider from "../../components/Divider/Divider";
 
 
 function Builder() {
@@ -307,6 +308,10 @@ function Builder() {
       case 'Social':
         return <Social componentColumn={columnName} componentItem={item} />;
 
+      case 'Divider':
+        return <Divider componentColumn={columnName} componentItem={item} />;
+
+        
       default:
         return null;
     }
