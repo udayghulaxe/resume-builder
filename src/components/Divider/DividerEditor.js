@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, MenuItem } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -34,20 +34,28 @@ const DividerEditor = (props) => {
 		<Dialog maxWidth="sm" fullWidth={true} open={props.open} onClose={closeEditor}>
 			<DialogContent>
 				<div className="editor-wrap">
-					<div className="editor-heading-wrap">
-						<h1>{editorData.title}</h1>
+					<div className='editor-heading-wrap'>
+                        <TextField fullWidth readOnly autoComplete='off' variant="standard" value={editorData.title} />
 					</div>
 					<div className="editor-options-wrap">
 						{editorData.styles.map((style) => {
 							return (
 								<TextField
 									key={style.rule}
-									type="number"
-									label={style.label + ` (${style.unit})`}
+									type={style.type}
+									select={style.type === "select"}
+									label={style.label + (style.unit ? ` (${style.unit})` : "")}
 									value={style.value}
 									margin="normal"
 									onChange={(event) => onStyleChange(style.rule, event.target.value)}
-								/>
+								>
+									{style.type === "select" &&
+										style.options.map((option) => (
+											<MenuItem key={option} value={option}>
+												{option}
+											</MenuItem>
+										))}
+								</TextField>
 							);
 						})}
 					</div>

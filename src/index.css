@@ -451,6 +451,10 @@ RICH TEXT EDITOR SECTION START
   max-width: 380px;
 }
 
+.border-none {
+  border: none;
+}
+
 /* =============================
 RICH TEXT EDITOR SECTION END 
 =============================== */
