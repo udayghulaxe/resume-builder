@@ -213,7 +213,21 @@ export const initialData = {
           { title: "React", proficiency: 50 },
         ],
       },
-    }
+    },
+    {
+      name: "Divider",
+      componentType: 'Divider',
+      path: "Divider/Divider",
+      componentData: {
+        title: "Divider",
+        styles: [
+          {label: 'Width', rule:'width', value:'100', unit: '%'},
+          {label: 'Height', rule:'height', value:'2', unit: 'px'},
+          {label: 'Space Above', rule:'marginTop', value:'5', unit: 'px'},
+          {label: 'Space Below', rule:'marginBottom', value:'5', unit: 'px'},
+        ]
+      }
+    },
   ],
 }
 };
