@@ -4,21 +4,28 @@ import DividerEditor from "./DividerEditor";
 
 const Divider = (props) => {
 	const [open, setOpen] = useState(false);
-	const widgetData = props.componentItem.componentData;
 
 	const styles = {};
-	widgetData.styles.forEach((style) => {
+	props.componentItem.componentData.styles.forEach((style) => {
 		styles[style.rule] = style.value + style.unit;
 	});
 
+	const title = (
+		<div className="resume-section-title border-none">
+			<span>{props.componentItem.componentData.title}</span>
+		</div>
+	);
+
 	return (
 		<div className="resume-section">
+			{props.componentColumn === "componentLibrary" && title}
+
 			<span className="edit-component-icon">
 				<EditIcon onClick={(open) => setOpen(true)} />
 			</span>
 
 			<div className="divider-wrapper">
-				<hr style={styles} />
+				<div style={styles}></div>
 			</div>
 
 			<DividerEditor
@@ -32,5 +39,4 @@ const Divider = (props) => {
 	);
 };
 
-// export default React.memo(Divider);
-export default Divider;
+export default React.memo(Divider);

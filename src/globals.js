@@ -216,18 +216,36 @@ export const initialData = {
     },
     {
       name: "Divider",
-      componentType: 'Divider',
+      componentType: "Divider",
       path: "Divider/Divider",
       componentData: {
         title: "Divider",
         styles: [
-          {label: 'Width', rule:'width', value:'100', unit: '%'},
-          {label: 'Height', rule:'height', value:'2', unit: 'px'},
-          {label: 'Space Above', rule:'marginTop', value:'5', unit: 'px'},
-          {label: 'Space Below', rule:'marginBottom', value:'5', unit: 'px'},
-        ]
-      }
-    }
+          {
+            type: "select",
+            label: "Style",
+            rule: "borderStyle",
+            value: "solid",
+            unit: "",
+            options: [
+              "dotted",
+              "dashed",
+              "solid",
+              "double",
+              "groove",
+              "ridge",
+              "inset",
+              "outset",
+              "hidden",
+            ],
+          },
+          { type: "number", label: "Width", rule: "width", value: "100", unit: "%" },
+          { type: "number", label: "Height", rule: "borderWidth", value: "1", unit: "px" },
+          { type: "number", label: "Space Above", rule: "marginTop", value: "5", unit: "px" },
+          { type: "number", label: "Space Below", rule: "marginBottom", value: "5", unit: "px" },
+        ],
+      },
+    },
   ],
 }
 };
