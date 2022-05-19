@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DividerEditor from "./DividerEditor";
 
+import "./Divider.css";
+
 const Divider = (props) => {
 	const [open, setOpen] = useState(false);
 
@@ -25,7 +27,7 @@ const Divider = (props) => {
 			</span>
 
 			<div className="divider-wrapper">
-				<div style={styles}></div>
+				<hr style={styles} />
 			</div>
 
 			<DividerEditor
