@@ -152,6 +152,15 @@
     height: 100%;
 }
 
+.setting-editor-container-wrap {
+    position: sticky;
+    background-color: #ffffff;
+    top: 0;
+    right: 0px;
+    height: 100%;
+    padding: 20px !important;
+}
+
 .initial-loader {
     width: 100px;
     height: 100px;

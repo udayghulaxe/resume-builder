@@ -43,15 +43,15 @@ function Builder() {
   const [arr, setItems] = useState(null);
   const [pageTwo, setPageTwo] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [showEditorSection, setShowEditorSection] = useState(false);
   const [openSnackbar, setopenSnackbar] = useState(false);
   const [resumeSettings, setResumeSettings] = useState(null);
 
   let { resumeId } = useParams();
   const dispatch = useDispatch();
 
-  const openGlobalSetting = () => {
-    setOpen(true);
+  const openEditorSection = () => {
+    setShowEditorSection(!showEditorSection);
   }
 
   useEffect(() => {
@@ -325,14 +325,6 @@ function Builder() {
         </Alert>
       </Snackbar>
       <div className="resume-paper-wrap">
-        <GlobalResumeSetting
-          resumeSettings={resumeSettings}
-          setResumeSettings={setResumeSettings}
-          updateGlobalSetting={updateGlobalSetting}
-          open={open}
-          setOpen={setOpen}>
-        </GlobalResumeSetting>
-
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="layout-options">
@@ -354,7 +346,7 @@ function Builder() {
                 </div>
 
                 <div className="layout-option-item">
-                  <Button variant="outlined" color="primary" size="small" startIcon={<SettingsOutlinedIcon />} onClick={openGlobalSetting}>Settings</Button>
+                  <Button variant="outlined" color="primary" size="small" startIcon={<SettingsOutlinedIcon />} onClick={openEditorSection}>Settings</Button>
                 </div>
               </div>
 
@@ -551,7 +543,7 @@ function Builder() {
                 : null}
             </div>
           </Grid>
-          <Grid className="component-library-wrap" item xs={4}>
+          {!showEditorSection ?<Grid className="component-library-wrap" item xs={4}>
             <div className="component-library-header">
               <div>
                 <span className="component-library-title">All Widgets</span>
@@ -609,7 +601,18 @@ function Builder() {
                 )}
               </Droppable>
             </Paper>
+          </Grid> : <Grid className="setting-editor-container-wrap" item xs={4}>
+            <div className="setting-editor-container">
+              <GlobalResumeSetting
+                resumeSettings={resumeSettings}
+                setResumeSettings={setResumeSettings}
+                updateGlobalSetting={updateGlobalSetting}
+                setShowEditorSection={setShowEditorSection}>
+              </GlobalResumeSetting>
+            </div>
           </Grid>
+          }
+          
         </Grid>
 
       </div>
