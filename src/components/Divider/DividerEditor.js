@@ -1,12 +1,9 @@
 import React, { useState } from "react";
+import ReactDOM from 'react-dom';
 import { useDispatch } from "react-redux";
-
 import { TextField, Button, MenuItem, Grid } from "@mui/material";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
 
-import { updateResumeDataReducer } from "../../reducers/resumeDataSlice";
+import { updateResumeDataReducer, updateOpenEditorName } from "../../reducers/resumeDataSlice";
 
 const DividerEditor = (props) => {
 	const [editorData, setEditorData] = useState(props.editorData);
@@ -20,6 +17,7 @@ const DividerEditor = (props) => {
 	};
 
 	const closeEditor = () => {
+		dispatch(updateOpenEditorName(null));
 		props.setOpen(false);
 	};
 
@@ -41,50 +39,49 @@ const DividerEditor = (props) => {
 		const style = widgetData.styles.find((style) => style.rule === s.rule);
 		style.value = value;
 		setEditorData(widgetData);
+		props.setWidgetData(widgetData);
 	}
 
-	return (
-		<Dialog maxWidth="sm" fullWidth={true} open={props.open} onClose={closeEditor}>
-			<DialogContent>
-				<div className="editor-wrap">
-					<div className="editor-heading-wrap">
-						<TextField fullWidth readOnly autoComplete="off" variant="standard" value={editorData.title} />
-					</div>
-					<div className="editor-options-wrap">
-						<Grid container spacing={1}>
-							{editorData.styles.map((style) => {
-								return (
-									<Grid item xs={12} md={6} key={style.rule}>
-										<TextField
-											type={style.type}
-											select={style.type === "select"}
-											label={style.label + (style.unit ? ` (${style.unit})` : "")}
-											value={style.value}
-											margin="normal"
-											size="small"
-											fullWidth
-											InputProps={{ inputProps: { min: 0, max: 100 } }}
-											onChange={(event) => onStyleChange(style, event.target.value)}
-										>
-											{style.type === "select" &&
-												style.options.map((option) => (
-													<MenuItem key={option} value={option}>
-														{option}
-													</MenuItem>
-												))}
-										</TextField>
-									</Grid>
-								);
-							})}
-						</Grid>
-					</div>
-				</div>
-			</DialogContent>
-			<DialogActions>
-				<Button onClick={closeEditor}>Cancel</Button>
-				<Button onClick={onSave}>Save</Button>
-			</DialogActions>
-		</Dialog>
+	return ReactDOM.createPortal(
+		<div className="editor-wrap">
+			<div className="editor-section-header">
+				<Button variant="contained" size="small" onClick={onSave}>Save Changes</Button>
+				<Button variant="outlined" size="small" onClick={closeEditor}>Close</Button>
+			</div>
+			<div className="editor-heading-wrap">
+				<TextField fullWidth label="Title" readOnly autoComplete="off" variant="standard" value={editorData.title} />
+			</div>
+			<div className="editor-options-wrap">
+				<Grid container spacing={1}>
+					{editorData.styles.map((style) => {
+						return (
+							<Grid item xs={12} md={6} key={style.rule}>
+								<TextField
+									type={style.type}
+									select={style.type === "select"}
+									label={style.label + (style.unit ? ` (${style.unit})` : "")}
+									value={style.value}
+									margin="normal"
+									size="small"
+									fullWidth
+									InputProps={{ inputProps: { min: 0, max: 100 } }}
+									onChange={(event) => onStyleChange(style, event.target.value)}
+								>
+									{style.type === "select" &&
+										style.options.map((option) => (
+											<MenuItem key={option} value={option}>
+												{option}
+											</MenuItem>
+										))}
+								</TextField>
+							</Grid>
+						);
+					})}
+				</Grid>
+			</div>
+		</div>, document.getElementById("editorPortal")
+
+
 	);
 };
 

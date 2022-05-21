@@ -2,8 +2,8 @@ import React, { useState, useEffect, Suspense } from "react";
 import { Button, Box, Paper, Grid, Autocomplete, TextField, CircularProgress, Alert, Snackbar, LinearProgress } from '@mui/material';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { useSelector, useDispatch } from 'react-redux';
-import { getResumeDataByResumeId, updateResumeDataByResumeId } from '../../reducers/resumeDataSlice';
-import { getResumeSettingsByResumeId, updateResumeSettingsByResumeId } from '../../reducers/resumeSettingsSlice';
+import { getResumeDataByResumeId, updateResumeDataByResumeId, updateOpenEditorName } from '../../reducers/resumeDataSlice';
+import { getResumeSettingsByResumeId, updateResumeSettingsByResumeId, updateSettingsDataReducer } from '../../reducers/resumeSettingsSlice';
 import { getUserDataByUserId, updateUserResumeDataByUserId } from '../../reducers/userDataSlice';
 
 import WebAssetOutlinedIcon from '@mui/icons-material/WebAssetOutlined';
@@ -40,18 +40,22 @@ import Divider from "../../components/Divider/Divider";
 function Builder() {
   let resumeHTML;
   const { authReducer, resumeDataReducer, resumeSettingsReducer, userDataReducer } = useSelector((state) => state);
+  const openEditorName = useSelector(state => state.resumeDataReducer.openEditorName);
   const [arr, setItems] = useState(null);
   const [pageTwo, setPageTwo] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [open, setOpen] = useState(false);
   const [openSnackbar, setopenSnackbar] = useState(false);
   const [resumeSettings, setResumeSettings] = useState(null);
 
   let { resumeId } = useParams();
   const dispatch = useDispatch();
 
-  const openGlobalSetting = () => {
-    setOpen(true);
+  const openEditorSection = () => {
+    if (openEditorName === 'globalSetting') {
+      dispatch(updateOpenEditorName(null));
+    } else {
+      dispatch(updateOpenEditorName('globalSetting'));
+    }
   }
 
   useEffect(() => {
@@ -84,11 +88,6 @@ function Builder() {
     dispatch(getResumeSettingsByResumeId(resumeId)).then((res) => {
       setResumeSettings(res.payload);
       if (res.payload) {
-
-        // setTimeout(() => {
-        //   setopenSnackbar(true);
-        // }, 2000);
-
         const root = document.querySelector(":root");
         root.style.setProperty("--color-font-heading", res.payload.headingFontColor);
         root.style.setProperty("--color-font-subheading", res.payload.subheadingFontColor);
@@ -96,9 +95,6 @@ function Builder() {
         root.style.setProperty("--color-font-about-section", res.payload.aboutSectionFontColor);
         root.style.setProperty("--color-sidebar-body", res.payload.sidebarBodyColor);
         root.style.setProperty("--color-sidebar-heading", res.payload.sidebarHeadingColor);
-
-
-
       }
     });
   }
@@ -119,6 +115,7 @@ function Builder() {
   function updateGlobalSetting(newData) {
     if (authReducer.userId) {
       dispatch(updateResumeSettingsByResumeId({ data: newData, resumeId: resumeId }));
+      dispatch(updateSettingsDataReducer(newData));
     }
   }
 
@@ -311,7 +308,7 @@ function Builder() {
       case 'Divider':
         return <Divider componentColumn={columnName} componentItem={item} />;
 
-        
+
       default:
         return null;
     }
@@ -325,14 +322,6 @@ function Builder() {
         </Alert>
       </Snackbar>
       <div className="resume-paper-wrap">
-        <GlobalResumeSetting
-          resumeSettings={resumeSettings}
-          setResumeSettings={setResumeSettings}
-          updateGlobalSetting={updateGlobalSetting}
-          open={open}
-          setOpen={setOpen}>
-        </GlobalResumeSetting>
-
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <div className="layout-options">
@@ -354,7 +343,7 @@ function Builder() {
                 </div>
 
                 <div className="layout-option-item">
-                  <Button variant="outlined" color="primary" size="small" startIcon={<SettingsOutlinedIcon />} onClick={openGlobalSetting}>Settings</Button>
+                  <Button variant="outlined" color="primary" size="small" startIcon={<SettingsOutlinedIcon />} onClick={openEditorSection}>Settings</Button>
                 </div>
               </div>
 
@@ -552,64 +541,77 @@ function Builder() {
             </div>
           </Grid>
           <Grid className="component-library-wrap" item xs={4}>
-            <div className="component-library-header">
-              <div>
-                <span className="component-library-title">All Widgets</span>
-              </div>
-              <Autocomplete
-                id="component-library-filter"
-                options={[
-                  { label: 'Education', id: 1 },
-                  { label: 'Skills', id: 2 },
-                ]}
-                sx={{ width: 150 }}
-                renderInput={(params) => <TextField {...params} placeholder="Filter" variant="standard" />}
-              />
-            </div>
-            <Paper style={{ padding: '20px' }} className="widget-library" elevation={0}>
-
-              <Droppable droppableId="componentLibrary">
-                {(provided, snapshot) => (
-                  <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over' : 'resume-paper-content'}>
-                    {provided.isDragging}
-                    <Suspense fallback={<div>Loading</div>}>
-                      {arr.componentLibrary.map((item, index) => {
-                        return (
-                          <Draggable key={item.name} draggableId={item.name} index={index}>
-                            {(provided, snapshot) => (
-                              <div className={snapshot.isDragging ? 'resume-section-wrap component-dragging' : 'resume-section-wrap'}
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                key={item.name}>
-
-                                {getComponent(item.componentType, item, 'componentLibrary')}
-                                <div className="overlay">
-                                  <span className="drag-handle" {...provided.dragHandleProps}>
-                                    <OpenWithIcon titleAccess="Grab & Move" />
-                                  </span>
-                                  <span className="copy-component">
-                                    <ContentCopyOutlinedIcon titleAccess="Copy" onClick={(event) => copyComponent(event, item, index, 'componentLibrary')} />
-                                  </span>
-                                  <span className="remove-component">
-                                    <AddOutlinedIcon titleAccess="Add to Resume" onClick={(event) => addComponentToResume(event, item, index, 'componentLibrary')} />
-                                  </span>
-                                  <span className={item.copy ? 'delete-component' : 'd-none'}>
-                                    <DeleteOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'componentLibrary')} />
-                                  </span>
-                                </div>
-                              </div>
-                            )}
-                          </Draggable>
-                        );
-                      }
-                      )}
-                      {provided.placeholder}
-                    </Suspense>
+            <div id="editorPortal"></div>
+            {openEditorName === 'globalSetting'  ?
+              <div className="setting-editor-container">
+                <GlobalResumeSetting
+                  resumeSettings={resumeSettings}
+                  setResumeSettings={setResumeSettings}
+                  updateGlobalSetting={updateGlobalSetting}
+                  openEditorSection={openEditorSection}>
+                </GlobalResumeSetting>
+              </div> : openEditorName === null && <div>
+                <div className="component-library-header">
+                  <div>
+                    <span className="component-library-title">All Widgets</span>
                   </div>
-                )}
-              </Droppable>
-            </Paper>
+                  <Autocomplete
+                    id="component-library-filter"
+                    options={[
+                      { label: 'Education', id: 1 },
+                      { label: 'Skills', id: 2 },
+                    ]}
+                    sx={{ width: 150 }}
+                    renderInput={(params) => <TextField {...params} placeholder="Filter" variant="standard" />}
+                  />
+                </div>
+                <Paper style={{ padding: '20px' }} className="widget-library" elevation={0}>
+
+                  <Droppable droppableId="componentLibrary">
+                    {(provided, snapshot) => (
+                      <div ref={provided.innerRef} {...provided.droppableProps} className={snapshot.isDraggingOver ? 'resume-paper-content-draggin-over' : 'resume-paper-content'}>
+                        {provided.isDragging}
+                        <Suspense fallback={<div>Loading</div>}>
+                          {arr.componentLibrary.map((item, index) => {
+                            return (
+                              <Draggable key={item.name} draggableId={item.name} index={index}>
+                                {(provided, snapshot) => (
+                                  <div className={snapshot.isDragging ? 'resume-section-wrap component-dragging' : 'resume-section-wrap'}
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    key={item.name}>
+
+                                    {getComponent(item.componentType, item, 'componentLibrary')}
+                                    <div className="overlay">
+                                      <span className="drag-handle" {...provided.dragHandleProps}>
+                                        <OpenWithIcon titleAccess="Grab & Move" />
+                                      </span>
+                                      <span className="copy-component">
+                                        <ContentCopyOutlinedIcon titleAccess="Copy" onClick={(event) => copyComponent(event, item, index, 'componentLibrary')} />
+                                      </span>
+                                      <span className="remove-component">
+                                        <AddOutlinedIcon titleAccess="Add to Resume" onClick={(event) => addComponentToResume(event, item, index, 'componentLibrary')} />
+                                      </span>
+                                      <span className={item.copy ? 'delete-component' : 'd-none'}>
+                                        <DeleteOutlinedIcon onClick={(event) => deleteComponent(event, item, index, 'componentLibrary')} />
+                                      </span>
+                                    </div>
+                                  </div>
+                                )}
+                              </Draggable>
+                            );
+                          }
+                          )}
+                          {provided.placeholder}
+                        </Suspense>
+                      </div>
+                    )}
+                  </Droppable>
+                </Paper>
+              </div>
+            }
           </Grid>
+
         </Grid>
 
       </div>

@@ -149,7 +149,16 @@
     position: sticky;
     right: 40px;
     top: 10px;
+    height: 95vh;
+}
+
+.setting-editor-container-wrap {
+    position: sticky;
+    background-color: #ffffff;
+    top: 0;
+    right: 0px;
     height: 100%;
+    padding: 20px !important;
 }
 
 .initial-loader {
@@ -161,4 +170,24 @@
     left: 0;
     right: 0;
     margin: auto;
+}
+
+#editorPortal {
+    background-color: #fff;
+    border-radius: 4px;
+    height: auto;
+    overflow-y: auto;
+    max-height: 90%;
+}
+
+#editorPortal .editor-wrap {
+    padding: 20px;
+}
+
+.editor-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    margin-bottom: 20px;
 }

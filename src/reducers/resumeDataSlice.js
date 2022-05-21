@@ -2,7 +2,7 @@ import {createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import firebase from '../firebase';
 
 const INITIAL_STATE = {
-    resumeData: null, loading: 'idle',
+    resumeData: null, loading: 'idle', openEditorName: null,
 };
 
 export const getResumeDataByResumeId = createAsyncThunk(
@@ -33,6 +33,11 @@ export const resumeDataSlice = createSlice({
             data[action.payload.column].filter(item => item.name === action.payload.name)[0].componentData = action.payload.data;
             state.resumeData = data;
         },
+
+        updateOpenEditorName: (state, action) => {
+          console.log('calling updateOpenEditorName', action.payload);
+          state.openEditorName = action.payload;
+      },
     },
     extraReducers: (builder) => {
         builder.addCase(getResumeDataByResumeId.fulfilled, (state, action) => {
@@ -46,6 +51,6 @@ export const resumeDataSlice = createSlice({
     },
   });
 
-export const { updateResumeDataReducer } = resumeDataSlice.actions;  
+export const { updateResumeDataReducer, updateOpenEditorName } = resumeDataSlice.actions;  
 
 export default resumeDataSlice.reducer;

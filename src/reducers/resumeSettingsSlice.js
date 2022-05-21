@@ -31,9 +31,8 @@ export const resumeSettingsSlice = createSlice({
     initialState: INITIAL_STATE,
     reducers: {
         updateSettingsDataReducer: (state, action) => {
-            const data = JSON.parse(JSON.stringify(state.resumeSettings));
-            //data[action.payload.column].filter(item => item.name === action.payload.name)[0].componentData = action.payload.data;
-            state.resumeData = data;
+            const data = JSON.parse(JSON.stringify(action.payload));
+            state.resumeSettings = data;
         },
     },
     extraReducers: (builder) => {
