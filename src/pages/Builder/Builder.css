@@ -171,3 +171,20 @@
     right: 0;
     margin: auto;
 }
+
+#editorPortal {
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+#editorPortal .editor-wrap {
+    padding: 20px;
+}
+
+.editor-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    margin-bottom: 20px;
+}

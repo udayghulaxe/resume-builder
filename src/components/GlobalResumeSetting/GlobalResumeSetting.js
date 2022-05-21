@@ -23,7 +23,7 @@ const GlobalResumeSetting = (props) => {
   });
 
   const closeEditor = () => {
-    props.setShowEditorSection(false);
+    props.openEditorSection()
   };
 
   const changeFontColor = (property, color) => {
@@ -118,7 +118,7 @@ const GlobalResumeSetting = (props) => {
       <div className="resume-setting-section">
         <div className="resume-setting-section-header">
           <Button size="small" variant="contained" onClick={onSave}>Save Changes</Button>
-          <Button size="small" variant="outlined" onClick={closeEditor}>Cancel</Button>
+          <Button size="small" variant="outlined" onClick={closeEditor}>Close</Button>
         </div>
 
         {/* ABOUT SECTION SETTING */}
