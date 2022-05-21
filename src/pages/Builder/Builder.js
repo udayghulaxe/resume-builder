@@ -3,7 +3,7 @@ import { Button, Box, Paper, Grid, Autocomplete, TextField, CircularProgress, Al
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { useSelector, useDispatch } from 'react-redux';
 import { getResumeDataByResumeId, updateResumeDataByResumeId, updateOpenEditorName } from '../../reducers/resumeDataSlice';
-import { getResumeSettingsByResumeId, updateResumeSettingsByResumeId } from '../../reducers/resumeSettingsSlice';
+import { getResumeSettingsByResumeId, updateResumeSettingsByResumeId, updateSettingsDataReducer } from '../../reducers/resumeSettingsSlice';
 import { getUserDataByUserId, updateUserResumeDataByUserId } from '../../reducers/userDataSlice';
 
 import WebAssetOutlinedIcon from '@mui/icons-material/WebAssetOutlined';
@@ -88,11 +88,6 @@ function Builder() {
     dispatch(getResumeSettingsByResumeId(resumeId)).then((res) => {
       setResumeSettings(res.payload);
       if (res.payload) {
-
-        // setTimeout(() => {
-        //   setopenSnackbar(true);
-        // }, 2000);
-
         const root = document.querySelector(":root");
         root.style.setProperty("--color-font-heading", res.payload.headingFontColor);
         root.style.setProperty("--color-font-subheading", res.payload.subheadingFontColor);
@@ -100,9 +95,6 @@ function Builder() {
         root.style.setProperty("--color-font-about-section", res.payload.aboutSectionFontColor);
         root.style.setProperty("--color-sidebar-body", res.payload.sidebarBodyColor);
         root.style.setProperty("--color-sidebar-heading", res.payload.sidebarHeadingColor);
-
-
-
       }
     });
   }
@@ -123,6 +115,7 @@ function Builder() {
   function updateGlobalSetting(newData) {
     if (authReducer.userId) {
       dispatch(updateResumeSettingsByResumeId({ data: newData, resumeId: resumeId }));
+      dispatch(updateSettingsDataReducer(newData));
     }
   }
 

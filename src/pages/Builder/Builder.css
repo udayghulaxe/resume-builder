@@ -149,7 +149,7 @@
     position: sticky;
     right: 40px;
     top: 10px;
-    height: 100%;
+    height: 95vh;
 }
 
 .setting-editor-container-wrap {
@@ -175,6 +175,9 @@
 #editorPortal {
     background-color: #fff;
     border-radius: 4px;
+    height: auto;
+    overflow-y: auto;
+    max-height: 90%;
 }
 
 #editorPortal .editor-wrap {

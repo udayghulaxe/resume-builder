@@ -115,12 +115,12 @@ const GlobalResumeSetting = (props) => {
   return (
     <div className="resume-setting-wrap">
 
-      <div className="resume-setting-section">
-        <div className="resume-setting-section-header">
+      <div className="resume-setting-section-header">
           <Button size="small" variant="contained" onClick={onSave}>Save Changes</Button>
           <Button size="small" variant="outlined" onClick={closeEditor}>Close</Button>
-        </div>
+      </div>
 
+      <div className="resume-setting-section">
         {/* ABOUT SECTION SETTING */}
         <div className="resume-setting-heading">
           <span>Resume Header Section</span>
