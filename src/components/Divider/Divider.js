@@ -11,7 +11,7 @@ const Divider = (props) => {
 	const [widgetData, setWidgetData] = useState(props.componentItem.componentData);
 
 	const dispatch = useDispatch();
-    const openEditorName = useSelector(state => state.resumeDataReducer.editorOpenName);
+    const openEditorName = useSelector(state => state.resumeDataReducer.openEditorName);
     const  openEditor = () => {
         dispatch(updateOpenEditorName(props.componentItem.name));
         setOpen(true);
