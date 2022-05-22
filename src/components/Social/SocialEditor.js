@@ -1,105 +1,88 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import ReactDOM from 'react-dom';
 import { TextField, Button, Divider, Box } from "@mui/material";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { useDispatch } from "react-redux";
-import { updateResumeDataReducer } from "../../reducers/resumeDataSlice";
+import { updateResumeDataReducer, updateOpenEditorName } from "../../reducers/resumeDataSlice";
 
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 const SocialEditor = (props) => {
   const [editorData, setEditorData] = useState(props.editorData);
-  const [firstime, setFirstTime] = useState(false);
-  const [title, setTitle] = useState(editorData.title);
   const dispatch = useDispatch();
-  const [socialItems, setSocialItems] = useState(editorData.items);
+
+  const onWidgetDataChange = (key, newValue) => {
+    const newData = { ...editorData, [key]: newValue };
+    setEditorData(newData);
+    props.setWidgetData(newData);
+  }
 
   const onSave = (event) => {
-    console.log("socialItems", socialItems);
-    setEditorData({
-      ...editorData,
-      title: title,
-      items: socialItems.filter(
-        (item, index) => item.socialPlatform.length > 0
-      ),
-    });
-    setFirstTime(true);
+    const newData = { ...editorData};
+    dispatch(
+      updateResumeDataReducer({
+        name: props.componentName,
+        column: props.componentColumn,
+        data: newData,
+      })
+    );
     closeEditor();
     console.log(editorData);
   };
 
   const onTitleChange = (event) => {
     const newVal = event.target.value;
-    setTitle(newVal);
+    onWidgetDataChange('title', newVal);
   };
 
   const onFieldChange = (event, index, property) => {
     const newValue = event.target.value;
-    let newSocialItems = [...socialItems];
+    let newSocialItems = [...editorData.items];
     newSocialItems[index] = {
       ...newSocialItems[index],
       [property]: newValue,
     };
-    setSocialItems(newSocialItems);
+    onWidgetDataChange('items', newSocialItems);
   };
 
   const onAddSocial = (event, index) => {
-    let newSocialItems = [...socialItems];
+    let newSocialItems = [...editorData.items];
     newSocialItems.splice(index + 1, 0, {
         socialPlatform: "",
         username: ""
     });
-    setSocialItems(newSocialItems);
+    onWidgetDataChange('items', newSocialItems);
   };
 
   const onDeleteExperience = (event, index) => {
-    let newSocialItems = [...socialItems];
+    let newSocialItems = [...editorData.items];
     newSocialItems.splice(index, 1);
-    setSocialItems(newSocialItems);
+    onWidgetDataChange('items', newSocialItems);
   };
 
   const closeEditor = () => {
+    dispatch(updateOpenEditorName(null));
     props.setOpen(false);
   };
 
-  useEffect(() => {
-    if (firstime) {
-      console.log("props", props);
-      dispatch(
-        updateResumeDataReducer({
-          name: props.componentName,
-          column: props.componentColumn,
-          data: editorData,
-        })
-      );
-      setFirstTime(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editorData]);
-
-  return (
-    <Dialog
-      maxWidth="sm"
-      fullWidth={true}
-      open={props.open}
-      onClose={closeEditor}
-    >
-      <DialogContent>
+  return ReactDOM.createPortal(
         <div className="editor-wrap">
+          <div className="editor-section-header">
+            <Button variant="contained" size="small" onClick={onSave} disabled={!editorData.items.filter(item => item.socialPlatform.length > 0).length} >Save Changes</Button>
+            <Button variant="outlined" size="small" onClick={closeEditor}>Close</Button>
+          </div>
           <div className="editor-heading-wrap">
             <TextField
               fullWidth
               autoComplete="off"
               onChange={onTitleChange}
-              value={title}
+              value={editorData.title}
               variant="standard"
             />
           </div>
 
           <div className="editor-items-wrap">
-            {socialItems.map((item, index) => {
+            {editorData.items.map((item, index) => {
               return (
                 <div key={index}>
                   <div className="editor-item">
@@ -145,15 +128,8 @@ const SocialEditor = (props) => {
               );
             })}
           </div>
-        </div>
-      </DialogContent>
+        </div>, document.getElementById('editorPortal')
 
-      <DialogActions>
-        <Button onClick={closeEditor}>Cancel</Button>
-        <Button onClick={onSave} disabled={!socialItems.filter(item => item.socialPlatform.length > 0).length}>Save</Button>
-        {/*  */}
-      </DialogActions>
-    </Dialog>
   );
 };
 
