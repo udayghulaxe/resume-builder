@@ -36,16 +36,16 @@ const BasicInfoEditor = (props) => {
                         <Button variant="outlined" size="small" onClick={closeEditor}>Close</Button>
                     </div>
                     <div className='editor-heading-wrap'>
-                        <TextField fullWidth readOnly autoComplete='off' value='Basic Info' variant="standard" />
+                        <TextField fullWidth readOnly autoComplete='off' value='Basic Info' variant='standard' />
                     </div>
-                    <div className="editor-items-wrap">
-                        <div className='editor-item' >
+                    <div className='editor-items-wrap'>
+                        <div className='editor-item'>
                             <div>
                                 <div>
                                     <TextField
                                         label='Full Name'
                                         sx={{ mb: 1, mt: 1, mr: 1 }}
-                                        onChange={(event) => onDataChange(event, 'fullName')}
+                                        onChange={event => onDataChange(event, 'fullName')}
                                         value={editorData.fullName}
                                         inputProps={{ style: { fontSize: 14, width: 240 } }}
                                         size='small'
@@ -55,7 +55,7 @@ const BasicInfoEditor = (props) => {
                                     <TextField
                                         label='Current Role/Designation'
                                         sx={{ mb: 1, mt: 1, mr: 1 }}
-                                        onChange={(event) => onDataChange(event, 'currentRole')}
+                                        onChange={event => onDataChange(event, 'currentRole')}
                                         value={editorData.currentRole}
                                         inputProps={{ style: { fontSize: 14, width: 240 } }}
                                         size='small'
@@ -65,9 +65,9 @@ const BasicInfoEditor = (props) => {
                                     <TextField
                                         label='Email'
                                         sx={{ mb: 1, mt: 1, mr: 1 }}
-                                        onChange={(event) => onDataChange(event, 'email')}
+                                        onChange={event => onDataChange(event, 'email')}
                                         value={editorData.email}
-                                        inputProps={{ style: { fontSize: 14, width: 240} }}
+                                        inputProps={{ style: { fontSize: 14, width: 240 } }}
                                         size='small'
                                     />
                                 </div>
@@ -75,7 +75,7 @@ const BasicInfoEditor = (props) => {
                                     <TextField
                                         label='Phone'
                                         sx={{ mb: 1, mt: 1, mr: 1 }}
-                                        onChange={(event) => onDataChange(event, 'phone')}
+                                        onChange={event => onDataChange(event, 'phone')}
                                         value={editorData.phone}
                                         inputProps={{ style: { fontSize: 14, width: 240 } }}
                                         size='small'
@@ -85,7 +85,7 @@ const BasicInfoEditor = (props) => {
                                     <TextField
                                         label='Website'
                                         sx={{ mb: 1, mt: 1, mr: 1 }}
-                                        onChange={(event) => onDataChange(event, 'website')}
+                                        onChange={event => onDataChange(event, 'website')}
                                         value={editorData.website}
                                         inputProps={{ style: { fontSize: 14, width: 240 } }}
                                         size='small'
@@ -95,7 +95,7 @@ const BasicInfoEditor = (props) => {
                                     <TextField
                                         label='Address'
                                         sx={{ mb: 1, mt: 1, mr: 1 }}
-                                        onChange={(event) => onDataChange(event, 'address')}
+                                        onChange={event => onDataChange(event, 'address')}
                                         value={editorData.address}
                                         inputProps={{ style: { fontSize: 14, width: 240 } }}
                                         size='small'
@@ -110,4 +110,4 @@ const BasicInfoEditor = (props) => {
     );
 }
 
-export default BasicInfoEditor;
+export default BasicInfoEditor

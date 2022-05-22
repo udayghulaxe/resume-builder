@@ -10,7 +10,7 @@ import LanguageIcon from '@mui/icons-material/Language';
 import HomeIcon from '@mui/icons-material/Home';
 import EditIcon from '@mui/icons-material/Edit';
 
-import BasicInfoEditor from "./BasicInfoEditor";
+import BasicInfoEditor from './BasicInfoEditor'
 
 import './BasicInfo.css'
 

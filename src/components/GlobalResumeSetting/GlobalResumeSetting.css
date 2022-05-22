@@ -54,7 +54,8 @@
     margin-top: 5px;
 }
 
-.font-size-div, .heading-alignment-div {
+.font-size-div,
+.heading-alignment-div {
     background-color: rgb(255, 255, 255);
     border: 1px solid rgb(187, 187, 187);
     color: rgb(79, 79, 79);
@@ -73,9 +74,10 @@
     width: 18px;
 }
 
-.font-size-div.active, .heading-alignment-div.active {
+.font-size-div.active,
+.heading-alignment-div.active {
     background-color: rgba(9, 145, 90, 0.1);
-    border: 1px solid var(--color-primary);;
+    border: 1px solid var(--color-primary);
     color: var(--color-primary);
 }
 

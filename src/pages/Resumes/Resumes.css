@@ -101,7 +101,6 @@
     padding: 0 !important;
 }
 
-
 @media screen and (max-width: 768px) {
     .resume-header {
         padding: 20px 40px;
@@ -114,7 +113,7 @@
     }
 
     .user-resume-list-wrap {
-        padding: 40px
+        padding: 40px;
     }
 
     .resume-action-item.link {

@@ -16,39 +16,39 @@ const LanguagesEditor = (props) => {
     const dispatch = useDispatch();
 
     const onWidgetDataChange = (key, newValue) => {
-        const newData = { ...editorData, [key]: newValue };
-        setEditorData(newData);
-        props.setWidgetData(newData);
+        const newData = { ...editorData, [key]: newValue }
+        setEditorData(newData)
+        props.setWidgetData(newData)
     }
 
-    const onTitleChange = (event) => {
-        const newVal = event.target.value;
-        onWidgetDataChange('title', newVal);
+    const onTitleChange = event => {
+        const newVal = event.target.value
+        onWidgetDataChange('title', newVal)
     }
 
-    const onShowProficiencyChange = (event) => {
-        onWidgetDataChange('showProficiency', event.target.checked);
+    const onShowProficiencyChange = event => {
+        onWidgetDataChange('showProficiency', event.target.checked)
     }
 
-    const onShowProficiencyProgressChange = (event) => {
-        onWidgetDataChange('showProficiencyProgress', event.target.checked);
+    const onShowProficiencyProgressChange = event => {
+        onWidgetDataChange('showProficiencyProgress', event.target.checked)
     }
 
     const onLanguageChange = (event, index) => {
-        let languages = [...editorData.items];
-        languages[index] = { language: event.target.value, proficiency: 'Beginner' };
-        onWidgetDataChange('items', languages);
+        let languages = [...editorData.items]
+        languages[index] = { language: event.target.value, proficiency: 'Beginner' }
+        onWidgetDataChange('items', languages)
     }
 
     const onAddLanguage = (event, index) => {
-        let languages = [...editorData.items];
-        languages.splice(index + 1, 0, { language: '' });
-        onWidgetDataChange('items', languages);
+        let languages = [...editorData.items]
+        languages.splice(index + 1, 0, { language: '' })
+        onWidgetDataChange('items', languages)
     }
     const onDeleteLanguage = (event, index) => {
-        let languages = [...editorData.items];
-        languages.splice(index, 1);
-        onWidgetDataChange('items', languages);
+        let languages = [...editorData.items]
+        languages.splice(index, 1)
+        onWidgetDataChange('items', languages)
     }
 
     const changeProficiencyProgressColor = (color) => {
@@ -57,82 +57,108 @@ const LanguagesEditor = (props) => {
     }
 
     const onProficiencyChange = (event, index) => {
-        let languages = [...editorData.items];
+        let languages = [...editorData.items]
         switch (event.target.value) {
             case 25:
-                languages[index] = { language: languages[index].language, proficiency: 'Beginner' };
-                break;
+                languages[index] = { language: languages[index].language, proficiency: 'Beginner' }
+                break
 
             case 50:
-                languages[index] = { language: languages[index].language, proficiency: 'Intermediate' };
-                break;
+                languages[index] = { language: languages[index].language, proficiency: 'Intermediate' }
+                break
 
             case 75:
-                languages[index] = { language: languages[index].language, proficiency: 'Proficient' };
-                break;
+                languages[index] = { language: languages[index].language, proficiency: 'Proficient' }
+                break
 
             case 100:
-                languages[index] = { language: languages[index].language, proficiency: 'Native' };
-                break;
+                languages[index] = { language: languages[index].language, proficiency: 'Native' }
+                break
             default:
-                languages[index] = { language: languages[index].language, proficiency: 'Beginner' };
-                break;
+                languages[index] = { language: languages[index].language, proficiency: 'Beginner' }
+                break
         }
-        onWidgetDataChange('items', languages);
+        onWidgetDataChange('items', languages)
     }
 
-    const onSave = (event) => {
-        const newData = { ...editorData };
-        dispatch(updateResumeDataReducer({ name: props.componentName, column: props.componentColumn, data: newData }));
-        closeEditor();
+    const onSave = event => {
+        const newData = { ...editorData }
+        dispatch(updateResumeDataReducer({ name: props.componentName, column: props.componentColumn, data: newData }))
+        closeEditor()
     }
 
     const closeEditor = () => {
-        dispatch(updateOpenEditorName(null));
-        props.setOpen(false);
-    };
+        dispatch(updateOpenEditorName(null))
+        props.setOpen(false)
+    }
 
-    const getProficiencyValue = (prof) => {
-        let val = 25;
+    const getProficiencyValue = prof => {
+        let val = 25
         switch (prof) {
             case 'Beginner':
-                val = 25;
-                break;
+                val = 25
+                break
 
             case 'Intermediate':
-                val = 50;
-                break;
+                val = 50
+                break
 
             case 'Proficient':
-                val = 75;
-                break;
+                val = 75
+                break
 
             case 'Native':
-                val = 100;
-                break;
+                val = 100
+                break
             default:
                 val = 25
-                break;
+                break
         }
-        return val;
+        return val
     }
 
     return ReactDOM.createPortal(
         <div className='editor-wrap'>
-            <div className="editor-section-header">
-                <Button variant="contained" size="small" onClick={onSave} disabled={!editorData.items.filter(item => item.language.length > 0).length} >Save Changes</Button>
-                <Button variant="outlined" size="small" onClick={closeEditor}>Close</Button>
+            <div className='editor-section-header'>
+                <Button
+                    variant='contained'
+                    size='small'
+                    onClick={onSave}
+                    disabled={!editorData.items.filter(item => item.language.length > 0).length}
+                >
+                    Save Changes
+                </Button>
+                <Button variant='outlined' size='small' onClick={closeEditor}>
+                    Close
+                </Button>
             </div>
             <div className='editor-heading-wrap'>
-                <TextField label="Title" fullWidth autoComplete='off' onChange={onTitleChange} value={editorData.title} variant="standard" />
+                <TextField
+                    label='Title'
+                    fullWidth
+                    autoComplete='off'
+                    onChange={onTitleChange}
+                    value={editorData.title}
+                    variant='standard'
+                />
             </div>
 
-            <div className="editor-options-wrap">
+            <div className='editor-options-wrap'>
                 <div>
-                    Show Proficiency: <Switch label="Proficiency" onChange={(event) => onShowProficiencyChange(event)} checked={editorData.showProficiency} />
+                    Show Proficiency:{' '}
+                    <Switch
+                        label='Proficiency'
+                        onChange={event => onShowProficiencyChange(event)}
+                        checked={editorData.showProficiency}
+                    />
                 </div>
                 <div>
-                    Show Proficiency Progress: <Switch label="Proficiency Progress" onChange={(event) => onShowProficiencyProgressChange(event)} checked={editorData.showProficiencyProgress} />
+                    Show Proficiency Progress:{' '}
+                    <Switch
+                        label='Proficiency Progress'
+                        onChange={event => onShowProficiencyProgressChange(event)}
+                        checked={editorData.showProficiencyProgress}
+                    />
                 </div>
                 <Box sx={{marginTop: '10px', marginBottom: '20px'}}>
                     Proficiency Progress Color: <Box className="resume-setting-selected-color" onClick={() => { setToggleColor(!toggleColor) }} sx={{ backgroundColor: editorData.proficiencyProgressColor}}></Box>
@@ -144,38 +170,45 @@ const LanguagesEditor = (props) => {
                 </Box>
             </div>
 
-            <div className="editor-items-wrap">
+            <div className='editor-items-wrap'>
                 {editorData.items.map((item, index) => {
                     return (
                         <div className='editor-item' key={index}>
                             <TextField
-                                label={"Option " + (index + 1)}
+                                label={'Option ' + (index + 1)}
                                 sx={{ mb: 1, mt: 1, mr: 1 }}
-                                onChange={(event) => onLanguageChange(event, index)}
+                                onChange={event => onLanguageChange(event, index)}
                                 value={item.language}
                                 data-key={index}
-                                size="small"
+                                size='small'
                             />
                             <div className='progress-wrap'>
                                 {item.proficiency}
                                 <Slider
-                                    aria-label="Proficiency"
+                                    aria-label='Proficiency'
                                     value={getProficiencyValue(item.proficiency)}
                                     step={25}
                                     marks
                                     min={25}
                                     max={100}
-                                    onChange={(event) => onProficiencyChange(event, index)}
+                                    onChange={event => onProficiencyChange(event, index)}
                                 />
                             </div>
-                            <AddCircleIcon onClick={(event) => onAddLanguage(event, index)} className='add-item-icon'></AddCircleIcon>
-                            <DeleteForeverIcon onClick={(event) => onDeleteLanguage(event, index)} className={`delete-item-icon ${index === 0 ? 'd-none' : ''}`}></DeleteForeverIcon>
+                            <AddCircleIcon
+                                onClick={event => onAddLanguage(event, index)}
+                                className='add-item-icon'
+                            ></AddCircleIcon>
+                            <DeleteForeverIcon
+                                onClick={event => onDeleteLanguage(event, index)}
+                                className={`delete-item-icon ${index === 0 ? 'd-none' : ''}`}
+                            ></DeleteForeverIcon>
                         </div>
-                    );
+                    )
                 })}
             </div>
-        </div>, document.getElementById('editorPortal')
-    );
+        </div>,
+        document.getElementById('editorPortal')
+    )
 }
 
-export default LanguagesEditor;
+export default LanguagesEditor
