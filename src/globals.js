@@ -255,7 +255,7 @@ export const colors = [
     '#808000',
     '#191970',
     '#FBECD7',
-    '#dc143c',
+    '#09915A',
 ];
 
 export const fontSizes = [
