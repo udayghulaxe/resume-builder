@@ -62,7 +62,7 @@ const AchievementEditor = (props) => {
                 <Button variant="outlined" size="small" onClick={closeEditor}>Close</Button>
             </div>
             <div className='editor-heading-wrap'>
-                <TextField fullWidth autoComplete='off' onChange={onTitleChange} value={editorData.title} variant="standard" />
+                <TextField label="Title" fullWidth autoComplete='off' onChange={onTitleChange} value={editorData.title} variant="standard" />
             </div>
 
             <div className="editor-options-wrap">
