@@ -46,6 +46,7 @@ export const initialData = {
                             summary: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
                         },
                     ],
+                    hideTitle: false,
                 },
             },
         ],
@@ -234,6 +235,20 @@ export const initialData = {
                         { type: 'number', label: 'Space Above', rule: 'marginTop', value: '5', unit: 'px' },
                         { type: 'number', label: 'Space Below', rule: 'marginBottom', value: '5', unit: 'px' },
                     ],
+                },
+            },
+            {
+                name: 'RichText',
+                componentType: 'ProfessionalSummary',
+                path: 'ProfessionalSummary/ProfessionalSummary',
+                componentData: {
+                    title: 'Rich Text',
+                    items: [
+                        {
+                            summary: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
+                        },
+                    ],
+                    hideTitle: true,
                 },
             },
         ],

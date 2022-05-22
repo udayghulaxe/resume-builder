@@ -23,7 +23,7 @@ const SkillsWithProgress = props => {
     };
 
     return (
-        <div className='resume-section resume-section-language'>
+        <div className='resume-section resume-section-skill-with-progress'>
             <div className='resume-section-title'>
                 <span>{widgetData.title}</span>
                 <span className='edit-component-icon'>

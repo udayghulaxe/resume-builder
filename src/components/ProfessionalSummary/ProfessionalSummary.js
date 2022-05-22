@@ -23,12 +23,18 @@ const ProfessionalSummary = props => {
 
     return (
         <div className='resume-section resume-section-professional-summary'>
-            <div className='resume-section-title'>
-                <span>{widgetData.title}</span>
+            {widgetData.hideTitle && props.componentColumn !== 'componentLibrary' ? (
                 <span className='edit-component-icon'>
                     <EditIcon onClick={openEditor} />
                 </span>
-            </div>
+            ) : (
+                <div className='resume-section-title'>
+                    <span>{widgetData.title}</span>
+                    <span className='edit-component-icon'>
+                        <EditIcon onClick={openEditor} />
+                    </span>
+                </div>
+            )}
 
             <div className='professional-summary-item-wrap'>
                 {widgetData.items.map((item, index) => {
