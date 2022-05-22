@@ -1,77 +1,77 @@
-import React, { useState } from 'react'
-import ReactDOM from 'react-dom'
-import { TextField, Button, Divider, Box } from '@mui/material'
-import { useDispatch } from 'react-redux'
-import { updateResumeDataReducer, updateOpenEditorName } from '../../reducers/resumeDataSlice'
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+import { TextField, Button, Divider, Box } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { updateResumeDataReducer, updateOpenEditorName } from '../../reducers/resumeDataSlice';
 
-import AddCircleIcon from '@mui/icons-material/AddCircle'
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const EducationEditor = props => {
-    const [editorData, setEditorData] = useState(props.editorData)
-    const dispatch = useDispatch()
+    const [editorData, setEditorData] = useState(props.editorData);
+    const dispatch = useDispatch();
 
     const onWidgetDataChange = (key, newValue) => {
-        const newData = { ...editorData, [key]: newValue }
-        setEditorData(newData)
-        props.setWidgetData(newData)
-    }
+        const newData = { ...editorData, [key]: newValue };
+        setEditorData(newData);
+        props.setWidgetData(newData);
+    };
 
     const onTitleChange = event => {
-        const newVal = event.target.value
-        onWidgetDataChange('title', newVal)
-    }
+        const newVal = event.target.value;
+        onWidgetDataChange('title', newVal);
+    };
 
     const onEducationTitleChange = (event, index) => {
-        const newTitle = event.target.value
-        let newEducationItems = [...editorData.items]
-        newEducationItems[index] = { ...newEducationItems[index], title: newTitle }
-        onWidgetDataChange('items', newEducationItems)
-    }
+        const newTitle = event.target.value;
+        let newEducationItems = [...editorData.items];
+        newEducationItems[index] = { ...newEducationItems[index], title: newTitle };
+        onWidgetDataChange('items', newEducationItems);
+    };
 
     const onUniversityChange = (event, index) => {
-        const newUniversity = event.target.value
-        let newEducationItems = [...editorData.items]
-        newEducationItems[index] = { ...newEducationItems[index], university: newUniversity }
-        onWidgetDataChange('items', newEducationItems)
-    }
+        const newUniversity = event.target.value;
+        let newEducationItems = [...editorData.items];
+        newEducationItems[index] = { ...newEducationItems[index], university: newUniversity };
+        onWidgetDataChange('items', newEducationItems);
+    };
 
     const onDateChange = (event, index) => {
-        const newDate = event.target.value
-        let newEducationItems = [...editorData.items]
-        newEducationItems[index] = { ...newEducationItems[index], date: newDate }
-        onWidgetDataChange('items', newEducationItems)
-    }
+        const newDate = event.target.value;
+        let newEducationItems = [...editorData.items];
+        newEducationItems[index] = { ...newEducationItems[index], date: newDate };
+        onWidgetDataChange('items', newEducationItems);
+    };
 
     const onGpaChange = (event, index) => {
-        const newGPA = event.target.value
-        let newEducationItems = [...editorData.items]
-        newEducationItems[index] = { ...newEducationItems[index], gpa: newGPA }
-        onWidgetDataChange('items', newEducationItems)
-    }
+        const newGPA = event.target.value;
+        let newEducationItems = [...editorData.items];
+        newEducationItems[index] = { ...newEducationItems[index], gpa: newGPA };
+        onWidgetDataChange('items', newEducationItems);
+    };
 
     const onAddEducation = (event, index) => {
-        let newEducationItems = [...editorData.items]
-        newEducationItems.splice(index + 1, 0, { title: '', university: '', date: '', gpa: '' })
-        onWidgetDataChange('items', newEducationItems)
-    }
+        let newEducationItems = [...editorData.items];
+        newEducationItems.splice(index + 1, 0, { title: '', university: '', date: '', gpa: '' });
+        onWidgetDataChange('items', newEducationItems);
+    };
     const onDeleteEducation = (event, index) => {
-        let newEducationItems = [...editorData.items]
-        newEducationItems.splice(index, 1)
-        onWidgetDataChange('items', newEducationItems)
-    }
+        let newEducationItems = [...editorData.items];
+        newEducationItems.splice(index, 1);
+        onWidgetDataChange('items', newEducationItems);
+    };
 
     const onSave = event => {
-        const newData = { ...editorData, items: editorData.items.filter((item, index) => item.title.length > 0) }
-        dispatch(updateResumeDataReducer({ name: props.componentName, column: props.componentColumn, data: newData }))
-        closeEditor()
-        console.log(editorData)
-    }
+        const newData = { ...editorData, items: editorData.items.filter((item, index) => item.title.length > 0) };
+        dispatch(updateResumeDataReducer({ name: props.componentName, column: props.componentColumn, data: newData }));
+        closeEditor();
+        console.log(editorData);
+    };
 
     const closeEditor = () => {
-        dispatch(updateOpenEditorName(null))
-        props.setOpen(false)
-    }
+        dispatch(updateOpenEditorName(null));
+        props.setOpen(false);
+    };
 
     return ReactDOM.createPortal(
         <div className='editor-wrap'>
@@ -155,12 +155,12 @@ const EducationEditor = props => {
                             <Divider></Divider>
                             <Box sx={{ height: 20 }}></Box>
                         </div>
-                    )
+                    );
                 })}
             </div>
         </div>,
         document.getElementById('editorPortal')
-    )
-}
+    );
+};
 
-export default EducationEditor
+export default EducationEditor;

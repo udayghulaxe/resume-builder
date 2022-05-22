@@ -1,25 +1,25 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { updateOpenEditorName } from '../../reducers/resumeDataSlice'
-import EditIcon from '@mui/icons-material/Edit'
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateOpenEditorName } from '../../reducers/resumeDataSlice';
+import EditIcon from '@mui/icons-material/Edit';
 
-import ProfessionalSummaryEditor from './ProfessionalSummaryEditor'
+import ProfessionalSummaryEditor from './ProfessionalSummaryEditor';
 
-import './ProfessionalSummary.css'
+import './ProfessionalSummary.css';
 
 const ProfessionalSummary = props => {
-    const [open, setOpen] = useState(false)
-    console.log('calling ProfessionalSummary', open)
+    const [open, setOpen] = useState(false);
+    console.log('calling ProfessionalSummary', open);
 
-    const [widgetData, setWidgetData] = useState(props.componentItem.componentData)
+    const [widgetData, setWidgetData] = useState(props.componentItem.componentData);
 
-    const dispatch = useDispatch()
-    const openEditorName = useSelector(state => state.resumeDataReducer.openEditorName)
+    const dispatch = useDispatch();
+    const openEditorName = useSelector(state => state.resumeDataReducer.openEditorName);
 
     const openEditor = () => {
-        dispatch(updateOpenEditorName(props.componentItem.name))
-        setOpen(true)
-    }
+        dispatch(updateOpenEditorName(props.componentItem.name));
+        setOpen(true);
+    };
 
     return (
         <div className='resume-section resume-section-professional-summary'>
@@ -39,7 +39,7 @@ const ProfessionalSummary = props => {
                                 dangerouslySetInnerHTML={{ __html: item.summary }}
                             ></span>
                         </div>
-                    )
+                    );
                 })}
             </div>
 
@@ -54,7 +54,7 @@ const ProfessionalSummary = props => {
                 />
             ) : null}
         </div>
-    )
-}
+    );
+};
 
-export default React.memo(ProfessionalSummary)
+export default React.memo(ProfessionalSummary);

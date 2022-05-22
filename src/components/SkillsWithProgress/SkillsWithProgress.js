@@ -1,17 +1,17 @@
-import React, { useState } from 'react'
-import LinearProgress from '@mui/material/LinearProgress'
-import EditIcon from '@mui/icons-material/Edit'
-import SkillsWithProgressEditor from './SkillsWithProgressEditor'
+import React, { useState } from 'react';
+import LinearProgress from '@mui/material/LinearProgress';
+import EditIcon from '@mui/icons-material/Edit';
+import SkillsWithProgressEditor from './SkillsWithProgressEditor';
 
-import './SkillsWithProgress.css'
+import './SkillsWithProgress.css';
 
 const SkillsWithProgress = props => {
-    const [open, setOpen] = useState(false)
-    console.log('calling SkillsWith Progress Bar', open)
+    const [open, setOpen] = useState(false);
+    console.log('calling SkillsWith Progress Bar', open);
 
     const openEditor = () => {
-        setOpen(true)
-    }
+        setOpen(true);
+    };
 
     return (
         <div className='resume-section resume-section-language'>
@@ -50,7 +50,7 @@ const SkillsWithProgress = props => {
                             />
                         </div>
                     </div>
-                )
+                );
             })}
 
             <SkillsWithProgressEditor
@@ -61,7 +61,7 @@ const SkillsWithProgress = props => {
                 editorData={props.componentItem.componentData}
             />
         </div>
-    )
-}
+    );
+};
 
-export default React.memo(SkillsWithProgress)
+export default React.memo(SkillsWithProgress);

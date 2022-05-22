@@ -1,5 +1,5 @@
-import React from 'react'
-import { Container, Box } from '@mui/material'
+import React from 'react';
+import { Container, Box } from '@mui/material';
 
 const Home = () => {
     return (
@@ -8,7 +8,7 @@ const Home = () => {
                 <h1>Home</h1>
             </Box>
         </Container>
-    )
-}
+    );
+};
 
-export default Home
+export default Home;

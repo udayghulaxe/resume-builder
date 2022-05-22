@@ -1,22 +1,22 @@
-import React, { useState } from 'react'
-import { Chip } from '@mui/material'
-import EditIcon from '@mui/icons-material/Edit'
-import SkillsEditor from './SkillsEditor'
-import { useDispatch, useSelector } from 'react-redux'
-import { updateOpenEditorName } from '../../reducers/resumeDataSlice'
+import React, { useState } from 'react';
+import { Chip } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import SkillsEditor from './SkillsEditor';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateOpenEditorName } from '../../reducers/resumeDataSlice';
 
-import './Skills.css'
+import './Skills.css';
 const Skills = props => {
-    const [open, setOpen] = useState(false)
-    const [widgetData, setWidgetData] = useState(props.componentItem.componentData)
-    const dispatch = useDispatch()
-    console.log('calling skills', open)
+    const [open, setOpen] = useState(false);
+    const [widgetData, setWidgetData] = useState(props.componentItem.componentData);
+    const dispatch = useDispatch();
+    console.log('calling skills', open);
 
-    const openEditorName = useSelector(state => state.resumeDataReducer.openEditorName)
+    const openEditorName = useSelector(state => state.resumeDataReducer.openEditorName);
     const openEditor = () => {
-        dispatch(updateOpenEditorName(props.componentItem.name))
-        setOpen(true)
-    }
+        dispatch(updateOpenEditorName(props.componentItem.name));
+        setOpen(true);
+    };
 
     return (
         <div className='resume-section resume-section-skills'>
@@ -36,7 +36,7 @@ const Skills = props => {
                             className={`resume-section-body skills-chip ${widgetData.rounded ? '' : 'no-rounded'}`}
                             variant={widgetData.filled ? 'filled' : 'outlined'}
                         />
-                    )
+                    );
                 })}
             </div>
 
@@ -51,7 +51,7 @@ const Skills = props => {
                 />
             ) : null}
         </div>
-    )
-}
+    );
+};
 
-export default React.memo(Skills)
+export default React.memo(Skills);

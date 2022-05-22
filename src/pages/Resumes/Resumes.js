@@ -1,42 +1,42 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 import {
     getUserDataByUserId,
     createNewReumseByUserId,
     updateUserResumeDataByUserId,
     deleteResumeByResumeId,
     copyResumeByResumeId,
-} from '../../reducers/userDataSlice'
-import { Button, Grid, CircularProgress, Box, LinearProgress, Dialog, DialogContent } from '@mui/material'
-import { useHistory } from 'react-router-dom'
-import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined'
-import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
-import CopyAllOutlinedIcon from '@mui/icons-material/CopyAllOutlined'
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined'
-import resumeSvg from '../../assets/images/resume-2.svg'
-import './Resumes.css'
+} from '../../reducers/userDataSlice';
+import { Button, Grid, CircularProgress, Box, LinearProgress, Dialog, DialogContent } from '@mui/material';
+import { useHistory } from 'react-router-dom';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import CopyAllOutlinedIcon from '@mui/icons-material/CopyAllOutlined';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
+import resumeSvg from '../../assets/images/resume-2.svg';
+import './Resumes.css';
 
 const Resumes = () => {
-    const { authReducer } = useSelector(state => state)
-    const [userData, setUserData] = useState(null)
-    const [userResumes, setUserResumes] = useState(null)
-    const [isLoading, setIsLoading] = useState(false)
-    const [open, setOpen] = useState(false)
-    const [previewResumeImageSrc, setPreviewResumeImageSrc] = useState('')
-    const history = useHistory()
-    const maxResumeNumber = 2
-    const dispatch = useDispatch()
+    const { authReducer } = useSelector(state => state);
+    const [userData, setUserData] = useState(null);
+    const [userResumes, setUserResumes] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [previewResumeImageSrc, setPreviewResumeImageSrc] = useState('');
+    const history = useHistory();
+    const maxResumeNumber = 2;
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (authReducer.userId) {
-            console.log('calling resume auth effect')
-            getUserData()
+            console.log('calling resume auth effect');
+            getUserData();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [authReducer])
+    }, [authReducer]);
 
     // useEffect(() => {
     //   console.log('calling resume effect');
@@ -46,89 +46,89 @@ const Resumes = () => {
     // }, [userDataReducer]);
 
     const closeEditor = () => {
-        setOpen(false)
-    }
+        setOpen(false);
+    };
 
     const previewResume = resumeImage => {
-        setOpen(true)
-        setPreviewResumeImageSrc(resumeImage)
-    }
+        setOpen(true);
+        setPreviewResumeImageSrc(resumeImage);
+    };
 
     const getUserData = () => {
         dispatch(getUserDataByUserId(authReducer.userId)).then(res => {
             if (res.payload) {
-                setUserData(res.payload)
-                setUserResumes(JSON.parse(res.payload.userResumes))
+                setUserData(res.payload);
+                setUserResumes(JSON.parse(res.payload.userResumes));
             }
-        })
-    }
+        });
+    };
 
     const getUniqueId = () => {
-        return Math.floor(Math.random() * Date.now())
-    }
+        return Math.floor(Math.random() * Date.now());
+    };
 
     const createNewResume = () => {
-        setIsLoading(true)
-        const uniqueId = getUniqueId()
+        setIsLoading(true);
+        const uniqueId = getUniqueId();
 
         if (authReducer.userId) {
             dispatch(createNewReumseByUserId({ data: userResumes, userData: userData, uniqueId: uniqueId })).then(
                 res => {
-                    setUserResumes(res.payload)
-                    setIsLoading(false)
-                    history.push(`builder/${uniqueId}`)
+                    setUserResumes(res.payload);
+                    setIsLoading(false);
+                    history.push(`builder/${uniqueId}`);
                 }
-            )
+            );
         }
-    }
+    };
 
     const onDeleteResume = resumeId => {
-        setIsLoading(true)
-        const userResumeData = JSON.parse(JSON.stringify(userResumes))
-        const newResumeData = userResumeData.filter(item => item.resumeId !== resumeId)
+        setIsLoading(true);
+        const userResumeData = JSON.parse(JSON.stringify(userResumes));
+        const newResumeData = userResumeData.filter(item => item.resumeId !== resumeId);
 
-        dispatch(deleteResumeByResumeId(resumeId))
+        dispatch(deleteResumeByResumeId(resumeId));
 
-        setUserResumes(newResumeData)
+        setUserResumes(newResumeData);
         dispatch(
             updateUserResumeDataByUserId({ userId: authReducer.userId, data: JSON.stringify(newResumeData) })
         ).then(res => {
-            setIsLoading(false)
-        })
-    }
+            setIsLoading(false);
+        });
+    };
 
     const onDuplicateResume = resumeId => {
-        setIsLoading(true)
+        setIsLoading(true);
         dispatch(getUserDataByUserId(authReducer.userId)).then(res => {
             if (res.payload) {
                 if (JSON.parse(res.payload.userResumes).length < maxResumeNumber) {
-                    const uniqueId = getUniqueId()
-                    const userResumeData = JSON.parse(JSON.stringify(userResumes))
-                    const copyFrom = userResumeData.filter(item => item.resumeId === resumeId)[0]
+                    const uniqueId = getUniqueId();
+                    const userResumeData = JSON.parse(JSON.stringify(userResumes));
+                    const copyFrom = userResumeData.filter(item => item.resumeId === resumeId)[0];
                     userResumeData.push({
                         resumeId: uniqueId.toString(),
                         resumeName: `${copyFrom.resumeName} (copy)`,
                         resumeImage: copyFrom.resumeImage,
-                    })
+                    });
 
                     dispatch(
                         updateUserResumeDataByUserId({
                             userId: authReducer.userId,
                             data: JSON.stringify(userResumeData),
                         })
-                    )
+                    );
                     dispatch(copyResumeByResumeId({ resumeId: resumeId, uniqueId: uniqueId })).then(res => {
-                        setUserResumes(userResumeData)
-                        setIsLoading(false)
-                    })
+                        setUserResumes(userResumeData);
+                        setIsLoading(false);
+                    });
                 } else {
-                    setIsLoading(false)
-                    setUserData(res.payload)
-                    setUserResumes(JSON.parse(res.payload.userResumes))
+                    setIsLoading(false);
+                    setUserData(res.payload);
+                    setUserResumes(JSON.parse(res.payload.userResumes));
                 }
             }
-        })
-    }
+        });
+    };
 
     return (
         <div className='user-resumes-wrap'>
@@ -180,7 +180,7 @@ const Resumes = () => {
                                         <div
                                             className='resume-action-item link'
                                             onClick={() => {
-                                                history.push(`builder/${item.resumeId}`)
+                                                history.push(`builder/${item.resumeId}`);
                                             }}
                                         >
                                             <span className='resume-action-item-link-icon'>
@@ -196,7 +196,7 @@ const Resumes = () => {
                                                     isLoading ? 'item-disabled' : ''
                                                 }`}
                                                 onClick={() => {
-                                                    onDuplicateResume(item.resumeId)
+                                                    onDuplicateResume(item.resumeId);
                                                 }}
                                             >
                                                 <span className='resume-action-item-link-icon'>
@@ -210,7 +210,7 @@ const Resumes = () => {
                                         <div
                                             className='resume-action-item link'
                                             onClick={() => {
-                                                previewResume(item.resumeImage)
+                                                previewResume(item.resumeImage);
                                             }}
                                         >
                                             <span className='resume-action-item-link-icon'>
@@ -231,7 +231,7 @@ const Resumes = () => {
                                         <div
                                             className='resume-action-item link'
                                             onClick={() => {
-                                                onDeleteResume(item.resumeId)
+                                                onDeleteResume(item.resumeId);
                                             }}
                                         >
                                             <span className='resume-action-item-link-icon'>
@@ -241,7 +241,7 @@ const Resumes = () => {
                                         </div>
                                     </div>
                                 </div>
-                            )
+                            );
                         })}
                     </div>
                 ) : (
@@ -280,7 +280,7 @@ const Resumes = () => {
                 </Grid>
             )}
         </div>
-    )
-}
+    );
+};
 
-export default Resumes
+export default Resumes;

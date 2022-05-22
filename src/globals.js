@@ -8,7 +8,7 @@ export const richEditorSettings = {
         ['link', 'image'],
         ['clean'],
     ],
-}
+};
 
 export const initialData = {
     resumeSettings: {
@@ -237,7 +237,7 @@ export const initialData = {
             },
         ],
     },
-}
+};
 
 export const colors = [
     '#000000',
@@ -256,7 +256,7 @@ export const colors = [
     '#191970',
     '#FBECD7',
     '#dc143c',
-]
+];
 
 export const fontSizes = [
     {
@@ -279,7 +279,7 @@ export const fontSizes = [
         value: 'larger',
         label: 'XL',
     },
-]
+];
 
 export const headingAlignment = [
     {
@@ -294,4 +294,4 @@ export const headingAlignment = [
         value: 'right',
         label: 'Right',
     },
-]
+];

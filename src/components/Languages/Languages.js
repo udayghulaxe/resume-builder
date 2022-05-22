@@ -1,51 +1,51 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { updateOpenEditorName } from '../../reducers/resumeDataSlice'
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateOpenEditorName } from '../../reducers/resumeDataSlice';
 
 import { LinearProgress, Box } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import LanguagesEditor from "./LanguagesEditor";
+import LanguagesEditor from './LanguagesEditor';
 
-import './Languages.css'
+import './Languages.css';
 
 const Languages = props => {
-    const [open, setOpen] = useState(false)
-    console.log('calling languages', open)
+    const [open, setOpen] = useState(false);
+    console.log('calling languages', open);
 
-    const [widgetData, setWidgetData] = useState(props.componentItem.componentData)
-    const dispatch = useDispatch()
+    const [widgetData, setWidgetData] = useState(props.componentItem.componentData);
+    const dispatch = useDispatch();
 
-    const openEditorName = useSelector(state => state.resumeDataReducer.openEditorName)
+    const openEditorName = useSelector(state => state.resumeDataReducer.openEditorName);
 
     const openEditor = () => {
-        dispatch(updateOpenEditorName(props.componentItem.name))
-        setOpen(true)
-    }
+        dispatch(updateOpenEditorName(props.componentItem.name));
+        setOpen(true);
+    };
 
     const getProgressFromProficiency = proficiency => {
-        let val = 25
+        let val = 25;
         switch (proficiency) {
             case 'Beginner':
-                val = 25
-                break
+                val = 25;
+                break;
 
             case 'Intermediate':
-                val = 50
-                break
+                val = 50;
+                break;
 
             case 'Proficient':
-                val = 75
-                break
+                val = 75;
+                break;
 
             case 'Native':
-                val = 100
-                break
+                val = 100;
+                break;
             default:
-                val = 25
-                break
+                val = 25;
+                break;
         }
-        return val
-    }
+        return val;
+    };
     return (
         <div className='resume-section resume-section-language'>
             <div className='resume-section-title'>
@@ -65,7 +65,7 @@ const Languages = props => {
                             </div>
                         </div>
                         <div className='language-progress'>
-                            <Box sx={{ color: widgetData.proficiencyProgressColor}}>
+                            <Box sx={{ color: widgetData.proficiencyProgressColor }}>
                                 <LinearProgress
                                     color='inherit'
                                     className={widgetData.showProficiencyProgress ? '' : 'd-none'}
@@ -75,7 +75,7 @@ const Languages = props => {
                             </Box>
                         </div>
                     </div>
-                )
+                );
             })}
 
             {openEditorName === props.componentItem.name ? (
@@ -89,7 +89,7 @@ const Languages = props => {
                 />
             ) : null}
         </div>
-    )
-}
+    );
+};
 
-export default React.memo(Languages)
+export default React.memo(Languages);

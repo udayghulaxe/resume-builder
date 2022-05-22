@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense } from 'react'
+import React, { useState, useEffect, Suspense } from 'react';
 import {
     Button,
     Box,
@@ -10,326 +10,326 @@ import {
     Alert,
     Snackbar,
     LinearProgress,
-} from '@mui/material'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import { useSelector, useDispatch } from 'react-redux'
+} from '@mui/material';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { useSelector, useDispatch } from 'react-redux';
 import {
     getResumeDataByResumeId,
     updateResumeDataByResumeId,
     updateOpenEditorName,
-} from '../../reducers/resumeDataSlice'
+} from '../../reducers/resumeDataSlice';
 import {
     getResumeSettingsByResumeId,
     updateResumeSettingsByResumeId,
     updateSettingsDataReducer,
-} from '../../reducers/resumeSettingsSlice'
-import { getUserDataByUserId, updateUserResumeDataByUserId } from '../../reducers/userDataSlice'
+} from '../../reducers/resumeSettingsSlice';
+import { getUserDataByUserId, updateUserResumeDataByUserId } from '../../reducers/userDataSlice';
 
-import WebAssetOutlinedIcon from '@mui/icons-material/WebAssetOutlined'
-import WebOutlinedIcon from '@mui/icons-material/WebOutlined'
-import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined'
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'
-import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined'
-import RemoveCircleOutlineOutlinedIcon from '@mui/icons-material/RemoveCircleOutlineOutlined'
-import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined'
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined'
-import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined'
-import OpenWithIcon from '@mui/icons-material/OpenWith'
-import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
-import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined'
-import { useParams } from 'react-router-dom'
-import html2canvas from 'html2canvas'
+import WebAssetOutlinedIcon from '@mui/icons-material/WebAssetOutlined';
+import WebOutlinedIcon from '@mui/icons-material/WebOutlined';
+import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import RemoveCircleOutlineOutlinedIcon from '@mui/icons-material/RemoveCircleOutlineOutlined';
+import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined';
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
+import OpenWithIcon from '@mui/icons-material/OpenWith';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import { useParams } from 'react-router-dom';
+import html2canvas from 'html2canvas';
 
-import './Builder.css'
-import GlobalResumeSetting from '../../components/GlobalResumeSetting/GlobalResumeSetting'
-import 'react-quill/dist/quill.snow.css'
+import './Builder.css';
+import GlobalResumeSetting from '../../components/GlobalResumeSetting/GlobalResumeSetting';
+import 'react-quill/dist/quill.snow.css';
 
-import Achievement from '../../components/Achievements/Achievement'
-import BasicInfo from '../../components/BasicInfo/BasicInfo'
-import Education from '../../components/Education/Education'
-import Experience from '../../components/Experience/Experience'
-import Languages from '../../components/Languages/Languages'
-import ProfessionalSummary from '../../components/ProfessionalSummary/ProfessionalSummary'
-import Skills from '../../components/Skills/Skills'
-import SkillsWithProgress from '../../components/SkillsWithProgress/SkillsWithProgress'
-import Social from '../../components/Social/Social'
-import Divider from '../../components/Divider/Divider'
+import Achievement from '../../components/Achievements/Achievement';
+import BasicInfo from '../../components/BasicInfo/BasicInfo';
+import Education from '../../components/Education/Education';
+import Experience from '../../components/Experience/Experience';
+import Languages from '../../components/Languages/Languages';
+import ProfessionalSummary from '../../components/ProfessionalSummary/ProfessionalSummary';
+import Skills from '../../components/Skills/Skills';
+import SkillsWithProgress from '../../components/SkillsWithProgress/SkillsWithProgress';
+import Social from '../../components/Social/Social';
+import Divider from '../../components/Divider/Divider';
 
 function Builder() {
-    let resumeHTML
-    const { authReducer, resumeDataReducer, resumeSettingsReducer, userDataReducer } = useSelector(state => state)
-    const openEditorName = useSelector(state => state.resumeDataReducer.openEditorName)
-    const [arr, setItems] = useState(null)
-    const [pageTwo, setPageTwo] = useState(false)
-    const [isLoading, setIsLoading] = useState(false)
-    const [openSnackbar, setopenSnackbar] = useState(false)
-    const [resumeSettings, setResumeSettings] = useState(null)
+    let resumeHTML;
+    const { authReducer, resumeDataReducer, resumeSettingsReducer, userDataReducer } = useSelector(state => state);
+    const openEditorName = useSelector(state => state.resumeDataReducer.openEditorName);
+    const [arr, setItems] = useState(null);
+    const [pageTwo, setPageTwo] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [openSnackbar, setopenSnackbar] = useState(false);
+    const [resumeSettings, setResumeSettings] = useState(null);
 
-    let { resumeId } = useParams()
-    const dispatch = useDispatch()
+    let { resumeId } = useParams();
+    const dispatch = useDispatch();
 
     const openEditorSection = () => {
         if (openEditorName === 'globalSetting') {
-            dispatch(updateOpenEditorName(null))
+            dispatch(updateOpenEditorName(null));
         } else {
-            dispatch(updateOpenEditorName('globalSetting'))
+            dispatch(updateOpenEditorName('globalSetting'));
         }
-    }
+    };
 
     useEffect(() => {
-        console.log('calling builder effect')
-        setItems(resumeDataReducer.resumeData)
-        setResumeSettings(resumeSettingsReducer.resumeSettings)
+        console.log('calling builder effect');
+        setItems(resumeDataReducer.resumeData);
+        setResumeSettings(resumeSettingsReducer.resumeSettings);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [resumeDataReducer])
+    }, [resumeDataReducer]);
 
     useEffect(() => {
         if (authReducer.userId) {
-            console.log('calling builder auth effect')
-            getResumeData()
+            console.log('calling builder auth effect');
+            getResumeData();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [authReducer])
+    }, [authReducer]);
 
     function getResumeData() {
         dispatch(getResumeDataByResumeId(resumeId)).then(res => {
             if (res.payload) {
-                setItems(res.payload)
-                console.log(res.payload)
-                setPageTwo(res.payload.pageTwo && res.payload.pageTwo.length > 0)
+                setItems(res.payload);
+                console.log(res.payload);
+                setPageTwo(res.payload.pageTwo && res.payload.pageTwo.length > 0);
             }
-        })
+        });
 
-        dispatch(getUserDataByUserId(authReducer.userId))
+        dispatch(getUserDataByUserId(authReducer.userId));
 
         dispatch(getResumeSettingsByResumeId(resumeId)).then(res => {
-            setResumeSettings(res.payload)
+            setResumeSettings(res.payload);
             if (res.payload) {
-                const root = document.querySelector(':root')
-                root.style.setProperty('--color-font-heading', res.payload.headingFontColor)
-                root.style.setProperty('--color-font-subheading', res.payload.subheadingFontColor)
-                root.style.setProperty('--color-font-body', res.payload.bodyFontColor)
-                root.style.setProperty('--color-font-about-section', res.payload.aboutSectionFontColor)
-                root.style.setProperty('--color-sidebar-body', res.payload.sidebarBodyColor)
-                root.style.setProperty('--color-sidebar-heading', res.payload.sidebarHeadingColor)
+                const root = document.querySelector(':root');
+                root.style.setProperty('--color-font-heading', res.payload.headingFontColor);
+                root.style.setProperty('--color-font-subheading', res.payload.subheadingFontColor);
+                root.style.setProperty('--color-font-body', res.payload.bodyFontColor);
+                root.style.setProperty('--color-font-about-section', res.payload.aboutSectionFontColor);
+                root.style.setProperty('--color-sidebar-body', res.payload.sidebarBodyColor);
+                root.style.setProperty('--color-sidebar-heading', res.payload.sidebarHeadingColor);
             }
-        })
+        });
     }
 
     function updateResumeData(newData) {
         if (authReducer.userId) {
             dispatch(updateResumeDataByResumeId({ data: newData, resumeId: resumeId })).then(res => {
-                setIsLoading(false)
-            })
+                setIsLoading(false);
+            });
         }
 
         setTimeout(() => {
-            checkForPageTwo(newData)
-        }, 1000)
+            checkForPageTwo(newData);
+        }, 1000);
     }
 
     function updateGlobalSetting(newData) {
         if (authReducer.userId) {
-            dispatch(updateResumeSettingsByResumeId({ data: newData, resumeId: resumeId }))
-            dispatch(updateSettingsDataReducer(newData))
+            dispatch(updateResumeSettingsByResumeId({ data: newData, resumeId: resumeId }));
+            dispatch(updateSettingsDataReducer(newData));
         }
     }
 
     const checkForPageTwo = newData => {
-        const paperheight = document.querySelector('#main .resume-paper-content').clientHeight
-        const childs = document.querySelector('#main .resume-paper-content').children
-        let height = 0
+        const paperheight = document.querySelector('#main .resume-paper-content').clientHeight;
+        const childs = document.querySelector('#main .resume-paper-content').children;
+        let height = 0;
         for (var i = 0; i < childs.length; i++) {
-            height += childs[i].clientHeight
+            height += childs[i].clientHeight;
         }
         if (height + 30 > paperheight) {
-            console.log('if- need Page two')
-            setPageTwo(true)
+            console.log('if- need Page two');
+            setPageTwo(true);
 
-            moveLastComponentToPageTwo(newData)
+            moveLastComponentToPageTwo(newData);
         } else {
-            console.log('else-')
+            console.log('else-');
             // setPageTwo(false);
-            console.log(paperheight, height)
+            console.log(paperheight, height);
         }
-    }
+    };
 
     const moveLastComponentToPageTwo = newData => {
-        let newArr = JSON.parse(JSON.stringify(newData))
-        newArr.pageTwo.push(newArr.main[newArr.main.length - 1])
-        newArr.main.pop()
-        setItems(newArr)
-        updateResumeData(newArr)
-    }
+        let newArr = JSON.parse(JSON.stringify(newData));
+        newArr.pageTwo.push(newArr.main[newArr.main.length - 1]);
+        newArr.main.pop();
+        setItems(newArr);
+        updateResumeData(newArr);
+    };
 
     const onSidebarSettingClick = () => {
         if (resumeSettings.sidebar) {
-            const newArr = { ...arr, componentLibrary: [...arr['componentLibrary'], ...arr['sidebar']], sidebar: [] }
-            setItems(newArr)
+            const newArr = { ...arr, componentLibrary: [...arr['componentLibrary'], ...arr['sidebar']], sidebar: [] };
+            setItems(newArr);
         }
 
-        setResumeSettings({ ...resumeSettings, sidebar: !resumeSettings.sidebar })
-        updateGlobalSetting({ ...resumeSettings, sidebar: !resumeSettings.sidebar })
-    }
+        setResumeSettings({ ...resumeSettings, sidebar: !resumeSettings.sidebar });
+        updateGlobalSetting({ ...resumeSettings, sidebar: !resumeSettings.sidebar });
+    };
 
     const saveChanges = () => {
-        setIsLoading(true)
+        setIsLoading(true);
         if (authReducer.userId) {
-            updateResumeData(arr)
-            updateResumeThumbnail()
+            updateResumeData(arr);
+            updateResumeThumbnail();
         }
-    }
+    };
 
     const updateResumeThumbnail = () => {
-        const pageOneElement = document.querySelector('#pageOne')
+        const pageOneElement = document.querySelector('#pageOne');
         html2canvas(pageOneElement).then(function (canvas) {
-            const userResumesData = JSON.parse(userDataReducer.userData.userResumes)
+            const userResumesData = JSON.parse(userDataReducer.userData.userResumes);
             userResumesData.filter(resume => resume.resumeId.toString() === resumeId.toString())[0].resumeImage =
-                canvas.toDataURL('image/jpeg')
+                canvas.toDataURL('image/jpeg');
             dispatch(
                 updateUserResumeDataByUserId({ userId: authReducer.userId, data: JSON.stringify(userResumesData) })
-            )
-        })
-    }
+            );
+        });
+    };
 
     const getUniqueId = () => {
-        return Math.floor(Math.random() * Date.now())
-    }
+        return Math.floor(Math.random() * Date.now());
+    };
 
     const closeSnackBar = () => {
-        setopenSnackbar(false)
-    }
+        setopenSnackbar(false);
+    };
 
     const copyComponent = (event, item, index, column) => {
-        item = { ...item, copy: true, name: `${item.name}-${getUniqueId()}` }
-        let newArr = JSON.parse(JSON.stringify(arr))
-        newArr[column].splice(index + 1, 0, item)
-        setItems(newArr)
-        updateResumeData(newArr)
-    }
+        item = { ...item, copy: true, name: `${item.name}-${getUniqueId()}` };
+        let newArr = JSON.parse(JSON.stringify(arr));
+        newArr[column].splice(index + 1, 0, item);
+        setItems(newArr);
+        updateResumeData(newArr);
+    };
 
     const removeComponent = (event, item, index, column) => {
-        let newArr = JSON.parse(JSON.stringify(arr))
-        newArr[column].splice(index, 1)
-        newArr.componentLibrary.push(item)
-        setItems(newArr)
-        updateResumeData(newArr)
-    }
+        let newArr = JSON.parse(JSON.stringify(arr));
+        newArr[column].splice(index, 1);
+        newArr.componentLibrary.push(item);
+        setItems(newArr);
+        updateResumeData(newArr);
+    };
 
     const addComponentToResume = (event, item, index, column) => {
-        let newArr = JSON.parse(JSON.stringify(arr))
-        newArr[column].splice(index, 1)
-        newArr.main.push(item)
-        setItems(newArr)
-        updateResumeData(newArr)
-    }
+        let newArr = JSON.parse(JSON.stringify(arr));
+        newArr[column].splice(index, 1);
+        newArr.main.push(item);
+        setItems(newArr);
+        updateResumeData(newArr);
+    };
 
     const deleteComponent = (event, item, index, column) => {
-        let newArr = JSON.parse(JSON.stringify(arr))
-        newArr[column].splice(index, 1)
-        setItems(newArr)
-        updateResumeData(newArr)
-    }
+        let newArr = JSON.parse(JSON.stringify(arr));
+        newArr[column].splice(index, 1);
+        setItems(newArr);
+        updateResumeData(newArr);
+    };
 
     const addResumePage = () => {
-        setPageTwo(true)
+        setPageTwo(true);
         setTimeout(() => {
-            const body = document.getElementById('resumePageSeparator')
+            const body = document.getElementById('resumePageSeparator');
             body.scrollIntoView(
                 {
                     behavior: 'smooth',
                 },
                 300
-            )
-        }, 200)
-    }
+            );
+        }, 200);
+    };
 
     const removeResumePage = () => {
-        setPageTwo(false)
+        setPageTwo(false);
 
-        let newArr = JSON.parse(JSON.stringify(arr))
-        const mergedArr = [...newArr.componentLibrary, ...newArr.pageTwo]
-        newArr.componentLibrary = mergedArr
-        newArr.pageTwo = []
-        setItems(newArr)
-        updateResumeData(newArr)
-    }
+        let newArr = JSON.parse(JSON.stringify(arr));
+        const mergedArr = [...newArr.componentLibrary, ...newArr.pageTwo];
+        newArr.componentLibrary = mergedArr;
+        newArr.pageTwo = [];
+        setItems(newArr);
+        updateResumeData(newArr);
+    };
 
     function onDragEnd(result) {
-        const { destination, source, draggableId } = result
+        const { destination, source, draggableId } = result;
         // if canceling the dragNdrop in between
         if (!destination || (destination.droppableId === source.droppableId && destination.index === source.index)) {
-            return
+            return;
         }
 
         // if rearranging in same column
         if (destination.droppableId === source.droppableId) {
-            const newArr = Array.from(arr[source.droppableId])
-            newArr.splice(source.index, 1)
-            newArr.splice(destination.index, 0, arr[destination.droppableId].filter(x => x.name === draggableId)[0])
+            const newArr = Array.from(arr[source.droppableId]);
+            newArr.splice(source.index, 1);
+            newArr.splice(destination.index, 0, arr[destination.droppableId].filter(x => x.name === draggableId)[0]);
 
-            const colId = destination.droppableId
+            const colId = destination.droppableId;
 
             const newColumn = {
                 ...arr,
                 [colId]: newArr,
-            }
-            setItems(newColumn)
-            updateResumeData(newColumn)
+            };
+            setItems(newColumn);
+            updateResumeData(newColumn);
         } else {
             // Else if moving from sidebar to main column or vice-versa
-            const sourceId = source.droppableId
-            const destId = destination.droppableId
-            const sourceArr = Array.from(arr[source.droppableId])
-            const destArr = Array.from(arr[destination.droppableId])
+            const sourceId = source.droppableId;
+            const destId = destination.droppableId;
+            const sourceArr = Array.from(arr[source.droppableId]);
+            const destArr = Array.from(arr[destination.droppableId]);
             // remove from source
-            sourceArr.splice(source.index, 1)
+            sourceArr.splice(source.index, 1);
             // add to destination
-            destArr.splice(destination.index, 0, arr[source.droppableId].filter(x => x.name === result.draggableId)[0])
+            destArr.splice(destination.index, 0, arr[source.droppableId].filter(x => x.name === result.draggableId)[0]);
             const newColumn = {
                 ...arr,
                 [sourceId]: sourceArr,
                 [destId]: destArr,
-            }
-            setItems(newColumn)
-            updateResumeData(newColumn)
+            };
+            setItems(newColumn);
+            updateResumeData(newColumn);
         }
     }
 
     function getComponent(componentType, item, columnName) {
         switch (componentType) {
             case 'Achievements':
-                return <Achievement componentColumn={columnName} componentItem={item} />
+                return <Achievement componentColumn={columnName} componentItem={item} />;
 
             case 'BasicInfo':
-                return <BasicInfo componentColumn={columnName} componentItem={item} />
+                return <BasicInfo componentColumn={columnName} componentItem={item} />;
 
             case 'Experience':
-                return <Experience componentColumn={columnName} componentItem={item} />
+                return <Experience componentColumn={columnName} componentItem={item} />;
 
             case 'Education':
-                return <Education componentColumn={columnName} componentItem={item} />
+                return <Education componentColumn={columnName} componentItem={item} />;
 
             case 'Languages':
-                return <Languages componentColumn={columnName} componentItem={item} />
+                return <Languages componentColumn={columnName} componentItem={item} />;
 
             case 'ProfessionalSummary':
-                return <ProfessionalSummary componentColumn={columnName} componentItem={item} />
+                return <ProfessionalSummary componentColumn={columnName} componentItem={item} />;
 
             case 'Skills':
-                return <Skills componentColumn={columnName} componentItem={item} />
+                return <Skills componentColumn={columnName} componentItem={item} />;
 
             case 'SkillsWithProgress':
-                return <SkillsWithProgress componentColumn={columnName} componentItem={item} />
+                return <SkillsWithProgress componentColumn={columnName} componentItem={item} />;
 
             case 'Social':
-                return <Social componentColumn={columnName} componentItem={item} />
+                return <Social componentColumn={columnName} componentItem={item} />;
 
             case 'Divider':
-                return <Divider componentColumn={columnName} componentItem={item} />
+                return <Divider componentColumn={columnName} componentItem={item} />;
 
             default:
-                return null
+                return null;
         }
     }
 
@@ -551,7 +551,7 @@ function Builder() {
                                                                         </div>
                                                                     )}
                                                                 </Draggable>
-                                                            )
+                                                            );
                                                         })}
                                                         {provided.placeholder}
                                                     </div>
@@ -660,7 +660,7 @@ function Builder() {
                                                                             </div>
                                                                         )}
                                                                     </Draggable>
-                                                                )
+                                                                );
                                                             })}
                                                             {provided.placeholder}
                                                         </div>
@@ -769,7 +769,7 @@ function Builder() {
                                                                                 </div>
                                                                             )}
                                                                         </Draggable>
-                                                                    )
+                                                                    );
                                                                 })}
                                                                 {provided.placeholder}
                                                             </div>
@@ -882,7 +882,7 @@ function Builder() {
                                                                                 </div>
                                                                             )}
                                                                         </Draggable>
-                                                                    )
+                                                                    );
                                                                 })}
                                                                 {provided.placeholder}
                                                             </Suspense>
@@ -1017,7 +1017,7 @@ function Builder() {
                                                                             </div>
                                                                         )}
                                                                     </Draggable>
-                                                                )
+                                                                );
                                                             })}
                                                             {provided.placeholder}
                                                         </Suspense>
@@ -1032,13 +1032,13 @@ function Builder() {
                     </Grid>
                 </div>
             </DragDropContext>
-        )
+        );
     } else {
         resumeHTML = (
             <div className='initial-loader'>
                 <CircularProgress />
             </div>
-        )
+        );
     }
 
     return (
@@ -1046,7 +1046,7 @@ function Builder() {
             <LinearProgress className={isLoading ? '' : 'd-none'} color='primary' />
             {resumeHTML}
         </div>
-    )
+    );
 }
 
-export default Builder
+export default Builder;

@@ -1,86 +1,86 @@
-import React, { useState } from 'react'
-import ReactDOM from 'react-dom'
-import { TextField, Button, Divider, Box } from '@mui/material'
-import { useDispatch } from 'react-redux'
-import { updateResumeDataReducer, updateOpenEditorName } from '../../reducers/resumeDataSlice'
-import { richEditorSettings } from '../../globals.js'
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
-import AddCircleIcon from '@mui/icons-material/AddCircle'
-import ReactQuill from 'react-quill'
-import 'react-quill/dist/quill.snow.css'
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+import { TextField, Button, Divider, Box } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { updateResumeDataReducer, updateOpenEditorName } from '../../reducers/resumeDataSlice';
+import { richEditorSettings } from '../../globals.js';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const ExperienceEditor = props => {
-    const [editorData, setEditorData] = useState(props.editorData)
-    const dispatch = useDispatch()
+    const [editorData, setEditorData] = useState(props.editorData);
+    const dispatch = useDispatch();
 
     const onWidgetDataChange = (key, newValue) => {
-        const newData = { ...editorData, [key]: newValue }
-        setEditorData(newData)
-        props.setWidgetData(newData)
-    }
+        const newData = { ...editorData, [key]: newValue };
+        setEditorData(newData);
+        props.setWidgetData(newData);
+    };
 
     const onSave = event => {
         const newData = {
             ...editorData,
             items: editorData.items.filter((item, index) => item.experienceTitle.length > 0),
-        }
+        };
         dispatch(
             updateResumeDataReducer({
                 name: props.componentName,
                 column: props.componentColumn,
                 data: newData,
             })
-        )
-        closeEditor()
-        console.log(editorData)
-    }
+        );
+        closeEditor();
+        console.log(editorData);
+    };
 
     const onTitleChange = event => {
-        const newVal = event.target.value
-        onWidgetDataChange('title', newVal)
-    }
+        const newVal = event.target.value;
+        onWidgetDataChange('title', newVal);
+    };
 
     const onFieldChange = (event, index, property) => {
-        const newValue = event.target.value
-        let newExperienceItems = [...editorData.items]
+        const newValue = event.target.value;
+        let newExperienceItems = [...editorData.items];
         newExperienceItems[index] = {
             ...newExperienceItems[index],
             [property]: newValue,
-        }
-        onWidgetDataChange('items', newExperienceItems)
-    }
+        };
+        onWidgetDataChange('items', newExperienceItems);
+    };
 
     const onSummaryChange = (val, index) => {
-        let newExperienceItems = [...editorData.items]
+        let newExperienceItems = [...editorData.items];
         newExperienceItems[index] = {
             ...newExperienceItems[index],
             experienceSummary: val,
-        }
-        onWidgetDataChange('items', newExperienceItems)
-    }
+        };
+        onWidgetDataChange('items', newExperienceItems);
+    };
 
     const onAddExperience = (event, index) => {
-        let newExperienceItems = [...editorData.items]
+        let newExperienceItems = [...editorData.items];
         newExperienceItems.splice(index + 1, 0, {
             experienceTitle: '',
             company: '',
             date: '',
             location: '',
             experienceSummary: '',
-        })
-        onWidgetDataChange('items', newExperienceItems)
-    }
+        });
+        onWidgetDataChange('items', newExperienceItems);
+    };
 
     const onDeleteExperience = (event, index) => {
-        let newExperienceItems = [...editorData.items]
-        newExperienceItems.splice(index, 1)
-        onWidgetDataChange('items', newExperienceItems)
-    }
+        let newExperienceItems = [...editorData.items];
+        newExperienceItems.splice(index, 1);
+        onWidgetDataChange('items', newExperienceItems);
+    };
 
     const closeEditor = () => {
-        dispatch(updateOpenEditorName(null))
-        props.setOpen(false)
-    }
+        dispatch(updateOpenEditorName(null));
+        props.setOpen(false);
+    };
 
     return ReactDOM.createPortal(
         <div className='editor-wrap'>
@@ -170,12 +170,12 @@ const ExperienceEditor = props => {
                             <Divider></Divider>
                             <Box sx={{ height: 20 }}></Box>
                         </div>
-                    )
+                    );
                 })}
             </div>
         </div>,
         document.getElementById('editorPortal')
-    )
-}
+    );
+};
 
-export default ExperienceEditor
+export default ExperienceEditor;

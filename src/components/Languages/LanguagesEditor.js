@@ -8,114 +8,113 @@ import { updateResumeDataReducer, updateOpenEditorName } from '../../reducers/re
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
-
-const LanguagesEditor = (props) => {
+const LanguagesEditor = props => {
     const [editorData, setEditorData] = useState(props.editorData);
     const [toggleColor, setToggleColor] = useState(false);
-    
+
     const dispatch = useDispatch();
 
     const onWidgetDataChange = (key, newValue) => {
-        const newData = { ...editorData, [key]: newValue }
-        setEditorData(newData)
-        props.setWidgetData(newData)
-    }
+        const newData = { ...editorData, [key]: newValue };
+        setEditorData(newData);
+        props.setWidgetData(newData);
+    };
 
     const onTitleChange = event => {
-        const newVal = event.target.value
-        onWidgetDataChange('title', newVal)
-    }
+        const newVal = event.target.value;
+        onWidgetDataChange('title', newVal);
+    };
 
     const onShowProficiencyChange = event => {
-        onWidgetDataChange('showProficiency', event.target.checked)
-    }
+        onWidgetDataChange('showProficiency', event.target.checked);
+    };
 
     const onShowProficiencyProgressChange = event => {
-        onWidgetDataChange('showProficiencyProgress', event.target.checked)
-    }
+        onWidgetDataChange('showProficiencyProgress', event.target.checked);
+    };
 
     const onLanguageChange = (event, index) => {
-        let languages = [...editorData.items]
-        languages[index] = { language: event.target.value, proficiency: 'Beginner' }
-        onWidgetDataChange('items', languages)
-    }
+        let languages = [...editorData.items];
+        languages[index] = { language: event.target.value, proficiency: 'Beginner' };
+        onWidgetDataChange('items', languages);
+    };
 
     const onAddLanguage = (event, index) => {
-        let languages = [...editorData.items]
-        languages.splice(index + 1, 0, { language: '' })
-        onWidgetDataChange('items', languages)
-    }
+        let languages = [...editorData.items];
+        languages.splice(index + 1, 0, { language: '' });
+        onWidgetDataChange('items', languages);
+    };
     const onDeleteLanguage = (event, index) => {
-        let languages = [...editorData.items]
-        languages.splice(index, 1)
-        onWidgetDataChange('items', languages)
-    }
+        let languages = [...editorData.items];
+        languages.splice(index, 1);
+        onWidgetDataChange('items', languages);
+    };
 
-    const changeProficiencyProgressColor = (color) => {
+    const changeProficiencyProgressColor = color => {
         console.log(color);
         onWidgetDataChange('proficiencyProgressColor', color.hex);
-    }
+    };
 
     const onProficiencyChange = (event, index) => {
-        let languages = [...editorData.items]
+        let languages = [...editorData.items];
         switch (event.target.value) {
             case 25:
-                languages[index] = { language: languages[index].language, proficiency: 'Beginner' }
-                break
+                languages[index] = { language: languages[index].language, proficiency: 'Beginner' };
+                break;
 
             case 50:
-                languages[index] = { language: languages[index].language, proficiency: 'Intermediate' }
-                break
+                languages[index] = { language: languages[index].language, proficiency: 'Intermediate' };
+                break;
 
             case 75:
-                languages[index] = { language: languages[index].language, proficiency: 'Proficient' }
-                break
+                languages[index] = { language: languages[index].language, proficiency: 'Proficient' };
+                break;
 
             case 100:
-                languages[index] = { language: languages[index].language, proficiency: 'Native' }
-                break
+                languages[index] = { language: languages[index].language, proficiency: 'Native' };
+                break;
             default:
-                languages[index] = { language: languages[index].language, proficiency: 'Beginner' }
-                break
+                languages[index] = { language: languages[index].language, proficiency: 'Beginner' };
+                break;
         }
-        onWidgetDataChange('items', languages)
-    }
+        onWidgetDataChange('items', languages);
+    };
 
     const onSave = event => {
-        const newData = { ...editorData }
-        dispatch(updateResumeDataReducer({ name: props.componentName, column: props.componentColumn, data: newData }))
-        closeEditor()
-    }
+        const newData = { ...editorData };
+        dispatch(updateResumeDataReducer({ name: props.componentName, column: props.componentColumn, data: newData }));
+        closeEditor();
+    };
 
     const closeEditor = () => {
-        dispatch(updateOpenEditorName(null))
-        props.setOpen(false)
-    }
+        dispatch(updateOpenEditorName(null));
+        props.setOpen(false);
+    };
 
     const getProficiencyValue = prof => {
-        let val = 25
+        let val = 25;
         switch (prof) {
             case 'Beginner':
-                val = 25
-                break
+                val = 25;
+                break;
 
             case 'Intermediate':
-                val = 50
-                break
+                val = 50;
+                break;
 
             case 'Proficient':
-                val = 75
-                break
+                val = 75;
+                break;
 
             case 'Native':
-                val = 100
-                break
+                val = 100;
+                break;
             default:
-                val = 25
-                break
+                val = 25;
+                break;
         }
-        return val
-    }
+        return val;
+    };
 
     return ReactDOM.createPortal(
         <div className='editor-wrap'>
@@ -160,13 +159,23 @@ const LanguagesEditor = (props) => {
                         checked={editorData.showProficiencyProgress}
                     />
                 </div>
-                <Box sx={{marginTop: '10px', marginBottom: '20px'}}>
-                    Proficiency Progress Color: <Box className="resume-setting-selected-color" onClick={() => { setToggleColor(!toggleColor) }} sx={{ backgroundColor: editorData.proficiencyProgressColor}}></Box>
-
+                <Box sx={{ marginTop: '10px', marginBottom: '20px' }}>
+                    Proficiency Progress Color:{' '}
+                    <Box
+                        className='resume-setting-selected-color'
+                        onClick={() => {
+                            setToggleColor(!toggleColor);
+                        }}
+                        sx={{ backgroundColor: editorData.proficiencyProgressColor }}
+                    ></Box>
                     <div className={`resume-setting-item-body ${toggleColor === true ? '' : 'd-none'}`}>
-                        <GithubPicker color={editorData.proficiencyProgressColor} onChangeComplete={changeProficiencyProgressColor} colors={colors} triangle="hide" />
+                        <GithubPicker
+                            color={editorData.proficiencyProgressColor}
+                            onChangeComplete={changeProficiencyProgressColor}
+                            colors={colors}
+                            triangle='hide'
+                        />
                     </div>
-                     
                 </Box>
             </div>
 
@@ -203,12 +212,12 @@ const LanguagesEditor = (props) => {
                                 className={`delete-item-icon ${index === 0 ? 'd-none' : ''}`}
                             ></DeleteForeverIcon>
                         </div>
-                    )
+                    );
                 })}
             </div>
         </div>,
         document.getElementById('editorPortal')
-    )
-}
+    );
+};
 
-export default LanguagesEditor
+export default LanguagesEditor;

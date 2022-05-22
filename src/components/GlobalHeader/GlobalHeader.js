@@ -1,11 +1,11 @@
-import React from 'react'
-import { AppBar, Box, Toolbar, Button } from '@mui/material'
-import logo from '../../logo.svg'
-import { NavLink, useLocation } from 'react-router-dom'
+import React from 'react';
+import { AppBar, Box, Toolbar, Button } from '@mui/material';
+import logo from '../../logo.svg';
+import { NavLink, useLocation } from 'react-router-dom';
 
-import GoogleLogin from '../Login/GoogleLogin'
+import GoogleLogin from '../Login/GoogleLogin';
 
-import './GlobalHeader.css'
+import './GlobalHeader.css';
 
 const GlobalHeader = () => {
     return useLocation().pathname !== '/builder' ? (
@@ -54,7 +54,7 @@ const GlobalHeader = () => {
         </Box>
     ) : (
         <span></span>
-    )
-}
+    );
+};
 
-export default React.memo(GlobalHeader)
+export default React.memo(GlobalHeader);

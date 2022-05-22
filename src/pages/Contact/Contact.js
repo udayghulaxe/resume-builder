@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Container, Box } from '@mui/material'
+import React, { Component } from 'react';
+import { Container, Box } from '@mui/material';
 
 class Contact extends Component {
     render() {
@@ -9,8 +9,8 @@ class Contact extends Component {
                     <h1>Contact</h1>
                 </Box>
             </Container>
-        )
+        );
     }
 }
 
-export default Contact
+export default Contact;

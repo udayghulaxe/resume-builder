@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
-import Button from '@mui/material/Button'
-import CircularProgress from '@mui/material/CircularProgress'
-import { connect } from 'react-redux'
-import { signInAction, signOutAction } from '../../reducers/authSlice.js'
-import { withRouter, NavLink } from 'react-router-dom'
-import firebase from '../../firebase'
+import React, { Component } from 'react';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import { connect } from 'react-redux';
+import { signInAction, signOutAction } from '../../reducers/authSlice.js';
+import { withRouter, NavLink } from 'react-router-dom';
+import firebase from '../../firebase';
 
 class GoogleLogin extends Component {
     // If not using arrow function then we need to bind `this` like below
@@ -22,13 +22,13 @@ class GoogleLogin extends Component {
                     scope: 'email profile',
                 })
                 .then(() => {
-                    this.auth = window.gapi.auth2.getAuthInstance()
+                    this.auth = window.gapi.auth2.getAuthInstance();
 
-                    this.onAuthChange(this.auth.isSignedIn.get())
+                    this.onAuthChange(this.auth.isSignedIn.get());
                     // listen for auth changes in future
-                    this.auth.isSignedIn.listen(this.onAuthChange)
-                })
-        })
+                    this.auth.isSignedIn.listen(this.onAuthChange);
+                });
+        });
     }
 
     onAuthChange = isSignedInStatus => {
@@ -37,22 +37,22 @@ class GoogleLogin extends Component {
                 userId: this.auth.currentUser.get().getId(),
                 name: this.auth.currentUser.get().getBasicProfile().getName(),
                 email: this.auth.currentUser.get().getBasicProfile().getEmail(),
-            })
+            });
         } else {
-            this.props.signOutAction()
+            this.props.signOutAction();
         }
-    }
+    };
 
     onSignInClick = () => {
         this.auth.signIn().then(() => {
-            const userId = this.auth.currentUser.get().getId()
-            const name = this.auth.currentUser.get().getBasicProfile().getName()
-            const email = this.auth.currentUser.get().getBasicProfile().getEmail()
+            const userId = this.auth.currentUser.get().getId();
+            const name = this.auth.currentUser.get().getBasicProfile().getName();
+            const email = this.auth.currentUser.get().getBasicProfile().getEmail();
             this.props.signInAction({
                 userId: userId,
                 name: this.auth.currentUser.get().getBasicProfile().getName(),
                 email: this.auth.currentUser.get().getBasicProfile().getEmail(),
-            })
+            });
 
             // If first time user then create a new resume
             firebase
@@ -63,8 +63,8 @@ class GoogleLogin extends Component {
                 .then(doc => {
                     // Existing user then redirect else create a new resume
                     if (doc.exists) {
-                        localStorage.setItem('token', this.auth.currentUser.get().getAuthResponse().id_token)
-                        this.props.history.replace('resumes')
+                        localStorage.setItem('token', this.auth.currentUser.get().getAuthResponse().id_token);
+                        this.props.history.replace('resumes');
                     } else {
                         firebase
                             .firestore()
@@ -77,23 +77,23 @@ class GoogleLogin extends Component {
                                 email: email,
                             })
                             .then(() => {
-                                localStorage.setItem('token', this.auth.currentUser.get().getAuthResponse().id_token)
-                                this.props.history.replace(`resumes`)
-                            })
+                                localStorage.setItem('token', this.auth.currentUser.get().getAuthResponse().id_token);
+                                this.props.history.replace(`resumes`);
+                            });
                     }
                 })
                 .catch(error => {
-                    console.log('Error getting document:', error)
-                })
-        })
-    }
+                    console.log('Error getting document:', error);
+                });
+        });
+    };
 
     onSignOutClick = () => {
         this.auth.signOut().then(() => {
-            localStorage.removeItem('token')
-            this.props.signOutAction()
-        })
-    }
+            localStorage.removeItem('token');
+            this.props.signOutAction();
+        });
+    };
 
     renderAuthButton() {
         if (this.props.isSignedIn === null) {
@@ -101,7 +101,7 @@ class GoogleLogin extends Component {
                 <div className='header-login-button-wrap'>
                     <CircularProgress className='login-loader' size={18} />
                 </div>
-            )
+            );
         } else if (this.props.isSignedIn) {
             return (
                 <>
@@ -126,7 +126,7 @@ class GoogleLogin extends Component {
                         Logout
                     </Button>
                 </>
-            )
+            );
         } else {
             return (
                 <Button
@@ -138,21 +138,21 @@ class GoogleLogin extends Component {
                 >
                     Create Resume
                 </Button>
-            )
+            );
         }
     }
 
     render() {
-        return this.renderAuthButton()
+        return this.renderAuthButton();
     }
 }
 
 const mapStateToProps = state => {
     return {
         isSignedIn: state.authReducer.isSignedIn,
-    }
-}
+    };
+};
 
-const mapDispatchToProps = { signInAction, signOutAction }
+const mapDispatchToProps = { signInAction, signOutAction };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(GoogleLogin))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(GoogleLogin));

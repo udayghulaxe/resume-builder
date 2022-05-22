@@ -1,45 +1,45 @@
-import React, { useState } from 'react'
-import ReactDOM from 'react-dom'
-import { useDispatch } from 'react-redux'
-import { TextField, Button, MenuItem, Grid } from '@mui/material'
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+import { useDispatch } from 'react-redux';
+import { TextField, Button, MenuItem, Grid } from '@mui/material';
 
-import { updateResumeDataReducer, updateOpenEditorName } from '../../reducers/resumeDataSlice'
+import { updateResumeDataReducer, updateOpenEditorName } from '../../reducers/resumeDataSlice';
 
 const DividerEditor = props => {
-    const [editorData, setEditorData] = useState(props.editorData)
-    const dispatch = useDispatch()
+    const [editorData, setEditorData] = useState(props.editorData);
+    const dispatch = useDispatch();
 
     const onSave = event => {
         dispatch(
             updateResumeDataReducer({ name: props.componentName, column: props.componentColumn, data: editorData })
-        )
-        closeEditor()
-    }
+        );
+        closeEditor();
+    };
 
     const closeEditor = () => {
-        dispatch(updateOpenEditorName(null))
-        props.setOpen(false)
-    }
+        dispatch(updateOpenEditorName(null));
+        props.setOpen(false);
+    };
 
     const onStyleChange = (style, value) => {
         if (style.type === 'number') {
             if (!value) {
-                value = 0
+                value = 0;
             }
             if (value >= 0 && value <= 100) {
-                updateStyle(style, value)
+                updateStyle(style, value);
             }
         } else {
-            updateStyle(style, value)
+            updateStyle(style, value);
         }
-    }
+    };
 
     function updateStyle(s, value) {
-        const widgetData = JSON.parse(JSON.stringify(editorData))
-        const style = widgetData.styles.find(style => style.rule === s.rule)
-        style.value = value
-        setEditorData(widgetData)
-        props.setWidgetData(widgetData)
+        const widgetData = JSON.parse(JSON.stringify(editorData));
+        const style = widgetData.styles.find(style => style.rule === s.rule);
+        style.value = value;
+        setEditorData(widgetData);
+        props.setWidgetData(widgetData);
     }
 
     return ReactDOM.createPortal(
@@ -86,13 +86,13 @@ const DividerEditor = props => {
                                         ))}
                                 </TextField>
                             </Grid>
-                        )
+                        );
                     })}
                 </Grid>
             </div>
         </div>,
         document.getElementById('editorPortal')
-    )
-}
+    );
+};
 
-export default DividerEditor
+export default DividerEditor;

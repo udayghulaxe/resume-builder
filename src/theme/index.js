@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material/styles'
+import { createTheme } from '@mui/material/styles';
 
 // Or Create your Own theme:
 const theme = createTheme({
@@ -24,6 +24,6 @@ const theme = createTheme({
             ],
         },
     },
-})
+});
 
-export default theme
+export default theme;

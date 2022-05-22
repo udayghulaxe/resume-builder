@@ -1,69 +1,69 @@
-import React, { useState } from 'react'
-import ReactDOM from 'react-dom'
-import { TextField, Button, Divider, Box } from '@mui/material'
-import { useDispatch } from 'react-redux'
-import { updateResumeDataReducer, updateOpenEditorName } from '../../reducers/resumeDataSlice'
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+import { TextField, Button, Divider, Box } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { updateResumeDataReducer, updateOpenEditorName } from '../../reducers/resumeDataSlice';
 
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
-import AddCircleIcon from '@mui/icons-material/AddCircle'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 const SocialEditor = props => {
-    const [editorData, setEditorData] = useState(props.editorData)
-    const dispatch = useDispatch()
+    const [editorData, setEditorData] = useState(props.editorData);
+    const dispatch = useDispatch();
 
     const onWidgetDataChange = (key, newValue) => {
-        const newData = { ...editorData, [key]: newValue }
-        setEditorData(newData)
-        props.setWidgetData(newData)
-    }
+        const newData = { ...editorData, [key]: newValue };
+        setEditorData(newData);
+        props.setWidgetData(newData);
+    };
 
     const onSave = event => {
-        const newData = { ...editorData }
+        const newData = { ...editorData };
         dispatch(
             updateResumeDataReducer({
                 name: props.componentName,
                 column: props.componentColumn,
                 data: newData,
             })
-        )
-        closeEditor()
-        console.log(editorData)
-    }
+        );
+        closeEditor();
+        console.log(editorData);
+    };
 
     const onTitleChange = event => {
-        const newVal = event.target.value
-        onWidgetDataChange('title', newVal)
-    }
+        const newVal = event.target.value;
+        onWidgetDataChange('title', newVal);
+    };
 
     const onFieldChange = (event, index, property) => {
-        const newValue = event.target.value
-        let newSocialItems = [...editorData.items]
+        const newValue = event.target.value;
+        let newSocialItems = [...editorData.items];
         newSocialItems[index] = {
             ...newSocialItems[index],
             [property]: newValue,
-        }
-        onWidgetDataChange('items', newSocialItems)
-    }
+        };
+        onWidgetDataChange('items', newSocialItems);
+    };
 
     const onAddSocial = (event, index) => {
-        let newSocialItems = [...editorData.items]
+        let newSocialItems = [...editorData.items];
         newSocialItems.splice(index + 1, 0, {
             socialPlatform: '',
             username: '',
-        })
-        onWidgetDataChange('items', newSocialItems)
-    }
+        });
+        onWidgetDataChange('items', newSocialItems);
+    };
 
     const onDeleteExperience = (event, index) => {
-        let newSocialItems = [...editorData.items]
-        newSocialItems.splice(index, 1)
-        onWidgetDataChange('items', newSocialItems)
-    }
+        let newSocialItems = [...editorData.items];
+        newSocialItems.splice(index, 1);
+        onWidgetDataChange('items', newSocialItems);
+    };
 
     const closeEditor = () => {
-        dispatch(updateOpenEditorName(null))
-        props.setOpen(false)
-    }
+        dispatch(updateOpenEditorName(null));
+        props.setOpen(false);
+    };
 
     return ReactDOM.createPortal(
         <div className='editor-wrap'>
@@ -127,12 +127,12 @@ const SocialEditor = props => {
                             <Divider></Divider>
                             <Box sx={{ height: 20 }}></Box>
                         </div>
-                    )
+                    );
                 })}
             </div>
         </div>,
         document.getElementById('editorPortal')
-    )
-}
+    );
+};
 
-export default SocialEditor
+export default SocialEditor;

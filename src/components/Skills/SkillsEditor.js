@@ -1,63 +1,63 @@
-import React, { useState } from 'react'
-import ReactDOM from 'react-dom'
-import { TextField, Button, Switch } from '@mui/material'
-import AddCircleIcon from '@mui/icons-material/AddCircle'
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
-import { useDispatch } from 'react-redux'
-import { updateResumeDataReducer, updateOpenEditorName } from '../../reducers/resumeDataSlice'
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+import { TextField, Button, Switch } from '@mui/material';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { useDispatch } from 'react-redux';
+import { updateResumeDataReducer, updateOpenEditorName } from '../../reducers/resumeDataSlice';
 
 const SkillsEditor = props => {
-    const [editorData, setEditorData] = useState(props.editorData)
-    const dispatch = useDispatch()
+    const [editorData, setEditorData] = useState(props.editorData);
+    const dispatch = useDispatch();
 
     const onWidgetDataChange = (key, newValue) => {
-        const newData = { ...editorData, [key]: newValue }
-        setEditorData(newData)
-        props.setWidgetData(newData)
-    }
+        const newData = { ...editorData, [key]: newValue };
+        setEditorData(newData);
+        props.setWidgetData(newData);
+    };
 
     const onTitleChange = event => {
-        const newVal = event.target.value
-        onWidgetDataChange('title', newVal)
-    }
+        const newVal = event.target.value;
+        onWidgetDataChange('title', newVal);
+    };
 
     const onRoundedChange = event => {
-        onWidgetDataChange('rounded', event.target.checked)
-    }
+        onWidgetDataChange('rounded', event.target.checked);
+    };
 
     const onFilledChange = event => {
-        onWidgetDataChange('filled', event.target.checked)
-    }
+        onWidgetDataChange('filled', event.target.checked);
+    };
 
     const onSkillChange = (event, index) => {
-        let skills = [...editorData.items]
-        skills[index] = { title: event.target.value }
-        onWidgetDataChange('items', skills)
-    }
+        let skills = [...editorData.items];
+        skills[index] = { title: event.target.value };
+        onWidgetDataChange('items', skills);
+    };
 
     const onAddSkill = (event, index) => {
-        let skills = [...editorData.items]
-        skills.splice(index + 1, 0, { title: '' })
-        onWidgetDataChange('items', skills)
-    }
+        let skills = [...editorData.items];
+        skills.splice(index + 1, 0, { title: '' });
+        onWidgetDataChange('items', skills);
+    };
     const onDeleteSkill = (event, index) => {
-        let skills = [...editorData.items]
-        skills.splice(index, 1)
-        onWidgetDataChange('items', skills)
-    }
+        let skills = [...editorData.items];
+        skills.splice(index, 1);
+        onWidgetDataChange('items', skills);
+    };
 
     const onSave = event => {
-        const newData = { ...editorData }
-        setEditorData(newData)
-        dispatch(updateResumeDataReducer({ name: props.componentName, column: props.componentColumn, data: newData }))
-        closeEditor()
-        console.log(editorData)
-    }
+        const newData = { ...editorData };
+        setEditorData(newData);
+        dispatch(updateResumeDataReducer({ name: props.componentName, column: props.componentColumn, data: newData }));
+        closeEditor();
+        console.log(editorData);
+    };
 
     const closeEditor = () => {
-        dispatch(updateOpenEditorName(null))
-        props.setOpen(false)
-    }
+        dispatch(updateOpenEditorName(null));
+        props.setOpen(false);
+    };
 
     return ReactDOM.createPortal(
         <div className='editor-wrap'>
@@ -114,12 +114,12 @@ const SkillsEditor = props => {
                                 className={`delete-item-icon ${index === 0 ? 'd-none' : ''}`}
                             ></DeleteForeverIcon>
                         </div>
-                    )
+                    );
                 })}
             </div>
         </div>,
         document.getElementById('editorPortal')
-    )
-}
+    );
+};
 
-export default SkillsEditor
+export default SkillsEditor;

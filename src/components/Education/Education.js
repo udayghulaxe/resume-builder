@@ -1,28 +1,28 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { updateOpenEditorName } from '../../reducers/resumeDataSlice'
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateOpenEditorName } from '../../reducers/resumeDataSlice';
 
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
-import SchoolIcon from '@mui/icons-material/School'
-import EditIcon from '@mui/icons-material/Edit'
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import SchoolIcon from '@mui/icons-material/School';
+import EditIcon from '@mui/icons-material/Edit';
 
-import EducationEditor from './EducationEditor'
+import EducationEditor from './EducationEditor';
 
-import './Education.css'
+import './Education.css';
 
 const Education = props => {
-    const [open, setOpen] = useState(false)
-    console.log('calling education', open)
+    const [open, setOpen] = useState(false);
+    console.log('calling education', open);
 
-    const [widgetData, setWidgetData] = useState(props.componentItem.componentData)
+    const [widgetData, setWidgetData] = useState(props.componentItem.componentData);
 
-    const dispatch = useDispatch()
-    const openEditorName = useSelector(state => state.resumeDataReducer.openEditorName)
+    const dispatch = useDispatch();
+    const openEditorName = useSelector(state => state.resumeDataReducer.openEditorName);
 
     const openEditor = () => {
-        dispatch(updateOpenEditorName(props.componentItem.name))
-        setOpen(true)
-    }
+        dispatch(updateOpenEditorName(props.componentItem.name));
+        setOpen(true);
+    };
 
     return (
         <div className='resume-section resume-section-education'>
@@ -59,7 +59,7 @@ const Education = props => {
                                 )}
                             </div>
                         </div>
-                    )
+                    );
                 })}
             </div>
 
@@ -74,7 +74,7 @@ const Education = props => {
                 />
             ) : null}
         </div>
-    )
-}
+    );
+};
 
-export default React.memo(Education)
+export default React.memo(Education);

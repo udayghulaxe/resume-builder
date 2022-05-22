@@ -1,26 +1,26 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { updateOpenEditorName } from '../../reducers/resumeDataSlice'
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateOpenEditorName } from '../../reducers/resumeDataSlice';
 
-import StarIcon from '@mui/icons-material/Star'
-import EditIcon from '@mui/icons-material/Edit'
-import AchievementEditor from './AchievementEditor'
+import StarIcon from '@mui/icons-material/Star';
+import EditIcon from '@mui/icons-material/Edit';
+import AchievementEditor from './AchievementEditor';
 
-import './Achievement.css'
+import './Achievement.css';
 
 const Achievement = props => {
-    const [open, setOpen] = useState(false)
-    console.log('calling achievment', open)
+    const [open, setOpen] = useState(false);
+    console.log('calling achievment', open);
 
-    const [widgetData, setWidgetData] = useState(props.componentItem.componentData)
+    const [widgetData, setWidgetData] = useState(props.componentItem.componentData);
 
-    const dispatch = useDispatch()
-    const openEditorName = useSelector(state => state.resumeDataReducer.openEditorName)
+    const dispatch = useDispatch();
+    const openEditorName = useSelector(state => state.resumeDataReducer.openEditorName);
 
     const openEditor = () => {
-        dispatch(updateOpenEditorName(props.componentItem.name))
-        setOpen(true)
-    }
+        dispatch(updateOpenEditorName(props.componentItem.name));
+        setOpen(true);
+    };
 
     return (
         <div className='resume-section resume-section-achievement'>
@@ -40,7 +40,7 @@ const Achievement = props => {
                             </span>
                             <span className='achievement-summary'>{item.title}</span>
                         </div>
-                    )
+                    );
                 })}
             </div>
 
@@ -55,7 +55,7 @@ const Achievement = props => {
                 />
             ) : null}
         </div>
-    )
-}
+    );
+};
 
-export default React.memo(Achievement)
+export default React.memo(Achievement);

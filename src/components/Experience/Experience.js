@@ -1,29 +1,29 @@
-import React, { useState } from 'react'
-import { Box } from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux'
-import { updateOpenEditorName } from '../../reducers/resumeDataSlice'
+import React, { useState } from 'react';
+import { Box } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateOpenEditorName } from '../../reducers/resumeDataSlice';
 
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
-import LocationOnIcon from '@mui/icons-material/LocationOn'
-import BusinessIcon from '@mui/icons-material/Business'
-import EditIcon from '@mui/icons-material/Edit'
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import BusinessIcon from '@mui/icons-material/Business';
+import EditIcon from '@mui/icons-material/Edit';
 
-import './Experience.css'
-import ExperienceEditor from './ExperienceEditor'
+import './Experience.css';
+import ExperienceEditor from './ExperienceEditor';
 
 const Experience = props => {
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false);
 
-    console.log('calling experience', open)
-    const [widgetData, setWidgetData] = useState(props.componentItem.componentData)
+    console.log('calling experience', open);
+    const [widgetData, setWidgetData] = useState(props.componentItem.componentData);
 
-    const dispatch = useDispatch()
-    const openEditorName = useSelector(state => state.resumeDataReducer.openEditorName)
+    const dispatch = useDispatch();
+    const openEditorName = useSelector(state => state.resumeDataReducer.openEditorName);
 
     const openEditor = () => {
-        dispatch(updateOpenEditorName(props.componentItem.name))
-        setOpen(true)
-    }
+        dispatch(updateOpenEditorName(props.componentItem.name));
+        setOpen(true);
+    };
 
     return (
         <div className='resume-section resume-section-experience'>
@@ -71,7 +71,7 @@ const Experience = props => {
                                 dangerouslySetInnerHTML={{ __html: item.experienceSummary }}
                             ></div>
                         </div>
-                    )
+                    );
                 })}
             </div>
             {openEditorName === props.componentItem.name ? (
@@ -85,7 +85,7 @@ const Experience = props => {
                 />
             ) : null}
         </div>
-    )
-}
+    );
+};
 
-export default React.memo(Experience)
+export default React.memo(Experience);

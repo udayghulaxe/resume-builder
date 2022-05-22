@@ -1,23 +1,23 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { updateOpenEditorName } from '../../reducers/resumeDataSlice'
-import EditIcon from '@mui/icons-material/Edit'
-import SocialEditor from './SocialEditor'
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateOpenEditorName } from '../../reducers/resumeDataSlice';
+import EditIcon from '@mui/icons-material/Edit';
+import SocialEditor from './SocialEditor';
 
-import './Social.css'
+import './Social.css';
 const Social = props => {
-    const [open, setOpen] = useState(false)
-    console.log('calling Social', open)
+    const [open, setOpen] = useState(false);
+    console.log('calling Social', open);
 
-    const [widgetData, setWidgetData] = useState(props.componentItem.componentData)
+    const [widgetData, setWidgetData] = useState(props.componentItem.componentData);
 
-    const dispatch = useDispatch()
-    const openEditorName = useSelector(state => state.resumeDataReducer.openEditorName)
+    const dispatch = useDispatch();
+    const openEditorName = useSelector(state => state.resumeDataReducer.openEditorName);
 
     const openEditor = () => {
-        dispatch(updateOpenEditorName(props.componentItem.name))
-        setOpen(true)
-    }
+        dispatch(updateOpenEditorName(props.componentItem.name));
+        setOpen(true);
+    };
 
     return (
         <div className='resume-section resume-section-Social'>
@@ -35,7 +35,7 @@ const Social = props => {
                             <div className='social-platform resume-section-subtitle'>{item.socialPlatform}</div>
                             <div className='social-username'>{item.username}</div>
                         </div>
-                    )
+                    );
                 })}
             </div>
 
@@ -50,7 +50,7 @@ const Social = props => {
                 />
             ) : null}
         </div>
-    )
-}
+    );
+};
 
-export default React.memo(Social)
+export default React.memo(Social);

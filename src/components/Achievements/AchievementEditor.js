@@ -1,58 +1,58 @@
-import React, { useState } from 'react'
-import ReactDOM from 'react-dom'
-import { TextField, Button, Switch } from '@mui/material'
-import AddCircleIcon from '@mui/icons-material/AddCircle'
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
-import { useDispatch } from 'react-redux'
-import { updateResumeDataReducer, updateOpenEditorName } from '../../reducers/resumeDataSlice'
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+import { TextField, Button, Switch } from '@mui/material';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { useDispatch } from 'react-redux';
+import { updateResumeDataReducer, updateOpenEditorName } from '../../reducers/resumeDataSlice';
 
 const AchievementEditor = props => {
-    const [editorData, setEditorData] = useState(props.editorData)
-    const dispatch = useDispatch()
+    const [editorData, setEditorData] = useState(props.editorData);
+    const dispatch = useDispatch();
 
     const onWidgetDataChange = (key, newValue) => {
-        const newData = { ...editorData, [key]: newValue }
-        setEditorData(newData)
-        props.setWidgetData(newData)
-    }
+        const newData = { ...editorData, [key]: newValue };
+        setEditorData(newData);
+        props.setWidgetData(newData);
+    };
 
     const onTitleChange = event => {
-        const newVal = event.target.value
-        onWidgetDataChange('title', newVal)
-    }
+        const newVal = event.target.value;
+        onWidgetDataChange('title', newVal);
+    };
 
     const onShowIconChange = event => {
-        onWidgetDataChange('showIcon', event.target.checked)
-    }
+        onWidgetDataChange('showIcon', event.target.checked);
+    };
 
     const onAchievementChange = (event, index) => {
-        let skills = [...editorData.items]
-        skills[index] = { title: event.target.value }
-        onWidgetDataChange('items', skills)
-    }
+        let skills = [...editorData.items];
+        skills[index] = { title: event.target.value };
+        onWidgetDataChange('items', skills);
+    };
 
     const onAddAchievement = (event, index) => {
-        let skills = [...editorData.items]
-        skills.splice(index + 1, 0, { title: '' })
-        onWidgetDataChange('items', skills)
-    }
+        let skills = [...editorData.items];
+        skills.splice(index + 1, 0, { title: '' });
+        onWidgetDataChange('items', skills);
+    };
     const onDeleteAchievement = (event, index) => {
-        let skills = [...editorData.items]
-        skills.splice(index, 1)
-        onWidgetDataChange('items', skills)
-    }
+        let skills = [...editorData.items];
+        skills.splice(index, 1);
+        onWidgetDataChange('items', skills);
+    };
 
     const onSave = event => {
-        const newData = { ...editorData }
-        dispatch(updateResumeDataReducer({ name: props.componentName, column: props.componentColumn, data: newData }))
-        closeEditor()
-        console.log(editorData)
-    }
+        const newData = { ...editorData };
+        dispatch(updateResumeDataReducer({ name: props.componentName, column: props.componentColumn, data: newData }));
+        closeEditor();
+        console.log(editorData);
+    };
 
     const closeEditor = () => {
-        dispatch(updateOpenEditorName(null))
-        props.setOpen(false)
-    }
+        dispatch(updateOpenEditorName(null));
+        props.setOpen(false);
+    };
 
     return ReactDOM.createPortal(
         <div className='editor-wrap'>
@@ -110,12 +110,12 @@ const AchievementEditor = props => {
                                 className={`delete-item-icon ${index === 0 ? 'd-none' : ''}`}
                             ></DeleteForeverIcon>
                         </div>
-                    )
+                    );
                 })}
             </div>
         </div>,
         document.getElementById('editorPortal')
-    )
-}
+    );
+};
 
-export default AchievementEditor
+export default AchievementEditor;

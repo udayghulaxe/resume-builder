@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
-import { Button } from '@mui/material'
-import { GithubPicker } from 'react-color'
-import { fontSizes, colors } from '../../globals.js'
-import FormatAlignLeftOutlinedIcon from '@mui/icons-material/FormatAlignLeftOutlined'
-import FormatAlignCenterOutlinedIcon from '@mui/icons-material/FormatAlignCenterOutlined'
-import FormatAlignRightOutlinedIcon from '@mui/icons-material/FormatAlignRightOutlined'
+import React, { useState } from 'react';
+import { Button } from '@mui/material';
+import { GithubPicker } from 'react-color';
+import { fontSizes, colors } from '../../globals.js';
+import FormatAlignLeftOutlinedIcon from '@mui/icons-material/FormatAlignLeftOutlined';
+import FormatAlignCenterOutlinedIcon from '@mui/icons-material/FormatAlignCenterOutlined';
+import FormatAlignRightOutlinedIcon from '@mui/icons-material/FormatAlignRightOutlined';
 
-import './GlobalResumeSetting.css'
-import { Box } from '@mui/system'
+import './GlobalResumeSetting.css';
+import { Box } from '@mui/system';
 
 const GlobalResumeSetting = props => {
     const [colorsToggles, setColorsToggles] = useState({
@@ -19,96 +19,96 @@ const GlobalResumeSetting = props => {
         sidebarBackgroundColorToogle: false,
         sidebarHeadingColorToggle: false,
         mainBackgroundColorToggle: false,
-    })
+    });
 
     const closeEditor = () => {
-        props.openEditorSection()
-    }
+        props.openEditorSection();
+    };
 
     const changeFontColor = (property, color) => {
-        const root = document.querySelector(':root')
-        root.style.setProperty(property, color)
-    }
+        const root = document.querySelector(':root');
+        root.style.setProperty(property, color);
+    };
 
     const changeAboutSectionFontColor = color => {
-        props.setResumeSettings({ ...props.resumeSettings, aboutSectionFontColor: color.hex })
-        openColorToggle('headerFontColorToggle')
-        changeFontColor('--color-font-about-section', color.hex)
-    }
+        props.setResumeSettings({ ...props.resumeSettings, aboutSectionFontColor: color.hex });
+        openColorToggle('headerFontColorToggle');
+        changeFontColor('--color-font-about-section', color.hex);
+    };
 
     const changeHeadingFontColor = color => {
-        props.setResumeSettings({ ...props.resumeSettings, headingFontColor: color.hex })
-        changeFontColor('--color-font-heading', color.hex)
-        openColorToggle('headingFontColorToggle')
-    }
+        props.setResumeSettings({ ...props.resumeSettings, headingFontColor: color.hex });
+        changeFontColor('--color-font-heading', color.hex);
+        openColorToggle('headingFontColorToggle');
+    };
 
     const changeSubheadingFontColor = color => {
-        props.setResumeSettings({ ...props.resumeSettings, subheadingFontColor: color.hex })
-        changeFontColor('--color-font-subheading', color.hex)
-        openColorToggle('subheadingFontColorToggle')
-    }
+        props.setResumeSettings({ ...props.resumeSettings, subheadingFontColor: color.hex });
+        changeFontColor('--color-font-subheading', color.hex);
+        openColorToggle('subheadingFontColorToggle');
+    };
 
     const changeBodyFontColor = color => {
-        props.setResumeSettings({ ...props.resumeSettings, bodyFontColor: color.hex })
-        changeFontColor('--color-font-body', color.hex)
-        openColorToggle('bodyFontColorToggle')
-    }
+        props.setResumeSettings({ ...props.resumeSettings, bodyFontColor: color.hex });
+        changeFontColor('--color-font-body', color.hex);
+        openColorToggle('bodyFontColorToggle');
+    };
 
     const changeHeaderBackgroundColor = color => {
-        props.setResumeSettings({ ...props.resumeSettings, headerBackgroundColor: color.hex })
-        openColorToggle('headerBackgroundColorToggle')
-    }
+        props.setResumeSettings({ ...props.resumeSettings, headerBackgroundColor: color.hex });
+        openColorToggle('headerBackgroundColorToggle');
+    };
 
     const changeSidebarBackgroundColor = color => {
-        props.setResumeSettings({ ...props.resumeSettings, sidebarBackgroundColor: color.hex })
-        openColorToggle('sidebarBackgroundColorToggle')
-    }
+        props.setResumeSettings({ ...props.resumeSettings, sidebarBackgroundColor: color.hex });
+        openColorToggle('sidebarBackgroundColorToggle');
+    };
 
     const changeSidebarBodyColor = color => {
-        props.setResumeSettings({ ...props.resumeSettings, sidebarBodyColor: color.hex })
-        changeFontColor('--color-sidebar-body', color.hex)
-        openColorToggle('sidebarBodyColorToggle')
-    }
+        props.setResumeSettings({ ...props.resumeSettings, sidebarBodyColor: color.hex });
+        changeFontColor('--color-sidebar-body', color.hex);
+        openColorToggle('sidebarBodyColorToggle');
+    };
 
     const changeSidebarHeadingColor = color => {
-        props.setResumeSettings({ ...props.resumeSettings, sidebarHeadingColor: color.hex })
-        changeFontColor('--color-sidebar-heading', color.hex)
-        openColorToggle('sidebarHeadingColorToggle')
-    }
+        props.setResumeSettings({ ...props.resumeSettings, sidebarHeadingColor: color.hex });
+        changeFontColor('--color-sidebar-heading', color.hex);
+        openColorToggle('sidebarHeadingColorToggle');
+    };
 
     const changeMainBackgroundColor = color => {
-        props.setResumeSettings({ ...props.resumeSettings, mainBackgroundColor: color.hex })
-        openColorToggle('mainBackgroundColorToggle')
-    }
+        props.setResumeSettings({ ...props.resumeSettings, mainBackgroundColor: color.hex });
+        openColorToggle('mainBackgroundColorToggle');
+    };
 
     const changeHeadingFont = (e, size) => {
-        props.setResumeSettings({ ...props.resumeSettings, headingFontSize: size })
-    }
+        props.setResumeSettings({ ...props.resumeSettings, headingFontSize: size });
+    };
 
     const changeSubheadingFont = (e, size) => {
-        props.setResumeSettings({ ...props.resumeSettings, subheadingFontSize: size })
-    }
+        props.setResumeSettings({ ...props.resumeSettings, subheadingFontSize: size });
+    };
 
     const changeBodyFont = (e, size) => {
-        props.setResumeSettings({ ...props.resumeSettings, bodyFontSize: size })
-    }
+        props.setResumeSettings({ ...props.resumeSettings, bodyFontSize: size });
+    };
 
     const changeHeadingAlignment = (e, alignment) => {
-        props.setResumeSettings({ ...props.resumeSettings, headingAlignment: alignment })
-    }
+        props.setResumeSettings({ ...props.resumeSettings, headingAlignment: alignment });
+    };
 
     const onSave = () => {
-        props.updateGlobalSetting(props.resumeSettings)
-        closeEditor()
-    }
+        props.updateGlobalSetting(props.resumeSettings);
+        closeEditor();
+    };
 
     const openColorToggle = colorToggleProp => {
-        setColorsToggles({ ...colorsToggles, [colorToggleProp]: !colorsToggles[colorToggleProp] })
-    }
+        setColorsToggles({ ...colorsToggles, [colorToggleProp]: !colorsToggles[colorToggleProp] });
+    };
 
     const changeSidebarPosition = (e, position) => {
-        props.setResumeSettings({ ...props.resumeSettings, sidebarPosition: position })
-    }
+        props.setResumeSettings({ ...props.resumeSettings, sidebarPosition: position });
+    };
 
     return (
         <div className='resume-setting-wrap'>
@@ -132,7 +132,7 @@ const GlobalResumeSetting = props => {
                         <Box
                             className='resume-setting-selected-color'
                             onClick={() => {
-                                openColorToggle('headerFontColorToggle')
+                                openColorToggle('headerFontColorToggle');
                             }}
                             sx={{ backgroundColor: props.resumeSettings.aboutSectionFontColor }}
                         ></Box>
@@ -157,7 +157,7 @@ const GlobalResumeSetting = props => {
                         <Box
                             className='resume-setting-selected-color'
                             onClick={() => {
-                                openColorToggle('headerBackgroundColorToggle')
+                                openColorToggle('headerBackgroundColorToggle');
                             }}
                             sx={{ backgroundColor: props.resumeSettings.headerBackgroundColor }}
                         ></Box>
@@ -187,7 +187,7 @@ const GlobalResumeSetting = props => {
                         <Box
                             className='resume-setting-selected-color'
                             onClick={() => {
-                                openColorToggle('headingFontColorToggle')
+                                openColorToggle('headingFontColorToggle');
                             }}
                             sx={{ backgroundColor: props.resumeSettings.headingFontColor }}
                         ></Box>
@@ -212,7 +212,7 @@ const GlobalResumeSetting = props => {
                         <Box
                             className='resume-setting-selected-color'
                             onClick={() => {
-                                openColorToggle('bodyFontColorToggle')
+                                openColorToggle('bodyFontColorToggle');
                             }}
                             sx={{ backgroundColor: props.resumeSettings.bodyFontColor }}
                         ></Box>
@@ -237,7 +237,7 @@ const GlobalResumeSetting = props => {
                         <Box
                             className='resume-setting-selected-color'
                             onClick={() => {
-                                openColorToggle('mainBackgroundColorToggle')
+                                openColorToggle('mainBackgroundColorToggle');
                             }}
                             sx={{ backgroundColor: props.resumeSettings.mainBackgroundColor }}
                         ></Box>
@@ -268,7 +268,7 @@ const GlobalResumeSetting = props => {
                         <Box
                             className='resume-setting-selected-color'
                             onClick={() => {
-                                openColorToggle('sidebarHeadingColorToggle')
+                                openColorToggle('sidebarHeadingColorToggle');
                             }}
                             sx={{ backgroundColor: props.resumeSettings.sidebarHeadingColor }}
                         ></Box>
@@ -293,7 +293,7 @@ const GlobalResumeSetting = props => {
                         <Box
                             className='resume-setting-selected-color'
                             onClick={() => {
-                                openColorToggle('sidebarBodyColorToggle')
+                                openColorToggle('sidebarBodyColorToggle');
                             }}
                             sx={{ backgroundColor: props.resumeSettings.sidebarBodyColor }}
                         ></Box>
@@ -318,7 +318,7 @@ const GlobalResumeSetting = props => {
                         <Box
                             className='resume-setting-selected-color'
                             onClick={() => {
-                                openColorToggle('sidebarBackgroundColorToggle')
+                                openColorToggle('sidebarBackgroundColorToggle');
                             }}
                             sx={{ backgroundColor: props.resumeSettings.sidebarBackgroundColor }}
                         ></Box>
@@ -378,7 +378,7 @@ const GlobalResumeSetting = props => {
                                 >
                                     {font.label}
                                 </div>
-                            )
+                            );
                         })}
                     </div>
                 </div>
@@ -397,7 +397,7 @@ const GlobalResumeSetting = props => {
                                 >
                                     {font.label}
                                 </div>
-                            )
+                            );
                         })}
                     </div>
                 </div>
@@ -416,7 +416,7 @@ const GlobalResumeSetting = props => {
                                 >
                                     {font.label}
                                 </div>
-                            )
+                            );
                         })}
                     </div>
                 </div>
@@ -572,7 +572,7 @@ const GlobalResumeSetting = props => {
             </div>
           </div> */}
         </div>
-    )
-}
+    );
+};
 
-export default React.memo(GlobalResumeSetting)
+export default React.memo(GlobalResumeSetting);

@@ -1,55 +1,55 @@
-import React, { useState } from 'react'
-import ReactDOM from 'react-dom'
-import { TextField, Button, Divider, Box } from '@mui/material'
-import { useDispatch } from 'react-redux'
-import { updateResumeDataReducer, updateOpenEditorName } from '../../reducers/resumeDataSlice'
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+import { TextField, Button, Divider, Box } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { updateResumeDataReducer, updateOpenEditorName } from '../../reducers/resumeDataSlice';
 
-import { richEditorSettings } from '../../globals.js'
-import ReactQuill from 'react-quill'
-import 'react-quill/dist/quill.snow.css'
+import { richEditorSettings } from '../../globals.js';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const SocialEditor = props => {
-    const [editorData, setEditorData] = useState(props.editorData)
-    const dispatch = useDispatch()
+    const [editorData, setEditorData] = useState(props.editorData);
+    const dispatch = useDispatch();
 
     const onWidgetDataChange = (key, newValue) => {
-        const newData = { ...editorData, [key]: newValue }
-        setEditorData(newData)
-        props.setWidgetData(newData)
-    }
+        const newData = { ...editorData, [key]: newValue };
+        setEditorData(newData);
+        props.setWidgetData(newData);
+    };
 
     const onSave = event => {
-        const newData = { ...editorData }
+        const newData = { ...editorData };
         dispatch(
             updateResumeDataReducer({
                 name: props.componentName,
                 column: props.componentColumn,
                 data: newData,
             })
-        )
-        closeEditor()
-        console.log(editorData)
-    }
+        );
+        closeEditor();
+        console.log(editorData);
+    };
 
     const onTitleChange = event => {
-        const newVal = event.target.value
-        onWidgetDataChange('title', newVal)
-    }
+        const newVal = event.target.value;
+        onWidgetDataChange('title', newVal);
+    };
 
     const onFieldChange = (val, index, property) => {
-        const newValue = val
-        let newprofessionalSummaryItems = [...editorData.items]
+        const newValue = val;
+        let newprofessionalSummaryItems = [...editorData.items];
         newprofessionalSummaryItems[index] = {
             ...newprofessionalSummaryItems[index],
             [property]: newValue,
-        }
-        onWidgetDataChange('items', newprofessionalSummaryItems)
-    }
+        };
+        onWidgetDataChange('items', newprofessionalSummaryItems);
+    };
 
     const closeEditor = () => {
-        dispatch(updateOpenEditorName(null))
-        props.setOpen(false)
-    }
+        dispatch(updateOpenEditorName(null));
+        props.setOpen(false);
+    };
 
     return ReactDOM.createPortal(
         <div className='editor-wrap'>
@@ -95,12 +95,12 @@ const SocialEditor = props => {
                             <Divider></Divider>
                             <Box sx={{ height: 20 }}></Box>
                         </div>
-                    )
+                    );
                 })}
             </div>
         </div>,
         document.getElementById('editorPortal')
-    )
-}
+    );
+};
 
-export default SocialEditor
+export default SocialEditor;

@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
-import { Divider } from '@mui/material'
-import EditIcon from '@mui/icons-material/Edit'
+import React, { useState } from 'react';
+import { Divider } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 
-import './SectionDivider.css'
+import './SectionDivider.css';
 const SectionDivider = props => {
-    const [open, setOpen] = useState(false)
-    console.log('calling section divider', open)
+    const [open, setOpen] = useState(false);
+    console.log('calling section divider', open);
 
     const openEditor = () => {
-        setOpen(true)
-    }
+        setOpen(true);
+    };
 
     return (
         <div className='resume-section resume-section-devider'>
@@ -24,7 +24,7 @@ const SectionDivider = props => {
                 <Divider></Divider>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default React.memo(SectionDivider)
+export default React.memo(SectionDivider);
