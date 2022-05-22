@@ -1,4 +1,3 @@
-
 .MuiLink-root.builder-header-menu-link {
     padding-left: 20px;
     text-transform: none;
@@ -21,7 +20,9 @@
     background-color: var(--color-light-bg);
 }
 
-#pageOne, #pageTwo, #pageThree {
+#pageOne,
+#pageTwo,
+#pageThree {
     display: flex;
     height: 100%;
     flex-direction: column;
@@ -52,7 +53,7 @@
 
 @media screen and (max-width: 480px) {
     .MuiPaper-rounded.resume-paper {
-      width: auto;
+        width: auto;
     }
 
     .resume-paper-wrap {
@@ -65,7 +66,6 @@
     text-transform: uppercase;
 }
 
-  
 .grid-item {
     padding: 10px;
     width: 100%;
@@ -140,7 +140,8 @@
     right: 0;
 }
 
-.resume-section-wrap:hover .overlay, .component-dragging .overlay {
+.resume-section-wrap:hover .overlay,
+.component-dragging .overlay {
     display: flex;
     background-color: #fff;
     box-shadow: -1px 2px 6px #0000004a;
@@ -167,7 +168,7 @@
     width: 100px;
     height: 100px;
     position: absolute;
-    top:0;
+    top: 0;
     bottom: 0;
     left: 0;
     right: 0;

@@ -1,14 +1,14 @@
-import React from "react";
-import { Container, Box } from "@mui/material";
+import React from 'react'
+import { Container, Box } from '@mui/material'
 
 const Home = () => {
     return (
-        <Container maxWidth="sm">
-            <Box m="auto" textAlign="center">
+        <Container maxWidth='sm'>
+            <Box m='auto' textAlign='center'>
                 <h1>Home</h1>
-            </Box> 
+            </Box>
         </Container>
-    );
+    )
 }
 
-export default Home;
+export default Home
