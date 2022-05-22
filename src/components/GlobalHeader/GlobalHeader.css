@@ -32,10 +32,9 @@
 
 .MuiButton-root.header-menu-link.active {
     background-color: var(--color-primary-wop);
-    border: 1px solid var(--color-primary)
+    border: 1px solid var(--color-primary);
 }
 
 .MuiCircularProgress-root.login-loader {
     vertical-align: middle;
 }
-
