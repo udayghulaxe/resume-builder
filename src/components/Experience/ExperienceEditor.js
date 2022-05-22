@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { TextField, Button, Divider, Box } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { updateResumeDataReducer } from "../../reducers/resumeDataSlice";
+import { updateResumeDataReducer, updateOpenEditorName } from "../../reducers/resumeDataSlice";
 import { richEditorSettings } from "../../globals.js";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -77,6 +77,7 @@ const ExperienceEditor = (props) => {
   };
 
   const closeEditor = () => {
+    dispatch(updateOpenEditorName(null));
     props.setOpen(false);
   };
 
