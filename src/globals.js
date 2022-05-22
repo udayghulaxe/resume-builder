@@ -26,7 +26,7 @@ export const initialData = {
         aboutSectionFontColor: '#000000',
         headingAlignment: 'left',
         sidebar: true,
-        sidebarposition: 'right',
+        sidebarPosition: 'right',
     },
     resumeJson: {
         header: [
@@ -180,6 +180,7 @@ export const initialData = {
                     title: 'Languages',
                     showProficiency: true,
                     showProficiencyProgress: true,
+                    proficiencyProgressColor: '#09915a',
                     items: [
                         { language: 'English', proficiency: 'Proficient' },
                         { language: 'Hindi', proficiency: 'Native' },
