@@ -485,8 +485,8 @@ RICH TEXT EDITOR SECTION END
     width: 820px !important;
     height: 1130px !important;
     box-shadow: none !important;
+    print-color-adjust: exact !important; 
     -webkit-print-color-adjust: exact !important;
-    color-adjust: exact !important; 
   }
 
   .resume-paper-container {

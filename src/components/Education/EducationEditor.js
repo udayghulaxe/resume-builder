@@ -1,99 +1,90 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
 import { TextField, Button, Divider, Box } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { updateResumeDataReducer, updateOpenEditorName } from '../../reducers/resumeDataSlice';
+
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { useDispatch } from 'react-redux';
-import { updateResumeDataReducer } from '../../reducers/resumeDataSlice';
-
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-
 
 const EducationEditor = (props) => {
     const [editorData, setEditorData] = useState(props.editorData);
-    const [firstime, setFirstTime] = useState(false);
-    const [title, setTitle] = useState(editorData.title);
-    const [educationItems, setEducationItems] = useState(editorData.items);
     const dispatch = useDispatch();
+
+    const onWidgetDataChange = (key, newValue) => {
+        const newData = { ...editorData, [key]: newValue };
+        setEditorData(newData);
+        props.setWidgetData(newData);
+    }
 
     const onTitleChange = (event) => {
         const newVal = event.target.value;
-        setTitle(newVal);
+        onWidgetDataChange('title', newVal);
     }
 
     const onEducationTitleChange = (event, index) => {
         const newTitle = event.target.value;
-        let newEducationItems = [...educationItems];
+        let newEducationItems = [...editorData.items];
         newEducationItems[index] = {...newEducationItems[index], title: newTitle};
-        setEducationItems(newEducationItems);
+        onWidgetDataChange('items', newEducationItems);
     }
 
     const onUniversityChange = (event, index) => {
         const newUniversity = event.target.value;
-        let newEducationItems = [...educationItems];
+        let newEducationItems = [...editorData.items];
         newEducationItems[index] = {...newEducationItems[index], university: newUniversity};
-        setEducationItems(newEducationItems);
+        onWidgetDataChange('items', newEducationItems);
     }
 
 
     const onDateChange = (event, index) => {
         const newDate = event.target.value;
-        let newEducationItems = [...educationItems];
+        let newEducationItems = [...editorData.items];
         newEducationItems[index] = {...newEducationItems[index], date: newDate};
-        console.log(educationItems);
-        setEducationItems(newEducationItems);
+        onWidgetDataChange('items', newEducationItems);
     }
 
     const onGpaChange = (event, index) => {
         const newGPA = event.target.value;
-        let newEducationItems = [...educationItems];
+        let newEducationItems = [...editorData.items];
         newEducationItems[index] = {...newEducationItems[index], gpa: newGPA};
-        setEducationItems(newEducationItems);
+        onWidgetDataChange('items', newEducationItems);
     }
 
     const onAddEducation = (event, index) => {
-        let newEducationItems = [...educationItems];
+        let newEducationItems = [...editorData.items];
         newEducationItems.splice(index + 1, 0, { title: '', university: '', date: '', gpa: '' });
-        setEducationItems(newEducationItems);
+        onWidgetDataChange('items', newEducationItems);
     }
     const onDeleteEducation = (event, index) => {
-        let newEducationItems = [...educationItems];
+        let newEducationItems = [...editorData.items];
         newEducationItems.splice(index, 1);
-        setEducationItems(newEducationItems);
+        onWidgetDataChange('items', newEducationItems);
     }
 
     const onSave = (event) => {
-        console.log('educationItems', educationItems);
-        setEditorData({ ...editorData, title: title,  items: educationItems.filter((item, index) => item.title.length > 0) });
-        setFirstTime(true);
+        const newData = { ...editorData, items: editorData.items.filter((item, index) => item.title.length > 0) };
+        dispatch(updateResumeDataReducer({ name: props.componentName, column: props.componentColumn, data: newData }));
         closeEditor();
         console.log(editorData);
     }
 
     const closeEditor = () => {
+        dispatch(updateOpenEditorName(null));
         props.setOpen(false);
     };
 
-    useEffect(() => {
-        if (firstime) {
-            console.log('props', props);
-           dispatch(updateResumeDataReducer({ name: props.componentName, column: props.componentColumn, data: editorData }));
-           setFirstTime(true);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [editorData]);
-
-
-    return (
-        <Dialog maxWidth='sm' open={props.open} onClose={closeEditor}>
-            <DialogContent>
+    return ReactDOM.createPortal(
                 <div className='editor-wrap'>
+                    <div className="editor-section-header">
+                        <Button variant="contained" size="small" onClick={onSave} disabled={!editorData.items.filter(item => item.title.length > 0).length} >Save Changes</Button>
+                        <Button variant="outlined" size="small" onClick={closeEditor}>Close</Button>
+                    </div>
                     <div className='editor-heading-wrap'>
-                        <TextField fullWidth autoComplete='off' onChange={onTitleChange} value={title} variant="standard" />
+                        <TextField label="Title" fullWidth autoComplete='off' onChange={onTitleChange} value={editorData.title} variant="standard" />
                     </div>
                     <div className="editor-items-wrap">
-                        {educationItems.map((item, index) => {
+                        {editorData.items.map((item, index) => {
                             return (
                                 <div key={index}>
                                     <div className='editor-item' >
@@ -147,14 +138,7 @@ const EducationEditor = (props) => {
                             );
                         })}
                     </div>
-                </div>
-            </DialogContent>
-            
-            <DialogActions>
-                <Button onClick={closeEditor}>Cancel</Button>
-                <Button onClick={onSave} disabled={!educationItems.filter(item => item.title.length > 0).length}>Save</Button>
-            </DialogActions>
-        </Dialog>
+                </div>, document.getElementById('editorPortal')        
     );
 }
 
