@@ -29,7 +29,7 @@ const Education = (props) => {
 			<div className="resume-section-title">
 				<span>{widgetData.title}</span>
 				<span className="edit-component-icon">
-					<EditIcon onClick={openEditor} />
+					<EditIcon titleAccess="Edit" onClick={openEditor} />
 				</span>
 			</div>
 			<div className="education-item-wrap">
