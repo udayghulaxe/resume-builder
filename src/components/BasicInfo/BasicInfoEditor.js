@@ -1,48 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
 import { TextField, Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { updateResumeDataReducer } from '../../reducers/resumeDataSlice';
-
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-
+import { updateResumeDataReducer, updateOpenEditorName } from '../../reducers/resumeDataSlice';
 
 const BasicInfoEditor = (props) => {
     const [editorData, setEditorData] = useState(props.editorData);
-    const [firstime, setFirstTime] = useState(false);
     const dispatch = useDispatch();
 
+    const onWidgetDataChange = (key, newValue) => {
+        const newData = { ...editorData, [key]: newValue };
+        setEditorData(newData);
+        props.setWidgetData(newData);
+    }
+
     const onDataChange = (event, property) => {
-        const newName = event.target.value;
-        let newEditorData = {...editorData};
-        newEditorData = {...newEditorData, [property]: newName};
-        setEditorData(newEditorData);
+        onWidgetDataChange(property, event.target.value);
     }
 
     const onSave = (event) => {
-        setEditorData({ ...editorData });
-        setFirstTime(true);
+        const newData = { ...editorData };
+        dispatch(updateResumeDataReducer({ name: props.componentName, column: props.componentColumn, data: newData }));
         closeEditor();
     }
 
     const closeEditor = () => {
+        dispatch(updateOpenEditorName(null));
         props.setOpen(false);
     };
 
-    useEffect(() => {
-        if (firstime) {
-           dispatch(updateResumeDataReducer({ name: props.componentName, column: props.componentColumn, data: editorData }));
-           setFirstTime(true);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [editorData]);
-
-
-    return (
-        <Dialog maxWidth='sm' fullWidth={true} open={props.open} onClose={closeEditor}>
-            <DialogContent>
+    return ReactDOM.createPortal(
                 <div className='editor-wrap'>
+                    <div className="editor-section-header">
+                        <Button variant="contained" size="small" onClick={onSave}>Save Changes</Button>
+                        <Button variant="outlined" size="small" onClick={closeEditor}>Close</Button>
+                    </div>
                     <div className='editor-heading-wrap'>
                         <TextField fullWidth readOnly autoComplete='off' value='Basic Info' variant="standard" />
                     </div>
@@ -114,14 +106,7 @@ const BasicInfoEditor = (props) => {
                             </div>
                         </div>
                     </div>
-                </div>
-            </DialogContent>
-            
-            <DialogActions>
-                <Button onClick={closeEditor}>Cancel</Button>
-                <Button onClick={onSave}>Save</Button>
-            </DialogActions>
-        </Dialog>
+                </div>, document.getElementById('editorPortal')
     );
 }
 

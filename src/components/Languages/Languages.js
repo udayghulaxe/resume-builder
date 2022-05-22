@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { updateOpenEditorName } from '../../reducers/resumeDataSlice';
 
-import LinearProgress from '@mui/material/LinearProgress';
+import { LinearProgress, Box } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import LanguagesEditor from "./LanguagesEditor";
 
@@ -62,7 +62,9 @@ const Languages = (props) => {
               <div className={`language-level ${widgetData.showProficiency ? '' : 'd-none'}`}> - {item.proficiency}</div>
           </div>
           <div className="language-progress">
-            <LinearProgress className={widgetData.showProficiencyProgress ? '' : 'd-none'} variant="determinate" value={ getProgressFromProficiency(item.proficiency) } />
+          <Box sx={{ color: widgetData.proficiencyProgressColor}}>
+            <LinearProgress color="inherit" className={widgetData.showProficiencyProgress ? '' : 'd-none'} variant="determinate" value={ getProgressFromProficiency(item.proficiency) } />
+          </Box>
           </div>
         </div>
         );

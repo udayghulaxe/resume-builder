@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import { TextField, Button, Slider, Switch } from '@mui/material';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { TextField, Button, Slider, Switch, Box } from '@mui/material';
+import { GithubPicker } from 'react-color';
+import { colors } from '../../globals.js';
 import { useDispatch } from 'react-redux';
 import { updateResumeDataReducer, updateOpenEditorName } from '../../reducers/resumeDataSlice';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 
 const LanguagesEditor = (props) => {
     const [editorData, setEditorData] = useState(props.editorData);
+    const [toggleColor, setToggleColor] = useState(false);
+    
     const dispatch = useDispatch();
 
     const onWidgetDataChange = (key, newValue) => {
@@ -45,6 +49,11 @@ const LanguagesEditor = (props) => {
         let languages = [...editorData.items];
         languages.splice(index, 1);
         onWidgetDataChange('items', languages);
+    }
+
+    const changeProficiencyProgressColor = (color) => {
+        console.log(color);
+        onWidgetDataChange('proficiencyProgressColor', color.hex);
     }
 
     const onProficiencyChange = (event, index) => {
@@ -125,6 +134,14 @@ const LanguagesEditor = (props) => {
                 <div>
                     Show Proficiency Progress: <Switch label="Proficiency Progress" onChange={(event) => onShowProficiencyProgressChange(event)} checked={editorData.showProficiencyProgress} />
                 </div>
+                <Box sx={{marginTop: '10px', marginBottom: '20px'}}>
+                    Proficiency Progress Color: <Box className="resume-setting-selected-color" onClick={() => { setToggleColor(!toggleColor) }} sx={{ backgroundColor: editorData.proficiencyProgressColor}}></Box>
+
+                    <div className={`resume-setting-item-body ${toggleColor === true ? '' : 'd-none'}`}>
+                        <GithubPicker color={editorData.proficiencyProgressColor} onChangeComplete={changeProficiencyProgressColor} colors={colors} triangle="hide" />
+                    </div>
+                     
+                </Box>
             </div>
 
             <div className="editor-items-wrap">

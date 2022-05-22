@@ -191,6 +191,7 @@ export const initialData = {
         title: "Languages",
         showProficiency: true,
         showProficiencyProgress: true,
+        proficiencyProgressColor: '#09915A',
         items: [
           { language: "English", proficiency: "Proficient" },
           { language: "Hindi", proficiency: "Native" },
@@ -250,7 +251,7 @@ export const initialData = {
 }
 };
 
-export const colors = ['#000000', '#ffffff', '#483d8b', '#f0f8ff', '#2f4f4f', '#bdb76b', '#183141', '#ffd700', '#D9E2E9', '#141428', '#94AA9E', '#B5282E', '#808000', '#191970', '#FBECD7', '#dc143c' ];
+export const colors = ['#000000', '#ffffff', '#483d8b', '#f0f8ff', '#2f4f4f', '#bdb76b', '#183141', '#ffd700', '#D9E2E9', '#141428', '#94AA9E', '#B5282E', '#808000', '#191970', '#FBECD7', '#09915A' ];
 
 
 export const fontSizes = [
