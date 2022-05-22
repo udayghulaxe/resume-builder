@@ -22,9 +22,6 @@ const ProfessionalSummary = (props) => {
 	};
 
 	return (
-
-
-
 		<div className="resume-section resume-section-professional-summary">
 			<div className="resume-section-title">
 				<span>{widgetData.title}</span>

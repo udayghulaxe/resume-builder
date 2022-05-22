@@ -20,8 +20,16 @@
     padding-bottom: 10px;
 }
 
+.resume-setting-section:last-child {
+    border-bottom: none;
+}
+
 .resume-setting-item {
     margin-bottom: 15px;
+    display: inline-block;
+    margin-right: 10px;
+    min-width: 210px;
+    vertical-align: text-top;
 }
 
 .resume-setting-heading {
@@ -36,7 +44,7 @@
 .resume-setting-item-label {
     color: rgb(43, 43, 43);
     font-weight: bold;
-    font-size: 15px;
+    font-size: 14px;
     margin-bottom: 8px;
     margin-top: 2px;
 }
@@ -55,11 +63,14 @@
     align-items: center;
     border-radius: 4px;
     font-size: 14px;
-    min-width: 20px;
-    min-height: 30px;
-    margin-right: 10px;
+    min-width: 18px;
+    min-height: 28px;
+    margin-right: 8px;
     cursor: pointer;
     padding: 0px 5px;
+}
+.heading-alignment-div .MuiSvgIcon-root {
+    width: 18px;
 }
 
 .font-size-div.active, .heading-alignment-div.active {
