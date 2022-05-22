@@ -55,7 +55,6 @@ const DividerEditor = props => {
             <div className='editor-heading-wrap'>
                 <TextField
                     fullWidth
-                    label='Title'
                     readOnly
                     autoComplete='off'
                     variant='standard'

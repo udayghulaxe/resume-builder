@@ -26,7 +26,7 @@ export const initialData = {
         aboutSectionFontColor: '#000000',
         headingAlignment: 'left',
         sidebar: true,
-        sidebarposition: 'right',
+        sidebarPosition: 'right',
     },
     resumeJson: {
         header: [
@@ -43,9 +43,10 @@ export const initialData = {
                     title: 'Professional Summary',
                     items: [
                         {
-                            summary: 'This is summary body.',
+                            summary: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
                         },
                     ],
+                    hideTitle: false,
                 },
             },
         ],
@@ -180,6 +181,7 @@ export const initialData = {
                     title: 'Languages',
                     showProficiency: true,
                     showProficiencyProgress: true,
+                    proficiencyProgressColor: '#09915a',
                     items: [
                         { language: 'English', proficiency: 'Proficient' },
                         { language: 'Hindi', proficiency: 'Native' },
@@ -214,7 +216,7 @@ export const initialData = {
                             type: 'select',
                             label: 'Style',
                             rule: 'borderStyle',
-                            value: 'solid',
+                            value: 'double',
                             unit: '',
                             options: [
                                 'dotted',
@@ -230,9 +232,23 @@ export const initialData = {
                         },
                         { type: 'number', label: 'Width', rule: 'width', value: '100', unit: '%' },
                         { type: 'number', label: 'Height', rule: 'borderWidth', value: '1', unit: 'px' },
-                        { type: 'number', label: 'Space Above', rule: 'marginTop', value: '5', unit: 'px' },
-                        { type: 'number', label: 'Space Below', rule: 'marginBottom', value: '5', unit: 'px' },
+                        { type: 'number', label: 'Space Above', rule: 'marginTop', value: '15', unit: 'px' },
+                        { type: 'number', label: 'Space Below', rule: 'marginBottom', value: '15', unit: 'px' },
                     ],
+                },
+            },
+            {
+                name: 'RichText',
+                componentType: 'ProfessionalSummary',
+                path: 'ProfessionalSummary/ProfessionalSummary',
+                componentData: {
+                    title: 'Rich Text',
+                    items: [
+                        {
+                            summary: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
+                        },
+                    ],
+                    hideTitle: true,
                 },
             },
         ],
@@ -243,19 +259,19 @@ export const colors = [
     '#000000',
     '#ffffff',
     '#483d8b',
-    '#f0f8ff',
+    '#2D2424',
     '#2f4f4f',
     '#bdb76b',
     '#183141',
     '#ffd700',
     '#D9E2E9',
-    '#141428',
+    '#A0BCC2',
     '#94AA9E',
     '#B5282E',
     '#808000',
-    '#191970',
+    '#293462',
     '#FBECD7',
-    '#dc143c',
+    '#09915A',
 ];
 
 export const fontSizes = [

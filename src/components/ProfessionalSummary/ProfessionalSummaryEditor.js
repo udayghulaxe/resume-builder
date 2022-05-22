@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import { TextField, Button, Divider, Box } from '@mui/material';
+import { TextField, Button, Divider, Box, Switch } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { updateResumeDataReducer, updateOpenEditorName } from '../../reducers/resumeDataSlice';
 
@@ -35,6 +35,10 @@ const SocialEditor = props => {
         const newVal = event.target.value;
         onWidgetDataChange('title', newVal);
     };
+
+    const onHideTitle = event => {
+        onWidgetDataChange('hideTitle', event.target.checked);
+    }
 
     const onFieldChange = (val, index, property) => {
         const newValue = val;
@@ -78,6 +82,14 @@ const SocialEditor = props => {
             </div>
 
             <div className='editor-items-wrap'>
+                <div>
+                    Hide Title:{' '}
+                    <Switch
+                        label='Hide Title'
+                        onChange={event => onHideTitle(event)}
+                        checked={editorData.hideTitle}
+                    />
+                </div>
                 {editorData.items.map((item, index) => {
                     return (
                         <div key={index}>

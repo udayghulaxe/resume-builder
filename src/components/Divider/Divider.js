@@ -22,19 +22,20 @@ const Divider = props => {
         styles[style.rule] = style.value + style.unit;
     });
 
-    const title = (
-        <div className='resume-section-title border-none'>
-            <span>{widgetData.title}</span>
-        </div>
-    );
-
     return (
         <div className='resume-section'>
-            {props.componentColumn === 'componentLibrary' && title}
-
-            <span className='edit-component-icon'>
-                <EditIcon titleAccess='Edit' onClick={openEditor} />
-            </span>
+            {props.componentColumn !== 'componentLibrary' ? (
+                <span className='edit-component-icon'>
+                    <EditIcon onClick={openEditor} />
+                </span>
+            ) : (
+                <div className='resume-section-title'>
+                    <span>{widgetData.title}</span>
+                    <span className='edit-component-icon'>
+                        <EditIcon onClick={openEditor} />
+                    </span>
+                </div>
+            )}
 
             <div className='divider-wrapper'>
                 <hr style={styles} />

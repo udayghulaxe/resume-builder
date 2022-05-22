@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateOpenEditorName } from '../../reducers/resumeDataSlice';
+
 import LinearProgress from '@mui/material/LinearProgress';
 import EditIcon from '@mui/icons-material/Edit';
 import SkillsWithProgressEditor from './SkillsWithProgressEditor';
@@ -9,24 +12,30 @@ const SkillsWithProgress = props => {
     const [open, setOpen] = useState(false);
     console.log('calling SkillsWith Progress Bar', open);
 
+    const [widgetData, setWidgetData] = useState(props.componentItem.componentData);
+
+    const dispatch = useDispatch();
+    const openEditorName = useSelector(state => state.resumeDataReducer.openEditorName);
+
     const openEditor = () => {
+        dispatch(updateOpenEditorName(props.componentItem.name));
         setOpen(true);
     };
 
     return (
-        <div className='resume-section resume-section-language'>
+        <div className='resume-section resume-section-skill-with-progress'>
             <div className='resume-section-title'>
-                <span>{props.componentItem.componentData.title}</span>
+                <span>{widgetData.title}</span>
                 <span className='edit-component-icon'>
-                    <EditIcon onClick={openEditor} />
+                    <EditIcon titleAccess='Edit' onClick={openEditor} />
                 </span>
             </div>
-            {props.componentItem.componentData.items.map((item, index) => {
+            {widgetData.items.map((item, index) => {
                 return (
                     <div
                         key={index}
                         className={
-                            props.componentItem.componentData.showProficiencyProgress
+                            widgetData.showProficiencyProgress
                                 ? 'skill-wrapper'
                                 : 'skill-wrapper min-margin'
                         }
@@ -35,7 +44,7 @@ const SkillsWithProgress = props => {
                             <div className='skill-title'>{item.title}</div>
                             <div
                                 className={`skill-percentage ${
-                                    props.componentItem.componentData.showProficiency ? '' : 'd-none'
+                                    widgetData.showProficiency ? '' : 'd-none'
                                 }`}
                             >
                                 {' '}
@@ -44,7 +53,7 @@ const SkillsWithProgress = props => {
                         </div>
                         <div className='skill-progress'>
                             <LinearProgress
-                                className={props.componentItem.componentData.showProficiencyProgress ? '' : 'd-none'}
+                                className={widgetData.showProficiencyProgress ? '' : 'd-none'}
                                 variant='determinate'
                                 value={Number(item.proficiency)}
                             />
@@ -53,13 +62,16 @@ const SkillsWithProgress = props => {
                 );
             })}
 
-            <SkillsWithProgressEditor
-                open={open}
-                setOpen={setOpen}
-                componentColumn={props.componentColumn}
-                componentName={props.componentItem.name}
-                editorData={props.componentItem.componentData}
-            />
+            {openEditorName === props.componentItem.name ? (
+                <SkillsWithProgressEditor
+                    setWidgetData={setWidgetData}
+                    open={open}
+                    setOpen={setOpen}
+                    componentColumn={props.componentColumn}
+                    componentName={props.componentItem.name}
+                    editorData={widgetData}
+                />
+            ) : null}
         </div>
     );
 };
