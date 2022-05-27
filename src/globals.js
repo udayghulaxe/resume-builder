@@ -181,7 +181,7 @@ export const initialData = {
                     title: 'Languages',
                     showProficiency: true,
                     showProficiencyProgress: true,
-                    proficiencyProgressColor: '#09915a',
+                    proficiencyProgressColor: '#4f50d5',
                     items: [
                         { language: 'English', proficiency: 'Proficient' },
                         { language: 'Hindi', proficiency: 'Native' },
@@ -231,7 +231,7 @@ export const initialData = {
                             ],
                         },
                         { type: 'number', label: 'Width', rule: 'width', value: '100', unit: '%' },
-                        { type: 'number', label: 'Height', rule: 'borderWidth', value: '1', unit: 'px' },
+                        { type: 'number', label: 'Height', rule: 'borderWidth', value: '4', unit: 'px' },
                         { type: 'number', label: 'Space Above', rule: 'marginTop', value: '15', unit: 'px' },
                         { type: 'number', label: 'Space Below', rule: 'marginBottom', value: '15', unit: 'px' },
                     ],

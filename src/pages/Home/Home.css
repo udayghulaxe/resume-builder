@@ -1,0 +1,111 @@
+.home-heading-container h1 {
+    font-size: 3.75rem;
+    line-height: 1;
+    text-transform: capitalize;
+    /* color: var(--color-primary); */
+}
+
+.home-heading-container h1 span {
+    background-image: url('https://ouch-cdn2.icons8.com/ByKl8eV1206nGvQJHu0x3WRFKEjaVOc_r60qHW-k8Cc/rs:fit:16826:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvOTkw/LzgxMzYwODIwLTg3/NjMtNDg3Zi1iOGM1/LTAwMmY3YzBmNTZk/OS5zdmc.png');
+    background-size: 220px;
+    background-position: -3px 68px;
+    background-repeat: no-repeat;
+    color: var(--color-primary);
+}
+
+/* .home-heading-container h1 span {
+    background-image: url('https://ouch-cdn2.icons8.com/lqqh4LY_itmepzR1y7r4KKdJ1oB2NHpbrtycVo9NHVI/rs:fit:18468:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNzg4/L2NjZTRkNzgwLTNk/M2EtNDY2Yi1hZGY1/LWRiMDdkNDM1YzJi/Ni5zdmc.png');
+    background-size: 215px;
+    background-position: 4px 67px;
+    background-repeat: no-repeat;
+    color: var(--color-primary);
+} */
+
+.hero-container {
+    align-items: center;
+    justify-content: center;
+}
+
+.home-hero-image-container .hero-image {
+    width: 100%;
+    height: 100%;
+}
+
+.container-subheading {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    color: var(--color-font-secondary);
+}
+
+.MuiButton-root.hero-get-started {
+    width: 200px;
+    height: 45px;
+    font-size: 18px;
+    text-transform: capitalize;
+}
+
+.feature-box {
+    margin-bottom: 40px !important;
+}
+
+.feature-box-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 5px;
+}
+
+.feature-container {
+    margin-top: 80px;
+}
+
+.feature-container-heading {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    text-align: center;
+}
+
+.feature-container-subheading {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.feature-box-heading {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+    text-transform: capitalize;
+}
+
+.feature-box-description {
+    font-size: 1rem;
+    line-height: 1.4;
+    color: var(--color-font-secondary);
+}
+
+
+@media screen and (max-width: 768px) {
+    .home-container {
+        margin-top: 40px;
+    }
+
+    .home-heading-container h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-subheading {
+        font-size: 1.25;
+        line-height: 1.25;
+    }
+
+    .MuiButton-root.hero-get-started {
+        margin-top: 20px;
+        width: 100%;
+        height: 40px;
+        font-size: 14px;
+    }
+}
+ 
