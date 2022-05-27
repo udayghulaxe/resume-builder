@@ -16,7 +16,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import CopyAllOutlinedIcon from '@mui/icons-material/CopyAllOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
-import resumeSvg from '../../assets/images/resume-2.svg';
+import resumeSvg from '../../assets/images/vectorpaint.svg';
 import './Resumes.css';
 
 const Resumes = () => {

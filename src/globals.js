@@ -181,7 +181,7 @@ export const initialData = {
                     title: 'Languages',
                     showProficiency: true,
                     showProficiencyProgress: true,
-                    proficiencyProgressColor: '#09915a',
+                    proficiencyProgressColor: '#4f50d5',
                     items: [
                         { language: 'English', proficiency: 'Proficient' },
                         { language: 'Hindi', proficiency: 'Native' },
