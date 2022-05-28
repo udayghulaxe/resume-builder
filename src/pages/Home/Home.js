@@ -8,6 +8,7 @@ import editIcon from './../../assets/icons/icons-edit.png';
 import moneyIcon from './../../assets/icons/icons-money.png';
 import themeIcon from './../../assets/icons/icons-themes.png';
 import editPrivacy from './../../assets/icons/icons-privacy.png';
+import { NavLink } from 'react-router-dom';
 import './Home.css';
 
 const Home = () => {
@@ -25,8 +26,15 @@ const Home = () => {
                                 Set yourself apart with a modern resume. Expert tips, customizable templates & quick PDF
                                 download included.
                             </div>
-                            <Button className='hero-get-started' variant='contained' color='primary' size='large'>
-                                Try It For Free
+                            <Button
+                                component={NavLink}
+                                to='/resumes'
+                                className='hero-get-started'
+                                variant='contained'
+                                color='primary'
+                                size='large'
+                            >
+                                Get Started
                             </Button>
                         </Box>
                     </Grid>
@@ -91,7 +99,6 @@ const Home = () => {
                             labore et dolore magna aliqua. Ut enim ad minim
                         </div>
                     </Grid>
-
 
                     <Grid item xs={12} md={6} className='feature-box'>
                         <div>

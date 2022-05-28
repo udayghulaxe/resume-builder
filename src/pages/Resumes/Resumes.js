@@ -183,6 +183,7 @@ const Resumes = () => {
                                         <div
                                             className='resume-action-item link'
                                             onClick={() => {
+                                                dispatch(updateResumeDataReducer(null));
                                                 dispatch(updateOpenEditorName(null));
                                                 history.push(`builder/${item.resumeId}`);
                                             }}

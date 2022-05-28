@@ -76,7 +76,7 @@
 
 .font-size-div.active,
 .heading-alignment-div.active {
-    background-color: rgba(9, 145, 90, 0.1);
+    background-color: rgb(79 80 213 / 11%);
     border: 1px solid var(--color-primary);
     color: var(--color-primary);
 }
