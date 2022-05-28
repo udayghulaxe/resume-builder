@@ -100,7 +100,9 @@ function Builder() {
             }
         });
 
-        dispatch(getUserDataByUserId(authReducer.userId));
+        dispatch(getUserDataByUserId(authReducer.userId)).then(res => {
+           updateResumeThumbnail(JSON.parse(res.payload.userResumes));
+        });
 
         dispatch(getResumeSettingsByResumeId(resumeId)).then(res => {
             setResumeSettings(res.payload);
@@ -180,10 +182,11 @@ function Builder() {
         }
     };
 
-    const updateResumeThumbnail = () => {
+    const updateResumeThumbnail = (resumeData = null) => {
         const pageOneElement = document.querySelector('#pageOne');
+        console.log(pageOneElement);
         html2canvas(pageOneElement).then(function (canvas) {
-            const userResumesData = JSON.parse(userDataReducer.userData.userResumes);
+            const userResumesData = resumeData ? resumeData : JSON.parse(userDataReducer.userData.userResumes);
             userResumesData.filter(resume => resume.resumeId.toString() === resumeId.toString())[0].resumeImage =
                 canvas.toDataURL('image/jpeg');
             dispatch(

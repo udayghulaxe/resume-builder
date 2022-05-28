@@ -79,7 +79,7 @@ export const userDataSlice = createSlice({
     initialState: INITIAL_STATE,
     reducers: {
         updateUserDataReducer: (state, action) => {
-            const data = JSON.parse(JSON.stringify(state.userData));
+            const data = JSON.parse(JSON.stringify(action.payload));
             state.userData = data;
         },
     },

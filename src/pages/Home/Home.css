@@ -48,6 +48,7 @@
 
 .feature-box {
     margin-bottom: 40px !important;
+    text-align: center;
 }
 
 .feature-box-icon {
@@ -56,17 +57,21 @@
     margin-bottom: 5px;
 }
 
-.feature-container {
-    margin-top: 80px;
+.template-container {
+    margin-top: 120px;
 }
 
-.feature-container-heading {
+.feature-container {
+    margin-top: 120px;
+}
+
+.feature-container-heading, .template-container-heading {
     font-size: 2.25rem;
     line-height: 2.5rem;
     text-align: center;
 }
 
-.feature-container-subheading {
+.feature-container-subheading, .template-container-subheading  {
     text-align: center;
     margin-bottom: 60px;
 }
@@ -86,6 +91,15 @@
     color: var(--color-font-secondary);
 }
 
+
+.resume-template-slide-image {
+    height: 450px;
+    margin: 20px;
+    box-shadow: 0 0 15px 1px #888;
+    background-repeat: no-repeat;
+    background-size: 345px;
+    border-radius: 4px;
+}
 
 @media screen and (max-width: 768px) {
     .home-container {

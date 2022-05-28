@@ -8,6 +8,7 @@ import {
     deleteResumeByResumeId,
     copyResumeByResumeId,
 } from '../../reducers/userDataSlice';
+import { updateResumeDataReducer, updateOpenEditorName } from '../../reducers/resumeDataSlice';
 import { Button, Grid, CircularProgress, Box, LinearProgress, Dialog, DialogContent } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
@@ -90,6 +91,8 @@ const Resumes = () => {
         dispatch(deleteResumeByResumeId(resumeId));
 
         setUserResumes(newResumeData);
+        dispatch(updateResumeDataReducer(null));
+        dispatch(updateOpenEditorName(null));
         dispatch(
             updateUserResumeDataByUserId({ userId: authReducer.userId, data: JSON.stringify(newResumeData) })
         ).then(res => {
@@ -180,6 +183,8 @@ const Resumes = () => {
                                         <div
                                             className='resume-action-item link'
                                             onClick={() => {
+                                                dispatch(updateResumeDataReducer(null));
+                                                dispatch(updateOpenEditorName(null));
                                                 history.push(`builder/${item.resumeId}`);
                                             }}
                                         >

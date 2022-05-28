@@ -7,15 +7,13 @@ import { updateOpenEditorName } from '../../reducers/resumeDataSlice';
 
 import './Skills.css';
 const Skills = props => {
-    const [open, setOpen] = useState(false);
     const [widgetData, setWidgetData] = useState(props.componentItem.componentData);
     const dispatch = useDispatch();
-    console.log('calling skills', open);
+    console.log('calling skills');
 
     const openEditorName = useSelector(state => state.resumeDataReducer.openEditorName);
     const openEditor = () => {
         dispatch(updateOpenEditorName(props.componentItem.name));
-        setOpen(true);
     };
 
     return (
@@ -43,8 +41,6 @@ const Skills = props => {
             {openEditorName === props.componentItem.name ? (
                 <SkillsEditor
                     setWidgetData={setWidgetData}
-                    open={open}
-                    setOpen={setOpen}
                     componentColumn={props.componentColumn}
                     componentName={props.componentItem.name}
                     editorData={widgetData}

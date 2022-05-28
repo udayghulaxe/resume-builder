@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { TextField, Button, MenuItem, Grid } from '@mui/material';
-
-import { updateResumeDataReducer, updateOpenEditorName } from '../../reducers/resumeDataSlice';
+import { updateResumeDataByResumeId, updateOpenEditorName } from '../../reducers/resumeDataSlice';
+import { useParams } from 'react-router-dom';
 
 const DividerEditor = props => {
     const [editorData, setEditorData] = useState(props.editorData);
+    const { resumeDataReducer } = useSelector(state => state);
+    const { resumeId } = useParams();
     const dispatch = useDispatch();
 
     const onSave = event => {
-        dispatch(
-            updateResumeDataReducer({ name: props.componentName, column: props.componentColumn, data: editorData })
-        );
+        const newData = { ...editorData };
+        const data = JSON.parse(JSON.stringify(resumeDataReducer.resumeData));
+        data[props.componentColumn].filter(item => item.name === props.componentName)[0].componentData =
+        newData;
+
+        dispatch(updateResumeDataByResumeId({data, resumeId}));
         closeEditor();
     };
 
@@ -26,7 +31,11 @@ const DividerEditor = props => {
             if (!value) {
                 value = 0;
             }
-            if (value >= 0 && value <= 100) {
+            if (style.label === 'Height') {
+                if (value >= 0 && value <= 5) {
+                    updateStyle(style, value);
+                }
+            } else if (value >= 0 && value <= 100) {
                 updateStyle(style, value);
             }
         } else {

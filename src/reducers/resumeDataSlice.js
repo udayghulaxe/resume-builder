@@ -34,10 +34,7 @@ export const resumeDataSlice = createSlice({
     initialState: INITIAL_STATE,
     reducers: {
         updateResumeDataReducer: (state, action) => {
-            const data = JSON.parse(JSON.stringify(state.resumeData));
-            data[action.payload.column].filter(item => item.name === action.payload.name)[0].componentData =
-                action.payload.data;
-            state.resumeData = data;
+            state.resumeData = action.payload;
         },
 
         updateOpenEditorName: (state, action) => {
