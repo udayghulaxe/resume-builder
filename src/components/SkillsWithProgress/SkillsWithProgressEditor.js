@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom';
 import { TextField, Button, Slider, Switch } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { useDispatch } from 'react-redux';
-import { updateResumeDataReducer, updateOpenEditorName } from '../../reducers/resumeDataSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateResumeDataByResumeId, updateOpenEditorName } from '../../reducers/resumeDataSlice';
+import { useParams } from 'react-router-dom';
 
 const SkillsWithProgressEditor = props => {
     const [editorData, setEditorData] = useState(props.editorData);
+    const { resumeDataReducer } = useSelector(state => state);
+    const { resumeId } = useParams();
     const dispatch = useDispatch();
 
     const onWidgetDataChange = (key, newValue) => {
@@ -54,7 +57,11 @@ const SkillsWithProgressEditor = props => {
 
     const onSave = event => {
         const newData = { ...editorData, items: editorData.items.filter((item, index) => item.title.length > 0) };
-        dispatch(updateResumeDataReducer({ name: props.componentName, column: props.componentColumn, data: newData }));
+        const data = JSON.parse(JSON.stringify(resumeDataReducer.resumeData));
+        data[props.componentColumn].filter(item => item.name === props.componentName)[0].componentData =
+        newData;
+
+        dispatch(updateResumeDataByResumeId({data, resumeId}));
         closeEditor();
     };
 

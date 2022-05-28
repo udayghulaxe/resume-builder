@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { TextField, Button, Divider, Box, Switch } from '@mui/material';
-import { useDispatch } from 'react-redux';
-import { updateResumeDataReducer, updateOpenEditorName } from '../../reducers/resumeDataSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateResumeDataByResumeId, updateOpenEditorName } from '../../reducers/resumeDataSlice';
+import { useParams } from 'react-router-dom';
 
 import { richEditorSettings } from '../../globals.js';
 import ReactQuill from 'react-quill';
@@ -10,6 +11,8 @@ import 'react-quill/dist/quill.snow.css';
 
 const SocialEditor = props => {
     const [editorData, setEditorData] = useState(props.editorData);
+    const { resumeDataReducer } = useSelector(state => state);
+    const { resumeId } = useParams();
     const dispatch = useDispatch();
 
     const onWidgetDataChange = (key, newValue) => {
@@ -20,15 +23,12 @@ const SocialEditor = props => {
 
     const onSave = event => {
         const newData = { ...editorData };
-        dispatch(
-            updateResumeDataReducer({
-                name: props.componentName,
-                column: props.componentColumn,
-                data: newData,
-            })
-        );
+        const data = JSON.parse(JSON.stringify(resumeDataReducer.resumeData));
+        data[props.componentColumn].filter(item => item.name === props.componentName)[0].componentData =
+        newData;
+
+        dispatch(updateResumeDataByResumeId({data, resumeId}));
         closeEditor();
-        console.log(editorData);
     };
 
     const onTitleChange = event => {
@@ -66,7 +66,7 @@ const SocialEditor = props => {
                 >
                     Save Changes
                 </Button>
-                <Button variant='outlined' size='small' onClick={closeEditor}>
+                <Button variant='outlined' size='small' onClick={onSave}>
                     Close
                 </Button>
             </div>

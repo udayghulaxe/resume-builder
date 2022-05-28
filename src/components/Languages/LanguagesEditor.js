@@ -3,13 +3,17 @@ import ReactDOM from 'react-dom';
 import { TextField, Button, Slider, Switch, Box } from '@mui/material';
 import { GithubPicker } from 'react-color';
 import { colors } from '../../globals.js';
-import { useDispatch } from 'react-redux';
-import { updateResumeDataReducer, updateOpenEditorName } from '../../reducers/resumeDataSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateResumeDataByResumeId, updateOpenEditorName } from '../../reducers/resumeDataSlice';
+import { useParams } from 'react-router-dom';
+
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 const LanguagesEditor = props => {
     const [editorData, setEditorData] = useState(props.editorData);
+    const { resumeDataReducer } = useSelector(state => state);
+    const { resumeId } = useParams();
     const [toggleColor, setToggleColor] = useState(false);
 
     const dispatch = useDispatch();
@@ -82,7 +86,11 @@ const LanguagesEditor = props => {
 
     const onSave = event => {
         const newData = { ...editorData };
-        dispatch(updateResumeDataReducer({ name: props.componentName, column: props.componentColumn, data: newData }));
+        const data = JSON.parse(JSON.stringify(resumeDataReducer.resumeData));
+        data[props.componentColumn].filter(item => item.name === props.componentName)[0].componentData =
+        newData;
+
+        dispatch(updateResumeDataByResumeId({data, resumeId}));
         closeEditor();
     };
 
@@ -127,7 +135,7 @@ const LanguagesEditor = props => {
                 >
                     Save Changes
                 </Button>
-                <Button variant='outlined' size='small' onClick={closeEditor}>
+                <Button variant='outlined' size='small' onClick={onSave}>
                     Close
                 </Button>
             </div>
