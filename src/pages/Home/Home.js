@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Box, Grid, Button } from '@mui/material';
+import Slider from 'react-slick';
 import heroImage from './../../assets/images/hero.jpg';
 
 import dragIcon from './../../assets/icons/icons-drag.png';
@@ -12,6 +13,67 @@ import { NavLink } from 'react-router-dom';
 import './Home.css';
 
 const Home = () => {
+    const resumeTemplates = [
+        {
+            id: 1,
+            name: 'Resume Template 1',
+            image: '/resume-templates/resume-template-1.jpg',
+            category: 'Resume Templates',
+            tags: ['Resume', 'Template', '1'],
+        },
+        {
+            id: 2,
+            name: 'Resume Template 2',
+            image: '/resume-templates/resume-template-2.jpg',
+            category: 'Resume Templates',
+            tags: ['Resume', 'Template', '2'],
+        },
+        {
+            id: 3,
+            name: 'Resume Template 3',
+            image: '/resume-templates/resume-template-3.jpg',
+            category: 'Resume Templates',
+            tags: ['Resume', 'Template', '3'],
+        },
+        {
+            id: 4,
+            name: 'Resume Template 4',
+            image: '/resume-templates/resume-template-4.jpg',
+            category: 'Resume Templates',
+            tags: ['Resume', 'Template', '4'],
+        },
+    ];
+
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        autoplay: true,
+        autoplaySpeed: 5000,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    dots: true,
+                },
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    initialSlide: 1,
+                    arrows: false,
+                },
+            },
+        ],
+    };
+
     return (
         <Container className='home-container'>
             <Box sx={{ flexGrow: 1 }}>
@@ -43,6 +105,36 @@ const Home = () => {
                     </Grid>
                 </Grid>
 
+                {/* SLIDER CONTAINER */}
+                <Grid
+                    container
+                    columnSpacing={{ xs: 1, sm: 5, md: 5 }}
+                    className='template-container'
+                    direction='row'
+                    justifyContent='center'
+                    alignItems='center'
+                >
+                    <Grid item xs={12} md={12}>
+                        <h2 className='template-container-heading'>Our Creative Templates</h2>
+                        <p className='template-container-subheading container-subheading'>
+                            Choose a template and customize it quickly
+                        </p>
+                    </Grid>
+
+                    <Grid item xs={12} md={12}>
+                        <Slider {...settings}>
+                            {resumeTemplates.map((template, index) => (
+                                <div className='resume-template-slide' key={index}>
+                                    <div
+                                        className='resume-template-slide-image'
+                                        style={{ backgroundImage: `url(${template.image})` }}
+                                    ></div>
+                                </div>
+                            ))}
+                        </Slider>
+                    </Grid>
+                </Grid>
+
                 {/* FEATURES CONTAINER */}
                 <Grid
                     container
@@ -53,9 +145,9 @@ const Home = () => {
                     alignItems='center'
                 >
                     <Grid item xs={12} md={12}>
-                        <h2 className='feature-container-heading'>A better way to build your resume</h2>
+                        <h2 className='feature-container-heading'>Create your job-winning resume in minutes</h2>
                         <p className='feature-container-subheading container-subheading'>
-                            More flexible than templates, easier than using a word processor
+                            Boost your chances of landing a dream job
                         </p>
                     </Grid>
                     <Grid item xs={12} md={6} className='feature-box'>
