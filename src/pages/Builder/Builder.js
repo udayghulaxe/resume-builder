@@ -101,7 +101,7 @@ function Builder() {
         });
 
         dispatch(getUserDataByUserId(authReducer.userId)).then(res => {
-            updateResumeThumbnail(JSON.parse(res.payload.userResumes));
+           updateResumeThumbnail(JSON.parse(res.payload.userResumes));
         });
 
         dispatch(getResumeSettingsByResumeId(resumeId)).then(res => {
@@ -184,6 +184,7 @@ function Builder() {
 
     const updateResumeThumbnail = (resumeData = null) => {
         const pageOneElement = document.querySelector('#pageOne');
+        console.log(pageOneElement);
         html2canvas(pageOneElement).then(function (canvas) {
             const userResumesData = resumeData ? resumeData : JSON.parse(userDataReducer.userData.userResumes);
             userResumesData.filter(resume => resume.resumeId.toString() === resumeId.toString())[0].resumeImage =

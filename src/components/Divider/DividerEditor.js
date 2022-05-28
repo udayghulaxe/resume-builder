@@ -31,7 +31,11 @@ const DividerEditor = props => {
             if (!value) {
                 value = 0;
             }
-            if (value >= 0 && value <= 100) {
+            if (style.label === 'Height') {
+                if (value >= 0 && value <= 5) {
+                    updateStyle(style, value);
+                }
+            } else if (value >= 0 && value <= 100) {
                 updateStyle(style, value);
             }
         } else {
