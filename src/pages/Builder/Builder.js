@@ -54,6 +54,7 @@ import Skills from '../../components/Skills/Skills';
 import SkillsWithProgress from '../../components/SkillsWithProgress/SkillsWithProgress';
 import Social from '../../components/Social/Social';
 import Divider from '../../components/Divider/Divider';
+import PieCharts from '../../components/PieCharts/PieCharts';
 
 function Builder() {
     let resumeHTML;
@@ -330,6 +331,9 @@ function Builder() {
 
             case 'Divider':
                 return <Divider componentColumn={columnName} componentItem={item} />;
+
+            case 'PieCharts':
+                return <PieCharts componentColumn={columnName} componentItem={item} />;    
 
             default:
                 return null;
@@ -936,8 +940,8 @@ function Builder() {
                                                         {...provided.droppableProps}
                                                         className={
                                                             snapshot.isDraggingOver
-                                                                ? 'resume-paper-content-draggin-over'
-                                                                : 'resume-paper-content'
+                                                                ? 'component-library resume-paper-content-draggin-over'
+                                                                : 'component-library resume-paper-content'
                                                         }
                                                     >
                                                         {provided.isDragging}

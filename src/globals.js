@@ -190,6 +190,38 @@ export const initialData = {
                 },
             },
             {
+                name: 'PieCharts',
+                componentType: 'PieCharts',
+                path: 'PieCharts/PieCharts',
+                componentData: {
+                    title: 'Pie Chart',
+                    chartColor: '#4f50d5',
+                    pieChart: false,
+                    items: [
+                        { title: 'Teamwork', value: 40, color: 'rgb(79, 80, 213, 1)' },
+                        { title: 'Creativity', value: 20, color: 'rgb(79, 80, 213, 0.9)' },
+                        { title: 'Communication', value: 10, color: 'rgb(79, 80, 213, 0.8)' },
+                        { title: 'Networking', value: 10, color: 'rgb(79, 80, 213, 0.7)'},
+                        { title: 'Leadership', value: 20, color: 'rgb(79, 80, 213, 0.6)' },
+                    ]
+                },
+            },
+            {
+                name: 'DoughnutCharts',
+                componentType: 'PieCharts',
+                path: 'PieCharts/PieCharts',
+                componentData: {
+                    title: 'Doughnut Chart',
+                    chartColor: '#4f50d5',
+                    pieChart: true,
+                    items: [
+                        { title: 'Ms Word', value: 40, color: 'rgb(79, 80, 213, 1)' },
+                        { title: 'Ms Excel', value: 40, color: 'rgb(79, 80, 213, 0.9)' },
+                        { title: 'Photoshop', value: 20, color: 'rgb(79, 80, 213, 0.8)' },
+                    ]
+                },
+            },
+            {
                 name: 'SkillsWithProgress',
                 componentType: 'SkillsWithProgress',
                 path: 'SkillsWithProgress/SkillsWithProgress',
@@ -200,7 +232,7 @@ export const initialData = {
                     items: [
                         { title: 'HTML', proficiency: 80 },
                         { title: 'CSS', proficiency: 80 },
-                        { title: 'Javascript', proficiency: '70' },
+                        { title: 'Javascript', proficiency: 70 },
                         { title: 'React', proficiency: 50 },
                     ],
                 },
@@ -269,7 +301,7 @@ export const colors = [
     '#94AA9E',
     '#B5282E',
     '#808000',
-    '#293462',
+    '#4f50d5',
     '#FBECD7',
     '#09915A',
 ];

@@ -155,6 +155,15 @@
     height: 95vh;
 }
 
+.component-library  {
+    height: 85vh;
+    overflow-y: auto;
+}
+
+.component-library .resume-section-wrap {
+    margin: 5px;
+}
+
 .setting-editor-container-wrap {
     position: sticky;
     background-color: #ffffff;
