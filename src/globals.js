@@ -190,11 +190,11 @@ export const initialData = {
                 },
             },
             {
-                name: 'PieCharts',
+                name: 'DoughnutCharts',
                 componentType: 'PieCharts',
                 path: 'PieCharts/PieCharts',
                 componentData: {
-                    title: 'Pie Chart',
+                    title: 'Doughnut Chart',
                     chartColor: '#4f50d5',
                     pieChart: false,
                     items: [
@@ -207,21 +207,6 @@ export const initialData = {
                 },
             },
             {
-                name: 'DoughnutCharts',
-                componentType: 'PieCharts',
-                path: 'PieCharts/PieCharts',
-                componentData: {
-                    title: 'Doughnut Chart',
-                    chartColor: '#4f50d5',
-                    pieChart: true,
-                    items: [
-                        { title: 'Ms Word', value: 40, color: 'rgb(79, 80, 213, 1)' },
-                        { title: 'Ms Excel', value: 40, color: 'rgb(79, 80, 213, 0.9)' },
-                        { title: 'Photoshop', value: 20, color: 'rgb(79, 80, 213, 0.8)' },
-                    ]
-                },
-            },
-            {
                 name: 'SkillsWithProgress',
                 componentType: 'SkillsWithProgress',
                 path: 'SkillsWithProgress/SkillsWithProgress',
@@ -229,6 +214,7 @@ export const initialData = {
                     title: 'Skills',
                     showProficiency: true,
                     showProficiencyProgress: true,
+                    proficiencyProgressColor: '#4f50d5',
                     items: [
                         { title: 'HTML', proficiency: 80 },
                         { title: 'CSS', proficiency: 80 },
@@ -267,6 +253,21 @@ export const initialData = {
                         { type: 'number', label: 'Space Above', rule: 'marginTop', value: '15', unit: 'px' },
                         { type: 'number', label: 'Space Below', rule: 'marginBottom', value: '15', unit: 'px' },
                     ],
+                },
+            },
+            {
+                name: 'PieCharts',
+                componentType: 'PieCharts',
+                path: 'PieCharts/PieCharts',
+                componentData: {
+                    title: 'Pie Chart',
+                    chartColor: '#4f50d5',
+                    pieChart: true,
+                    items: [
+                        { title: 'Ms Word', value: 40, color: 'rgb(79, 80, 213, 1)' },
+                        { title: 'Ms Excel', value: 40, color: 'rgb(79, 80, 213, 0.9)' },
+                        { title: 'Photoshop', value: 20, color: 'rgb(79, 80, 213, 0.8)' },
+                    ]
                 },
             },
             {

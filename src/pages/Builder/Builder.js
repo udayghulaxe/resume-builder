@@ -215,7 +215,7 @@ function Builder() {
     const removeComponent = (event, item, index, column) => {
         let newArr = JSON.parse(JSON.stringify(arr));
         newArr[column].splice(index, 1);
-        newArr.componentLibrary.push(item);
+        newArr.componentLibrary.unshift(item);
         setItems(newArr);
         updateResumeData(newArr);
     };

@@ -29,7 +29,7 @@ const PieCharts = props => {
                     <EditIcon titleAccess='Edit' onClick={openEditor} />
                 </span>
             </div>
-            <div style={{ height: '150px' }}>
+            <div style={{ height: '150px', marginTop: '20px' }}>
                 <PieChart
                     data={widgetData.items}
                     lineWidth={ widgetData.pieChart ? 100 : 25}
@@ -37,7 +37,7 @@ const PieCharts = props => {
                     label={({ dataEntry }) => dataEntry.title}
                     labelStyle={index => ({
                         fill: '#000000',
-                        fontSize: '6px',
+                        fontSize: '0.55em',
                         fontFamily: 'sans-serif',
                     })}
                     radius={42}
