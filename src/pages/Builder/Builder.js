@@ -572,7 +572,7 @@ function Builder() {
                                                 item
                                                 xs={resumeSettings.sidebar ? 7 : 12}
                                                 id='main'
-                                                className={`${arr.header.length > 0 ? '' : 'padding'}`}
+                                                className={`${resumeSettings.sidebar ? '' : 'main-single-column'} ${arr.header.length > 0 ? '' : 'padding'}`}
                                                 sx={{
                                                     backgroundColor: resumeSettings.mainBackgroundColor,
                                                     color: resumeSettings.bodyFontColor,
