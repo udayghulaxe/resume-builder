@@ -239,6 +239,10 @@ code {
     height: 100%;
 }
 
+.resume-paper #main.main-single-column {
+    padding: 10px 40px 10px 40px;
+}
+
 .resume-paper #sidebar {
     padding: 10px 40px 10px 10px;
     height: 100%;
@@ -252,8 +256,8 @@ code {
     padding: 10px 10px 10px 40px;
 }
 
-#pageTwo {
-    padding-top: 20px;
+#pageTwo .resume-paper-content {
+    padding: 20px 40px 20px 40px;
 }
 
 /* #header {
