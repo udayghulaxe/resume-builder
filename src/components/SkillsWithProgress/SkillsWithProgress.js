@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateOpenEditorName } from '../../reducers/resumeDataSlice';
 
-import LinearProgress from '@mui/material/LinearProgress';
+import { LinearProgress, Box } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import SkillsWithProgressEditor from './SkillsWithProgressEditor';
 
@@ -34,29 +34,24 @@ const SkillsWithProgress = props => {
                 return (
                     <div
                         key={index}
-                        className={
-                            widgetData.showProficiencyProgress
-                                ? 'skill-wrapper'
-                                : 'skill-wrapper min-margin'
-                        }
+                        className={widgetData.showProficiencyProgress ? 'skill-wrapper' : 'skill-wrapper min-margin'}
                     >
                         <div className='skill-header'>
                             <div className='skill-title'>{item.title}</div>
-                            <div
-                                className={`skill-percentage ${
-                                    widgetData.showProficiency ? '' : 'd-none'
-                                }`}
-                            >
+                            <div className={`skill-percentage ${widgetData.showProficiency ? '' : 'd-none'}`}>
                                 {' '}
                                 - {item.proficiency}
                             </div>
                         </div>
                         <div className='skill-progress'>
-                            <LinearProgress
-                                className={widgetData.showProficiencyProgress ? '' : 'd-none'}
-                                variant='determinate'
-                                value={Number(item.proficiency)}
-                            />
+                            <Box sx={{ color: widgetData.proficiencyProgressColor }}>
+                                <LinearProgress
+                                    color='inherit'
+                                    className={widgetData.showProficiencyProgress ? '' : 'd-none'}
+                                    variant='determinate'
+                                    value={Number(item.proficiency)}
+                                />
+                            </Box>
                         </div>
                     </div>
                 );
