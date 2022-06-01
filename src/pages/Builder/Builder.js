@@ -48,7 +48,6 @@ import Achievement from '../../components/Achievements/Achievement';
 import BasicInfo from '../../components/BasicInfo/BasicInfo';
 import Education from '../../components/Education/Education';
 import Experience from '../../components/Experience/Experience';
-import ExperienceTimeline from '../../components/ExperienceTimeline/ExperienceTimeline';
 import Languages from '../../components/Languages/Languages';
 import ProfessionalSummary from '../../components/ProfessionalSummary/ProfessionalSummary';
 import Skills from '../../components/Skills/Skills';
@@ -310,10 +309,7 @@ function Builder() {
                 return <BasicInfo componentColumn={columnName} componentItem={item} />;
 
             case 'Experience':
-                return <Experience componentColumn={columnName} componentItem={item} />;
-
-            case 'ExperienceTimeline':
-                return <ExperienceTimeline componentColumn={columnName} componentItem={item} />;      
+                return <Experience componentColumn={columnName} componentItem={item} />;   
 
             case 'Education':
                 return <Education componentColumn={columnName} componentItem={item} />;

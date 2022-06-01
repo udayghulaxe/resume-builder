@@ -120,7 +120,6 @@ const GlobalResumeSetting = props => {
                     Close
                 </Button>
             </div>
-
             <div className='resume-setting-section'>
                 {/* ABOUT SECTION SETTING */}
                 <div className='resume-setting-heading'>
@@ -176,7 +175,6 @@ const GlobalResumeSetting = props => {
                     </div>
                 </div>
             </div>
-
             <div className='resume-setting-section'>
                 <div className='resume-setting-heading'>
                     <span>Resume Main Section</span>
@@ -257,109 +255,110 @@ const GlobalResumeSetting = props => {
                 </div>
             </div>
 
-            <div className='resume-setting-section'>
-                <div className='resume-setting-heading'>
-                    <span>Resume Sidebar Section</span>
-                </div>
-
-                <div className='resume-setting-item'>
-                    <span className='resume-setting-item-label'>
-                        Heading Font Color
-                        <Box
-                            className='resume-setting-selected-color'
-                            onClick={() => {
-                                openColorToggle('sidebarHeadingColorToggle');
-                            }}
-                            sx={{ backgroundColor: props.resumeSettings.sidebarHeadingColor }}
-                        ></Box>
-                    </span>
-                    <div
-                        className={`resume-setting-item-body ${
-                            colorsToggles.sidebarHeadingColorToggle === true ? '' : 'd-none'
-                        }`}
-                    >
-                        <GithubPicker
-                            color={props.resumeSettings.sidebarHeadingColor}
-                            onChangeComplete={changeSidebarHeadingColor}
-                            colors={colors}
-                            triangle='hide'
-                        />
+            {props.resumeSettings.sidebar && (
+                <div className='resume-setting-section'>
+                    <div className='resume-setting-heading'>
+                        <span>Resume Sidebar Section</span>
                     </div>
-                </div>
 
-                <div className='resume-setting-item'>
-                    <span className='resume-setting-item-label'>
-                        Body Font Color
-                        <Box
-                            className='resume-setting-selected-color'
-                            onClick={() => {
-                                openColorToggle('sidebarBodyColorToggle');
-                            }}
-                            sx={{ backgroundColor: props.resumeSettings.sidebarBodyColor }}
-                        ></Box>
-                    </span>
-                    <div
-                        className={`resume-setting-item-body ${
-                            colorsToggles.sidebarBodyColorToggle === true ? '' : 'd-none'
-                        }`}
-                    >
-                        <GithubPicker
-                            color={props.resumeSettings.sidebarBodyColor}
-                            onChangeComplete={changeSidebarBodyColor}
-                            colors={colors}
-                            triangle='hide'
-                        />
-                    </div>
-                </div>
-
-                <div className='resume-setting-item'>
-                    <span className='resume-setting-item-label'>
-                        Background Color
-                        <Box
-                            className='resume-setting-selected-color'
-                            onClick={() => {
-                                openColorToggle('sidebarBackgroundColorToggle');
-                            }}
-                            sx={{ backgroundColor: props.resumeSettings.sidebarBackgroundColor }}
-                        ></Box>
-                    </span>
-                    <div
-                        className={`resume-setting-item-body ${
-                            colorsToggles.sidebarBackgroundColorToggle === true ? '' : 'd-none'
-                        }`}
-                    >
-                        <GithubPicker
-                            color={props.resumeSettings.sidebarBackgroundColor}
-                            onChangeComplete={changeSidebarBackgroundColor}
-                            colors={colors}
-                            triangle='hide'
-                        />
-                    </div>
-                </div>
-
-                <div className='resume-setting-item'>
-                    <span className='resume-setting-item-label'>Sidebar Position</span>
-                    <div className='resume-setting-item-body'>
+                    <div className='resume-setting-item'>
+                        <span className='resume-setting-item-label'>
+                            Heading Font Color
+                            <Box
+                                className='resume-setting-selected-color'
+                                onClick={() => {
+                                    openColorToggle('sidebarHeadingColorToggle');
+                                }}
+                                sx={{ backgroundColor: props.resumeSettings.sidebarHeadingColor }}
+                            ></Box>
+                        </span>
                         <div
-                            className={`font-size-div ${
-                                props.resumeSettings.sidebarPosition === 'left' ? 'active' : ''
+                            className={`resume-setting-item-body ${
+                                colorsToggles.sidebarHeadingColorToggle === true ? '' : 'd-none'
                             }`}
-                            onClick={event => changeSidebarPosition(event, 'left')}
                         >
-                            Left
-                        </div>
-                        <div
-                            className={`font-size-div ${
-                                props.resumeSettings.sidebarPosition === 'right' ? 'active' : ''
-                            }`}
-                            onClick={event => changeSidebarPosition(event, 'right')}
-                        >
-                            Right
+                            <GithubPicker
+                                color={props.resumeSettings.sidebarHeadingColor}
+                                onChangeComplete={changeSidebarHeadingColor}
+                                colors={colors}
+                                triangle='hide'
+                            />
                         </div>
                     </div>
-                </div>
-            </div>
 
+                    <div className='resume-setting-item'>
+                        <span className='resume-setting-item-label'>
+                            Body Font Color
+                            <Box
+                                className='resume-setting-selected-color'
+                                onClick={() => {
+                                    openColorToggle('sidebarBodyColorToggle');
+                                }}
+                                sx={{ backgroundColor: props.resumeSettings.sidebarBodyColor }}
+                            ></Box>
+                        </span>
+                        <div
+                            className={`resume-setting-item-body ${
+                                colorsToggles.sidebarBodyColorToggle === true ? '' : 'd-none'
+                            }`}
+                        >
+                            <GithubPicker
+                                color={props.resumeSettings.sidebarBodyColor}
+                                onChangeComplete={changeSidebarBodyColor}
+                                colors={colors}
+                                triangle='hide'
+                            />
+                        </div>
+                    </div>
+
+                    <div className='resume-setting-item'>
+                        <span className='resume-setting-item-label'>
+                            Background Color
+                            <Box
+                                className='resume-setting-selected-color'
+                                onClick={() => {
+                                    openColorToggle('sidebarBackgroundColorToggle');
+                                }}
+                                sx={{ backgroundColor: props.resumeSettings.sidebarBackgroundColor }}
+                            ></Box>
+                        </span>
+                        <div
+                            className={`resume-setting-item-body ${
+                                colorsToggles.sidebarBackgroundColorToggle === true ? '' : 'd-none'
+                            }`}
+                        >
+                            <GithubPicker
+                                color={props.resumeSettings.sidebarBackgroundColor}
+                                onChangeComplete={changeSidebarBackgroundColor}
+                                colors={colors}
+                                triangle='hide'
+                            />
+                        </div>
+                    </div>
+
+                    <div className='resume-setting-item'>
+                        <span className='resume-setting-item-label'>Sidebar Position</span>
+                        <div className='resume-setting-item-body'>
+                            <div
+                                className={`font-size-div ${
+                                    props.resumeSettings.sidebarPosition === 'left' ? 'active' : ''
+                                }`}
+                                onClick={event => changeSidebarPosition(event, 'left')}
+                            >
+                                Left
+                            </div>
+                            <div
+                                className={`font-size-div ${
+                                    props.resumeSettings.sidebarPosition === 'right' ? 'active' : ''
+                                }`}
+                                onClick={event => changeSidebarPosition(event, 'right')}
+                            >
+                                Right
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
             <div className='resume-setting-section'>
                 <div className='resume-setting-heading'>
                     <span>Font Sizes</span>
@@ -421,7 +420,6 @@ const GlobalResumeSetting = props => {
                     </div>
                 </div>
             </div>
-
             <div className='resume-setting-section'>
                 <div className='resume-setting-heading'>
                     <span>Heading Styles</span>
