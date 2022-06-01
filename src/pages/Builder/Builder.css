@@ -44,8 +44,8 @@
 .MuiPaper-rounded.resume-paper {
     width: 100%;
     max-width: 820px;
-    height: 1250px;
-    max-height: 1250px;
+    height: 1180px;
+    max-height: 1180px;
     /* overflow: hidden; */
     display: flex;
     flex: 0;
