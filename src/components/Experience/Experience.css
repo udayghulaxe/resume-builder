@@ -11,3 +11,7 @@
 .experience-summary {
     /* font-size: 0.80rem; */
 }
+
+.MuiTimelineContent-root {
+    font-family: inherit !important;
+}

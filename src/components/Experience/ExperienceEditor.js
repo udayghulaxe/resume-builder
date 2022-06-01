@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import { TextField, Button, Divider, Box } from '@mui/material';
+import { TextField, Button, Divider, Box, Switch } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateResumeDataByResumeId, updateOpenEditorName } from '../../reducers/resumeDataSlice';
 import { richEditorSettings } from '../../globals.js';
@@ -29,10 +29,9 @@ const ExperienceEditor = props => {
             items: editorData.items.filter((item, index) => item.experienceTitle.length > 0),
         };
         const data = JSON.parse(JSON.stringify(resumeDataReducer.resumeData));
-        data[props.componentColumn].filter(item => item.name === props.componentName)[0].componentData =
-        newData;
+        data[props.componentColumn].filter(item => item.name === props.componentName)[0].componentData = newData;
 
-        dispatch(updateResumeDataByResumeId({data, resumeId}));
+        dispatch(updateResumeDataByResumeId({ data, resumeId }));
         closeEditor();
     };
 
@@ -78,6 +77,10 @@ const ExperienceEditor = props => {
         onWidgetDataChange('items', newExperienceItems);
     };
 
+    const onTimelineFormatChange = event => {
+        onWidgetDataChange('timelineFormat', event.target.checked);
+    };
+
     const closeEditor = () => {
         dispatch(updateOpenEditorName(null));
         props.setOpen(false);
@@ -107,6 +110,19 @@ const ExperienceEditor = props => {
                     value={editorData.title}
                     variant='standard'
                 />
+            </div>
+
+            <div className='editor-options-wrap'>
+                {(editorData.timelineFormat !== null) && (editorData.timelineFormat !== undefined) && (
+                    <div>
+                        Timeline Format:{' '}
+                        <Switch
+                            label='Timeline Format'
+                            onChange={event => onTimelineFormatChange(event)}
+                            checked={editorData.timelineFormat}
+                        />
+                    </div>
+                )}
             </div>
 
             <div className='editor-items-wrap'>
