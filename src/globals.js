@@ -190,6 +190,32 @@ export const initialData = {
                 },
             },
             {
+                name: 'ExperienceTimeline',
+                componentType: 'ExperienceTimeline',
+                path: 'ExperienceTimeline/ExperienceTimeline',
+                componentData: {
+                    title: 'Experience Timeline',
+                    items: [
+                        {
+                            experienceTitle: 'Android Developer',
+                            company: 'Google',
+                            date: '2018 - 2020',
+                            location: 'New York',
+                            experienceSummary:
+                                'Worked with team of 5 members and provided end-to-end solutions for clients & Lead developer in 3 key projects of major clients.',
+                        },
+                        {
+                            experienceTitle: 'Front End Developer',
+                            company: 'Amazon',
+                            date: '2014 - 2018',
+                            location: 'New York',
+                            experienceSummary:
+                                'Worked with team of 5 members and provided end-to-end solutions for clients & Lead developer in 4 key projects of major clients.',
+                        },
+                    ],
+                },
+            },
+            {
                 name: 'DoughnutCharts',
                 componentType: 'PieCharts',
                 path: 'PieCharts/PieCharts',
