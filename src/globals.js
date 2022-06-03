@@ -3,9 +3,9 @@ export const richEditorSettings = {
         [{ header: [1, 2, 3, 4, 5, 6, false] }],
         [{ align: [] }],
         ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-        [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
+        [{ list: 'ordered' }, { list: 'bullet' }],
         [{ color: [] }, { background: [] }],
-        ['link', 'image'],
+        ['link'],
         ['clean'],
     ],
 };
@@ -57,6 +57,7 @@ export const initialData = {
                 path: 'Education/Education',
                 componentData: {
                     title: 'Education',
+                    timelineFormat: false,
                     items: [
                         {
                             title: 'Executive MBA, Engineering Management',
@@ -174,33 +175,6 @@ export const initialData = {
         ],
         pageTwo: [],
         componentLibrary: [
-            {
-                name: 'Experience',
-                componentType: 'Experience',
-                path: 'Experience/Experience',
-                componentData: {
-                    title: 'Experience',
-                    timelineFormat: true,
-                    items: [
-                        {
-                            experienceTitle: 'Android Developer',
-                            company: 'Google',
-                            date: '2018 - 2020',
-                            location: 'New York',
-                            experienceSummary:
-                                'Worked with team of 5 members and provided end-to-end solutions for clients & Lead developer in 3 key projects of major clients.',
-                        },
-                        {
-                            experienceTitle: 'Front End Developer',
-                            company: 'Amazon',
-                            date: '2014 - 2018',
-                            location: 'New York',
-                            experienceSummary:
-                                'Worked with team of 5 members and provided end-to-end solutions for clients & Lead developer in 4 key projects of major clients.',
-                        },
-                    ],
-                },
-            },
             {
                 name: 'Languages',
                 componentType: 'Languages',

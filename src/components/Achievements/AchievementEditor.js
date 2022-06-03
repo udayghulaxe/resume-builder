@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { TextField, Button, Switch } from '@mui/material';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateResumeDataByResumeId, updateOpenEditorName } from '../../reducers/resumeDataSlice';
 import { useParams } from 'react-router-dom';
+import { richEditorSettings } from '../../globals.js';
+
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const AchievementEditor = props => {
     const [editorData, setEditorData] = useState(props.editorData);
@@ -28,21 +32,21 @@ const AchievementEditor = props => {
         onWidgetDataChange('showIcon', event.target.checked);
     };
 
-    const onAchievementChange = (event, index) => {
-        let skills = [...editorData.items];
-        skills[index] = { title: event.target.value };
-        onWidgetDataChange('items', skills);
+    const onAchievementChange = (val, index) => {
+        let achievement = [...editorData.items];
+        achievement[index] = { title: val };
+        onWidgetDataChange('items', achievement);
     };
 
     const onAddAchievement = (event, index) => {
-        let skills = [...editorData.items];
-        skills.splice(index + 1, 0, { title: '' });
-        onWidgetDataChange('items', skills);
+        let achievement = [...editorData.items];
+        achievement.splice(index + 1, 0, { title: '' });
+        onWidgetDataChange('items', achievement);
     };
     const onDeleteAchievement = (event, index) => {
-        let skills = [...editorData.items];
-        skills.splice(index, 1);
-        onWidgetDataChange('items', skills);
+        let achievement = [...editorData.items];
+        achievement.splice(index, 1);
+        onWidgetDataChange('items', achievement);
     };
 
     const onSave = event => {
@@ -95,8 +99,8 @@ const AchievementEditor = props => {
             <div className='editor-items-wrap'>
                 {editorData.items.map((item, index) => {
                     return (
-                        <div className='editor-item' key={index}>
-                            <TextField
+                        <div className='editor-item' style={{ marginBottom: '20px' }} key={index}>
+                            {/* <TextField
                                 label={'Option ' + (index + 1)}
                                 sx={{ mb: 1, mt: 1, mr: 1 }}
                                 onChange={event => onAchievementChange(event, index)}
@@ -106,7 +110,14 @@ const AchievementEditor = props => {
                                 rows={2}
                                 inputProps={{ style: { fontSize: 14, lineHeight: 1.2 } }}
                                 style={{ width: 380 }}
-                            />
+                            /> */}
+                            <ReactQuill
+                                        defaultValue={item.title}
+                                        modules={richEditorSettings}
+                                        theme={'snow'}
+                                        style={{ marginRight: '8px' }}
+                                        onChange={val => onAchievementChange(val, index)}
+                                    />
                             <AddCircleIcon
                                 onClick={event => onAddAchievement(event, index)}
                                 className='add-item-icon'

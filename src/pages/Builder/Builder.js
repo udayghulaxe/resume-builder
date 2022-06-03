@@ -355,7 +355,7 @@ function Builder() {
                 </Snackbar>
                 <div className='resume-paper-wrap'>
                     <Grid container spacing={2}>
-                        <Grid item xs={7}>
+                        <Grid item xs={12} md={7}>
                             <div className='layout-options'>
                                 <div className='layout-option-items'>
                                     <div className='layout-option-item'>
@@ -902,7 +902,7 @@ function Builder() {
                                 ) : null}
                             </div>
                         </Grid>
-                        <Grid className='component-library-wrap' item xs={5}>
+                        <Grid className='component-library-wrap' item xs={12} md={5}>
                             <div id='editorPortal'></div>
                             {openEditorName === 'globalSetting' ? (
                                 <div className='setting-editor-container'>
