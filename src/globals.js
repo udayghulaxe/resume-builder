@@ -25,6 +25,7 @@ export const initialData = {
         sidebarBodyColor: '#000000',
         aboutSectionFontColor: '#000000',
         headingAlignment: 'left',
+        headingStyle: 'heading-style-with-underline',
         sidebar: true,
         sidebarPosition: 'right',
     },
@@ -346,3 +347,10 @@ export const headingAlignment = [
         label: 'Right',
     },
 ];
+
+export const headingStyles = [
+    'heading-style-with-background',
+    'heading-style-with-underline',
+    'heading-style-with-double-line',
+    'heading-style-with-none',
+]

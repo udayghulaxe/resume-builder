@@ -86,11 +86,11 @@ code {
 .resume-section-title {
     display: flex;
     margin: 0 0 10px 0;
-    border-bottom: 2px solid #000;
     font-size: 20px;
     font-weight: 600;
     align-items: center;
     justify-content: space-between;
+    position: relative;
 }
 
 .section-meta {
@@ -153,11 +153,6 @@ code {
     justify-content: right;
 }
 
-#header .resume-section-title {
-    color: var(--color-font-about-section);
-    border-bottom: 2px solid var(--color-font-about-section);
-}
-
 #header .resume-section-subtitle {
     color: var(--color-font-about-section);
 }
@@ -171,18 +166,113 @@ code {
     color: var(--color-font-body) !important;
 }
 
-.resume-paper #main .resume-section-title {
-    color: var(--color-font-heading);
-    border-bottom: 2px solid var(--color-font-heading);
-}
-
 .resume-paper #sidebar .resume-section-body {
     color: var(--color-sidebar-body) !important;
 }
 
-.resume-paper #sidebar .resume-section-title {
+.resume-paper #main .resume-section-piechart svg text {
+    fill: var(--color-font-body) !important;
+}
+
+.resume-paper #sidebar .resume-section-piechart svg text {
+    fill: var(--color-sidebar-body) !important;
+}
+
+.heading-style-with-underline #header .resume-section-title {
+    color: var(--color-font-about-section);
+    border-bottom: 2px solid var(--color-font-about-section);
+}
+
+.heading-style-with-double-line #header .resume-section-title {
+    color: var(--color-font-about-section);
+    border-bottom: 2px solid var(--color-font-about-section);
+    border-top: 2px solid var(--color-font-about-section);
+}
+
+.heading-style-with-background #header .resume-section-title {
+    color: var(--color-font-heading);
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.heading-style-with-background #header .resume-section-title::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: var(--color-font-heading);
+    opacity: 0.06;
+    border-radius: 4px;
+}
+
+.resume-paper.heading-style-with-none #main .resume-section-title {
+    color: var(--color-font-heading);
+    border: none;
+}
+
+.resume-paper.heading-style-with-none #sidebar .resume-section-title {
+    color: var(--color-sidebar-heading);
+    border: none;
+}
+
+.resume-paper.heading-style-with-underline #main .resume-section-title {
+    color: var(--color-font-heading);
+    border-bottom: 2px solid var(--color-font-heading);
+}
+
+.resume-paper.heading-style-with-underline #sidebar .resume-section-title {
     color: var(--color-sidebar-heading);
     border-bottom: 2px solid var(--color-sidebar-heading);
+}
+
+.resume-paper.heading-style-with-double-line #main .resume-section-title {
+    color: var(--color-font-heading);
+    border-bottom: 2px solid var(--color-font-heading);
+    border-top: 2px solid var(--color-font-heading);
+}
+
+.resume-paper.heading-style-with-double-line #sidebar .resume-section-title {
+    color: var(--color-sidebar-heading);
+    border-bottom: 2px solid var(--color-sidebar-heading) !important;
+    border-top: 2px solid var(--color-sidebar-heading);
+}
+
+.resume-paper.heading-style-with-background #main .resume-section-title {
+    color: var(--color-font-heading);
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.resume-paper.heading-style-with-background #sidebar .resume-section-title {
+    color: var(--color-sidebar-heading);
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.resume-paper.heading-style-with-background #main .resume-section-title::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: var(--color-font-heading);
+    opacity: 0.06;
+    border-radius: 4px;
+}
+
+.resume-paper.heading-style-with-background #sidebar .resume-section-title::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: var(--color-sidebar-heading);
+    opacity: 0.06;
+    border-radius: 4px;
 }
 
 .resume-paper .resume-section-devider .resume-section-title {
@@ -271,8 +361,8 @@ code {
     width: 20px;
     height: 20px;
     position: absolute;
-    top: 8px;
-    right: 46px;
+    top: 3px;
+    right: 41px;
     transform: translate(0%, 0px);
     z-index: 99;
 }
@@ -515,7 +605,7 @@ RICH TEXT EDITOR SECTION END
     }
     .resume-paper-container .resume-paper {
         width: 820px !important;
-        height: 1130px !important;
+        height: 1160px !important;
         box-shadow: none !important;
         print-color-adjust: exact !important;
         -webkit-print-color-adjust: exact !important;

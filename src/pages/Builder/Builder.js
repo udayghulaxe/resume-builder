@@ -449,7 +449,7 @@ function Builder() {
                             </div>
                             <div className='resume-paper-container' id='resumPaperContainer'>
                                 <Paper
-                                    className={`resume-paper heading-alignment-${resumeSettings.headingAlignment} heading-font-${resumeSettings.headingFontSize} subheading-font-${resumeSettings.subheadingFontSize} body-font-${resumeSettings.bodyFontSize}`}
+                                    className={`resume-paper ${resumeSettings.headingStyle} heading-alignment-${resumeSettings.headingAlignment} heading-font-${resumeSettings.headingFontSize} subheading-font-${resumeSettings.subheadingFontSize} body-font-${resumeSettings.bodyFontSize}`}
                                     sx={{
                                         fontSize:
                                             resumeSettings.bodyFontSize === 'medium'
