@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { Button } from '@mui/material';
 import { GithubPicker } from 'react-color';
-import { fontSizes, colors } from '../../globals.js';
+import { fontSizes, colors} from '../../globals.js';
 import FormatAlignLeftOutlinedIcon from '@mui/icons-material/FormatAlignLeftOutlined';
 import FormatAlignCenterOutlinedIcon from '@mui/icons-material/FormatAlignCenterOutlined';
 import FormatAlignRightOutlinedIcon from '@mui/icons-material/FormatAlignRightOutlined';
+
+import {ReactComponent as HeadingStyle1} from './../../assets/icons/heading-style-1.svg';
+import {ReactComponent as HeadingStyle2} from './../../assets/icons/heading-style-2.svg';
+import {ReactComponent as HeadingStyle3} from './../../assets/icons/heading-style-3.svg';
+import {ReactComponent as HeadingStyle4} from './../../assets/icons/heading-style-4.svg';
 
 import './GlobalResumeSetting.css';
 import { Box } from '@mui/system';
@@ -42,11 +47,11 @@ const GlobalResumeSetting = props => {
         openColorToggle('headingFontColorToggle');
     };
 
-    const changeSubheadingFontColor = color => {
-        props.setResumeSettings({ ...props.resumeSettings, subheadingFontColor: color.hex });
-        changeFontColor('--color-font-subheading', color.hex);
-        openColorToggle('subheadingFontColorToggle');
-    };
+    // const changeSubheadingFontColor = color => {
+    //     props.setResumeSettings({ ...props.resumeSettings, subheadingFontColor: color.hex });
+    //     changeFontColor('--color-font-subheading', color.hex);
+    //     openColorToggle('subheadingFontColorToggle');
+    // };
 
     const changeBodyFontColor = color => {
         props.setResumeSettings({ ...props.resumeSettings, bodyFontColor: color.hex });
@@ -96,6 +101,11 @@ const GlobalResumeSetting = props => {
     const changeHeadingAlignment = (e, alignment) => {
         props.setResumeSettings({ ...props.resumeSettings, headingAlignment: alignment });
     };
+
+    const changeHeadingStyle = (e, style) => {
+        console.log(style);
+        props.setResumeSettings({ ...props.resumeSettings, headingStyle: style });
+    }
 
     const onSave = () => {
         props.updateGlobalSetting(props.resumeSettings);
@@ -452,6 +462,33 @@ const GlobalResumeSetting = props => {
                             onClick={event => changeHeadingAlignment(event, 'right')}
                         >
                             <FormatAlignRightOutlinedIcon></FormatAlignRightOutlinedIcon>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div className='resume-setting-item'>
+                    <span className='resume-setting-item-label'>Heading Style</span>
+                    <div className='resume-setting-item-body'>
+                        <div className={`heading-style-div ${
+                                props.resumeSettings.headingStyle === 'heading-style-with-background' ? 'active' : ''
+                            }`} onClick={event => changeHeadingStyle(event, 'heading-style-with-background')}>
+                            <HeadingStyle1></HeadingStyle1>
+                        </div>
+                        <div className={`heading-style-div ${
+                                props.resumeSettings.headingStyle === 'heading-style-with-double-line' ? 'active' : ''
+                            }`} onClick={event => changeHeadingStyle(event, 'heading-style-with-double-line')}>
+                            <HeadingStyle2></HeadingStyle2>
+                        </div>
+                        <div className={`heading-style-div ${
+                                props.resumeSettings.headingStyle === 'heading-style-with-underline' ? 'active' : ''
+                            }`} onClick={event => changeHeadingStyle(event, 'heading-style-with-underline')}>
+                            <HeadingStyle3></HeadingStyle3>
+                        </div>
+                        <div className={`heading-style-div ${
+                                props.resumeSettings.headingStyle === 'heading-style-with-none' ? 'active' : ''
+                            }`} onClick={event => changeHeadingStyle(event, 'heading-style-with-none')}>
+                            <HeadingStyle4></HeadingStyle4>
                         </div>
                     </div>
                 </div>

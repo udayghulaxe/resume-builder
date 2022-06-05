@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import { TextField, Button, Divider, Box } from '@mui/material';
+import { TextField, Button, Divider, Box, Switch } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateResumeDataByResumeId, updateOpenEditorName } from '../../reducers/resumeDataSlice';
 import { useParams } from 'react-router-dom';
@@ -74,6 +74,10 @@ const EducationEditor = props => {
         closeEditor();
     };
 
+    const onTimelineFormatChange = event => {
+        onWidgetDataChange('timelineFormat', event.target.checked);
+    };
+
     const closeEditor = () => {
         dispatch(updateOpenEditorName(null));
         props.setOpen(false);
@@ -103,6 +107,18 @@ const EducationEditor = props => {
                     value={editorData.title}
                     variant='standard'
                 />
+            </div>
+            <div className='editor-options-wrap'>
+                {(editorData.timelineFormat !== null) && (editorData.timelineFormat !== undefined) && (
+                    <div>
+                        Timeline Format:{' '}
+                        <Switch
+                            label='Timeline Format'
+                            onChange={event => onTimelineFormatChange(event)}
+                            checked={editorData.timelineFormat}
+                        />
+                    </div>
+                )}
             </div>
             <div className='editor-items-wrap'>
                 {editorData.items.map((item, index) => {

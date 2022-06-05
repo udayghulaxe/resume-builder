@@ -38,7 +38,11 @@ const Achievement = props => {
                             <span className={`achievement-icon ${widgetData.showIcon ? '' : 'd-none'}`}>
                                 <StarIcon />
                             </span>
-                            <span className='achievement-summary'>{item.title}</span>
+                            <div
+                                className='achievement-summary rich-text-div resume-section-body'
+                                dangerouslySetInnerHTML={{ __html: item.title }}
+                            ></div>
+                            {/* <span className='achievement-summary'>{item.title}</span> */}
                         </div>
                     );
                 })}

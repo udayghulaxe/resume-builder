@@ -44,22 +44,13 @@
 .MuiPaper-rounded.resume-paper {
     width: 100%;
     max-width: 820px;
-    height: 1250px;
-    max-height: 1250px;
+    height: 1180px;
+    max-height: 1180px;
     /* overflow: hidden; */
     display: flex;
     flex: 0;
 }
 
-@media screen and (max-width: 480px) {
-    .MuiPaper-rounded.resume-paper {
-        width: auto;
-    }
-
-    .resume-paper-wrap {
-        padding: 60px 10px;
-    }
-}
 
 /* BASIC INFO COMPONENT */
 .basic-info.variant-1.name {
@@ -105,6 +96,7 @@
     width: 100%;
     max-width: 820px;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .layout-option-item:not(:last-child) {
@@ -202,4 +194,26 @@
     align-items: center;
     padding: 0;
     margin-bottom: 20px;
+}
+
+
+@media screen and (max-width: 768px) {
+    .layout-option-items {
+        margin-bottom: 10px;
+    }
+    .resume-paper-wrap {
+        padding: 60px 10px;
+        zoom: 70%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .MuiPaper-rounded.resume-paper {
+        width: auto;
+    }
+
+    .resume-paper-wrap {
+        padding: 60px 10px;
+        zoom: 60%;
+    }
 }

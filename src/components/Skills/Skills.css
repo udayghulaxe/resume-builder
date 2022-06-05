@@ -26,3 +26,7 @@
 .MuiChip-filled {
     border: 1px solid var(--color-border);
 }
+
+.skills-item-wrap {
+    margin-top: 4px;
+}

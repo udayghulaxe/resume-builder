@@ -355,7 +355,7 @@ function Builder() {
                 </Snackbar>
                 <div className='resume-paper-wrap'>
                     <Grid container spacing={2}>
-                        <Grid item xs={7}>
+                        <Grid item xs={12} md={7}>
                             <div className='layout-options'>
                                 <div className='layout-option-items'>
                                     <div className='layout-option-item'>
@@ -449,7 +449,7 @@ function Builder() {
                             </div>
                             <div className='resume-paper-container' id='resumPaperContainer'>
                                 <Paper
-                                    className={`resume-paper heading-alignment-${resumeSettings.headingAlignment} heading-font-${resumeSettings.headingFontSize} subheading-font-${resumeSettings.subheadingFontSize} body-font-${resumeSettings.bodyFontSize}`}
+                                    className={`resume-paper ${resumeSettings.headingStyle} heading-alignment-${resumeSettings.headingAlignment} heading-font-${resumeSettings.headingFontSize} subheading-font-${resumeSettings.subheadingFontSize} body-font-${resumeSettings.bodyFontSize}`}
                                     sx={{
                                         fontSize:
                                             resumeSettings.bodyFontSize === 'medium'
@@ -902,7 +902,7 @@ function Builder() {
                                 ) : null}
                             </div>
                         </Grid>
-                        <Grid className='component-library-wrap' item xs={5}>
+                        <Grid className='component-library-wrap' item xs={12} md={5}>
                             <div id='editorPortal'></div>
                             {openEditorName === 'globalSetting' ? (
                                 <div className='setting-editor-container'>

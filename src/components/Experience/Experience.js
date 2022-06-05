@@ -32,7 +32,7 @@ const Experience = props => {
         setOpen(true);
     };
 
-    const educationHTML = (
+    const experienceHTML = (
         <div className='experience-item-wrap'>
             {widgetData.items.map((item, index) => {
                 return (
@@ -76,53 +76,53 @@ const Experience = props => {
         </div>
     );
 
-    const educationTimelineHTML = (
+    const experienceTimelineHTML = (
         <div className='experience-item-wrap'>
-                <Timeline position='right' sx={{paddingLeft: '0px'}}>
-                    {widgetData.items.map((item, index) => {
-                        return (
-                            <TimelineItem key={index}>
-                                <TimelineOppositeContent sx={{paddingLeft: '0', paddingRight: '2px', textAlign:'left', flex: 0.3}}>
-                                    {item.date && (
-                                        <div className='resume-section-body'>
-                                            {/* <CalendarTodayIcon fontSize='15'></CalendarTodayIcon> */}
-                                            <Box component='span' sx={{ pl: 0 }}>
-                                                {item.date}
-                                            </Box>
-                                        </div>
-                                    )}
-                                    {item.location && (
-                                        <div className='resume-section-body'>
-                                            {/* <LocationOnIcon fontSize='15'></LocationOnIcon> */}
-                                            <Box component='span' sx={{ pl: 0 }}>
-                                                {item.location}
-                                            </Box>
-                                        </div>
-                                    )}
-                                </TimelineOppositeContent>
-                                <TimelineSeparator>
-                                    <TimelineDot sx={{padding: '2px'}} />
-                                    {item.experienceSummary.length > 0 && item.experienceSummary !== '<p><br></p>' &&  <TimelineConnector />}
-                                </TimelineSeparator>
-                                <TimelineContent>
-                                    <span className='experience-title full-width-field resume-section-subtitle'>
-                                        {item.experienceTitle}
-                                    </span>
-                                        {item.company && (
-                                            <div className='resume-section-body'>
-                                                   <strong> {item.company}</strong>
-                                            </div>
-                                        )}
-                                    <div
-                                        className='experience-summary rich-text-div resume-section-body'
-                                        dangerouslySetInnerHTML={{ __html: item.experienceSummary }}
-                                    ></div>
-                                </TimelineContent>
-                            </TimelineItem>
-                        );
-                    })}
-                </Timeline>
-            </div>
+            <Timeline position='right' sx={{ paddingLeft: '0', marginTop: '0', paddingTop: '0' }}>
+                {widgetData.items.map((item, index) => {
+                    return (
+                        <TimelineItem key={index}>
+                            <TimelineOppositeContent
+                                sx={{ paddingLeft: '0', paddingRight: '2px', textAlign: 'left', flex: 0.3 }}
+                            >
+                                {item.date && (
+                                    <div className='resume-section-body'>
+                                        {/* <CalendarTodayIcon fontSize='15'></CalendarTodayIcon> */}
+                                        <Box component='span' sx={{ pl: 0 }}>
+                                            {item.date}
+                                        </Box>
+                                    </div>
+                                )}
+                            </TimelineOppositeContent>
+                            <TimelineSeparator>
+                                <TimelineDot sx={{ padding: '2px' }} />
+                                {item.experienceSummary.length > 0 && item.experienceSummary !== '<p><br></p>' && (
+                                    <TimelineConnector />
+                                )}
+                            </TimelineSeparator>
+                            <TimelineContent>
+                                <span className='experience-title full-width-field resume-section-subtitle'>
+                                    {item.experienceTitle}
+                                </span>
+                                {item.company && (
+                                    <div className='resume-section-body'>
+                                        <strong>
+                                            {' '}
+                                            {item.company}
+                                            {item.location && ','} {item.location}
+                                        </strong>
+                                    </div>
+                                )}
+                                <div
+                                    className='experience-summary rich-text-div resume-section-body'
+                                    dangerouslySetInnerHTML={{ __html: item.experienceSummary }}
+                                ></div>
+                            </TimelineContent>
+                        </TimelineItem>
+                    );
+                })}
+            </Timeline>
+        </div>
     );
 
     return (
@@ -133,7 +133,9 @@ const Experience = props => {
                     <EditIcon titleAccess='Edit' onClick={openEditor} />
                 </span>
             </div>
-            {widgetData.timelineFormat ? educationTimelineHTML : educationHTML}
+            {/* Toggle timeline and normal widget */}
+            {widgetData.timelineFormat ? experienceTimelineHTML : experienceHTML}
+            {/* OPEN the editor */}
             {openEditorName === props.componentItem.name ? (
                 <ExperienceEditor
                     setWidgetData={setWidgetData}
