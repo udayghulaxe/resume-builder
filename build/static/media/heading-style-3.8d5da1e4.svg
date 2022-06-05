@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 500 200" width="500" height="200" xmlns="http://www.w3.org/2000/svg">
+  <text style="fill: rgb(216, 216, 216); font-size: 9.3px; paint-order: fill; stroke: rgb(0, 0, 0); stroke-dashoffset: 6px; stroke-linecap: square; stroke-width: 9px; white-space: pre;" x="79.701" y="50.228"> </text>
+  <text style="white-space: pre; fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0); font-size: 9.3px;" x="100.872" y="54.795"> </text>
+  <text style="fill: rgb(216, 216, 216); font-size: 100px; stroke: rgb(0, 0, 0); text-transform: capitalize; white-space: pre;" x="61.395" y="127.854">Heading</text>
+  <rect width="500" height="22" style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);" y="178"/>
+</svg>
