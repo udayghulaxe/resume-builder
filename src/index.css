@@ -193,6 +193,7 @@ code {
     color: var(--color-font-heading);
     padding-left: 4px;
     padding-right: 4px;
+    padding-bottom: 2px;
 }
 
 .heading-style-with-background #header .resume-section-title::before {
@@ -207,7 +208,7 @@ code {
     border-radius: 4px;
 }
 
-.resume-paper.heading-style-with-none #main .resume-section-title {
+.resume-paper.heading-style-with-none #main .resume-section-title,  .resume-paper.heading-style-with-none #pageTwo .resume-section-title {
     color: var(--color-font-heading);
     border: none;
 }
@@ -217,7 +218,7 @@ code {
     border: none;
 }
 
-.resume-paper.heading-style-with-underline #main .resume-section-title {
+.resume-paper.heading-style-with-underline #main .resume-section-title, .resume-paper.heading-style-with-underline #pageTwo .resume-section-title {
     color: var(--color-font-heading);
     border-bottom: 2px solid var(--color-font-heading);
 }
@@ -227,7 +228,7 @@ code {
     border-bottom: 2px solid var(--color-sidebar-heading);
 }
 
-.resume-paper.heading-style-with-double-line #main .resume-section-title {
+.resume-paper.heading-style-with-double-line #main .resume-section-title, .resume-paper.heading-style-with-double-line #pageTwo .resume-section-title {
     color: var(--color-font-heading);
     border-bottom: 2px solid var(--color-font-heading);
     border-top: 2px solid var(--color-font-heading);
@@ -239,19 +240,21 @@ code {
     border-top: 2px solid var(--color-sidebar-heading);
 }
 
-.resume-paper.heading-style-with-background #main .resume-section-title {
+.resume-paper.heading-style-with-background #main .resume-section-title, .resume-paper.heading-style-with-background #pageTwo .resume-section-title {
     color: var(--color-font-heading);
     padding-left: 4px;
     padding-right: 4px;
+    padding-bottom: 2px;
 }
 
 .resume-paper.heading-style-with-background #sidebar .resume-section-title {
     color: var(--color-sidebar-heading);
     padding-left: 4px;
     padding-right: 4px;
+    padding-bottom: 2px;
 }
 
-.resume-paper.heading-style-with-background #main .resume-section-title::before {
+.resume-paper.heading-style-with-background #main .resume-section-title::before, .resume-paper.heading-style-with-background #pageTwo .resume-section-title::before {
     content: "";
     position: absolute;
     top: 0px;
@@ -773,4 +776,14 @@ RICH TEXT EDITOR SECTION END
     100% {
         transform: translate(0, 0) rotate(0);
     }
+}
+
+
+.download-mode  {
+    padding: 0 !important;
+    
+}
+
+.download-mode .MuiPaper-rounded.resume-paper {
+    max-width: 100%;
 }
