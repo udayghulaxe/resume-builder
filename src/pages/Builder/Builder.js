@@ -263,6 +263,27 @@ function Builder() {
         updateResumeData(newArr);
     };
 
+    const downloadBase64File = (contentBase64, fileName) => {
+        const linkSource = `data:application/pdf;base64,${contentBase64}`;
+        const downloadLink = document.createElement('a');
+        document.body.appendChild(downloadLink);
+
+        downloadLink.href = linkSource;
+        downloadLink.target = '_self';
+        downloadLink.download = fileName;
+        downloadLink.click();
+    };
+
+    const downloadResume = () => {
+        const url = `https://us-central1-resume-builder-c4248.cloudfunctions.net/downloadResume?resumeid=${resumeId}`;
+
+        fetch(url, {})
+            .then(response => response.text())
+            .then(json => {
+                downloadBase64File(json, `${userDataReducer.userData.name.replaceAll(' ', '-')}-resume.pdf`);
+            });
+    };
+
     function onDragEnd(result) {
         const { destination, source, draggableId } = result;
         // if canceling the dragNdrop in between
@@ -357,7 +378,7 @@ function Builder() {
                         New Widgets Available. Try Out.
                     </Alert>
                 </Snackbar>
-                <div className={`resume-paper-wrap ${downloadMode ? 'download-mode' :''}`}>
+                <div className={`resume-paper-wrap ${downloadMode ? 'download-mode' : ''}`}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} md={downloadMode ? 12 : 7}>
                             {!downloadMode && (
@@ -427,7 +448,7 @@ function Builder() {
                                     <div className='layout-option-items'>
                                         <div className='layout-option-item'>
                                             <Button
-                                                onClick={window.print}
+                                                onClick={downloadResume}
                                                 startIcon={<FileDownloadOutlinedIcon />}
                                                 variant='contained'
                                                 color='primary'
