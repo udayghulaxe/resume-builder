@@ -144,11 +144,17 @@
     position: sticky;
     right: 40px;
     top: 10px;
-    height: 95vh;
+    height: 100vh;
 }
 
 .component-library  {
-    height: 85vh;
+    height: 100vh;
+    margin-bottom: 100px;
+}
+
+.widget-library {
+    padding: 20px;
+    height: 76vh;
     overflow-y: auto;
 }
 

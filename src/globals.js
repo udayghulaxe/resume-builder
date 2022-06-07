@@ -227,9 +227,9 @@ export const initialData = {
                 },
             },
             {
-                name: 'Divider',
-                componentType: 'Divider',
-                path: 'Divider/Divider',
+                name: 'SectionDivider',
+                componentType: 'SectionDivider',
+                path: 'SectionDivider/SectionDivider',
                 componentData: {
                     title: 'Divider',
                     styles: [
