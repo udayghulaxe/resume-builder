@@ -10,6 +10,8 @@ import {
     Alert,
     Snackbar,
     LinearProgress,
+    Dialog,
+    DialogContent 
 } from '@mui/material';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { useSelector, useDispatch } from 'react-redux';
@@ -44,6 +46,7 @@ import './Builder.css';
 import GlobalResumeSetting from '../../components/GlobalResumeSetting/GlobalResumeSetting';
 import 'react-quill/dist/quill.snow.css';
 
+import DownloadResumeFeedBack from '../../components/DownloadResumeFeedBack/DownloadResumeFeedBack';
 import Achievement from '../../components/Achievements/Achievement';
 import BasicInfo from '../../components/BasicInfo/BasicInfo';
 import Education from '../../components/Education/Education';
@@ -53,7 +56,7 @@ import ProfessionalSummary from '../../components/ProfessionalSummary/Profession
 import Skills from '../../components/Skills/Skills';
 import SkillsWithProgress from '../../components/SkillsWithProgress/SkillsWithProgress';
 import Social from '../../components/Social/Social';
-import Divider from '../../components/Divider/Divider';
+import SectionDivider from '../../components/SectionDivider/SectionDivider';
 import PieCharts from '../../components/PieCharts/PieCharts';
 
 function Builder() {
@@ -68,6 +71,8 @@ function Builder() {
     const [openSnackbar, setopenSnackbar] = useState(false);
     const [resumeSettings, setResumeSettings] = useState(null);
     const [downloadMode, setDownloadMode] = useState(search === '?download=true');
+    const [openDownloadDialog, setOpenDownloadDialog] = useState(false);
+    const [downloadProgress, setDownloadProgress] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -94,7 +99,7 @@ function Builder() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [authReducer]);
 
-    function getResumeData() {
+    const getResumeData = () => {
         dispatch(getResumeDataByResumeId(resumeId)).then(res => {
             if (res.payload) {
                 setItems(res.payload);
@@ -123,7 +128,7 @@ function Builder() {
         });
     }
 
-    function updateResumeData(newData) {
+    const updateResumeData = (newData) => {
         if (authReducer.userId) {
             dispatch(updateResumeDataByResumeId({ data: newData, resumeId: resumeId })).then(res => {
                 setIsLoading(false);
@@ -135,7 +140,7 @@ function Builder() {
         }, 1000);
     }
 
-    function updateGlobalSetting(newData) {
+    const updateGlobalSetting = (newData) => {
         if (authReducer.userId) {
             dispatch(updateResumeSettingsByResumeId({ data: newData, resumeId: resumeId }));
             dispatch(updateSettingsDataReducer(newData));
@@ -275,12 +280,15 @@ function Builder() {
     };
 
     const downloadResume = () => {
+        setDownloadProgress(true);
+        setOpenDownloadDialog(true);
         const url = `https://us-central1-resume-builder-c4248.cloudfunctions.net/downloadResume?resumeid=${resumeId}`;
 
         fetch(url, {})
             .then(response => response.text())
             .then(json => {
                 downloadBase64File(json, `${userDataReducer.userData.name.replaceAll(' ', '-')}-resume.pdf`);
+                setDownloadProgress(false);
             });
     };
 
@@ -325,7 +333,11 @@ function Builder() {
         }
     }
 
-    function getComponent(componentType, item, columnName) {
+    const closeDownloadDialog = () => {
+        setOpenDownloadDialog(false);
+    }
+
+    const getComponent = (componentType, item, columnName) => {
         switch (componentType) {
             case 'Achievements':
                 return <Achievement componentColumn={columnName} componentItem={item} />;
@@ -354,8 +366,8 @@ function Builder() {
             case 'Social':
                 return <Social componentColumn={columnName} componentItem={item} />;
 
-            case 'Divider':
-                return <Divider componentColumn={columnName} componentItem={item} />;
+            case 'SectionDivider':
+                return <SectionDivider componentColumn={columnName} componentItem={item} />;
 
             case 'PieCharts':
                 return <PieCharts componentColumn={columnName} componentItem={item} />;
@@ -378,9 +390,14 @@ function Builder() {
                         New Widgets Available. Try Out.
                     </Alert>
                 </Snackbar>
+                <Dialog fullWidth={true} maxWidth={'sm'} open={openDownloadDialog} onClose={closeDownloadDialog} scroll='body'>
+                    <DialogContent className='preview-dialog-content'>
+                        <DownloadResumeFeedBack downloading={downloadProgress}></DownloadResumeFeedBack>
+                    </DialogContent>
+                </Dialog>
                 <div className={`resume-paper-wrap ${downloadMode ? 'download-mode' : ''}`}>
                     <Grid container spacing={2}>
-                        <Grid item xs={12} md={downloadMode ? 12 : 7}>
+                        <Grid item xs={12} md={downloadMode ? 12 : 8}>
                             {!downloadMode && (
                                 <div className='layout-options'>
                                     <div className='layout-option-items'>
@@ -932,7 +949,7 @@ function Builder() {
                             </div>
                         </Grid>
                         {!downloadMode && (
-                            <Grid className='component-library-wrap' item xs={12} md={5}>
+                            <Grid className='component-library-wrap' item xs={12} md={4}>
                                 <div id='editorPortal'></div>
                                 {openEditorName === 'globalSetting' ? (
                                     <div className='setting-editor-container'>

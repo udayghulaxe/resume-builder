@@ -5,7 +5,7 @@ import { TextField, Button, MenuItem, Grid } from '@mui/material';
 import { updateResumeDataByResumeId, updateOpenEditorName } from '../../reducers/resumeDataSlice';
 import { useParams } from 'react-router-dom';
 
-const DividerEditor = props => {
+const SectionDividerEditor = props => {
     const [editorData, setEditorData] = useState(props.editorData);
     const { resumeDataReducer } = useSelector(state => state);
     const { resumeId } = useParams();
@@ -103,4 +103,4 @@ const DividerEditor = props => {
     );
 };
 
-export default DividerEditor;
+export default SectionDividerEditor;

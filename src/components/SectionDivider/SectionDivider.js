@@ -1,28 +1,56 @@
 import React, { useState } from 'react';
-import { Divider } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import SectionDividerEditor from './SectionDividerEditor';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateOpenEditorName } from '../../reducers/resumeDataSlice';
 
 import './SectionDivider.css';
+
 const SectionDivider = props => {
     const [open, setOpen] = useState(false);
-    console.log('calling section divider', open);
+    const [widgetData, setWidgetData] = useState(props.componentItem.componentData);
 
+    const dispatch = useDispatch();
+    const openEditorName = useSelector(state => state.resumeDataReducer.openEditorName);
     const openEditor = () => {
+        dispatch(updateOpenEditorName(props.componentItem.name));
         setOpen(true);
     };
 
+    const styles = {};
+    widgetData.styles.forEach(style => {
+        styles[style.rule] = style.value + style.unit;
+    });
+
     return (
-        <div className='resume-section resume-section-devider'>
-            <div className='resume-section-title'>
-                <span>{props.componentItem.componentData.title}</span>
+        <div className='resume-section'>
+            {props.componentColumn !== 'componentLibrary' ? (
                 <span className='edit-component-icon'>
                     <EditIcon onClick={openEditor} />
                 </span>
+            ) : (
+                <div className='resume-section-title'>
+                    <span>{widgetData.title}</span>
+                    <span className='edit-component-icon'>
+                        <EditIcon onClick={openEditor} />
+                    </span>
+                </div>
+            )}
+
+            <div className='divider-wrapper'>
+                <hr style={styles} />
             </div>
 
-            <div className='divider-item-wrap'>
-                <Divider></Divider>
-            </div>
+            {openEditorName === props.componentItem.name ? (
+                <SectionDividerEditor
+                    open={open}
+                    setWidgetData={setWidgetData}
+                    setOpen={setOpen}
+                    componentColumn={props.componentColumn}
+                    componentName={props.componentItem.name}
+                    editorData={widgetData}
+                />
+            ) : null}
         </div>
     );
 };
