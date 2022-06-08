@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { Box } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateOpenEditorName } from '../../reducers/resumeDataSlice';
+import { useSelector } from 'react-redux';
 
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import SchoolIcon from '@mui/icons-material/School';
-import EditIcon from '@mui/icons-material/Edit';
 import Timeline from '@mui/lab/Timeline';
 import TimelineItem from '@mui/lab/TimelineItem';
 import TimelineSeparator from '@mui/lab/TimelineSeparator';
@@ -18,18 +16,10 @@ import EducationEditor from './EducationEditor';
 import './Education.css';
 
 const Education = props => {
-    const [open, setOpen] = useState(false);
-    console.log('calling education', open);
+    console.log('calling education');
 
     const [widgetData, setWidgetData] = useState(props.componentItem.componentData);
-
-    const dispatch = useDispatch();
     const openEditorName = useSelector(state => state.resumeDataReducer.openEditorName);
-
-    const openEditor = () => {
-        dispatch(updateOpenEditorName(props.componentItem.name));
-        setOpen(true);
-    };
 
     const educationHTML = (
         <div className='education-item-wrap'>
@@ -112,9 +102,6 @@ const Education = props => {
         <div className='resume-section resume-section-education'>
             <div className='resume-section-title'>
                 <span>{widgetData.title}</span>
-                <span className='edit-component-icon'>
-                    <EditIcon titleAccess='Edit' onClick={openEditor} />
-                </span>
             </div>
             {/* Toggle timeline and normal widget */}
             {widgetData.timelineFormat ? educationTimelineHTML : educationHTML}
@@ -122,8 +109,6 @@ const Education = props => {
             {openEditorName === props.componentItem.name ? (
                 <EducationEditor
                     setWidgetData={setWidgetData}
-                    open={open}
-                    setOpen={setOpen}
                     componentColumn={props.componentColumn}
                     componentName={props.componentItem.name}
                     editorData={widgetData}

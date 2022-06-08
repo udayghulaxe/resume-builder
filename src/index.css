@@ -364,20 +364,17 @@ code {
 .edit-component-icon {
     display: none;
     cursor: pointer;
-    color: #000000;
+    color: var(--color-primary);
     width: 20px;
     height: 20px;
-    position: absolute;
-    top: 3px;
-    right: 41px;
-    transform: translate(0%, 0px);
+    margin-right: 8px;
     z-index: 99;
 }
 
 .edit-component-icon svg {
     width: 16px;
     height: 16px;
-    border: 1px solid #000;
+    border: 1px solid var(--color-primary);
     border-radius: 50%;
     padding: 2px;
 }
@@ -385,20 +382,17 @@ code {
 .drag-handle {
     display: none;
     cursor: pointer;
-    color: #000000;
+    color: var(--color-primary);
     width: 20px;
     height: 20px;
-    position: relative;
-    top: -5%;
-    left: 8%;
-    transform: translate(0%, 0px);
+    margin-right: 8px;
     z-index: 99;
 }
 
 .drag-handle svg {
     width: 16px;
     height: 16px;
-    border: 1px solid #000000;
+    border: 1px solid var(--color-primary);
     border-radius: 50%;
     padding: 2px;
 }
@@ -406,20 +400,17 @@ code {
 .copy-component {
     display: none;
     cursor: pointer;
-    color: #000000;
+    color: var(--color-primary);
     width: 20px;
     height: 20px;
-    position: absolute;
-    top: 20%;
-    left: 28.5%;
-    transform: translate(0%, 0px);
+    margin-right: 8px;
     z-index: 99;
 }
 
 .copy-component svg {
     width: 16px;
     height: 16px;
-    border: 1px solid #000000;
+    border: 1px solid var(--color-primary);
     border-radius: 50%;
     padding: 2px;
 }
@@ -427,20 +418,17 @@ code {
 .remove-component {
     display: none;
     cursor: pointer;
-    color: #000000;
+    color: var(--color-primary);
     width: 20px;
     height: 20px;
-    position: absolute;
-    top: 20%;
-    left: 70%;
-    transform: translate(0%, 0px);
+    margin-right: 8px;
     z-index: 99;
 }
 
 .remove-component svg {
     width: 16px;
     height: 16px;
-    border: 1px solid #000000;
+    border: 1px solid var(--color-primary);
     border-radius: 50%;
     padding: 2px;
 }
@@ -449,18 +437,18 @@ code {
     display: none;
     cursor: pointer;
     color: var(--color-error);
-    width: 15px;
-    height: 15px;
-    position: absolute;
-    top: 0px;
-    right: 3px;
-    transform: translate(0%, 0px);
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
     z-index: 99;
 }
 
 .delete-component svg {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--color-error);;
+    border-radius: 50%;
+    padding: 2px;
 }
 
 .resume-section-wrap:hover .drag-handle,

@@ -23,7 +23,6 @@ const SectionDividerEditor = props => {
 
     const closeEditor = () => {
         dispatch(updateOpenEditorName(null));
-        props.setOpen(false);
     };
 
     const onStyleChange = (style, value) => {

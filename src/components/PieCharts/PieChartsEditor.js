@@ -89,7 +89,6 @@ const PieChartsEditor = props => {
         data[props.componentColumn].filter(item => item.name === props.componentName)[0].componentData = newData;
 
         dispatch(updateResumeDataByResumeId({ data, resumeId }));
-        console.log(data);
         closeEditor();
     };
 

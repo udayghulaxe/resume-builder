@@ -37,6 +37,7 @@ import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import OpenWithIcon from '@mui/icons-material/OpenWith';
+import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import { useParams, useLocation } from 'react-router-dom';
@@ -83,6 +84,10 @@ function Builder() {
             dispatch(updateOpenEditorName('globalSetting'));
         }
     };
+
+    const openComponentEditor = (item) => {
+        dispatch(updateOpenEditorName(item.name)); 
+    }
 
     useEffect(() => {
         console.log('calling builder effect');
@@ -227,6 +232,7 @@ function Builder() {
         newArr.componentLibrary.unshift(item);
         setItems(newArr);
         updateResumeData(newArr);
+        dispatch(updateOpenEditorName(null));
     };
 
     const addComponentToResume = (event, item, index, column) => {
@@ -567,6 +573,9 @@ function Builder() {
                                                                                         }
                                                                                     />
                                                                                 </span>
+                                                                                <span className='edit-component-icon'>
+                                                                                    <EditIcon titleAccess='Edit' onClick={()=> { openComponentEditor(item) }} />
+                                                                                </span>
                                                                                 <span className='remove-component'>
                                                                                     <RemoveOutlinedIcon
                                                                                         titleAccess='Remove From Resume'
@@ -588,6 +597,7 @@ function Builder() {
                                                                                     }
                                                                                 >
                                                                                     <DeleteOutlinedIcon
+                                                                                        titleAccess='Delete Copy'
                                                                                         onClick={event =>
                                                                                             deleteComponent(
                                                                                                 event,
@@ -597,7 +607,7 @@ function Builder() {
                                                                                             )
                                                                                         }
                                                                                     />
-                                                                                </span>
+                                                                                </span>                                                                               
                                                                             </div>
                                                                         </div>
                                                                     )}
@@ -678,6 +688,9 @@ function Builder() {
                                                                                             }
                                                                                         />
                                                                                     </span>
+                                                                                    <span className='edit-component-icon'>
+                                                                                        <EditIcon titleAccess='Edit' onClick={()=> { openComponentEditor(item) }} />
+                                                                                    </span>
                                                                                     <span className='remove-component'>
                                                                                         <RemoveOutlinedIcon
                                                                                             titleAccess='Remove From Resume'
@@ -699,6 +712,7 @@ function Builder() {
                                                                                         }
                                                                                     >
                                                                                         <DeleteOutlinedIcon
+                                                                                            titleAccess='Delete Copy'
                                                                                             onClick={event =>
                                                                                                 deleteComponent(
                                                                                                     event,
@@ -787,6 +801,9 @@ function Builder() {
                                                                                                 }
                                                                                             />
                                                                                         </span>
+                                                                                        <span className='edit-component-icon'>
+                                                                                            <EditIcon titleAccess='Edit' onClick={()=> { openComponentEditor(item) }} />
+                                                                                        </span>
                                                                                         <span className='remove-component'>
                                                                                             <RemoveOutlinedIcon
                                                                                                 titleAccess='Remove From Resume'
@@ -808,6 +825,7 @@ function Builder() {
                                                                                             }
                                                                                         >
                                                                                             <DeleteOutlinedIcon
+                                                                                                titleAccess='Delete Copy'
                                                                                                 onClick={event =>
                                                                                                     deleteComponent(
                                                                                                         event,
@@ -900,6 +918,9 @@ function Builder() {
                                                                                                 }
                                                                                             />
                                                                                         </span>
+                                                                                        <span className='edit-component-icon'>
+                                                                                            <EditIcon titleAccess='Edit' onClick={()=> { openComponentEditor(item) }} />
+                                                                                        </span>
                                                                                         <span className='remove-component'>
                                                                                             <RemoveOutlinedIcon
                                                                                                 titleAccess='Remove From Resume'
@@ -921,6 +942,7 @@ function Builder() {
                                                                                             }
                                                                                         >
                                                                                             <DeleteOutlinedIcon
+                                                                                                titleAccess='Delete Copy'
                                                                                                 onClick={event =>
                                                                                                     deleteComponent(
                                                                                                         event,
@@ -1061,6 +1083,7 @@ function Builder() {
                                                                                             }
                                                                                         >
                                                                                             <DeleteOutlinedIcon
+                                                                                                titleAccess='Delete Copy'
                                                                                                 onClick={event =>
                                                                                                     deleteComponent(
                                                                                                         event,

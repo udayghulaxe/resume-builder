@@ -1,26 +1,16 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateOpenEditorName } from '../../reducers/resumeDataSlice';
+import { useSelector } from 'react-redux';
 
 import { LinearProgress, Box } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
 import LanguagesEditor from './LanguagesEditor';
 
 import './Languages.css';
 
 const Languages = props => {
-    const [open, setOpen] = useState(false);
-    console.log('calling languages', open);
+    console.log('calling languages');
 
     const [widgetData, setWidgetData] = useState(props.componentItem.componentData);
-    const dispatch = useDispatch();
-
     const openEditorName = useSelector(state => state.resumeDataReducer.openEditorName);
-
-    const openEditor = () => {
-        dispatch(updateOpenEditorName(props.componentItem.name));
-        setOpen(true);
-    };
 
     const getProgressFromProficiency = proficiency => {
         let val = 25;
@@ -50,9 +40,6 @@ const Languages = props => {
         <div className='resume-section resume-section-language'>
             <div className='resume-section-title'>
                 <span>{widgetData.title}</span>
-                <span className='edit-component-icon'>
-                    <EditIcon onClick={openEditor} />
-                </span>
             </div>
             {widgetData.items.map((item, index) => {
                 return (
@@ -81,8 +68,6 @@ const Languages = props => {
             {openEditorName === props.componentItem.name ? (
                 <LanguagesEditor
                     setWidgetData={setWidgetData}
-                    open={open}
-                    setOpen={setOpen}
                     componentColumn={props.componentColumn}
                     componentName={props.componentItem.name}
                     editorData={widgetData}

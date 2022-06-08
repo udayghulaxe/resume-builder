@@ -52,7 +52,6 @@ const SocialEditor = props => {
 
     const closeEditor = () => {
         dispatch(updateOpenEditorName(null));
-        props.setOpen(false);
     };
 
     return ReactDOM.createPortal(
