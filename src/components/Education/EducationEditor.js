@@ -67,10 +67,9 @@ const EducationEditor = props => {
     const onSave = event => {
         const newData = { ...editorData, items: editorData.items.filter((item, index) => item.title.length > 0) };
         const data = JSON.parse(JSON.stringify(resumeDataReducer.resumeData));
-        data[props.componentColumn].filter(item => item.name === props.componentName)[0].componentData =
-        newData;
+        data[props.componentColumn].filter(item => item.name === props.componentName)[0].componentData = newData;
 
-        dispatch(updateResumeDataByResumeId({data, resumeId}));
+        dispatch(updateResumeDataByResumeId({ data, resumeId }));
         closeEditor();
     };
 
@@ -108,7 +107,7 @@ const EducationEditor = props => {
                 />
             </div>
             <div className='editor-options-wrap'>
-                {(editorData.timelineFormat !== null) && (editorData.timelineFormat !== undefined) && (
+                {editorData.timelineFormat !== null && editorData.timelineFormat !== undefined && (
                     <div>
                         Timeline Format:{' '}
                         <Switch
@@ -163,14 +162,16 @@ const EducationEditor = props => {
                                         size='small'
                                     />
                                 </div>
-                                <AddCircleIcon
-                                    onClick={event => onAddEducation(event, index)}
-                                    className='add-item-icon'
-                                ></AddCircleIcon>
-                                <DeleteForeverIcon
-                                    onClick={event => onDeleteEducation(event, index)}
-                                    className={`delete-item-icon ${index === 0 ? 'd-none' : ''}`}
-                                ></DeleteForeverIcon>
+                                <div className='items-add-remove'>
+                                    <AddCircleIcon
+                                        onClick={event => onAddEducation(event, index)}
+                                        className='add-item-icon'
+                                    ></AddCircleIcon>
+                                    <DeleteForeverIcon
+                                        onClick={event => onDeleteEducation(event, index)}
+                                        className={`delete-item-icon ${index === 0 ? 'd-none' : ''}`}
+                                    ></DeleteForeverIcon>
+                                </div>
                             </div>
                             <Box sx={{ height: 20 }}></Box>
                             <Divider></Divider>

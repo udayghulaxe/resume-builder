@@ -52,10 +52,9 @@ const AchievementEditor = props => {
     const onSave = event => {
         const newData = { ...editorData };
         const data = JSON.parse(JSON.stringify(resumeDataReducer.resumeData));
-        data[props.componentColumn].filter(item => item.name === props.componentName)[0].componentData =
-        newData;
+        data[props.componentColumn].filter(item => item.name === props.componentName)[0].componentData = newData;
 
-        dispatch(updateResumeDataByResumeId({data, resumeId}));
+        dispatch(updateResumeDataByResumeId({ data, resumeId }));
         closeEditor();
     };
 
@@ -111,20 +110,22 @@ const AchievementEditor = props => {
                                 style={{ width: 380 }}
                             /> */}
                             <ReactQuill
-                                        defaultValue={item.title}
-                                        modules={richEditorSettings}
-                                        theme={'snow'}
-                                        style={{ marginRight: '8px' }}
-                                        onChange={val => onAchievementChange(val, index)}
-                                    />
-                            <AddCircleIcon
-                                onClick={event => onAddAchievement(event, index)}
-                                className='add-item-icon'
-                            ></AddCircleIcon>
-                            <DeleteForeverIcon
-                                onClick={event => onDeleteAchievement(event, index)}
-                                className={`delete-item-icon ${index === 0 ? 'd-none' : ''}`}
-                            ></DeleteForeverIcon>
+                                defaultValue={item.title}
+                                modules={richEditorSettings}
+                                theme={'snow'}
+                                style={{ marginRight: '8px' }}
+                                onChange={val => onAchievementChange(val, index)}
+                            />
+                            <div className='items-add-remove'>
+                                <AddCircleIcon
+                                    onClick={event => onAddAchievement(event, index)}
+                                    className='add-item-icon'
+                                ></AddCircleIcon>
+                                <DeleteForeverIcon
+                                    onClick={event => onDeleteAchievement(event, index)}
+                                    className={`delete-item-icon ${index === 0 ? 'd-none' : ''}`}
+                                ></DeleteForeverIcon>
+                            </div>
                         </div>
                     );
                 })}

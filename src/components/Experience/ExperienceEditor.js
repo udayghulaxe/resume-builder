@@ -112,7 +112,7 @@ const ExperienceEditor = props => {
             </div>
 
             <div className='editor-options-wrap'>
-                {(editorData.timelineFormat !== null) && (editorData.timelineFormat !== undefined) && (
+                {editorData.timelineFormat !== null && editorData.timelineFormat !== undefined && (
                     <div>
                         Timeline Format:{' '}
                         <Switch
@@ -173,14 +173,16 @@ const ExperienceEditor = props => {
                                         onChange={val => onSummaryChange(val, index)}
                                     />
                                 </div>
-                                <AddCircleIcon
-                                    onClick={event => onAddExperience(event, index)}
-                                    className='add-item-icon'
-                                ></AddCircleIcon>
-                                <DeleteForeverIcon
-                                    onClick={event => onDeleteExperience(event, index)}
-                                    className={`delete-item-icon ${index === 0 ? 'd-none' : ''}`}
-                                ></DeleteForeverIcon>
+                                <div className='items-add-remove'>
+                                    <AddCircleIcon
+                                        onClick={event => onAddExperience(event, index)}
+                                        className='add-item-icon'
+                                    ></AddCircleIcon>
+                                    <DeleteForeverIcon
+                                        onClick={event => onDeleteExperience(event, index)}
+                                        className={`delete-item-icon ${index === 0 ? 'd-none' : ''}`}
+                                    ></DeleteForeverIcon>
+                                </div>
                             </div>
                             <Box sx={{ height: 20 }}></Box>
                             <Divider></Divider>

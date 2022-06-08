@@ -52,10 +52,9 @@ const SkillsEditor = props => {
     const onSave = event => {
         const newData = { ...editorData };
         const data = JSON.parse(JSON.stringify(resumeDataReducer.resumeData));
-        data[props.componentColumn].filter(item => item.name === props.componentName)[0].componentData =
-        newData;
+        data[props.componentColumn].filter(item => item.name === props.componentName)[0].componentData = newData;
 
-        dispatch(updateResumeDataByResumeId({data, resumeId}));
+        dispatch(updateResumeDataByResumeId({ data, resumeId }));
         closeEditor();
     };
 
@@ -109,14 +108,16 @@ const SkillsEditor = props => {
                                 data-key={index}
                                 size='small'
                             />
-                            <AddCircleIcon
-                                onClick={event => onAddSkill(event, index)}
-                                className='add-item-icon'
-                            ></AddCircleIcon>
-                            <DeleteForeverIcon
-                                onClick={event => onDeleteSkill(event, index)}
-                                className={`delete-item-icon ${index === 0 ? 'd-none' : ''}`}
-                            ></DeleteForeverIcon>
+                            <div className='items-add-remove'>
+                                <AddCircleIcon
+                                    onClick={event => onAddSkill(event, index)}
+                                    className='add-item-icon'
+                                ></AddCircleIcon>
+                                <DeleteForeverIcon
+                                    onClick={event => onDeleteSkill(event, index)}
+                                    className={`delete-item-icon ${index === 0 ? 'd-none' : ''}`}
+                                ></DeleteForeverIcon>
+                            </div>
                         </div>
                     );
                 })}

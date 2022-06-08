@@ -23,10 +23,9 @@ const SocialEditor = props => {
     const onSave = event => {
         const newData = { ...editorData };
         const data = JSON.parse(JSON.stringify(resumeDataReducer.resumeData));
-        data[props.componentColumn].filter(item => item.name === props.componentName)[0].componentData =
-        newData;
+        data[props.componentColumn].filter(item => item.name === props.componentName)[0].componentData = newData;
 
-        dispatch(updateResumeDataByResumeId({data, resumeId}));
+        dispatch(updateResumeDataByResumeId({ data, resumeId }));
         closeEditor();
     };
 
@@ -113,14 +112,16 @@ const SocialEditor = props => {
                                         size='small'
                                     />
                                 </div>
-                                <AddCircleIcon
-                                    onClick={event => onAddSocial(event, index)}
-                                    className='add-item-icon'
-                                ></AddCircleIcon>
-                                <DeleteForeverIcon
-                                    onClick={event => onDeleteExperience(event, index)}
-                                    className={`delete-item-icon ${index === 0 ? 'd-none' : ''}`}
-                                ></DeleteForeverIcon>
+                                <div className='items-add-remove'>
+                                    <AddCircleIcon
+                                        onClick={event => onAddSocial(event, index)}
+                                        className='add-item-icon'
+                                    ></AddCircleIcon>
+                                    <DeleteForeverIcon
+                                        onClick={event => onDeleteExperience(event, index)}
+                                        className={`delete-item-icon ${index === 0 ? 'd-none' : ''}`}
+                                    ></DeleteForeverIcon>
+                                </div>
                             </div>
                             <Box sx={{ height: 20 }}></Box>
                             <Divider></Divider>

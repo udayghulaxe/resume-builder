@@ -87,10 +87,9 @@ const LanguagesEditor = props => {
     const onSave = event => {
         const newData = { ...editorData };
         const data = JSON.parse(JSON.stringify(resumeDataReducer.resumeData));
-        data[props.componentColumn].filter(item => item.name === props.componentName)[0].componentData =
-        newData;
+        data[props.componentColumn].filter(item => item.name === props.componentName)[0].componentData = newData;
 
-        dispatch(updateResumeDataByResumeId({data, resumeId}));
+        dispatch(updateResumeDataByResumeId({ data, resumeId }));
         closeEditor();
     };
 
@@ -204,20 +203,22 @@ const LanguagesEditor = props => {
                                     aria-label='Proficiency'
                                     value={getProficiencyValue(item.proficiency)}
                                     step={25}
-                                    marks
+                                    marks={true}
                                     min={25}
                                     max={100}
                                     onChange={event => onProficiencyChange(event, index)}
                                 />
                             </div>
-                            <AddCircleIcon
-                                onClick={event => onAddLanguage(event, index)}
-                                className='add-item-icon'
-                            ></AddCircleIcon>
-                            <DeleteForeverIcon
-                                onClick={event => onDeleteLanguage(event, index)}
-                                className={`delete-item-icon ${index === 0 ? 'd-none' : ''}`}
-                            ></DeleteForeverIcon>
+                            <div className='items-add-remove'>
+                                <AddCircleIcon
+                                    onClick={event => onAddLanguage(event, index)}
+                                    className='add-item-icon'
+                                ></AddCircleIcon>
+                                <DeleteForeverIcon
+                                    onClick={event => onDeleteLanguage(event, index)}
+                                    className={`delete-item-icon ${index === 0 ? 'd-none' : ''}`}
+                                ></DeleteForeverIcon>
+                            </div>
                         </div>
                     );
                 })}
