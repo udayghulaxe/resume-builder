@@ -96,7 +96,6 @@ const LanguagesEditor = props => {
 
     const closeEditor = () => {
         dispatch(updateOpenEditorName(null));
-        props.setOpen(false);
     };
 
     const getProficiencyValue = prof => {

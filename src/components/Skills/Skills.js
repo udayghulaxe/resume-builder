@@ -1,28 +1,19 @@
 import React, { useState } from 'react';
 import { Chip } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
 import SkillsEditor from './SkillsEditor';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateOpenEditorName } from '../../reducers/resumeDataSlice';
+import { useSelector } from 'react-redux';
 
 import './Skills.css';
 const Skills = props => {
     const [widgetData, setWidgetData] = useState(props.componentItem.componentData);
-    const dispatch = useDispatch();
     console.log('calling skills');
-
     const openEditorName = useSelector(state => state.resumeDataReducer.openEditorName);
-    const openEditor = () => {
-        dispatch(updateOpenEditorName(props.componentItem.name));
-    };
+   
 
     return (
         <div className='resume-section resume-section-skills'>
             <div className='resume-section-title'>
                 <span>{widgetData.title}</span>
-                <span className='edit-component-icon'>
-                    <EditIcon titleAccess='Edit' onClick={openEditor} />
-                </span>
             </div>
 
             <div className='skills-item-wrap'>

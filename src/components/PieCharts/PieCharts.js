@@ -1,33 +1,21 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateOpenEditorName } from '../../reducers/resumeDataSlice';
+import { useSelector } from 'react-redux';
 import { PieChart } from 'react-minimal-pie-chart';
 import PieChartsEditor from './PieChartsEditor';
-import EditIcon from '@mui/icons-material/Edit';
 
 import './PieCharts.css';
 
 const PieCharts = props => {
-    const [open, setOpen] = useState(false);
-    console.log('calling pie chart', open);
+    console.log('calling pie chart');
 
     const [widgetData, setWidgetData] = useState(props.componentItem.componentData);
-    const dispatch = useDispatch();
-
     const openEditorName = useSelector(state => state.resumeDataReducer.openEditorName);
 
-    const openEditor = () => {
-        dispatch(updateOpenEditorName(props.componentItem.name));
-        setOpen(true);
-    };
 
     return (
         <div className='resume-section resume-section-piechart'>
             <div className='resume-section-title'>
                 <span>{widgetData.title}</span>
-                <span className='edit-component-icon'>
-                    <EditIcon titleAccess='Edit' onClick={openEditor} />
-                </span>
             </div>
             <div style={{ height: '150px', marginTop: '20px' }}>
                 <PieChart
