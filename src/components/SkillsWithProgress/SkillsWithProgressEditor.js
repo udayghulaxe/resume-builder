@@ -65,10 +65,9 @@ const SkillsWithProgressEditor = props => {
     const onSave = event => {
         const newData = { ...editorData, items: editorData.items.filter((item, index) => item.title.length > 0) };
         const data = JSON.parse(JSON.stringify(resumeDataReducer.resumeData));
-        data[props.componentColumn].filter(item => item.name === props.componentName)[0].componentData =
-        newData;
+        data[props.componentColumn].filter(item => item.name === props.componentName)[0].componentData = newData;
 
-        dispatch(updateResumeDataByResumeId({data, resumeId}));
+        dispatch(updateResumeDataByResumeId({ data, resumeId }));
         closeEditor();
     };
 
@@ -143,6 +142,8 @@ const SkillsWithProgressEditor = props => {
                 {editorData.items.map((item, index) => {
                     return (
                         <div className='editor-item' key={index}>
+                            
+
                             <TextField
                                 label={'Option ' + (index + 1)}
                                 sx={{ mb: 1, mt: 1, mr: 1 }}
@@ -163,14 +164,16 @@ const SkillsWithProgressEditor = props => {
                                     onChange={event => onProficiencyChange(event, index)}
                                 />
                             </div>
-                            <AddCircleIcon
-                                onClick={event => onAddSkills(event, index)}
-                                className='add-item-icon'
-                            ></AddCircleIcon>
-                            <DeleteForeverIcon
-                                onClick={event => onDeleteSkills(event, index)}
-                                className={`delete-item-icon ${index === 0 ? 'd-none' : ''}`}
-                            ></DeleteForeverIcon>
+                            <div className='items-add-remove'>
+                                <AddCircleIcon
+                                    onClick={event => onAddSkills(event, index)}
+                                    className='add-item-icon'
+                                ></AddCircleIcon>
+                                <DeleteForeverIcon
+                                    onClick={event => onDeleteSkills(event, index)}
+                                    className={`delete-item-icon ${index === 0 ? 'd-none' : ''}`}
+                                ></DeleteForeverIcon>
+                            </div>
                         </div>
                     );
                 })}

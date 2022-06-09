@@ -160,7 +160,9 @@
 }
 
 .component-library .resume-section-wrap {
-    margin: 5px;
+    margin: 5px 5px 20px 5px;
+    outline: 1px dashed rgb(90, 89, 89);
+    border-radius: 4px;
 }
 
 .setting-editor-container-wrap {
@@ -208,19 +210,26 @@
     .layout-option-items {
         margin-bottom: 10px;
     }
-    .resume-paper-wrap {
+    .resume-paper-container {
         padding: 60px 10px;
-        zoom: 70%;
+        zoom: 47%;
+    }
+
+    .resume-paper-wrap {
+        padding: 20px 0;
+    }
+
+    .MuiPaper-rounded.resume-paper {
+        width: auto;
+    }
+
+    .component-library-wrap {
+        padding: 20px 10px;
     }
 }
 
 @media screen and (max-width: 480px) {
     .MuiPaper-rounded.resume-paper {
         width: auto;
-    }
-
-    .resume-paper-wrap {
-        padding: 60px 10px;
-        zoom: 60%;
     }
 }

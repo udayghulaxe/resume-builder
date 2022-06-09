@@ -71,7 +71,7 @@ code {
     margin-bottom: 5px;
 }
 
-.resume-section-wrap:hover {
+#resumPaperContainer .resume-section-wrap:hover {
     outline: 1px dashed rgb(90, 89, 89);
     border-radius: 4px;
     /* background-color: rgb(250, 250, 250); */
@@ -486,17 +486,25 @@ EDITOR SECTION START
 .MuiSvgIcon-root.add-item-icon {
     color: var(--color-primary);
     cursor: pointer;
-    margin-right: 20px;
+    margin-right: 8px;
 }
 
 .MuiSvgIcon-root.delete-item-icon {
     color: var(--color-error);
     cursor: pointer;
+    
 }
 
 .editor-item {
     display: flex;
     align-items: center;
+}
+
+.items-add-remove {
+    min-width: 60px;
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 20px;
 }
 
 /* ====================
