@@ -95,11 +95,11 @@ const Experience = props => {
                                 </span>
                                 {item.company && (
                                     <div className='resume-section-body'>
-                                        <strong>
+                                        <div className='experience-company'>
                                             {' '}
                                             {item.company}
                                             {item.location && ','} {item.location}
-                                        </strong>
+                                        </div>
                                     </div>
                                 )}
                                 <div
