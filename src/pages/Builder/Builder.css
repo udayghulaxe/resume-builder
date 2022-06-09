@@ -210,7 +210,7 @@
     .layout-option-items {
         margin-bottom: 10px;
     }
-    .resume-paper-container {
+    .resume-paper-wrap:not(.download-mode) .resume-paper-container {
         padding: 60px 10px;
         zoom: 47%;
     }

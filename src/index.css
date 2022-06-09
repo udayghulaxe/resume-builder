@@ -785,9 +785,21 @@ RICH TEXT EDITOR SECTION END
 
 .download-mode  {
     padding: 0 !important;
+    margin: 0 !important;
     
 }
 
 .download-mode .MuiPaper-rounded.resume-paper {
-    max-width: 100%;
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+
+.download-mode .MuiPaper-rounded.resume-paper {
+    height: 100% !important;
+    box-shadow: none !important;
+}
+
+.download-mode #resumePageSeparator {
+    display: none;
 }
