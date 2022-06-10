@@ -344,7 +344,7 @@ code {
 
 .resume-paper #sidebar {
     padding: 10px 40px 10px 10px;
-    height: 100%;
+    height: auto;
 }
 
 .sidebar-left #main {
@@ -802,7 +802,7 @@ RICH TEXT EDITOR SECTION END
 
 
 .download-mode .MuiPaper-rounded.resume-paper {
-    height: 100% !important;
+    height: 100vh !important;
     box-shadow: none !important;
 }
 
