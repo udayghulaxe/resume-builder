@@ -52,6 +52,26 @@
 .resume-setting-item-body {
     display: flex;
     margin-top: 5px;
+    flex-wrap: wrap;
+}
+
+.font-style-div {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(187, 187, 187);
+    color: rgb(79, 79, 79);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    font-size: 14px;
+    min-width: 125px;
+    min-height: 28px;
+    margin-right: 8px;
+    cursor: pointer;
+    padding: 0px 5px;
+    width: auto;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
 }
 
 .font-size-div,
@@ -76,7 +96,8 @@
 
 .font-size-div.active,
 .heading-alignment-div.active,
-.heading-style-div.active {
+.heading-style-div.active,
+.font-style-div.active {
     background-color: rgb(79 80 213 / 11%);
     border: 1px solid var(--color-primary);
     color: var(--color-primary);

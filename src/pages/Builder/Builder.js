@@ -11,7 +11,7 @@ import {
     Snackbar,
     LinearProgress,
     Dialog,
-    DialogContent 
+    DialogContent,
 } from '@mui/material';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { useSelector, useDispatch } from 'react-redux';
@@ -26,7 +26,7 @@ import {
     updateSettingsDataReducer,
 } from '../../reducers/resumeSettingsSlice';
 import { getUserDataByUserId, updateUserResumeDataByUserId } from '../../reducers/userDataSlice';
-
+import { bodyFontFamily } from '../../globals.js';
 import WebAssetOutlinedIcon from '@mui/icons-material/WebAssetOutlined';
 import WebOutlinedIcon from '@mui/icons-material/WebOutlined';
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
@@ -42,7 +42,7 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import { useParams, useLocation } from 'react-router-dom';
 import html2canvas from 'html2canvas';
-
+import WebFont from 'webfontloader';
 import './Builder.css';
 import GlobalResumeSetting from '../../components/GlobalResumeSetting/GlobalResumeSetting';
 import 'react-quill/dist/quill.snow.css';
@@ -77,6 +77,14 @@ function Builder() {
 
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        WebFont.load({
+            google: {
+                families: bodyFontFamily,
+            },
+        });
+    }, []);
+
     const openEditorSection = () => {
         if (openEditorName === 'globalSetting') {
             dispatch(updateOpenEditorName(null));
@@ -85,9 +93,9 @@ function Builder() {
         }
     };
 
-    const openComponentEditor = (item) => {
-        dispatch(updateOpenEditorName(item.name)); 
-    }
+    const openComponentEditor = item => {
+        dispatch(updateOpenEditorName(item.name));
+    };
 
     useEffect(() => {
         console.log('calling builder effect');
@@ -129,11 +137,12 @@ function Builder() {
                 root.style.setProperty('--color-font-about-section', res.payload.aboutSectionFontColor);
                 root.style.setProperty('--color-sidebar-body', res.payload.sidebarBodyColor);
                 root.style.setProperty('--color-sidebar-heading', res.payload.sidebarHeadingColor);
+                root.style.setProperty('--body-font-family', res.payload.bodyFontFamily);
             }
         });
-    }
+    };
 
-    const updateResumeData = (newData) => {
+    const updateResumeData = newData => {
         if (authReducer.userId) {
             dispatch(updateResumeDataByResumeId({ data: newData, resumeId: resumeId })).then(res => {
                 setIsLoading(false);
@@ -143,14 +152,14 @@ function Builder() {
         setTimeout(() => {
             checkForPageTwo(newData);
         }, 1000);
-    }
+    };
 
-    const updateGlobalSetting = (newData) => {
+    const updateGlobalSetting = newData => {
         if (authReducer.userId) {
             dispatch(updateResumeSettingsByResumeId({ data: newData, resumeId: resumeId }));
             dispatch(updateSettingsDataReducer(newData));
         }
-    }
+    };
 
     const checkForPageTwo = newData => {
         const paperheight = document.querySelector('#main .resume-paper-content').clientHeight;
@@ -341,7 +350,7 @@ function Builder() {
 
     const closeDownloadDialog = () => {
         setOpenDownloadDialog(false);
-    }
+    };
 
     const getComponent = (componentType, item, columnName) => {
         switch (componentType) {
@@ -381,7 +390,7 @@ function Builder() {
             default:
                 return null;
         }
-    }
+    };
 
     if (arr && resumeSettings) {
         resumeHTML = (
@@ -396,7 +405,13 @@ function Builder() {
                         New Widgets Available. Try Out.
                     </Alert>
                 </Snackbar>
-                <Dialog fullWidth={true} maxWidth={'sm'} open={openDownloadDialog} onClose={closeDownloadDialog} scroll='body'>
+                <Dialog
+                    fullWidth={true}
+                    maxWidth={'sm'}
+                    open={openDownloadDialog}
+                    onClose={closeDownloadDialog}
+                    scroll='body'
+                >
                     <DialogContent className='preview-dialog-content'>
                         <DownloadResumeFeedBack downloading={downloadProgress}></DownloadResumeFeedBack>
                     </DialogContent>
@@ -406,7 +421,6 @@ function Builder() {
                         <Grid item xs={12} md={downloadMode ? 12 : 7.5}>
                             {!downloadMode && (
                                 <div className='layout-options'>
-                                    
                                     <div className='layout-option-items'>
                                         <div className='layout-option-item'>
                                             <Button
@@ -496,10 +510,13 @@ function Builder() {
                                             </Button>
                                         </div>
                                     </div>
-                                    
                                 </div>
                             )}
-                            <div className='resume-paper-container' id='resumPaperContainer'>
+                            <div
+                                className='resume-paper-container'
+                                id='resumPaperContainer'
+                                style={{ fontFamily: resumeSettings.bodyFontFamily }}
+                            >
                                 <Paper
                                     className={`resume-paper ${resumeSettings.headingStyle} heading-alignment-${resumeSettings.headingAlignment} heading-font-${resumeSettings.headingFontSize} subheading-font-${resumeSettings.subheadingFontSize} body-font-${resumeSettings.bodyFontSize}`}
                                     sx={{
@@ -576,7 +593,12 @@ function Builder() {
                                                                                     />
                                                                                 </span>
                                                                                 <span className='edit-component-icon'>
-                                                                                    <EditIcon titleAccess='Edit' onClick={()=> { openComponentEditor(item) }} />
+                                                                                    <EditIcon
+                                                                                        titleAccess='Edit'
+                                                                                        onClick={() => {
+                                                                                            openComponentEditor(item);
+                                                                                        }}
+                                                                                    />
                                                                                 </span>
                                                                                 <span className='remove-component'>
                                                                                     <RemoveOutlinedIcon
@@ -609,7 +631,7 @@ function Builder() {
                                                                                             )
                                                                                         }
                                                                                     />
-                                                                                </span>                                                                               
+                                                                                </span>
                                                                             </div>
                                                                         </div>
                                                                     )}
@@ -691,7 +713,14 @@ function Builder() {
                                                                                         />
                                                                                     </span>
                                                                                     <span className='edit-component-icon'>
-                                                                                        <EditIcon titleAccess='Edit' onClick={()=> { openComponentEditor(item) }} />
+                                                                                        <EditIcon
+                                                                                            titleAccess='Edit'
+                                                                                            onClick={() => {
+                                                                                                openComponentEditor(
+                                                                                                    item
+                                                                                                );
+                                                                                            }}
+                                                                                        />
                                                                                     </span>
                                                                                     <span className='remove-component'>
                                                                                         <RemoveOutlinedIcon
@@ -804,7 +833,14 @@ function Builder() {
                                                                                             />
                                                                                         </span>
                                                                                         <span className='edit-component-icon'>
-                                                                                            <EditIcon titleAccess='Edit' onClick={()=> { openComponentEditor(item) }} />
+                                                                                            <EditIcon
+                                                                                                titleAccess='Edit'
+                                                                                                onClick={() => {
+                                                                                                    openComponentEditor(
+                                                                                                        item
+                                                                                                    );
+                                                                                                }}
+                                                                                            />
                                                                                         </span>
                                                                                         <span className='remove-component'>
                                                                                             <RemoveOutlinedIcon
@@ -921,7 +957,14 @@ function Builder() {
                                                                                             />
                                                                                         </span>
                                                                                         <span className='edit-component-icon'>
-                                                                                            <EditIcon titleAccess='Edit' onClick={()=> { openComponentEditor(item) }} />
+                                                                                            <EditIcon
+                                                                                                titleAccess='Edit'
+                                                                                                onClick={() => {
+                                                                                                    openComponentEditor(
+                                                                                                        item
+                                                                                                    );
+                                                                                                }}
+                                                                                            />
                                                                                         </span>
                                                                                         <span className='remove-component'>
                                                                                             <RemoveOutlinedIcon
