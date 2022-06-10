@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from '@mui/material';
 import { GithubPicker } from 'react-color';
-import { fontSizes, colors} from '../../globals.js';
+import {bodyFontFamily, fontSizes, colors} from '../../globals.js';
 import FormatAlignLeftOutlinedIcon from '@mui/icons-material/FormatAlignLeftOutlined';
 import FormatAlignCenterOutlinedIcon from '@mui/icons-material/FormatAlignCenterOutlined';
 import FormatAlignRightOutlinedIcon from '@mui/icons-material/FormatAlignRightOutlined';
@@ -97,6 +97,10 @@ const GlobalResumeSetting = props => {
     const changeBodyFont = (e, size) => {
         props.setResumeSettings({ ...props.resumeSettings, bodyFontSize: size });
     };
+
+    const changeFontFamily = (e, fontFamily) => {
+        props.setResumeSettings({ ...props.resumeSettings, bodyFontFamily: fontFamily });
+    }
 
     const changeHeadingAlignment = (e, alignment) => {
         props.setResumeSettings({ ...props.resumeSettings, headingAlignment: alignment });
@@ -430,6 +434,31 @@ const GlobalResumeSetting = props => {
                     </div>
                 </div>
             </div>
+
+            <div className='resume-setting-section'>
+                <div className='resume-setting-heading'>
+                    <span>Font Styles</span>
+                </div>
+                <div className='resume-setting-item'>
+                <div className='resume-setting-item-body'>
+                        {bodyFontFamily.map((fontFamily, index) => {
+                            return (
+                                <div
+                                    style={{fontFamily: fontFamily}}
+                                    key={index}
+                                    className={`font-style-div ${
+                                        props.resumeSettings.bodyFontFamily === fontFamily ? 'active' : ''
+                                    }`}
+                                    onClick={event => changeFontFamily(event, fontFamily)}
+                                >
+                                    {fontFamily}
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+
+            </div>    
             <div className='resume-setting-section'>
                 <div className='resume-setting-heading'>
                     <span>Heading Styles</span>

@@ -26,7 +26,7 @@ const PieCharts = props => {
                     labelStyle={index => ({
                         fill: '#000000',
                         fontSize: '0.55em',
-                        fontFamily: 'sans-serif',
+                        fontFamily: 'roboto',
                     })}
                     radius={42}
                     labelPosition={112}

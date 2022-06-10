@@ -5,7 +5,7 @@ html {
     --color-border-light: #d3d3d3;
     --color-border-dark: #2f2f2f;
     --color-primary: #4f50d5;
-    --color-primary-wop: rgba(9, 145, 90, 0.04);
+    --color-primary-wop: rgba(78, 78, 212, 0.06);
     --color-error: #ff0000;
     --color-font-secondary: #505050;
     --color-font-heading: #000000;
@@ -15,6 +15,7 @@ html {
     --color-sidebar-body: #000000;
     --color-sidebar-heading: #000000;
     --gutter: 16px;
+    --body-font-family: 'Roboto';
 }
 
 h1,

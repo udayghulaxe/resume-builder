@@ -28,6 +28,7 @@ export const initialData = {
         headingStyle: 'heading-style-with-underline',
         sidebar: true,
         sidebarPosition: 'right',
+        bodyFontFamily: 'Roboto',
     },
     resumeJson: {
         header: [
@@ -44,7 +45,8 @@ export const initialData = {
                     title: 'Professional Summary',
                     items: [
                         {
-                            summary: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
+                            summary:
+                                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
                         },
                     ],
                     hideTitle: false,
@@ -204,9 +206,9 @@ export const initialData = {
                         { title: 'Teamwork', value: 40, color: 'rgb(79, 80, 213, 1)' },
                         { title: 'Creativity', value: 20, color: 'rgb(79, 80, 213, 0.9)' },
                         { title: 'Communication', value: 10, color: 'rgb(79, 80, 213, 0.8)' },
-                        { title: 'Networking', value: 10, color: 'rgb(79, 80, 213, 0.7)'},
+                        { title: 'Networking', value: 10, color: 'rgb(79, 80, 213, 0.7)' },
                         { title: 'Leadership', value: 20, color: 'rgb(79, 80, 213, 0.6)' },
-                    ]
+                    ],
                 },
             },
             {
@@ -270,7 +272,7 @@ export const initialData = {
                         { title: 'Ms Word', value: 40, color: 'rgb(79, 80, 213, 1)' },
                         { title: 'Ms Excel', value: 40, color: 'rgb(79, 80, 213, 0.9)' },
                         { title: 'Photoshop', value: 20, color: 'rgb(79, 80, 213, 0.8)' },
-                    ]
+                    ],
                 },
             },
             {
@@ -281,7 +283,8 @@ export const initialData = {
                     title: 'Rich Text',
                     items: [
                         {
-                            summary: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
+                            summary:
+                                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
                         },
                     ],
                     hideTitle: true,
@@ -353,4 +356,19 @@ export const headingStyles = [
     'heading-style-with-underline',
     'heading-style-with-double-line',
     'heading-style-with-none',
-]
+];
+
+export const bodyFontFamily = [
+    'Bitter',
+    'Roboto',
+    'Rubik',
+    'Joan',
+    'Lato',
+    'Raleway',
+    'QuickSand',
+    'Noto Serif',
+    'Source Code Pro',
+    'IBM Plex Mono',
+    'Lora',
+    'Noto Sans Display',
+];
