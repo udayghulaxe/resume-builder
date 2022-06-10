@@ -82,7 +82,7 @@ const Education = props => {
                                 </span>
                                 {item.university && (
                                     <div className='resume-section-body'>
-                                        <strong> {item.university}</strong>
+                                        <div className='education-uni'> {item.university}</div>
                                     </div>
                                 )}
                                 {item.gpa && (

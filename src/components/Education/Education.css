@@ -4,7 +4,11 @@
     border-bottom: 1px dashed var(--color-border-light);
 }
 .education-title {
-    font-weight: 600;
+    font-weight: 500;
+}
+
+.education-uni {
+    font-weight: 500;
 }
 
 .education-university {

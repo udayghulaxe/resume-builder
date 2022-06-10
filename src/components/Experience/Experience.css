@@ -5,7 +5,11 @@
 }
 
 .experience-title {
-    font-weight: 600;
+    font-weight: 500;
+}
+
+.experience-company {
+    font-weight: 500;
 }
 
 .experience-summary {

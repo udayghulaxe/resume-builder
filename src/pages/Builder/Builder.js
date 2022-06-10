@@ -406,6 +406,35 @@ function Builder() {
                         <Grid item xs={12} md={downloadMode ? 12 : 7.5}>
                             {!downloadMode && (
                                 <div className='layout-options'>
+                                    
+                                    <div className='layout-option-items'>
+                                        <div className='layout-option-item'>
+                                            <Button
+                                                onClick={downloadResume}
+                                                startIcon={<FileDownloadOutlinedIcon />}
+                                                variant='contained'
+                                                color='primary'
+                                                size='small'
+                                                disableElevation
+                                            >
+                                                Download
+                                            </Button>
+                                        </div>
+                                        <div className='layout-option-item'>
+                                            <Button
+                                                className={isLoading ? 'item-disabled' : ''}
+                                                color='primary'
+                                                variant='contained'
+                                                disableElevation
+                                                size='small'
+                                                startIcon={<SaveOutlinedIcon />}
+                                                onClick={saveChanges}
+                                            >
+                                                Save Changes
+                                            </Button>
+                                        </div>
+                                    </div>
+
                                     <div className='layout-option-items'>
                                         <div className='layout-option-item'>
                                             {resumeSettings.sidebar ? (
@@ -467,34 +496,7 @@ function Builder() {
                                             </Button>
                                         </div>
                                     </div>
-
-                                    <div className='layout-option-items'>
-                                        <div className='layout-option-item'>
-                                            <Button
-                                                onClick={downloadResume}
-                                                startIcon={<FileDownloadOutlinedIcon />}
-                                                variant='contained'
-                                                color='primary'
-                                                size='small'
-                                                disableElevation
-                                            >
-                                                Download
-                                            </Button>
-                                        </div>
-                                        <div className='layout-option-item'>
-                                            <Button
-                                                className={isLoading ? 'item-disabled' : ''}
-                                                color='primary'
-                                                variant='contained'
-                                                disableElevation
-                                                size='small'
-                                                startIcon={<SaveOutlinedIcon />}
-                                                onClick={saveChanges}
-                                            >
-                                                Save Changes
-                                            </Button>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             )}
                             <div className='resume-paper-container' id='resumPaperContainer'>
