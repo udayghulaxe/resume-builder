@@ -138,6 +138,8 @@ function Builder() {
                 root.style.setProperty('--color-sidebar-body', res.payload.sidebarBodyColor);
                 root.style.setProperty('--color-sidebar-heading', res.payload.sidebarHeadingColor);
                 root.style.setProperty('--body-font-family', res.payload.bodyFontFamily);
+                root.style.setProperty('--name-font-size', res.payload.nameFontSize);
+                root.style.setProperty('--name-font-case', res.payload.nameFontCase);
             }
         });
     };
@@ -418,7 +420,7 @@ function Builder() {
                 </Dialog>
                 <div className={`resume-paper-wrap ${downloadMode ? 'download-mode' : ''}`}>
                     <Grid container spacing={2}>
-                        <Grid item xs={12} md={downloadMode ? 12 : 7.5}>
+                        <Grid item xs={12} md={downloadMode ? 12 : 8}>
                             {!downloadMode && (
                                 <div className='layout-options'>
                                     <div className='layout-option-items'>
@@ -1016,7 +1018,7 @@ function Builder() {
                             </div>
                         </Grid>
                         {!downloadMode && (
-                            <Grid className='component-library-wrap' item xs={12} md={4.5}>
+                            <Grid className='component-library-wrap' item xs={12} md={4}>
                                 <div id='editorPortal'></div>
                                 {openEditorName === 'globalSetting' ? (
                                     <div className='setting-editor-container'>

@@ -26,9 +26,9 @@ const BasicInfo = props => {
     return (
         <div className='resume-section resume-section-basic-info'>
             <div className='basic-section-title'>
-                <span className='basic-info name'>{widgetData.fullName}</span>
+                <span className='basic-info name resume-name'>{widgetData.fullName}</span>
             </div>
-            <p className='basic-info current-role'>{widgetData.currentRole}</p>
+            <p className='basic-info current-role resume-current-role'>{widgetData.currentRole}</p>
             <div>
                 <Grid
                     mt={1}

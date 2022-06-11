@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Button } from '@mui/material';
 import { GithubPicker } from 'react-color';
-import {bodyFontFamily, fontSizes, colors} from '../../globals.js';
+import { bodyFontFamily, fontSizes, colors, nameFontSizes, nameFontCases } from '../../globals.js';
 import FormatAlignLeftOutlinedIcon from '@mui/icons-material/FormatAlignLeftOutlined';
 import FormatAlignCenterOutlinedIcon from '@mui/icons-material/FormatAlignCenterOutlined';
 import FormatAlignRightOutlinedIcon from '@mui/icons-material/FormatAlignRightOutlined';
 
-import {ReactComponent as HeadingStyle1} from './../../assets/icons/heading-style-1.svg';
-import {ReactComponent as HeadingStyle2} from './../../assets/icons/heading-style-2.svg';
-import {ReactComponent as HeadingStyle3} from './../../assets/icons/heading-style-3.svg';
-import {ReactComponent as HeadingStyle4} from './../../assets/icons/heading-style-4.svg';
+import { ReactComponent as HeadingStyle1 } from './../../assets/icons/heading-style-1.svg';
+import { ReactComponent as HeadingStyle2 } from './../../assets/icons/heading-style-2.svg';
+import { ReactComponent as HeadingStyle3 } from './../../assets/icons/heading-style-3.svg';
+import { ReactComponent as HeadingStyle4 } from './../../assets/icons/heading-style-4.svg';
 
 import './GlobalResumeSetting.css';
 import { Box } from '@mui/system';
@@ -30,32 +30,32 @@ const GlobalResumeSetting = props => {
         props.openEditorSection();
     };
 
-    const changeFontColor = (property, color) => {
+    const changeCSSProperty = (property, value) => {
         const root = document.querySelector(':root');
-        root.style.setProperty(property, color);
+        root.style.setProperty(property, value);
     };
 
     const changeAboutSectionFontColor = color => {
         props.setResumeSettings({ ...props.resumeSettings, aboutSectionFontColor: color.hex });
         openColorToggle('headerFontColorToggle');
-        changeFontColor('--color-font-about-section', color.hex);
+        changeCSSProperty('--color-font-about-section', color.hex);
     };
 
     const changeHeadingFontColor = color => {
         props.setResumeSettings({ ...props.resumeSettings, headingFontColor: color.hex });
-        changeFontColor('--color-font-heading', color.hex);
+        changeCSSProperty('--color-font-heading', color.hex);
         openColorToggle('headingFontColorToggle');
     };
 
     // const changeSubheadingFontColor = color => {
     //     props.setResumeSettings({ ...props.resumeSettings, subheadingFontColor: color.hex });
-    //     changeFontColor('--color-font-subheading', color.hex);
+    //     changeCSSProperty('--color-font-subheading', color.hex);
     //     openColorToggle('subheadingFontColorToggle');
     // };
 
     const changeBodyFontColor = color => {
         props.setResumeSettings({ ...props.resumeSettings, bodyFontColor: color.hex });
-        changeFontColor('--color-font-body', color.hex);
+        changeCSSProperty('--color-font-body', color.hex);
         openColorToggle('bodyFontColorToggle');
     };
 
@@ -71,13 +71,13 @@ const GlobalResumeSetting = props => {
 
     const changeSidebarBodyColor = color => {
         props.setResumeSettings({ ...props.resumeSettings, sidebarBodyColor: color.hex });
-        changeFontColor('--color-sidebar-body', color.hex);
+        changeCSSProperty('--color-sidebar-body', color.hex);
         openColorToggle('sidebarBodyColorToggle');
     };
 
     const changeSidebarHeadingColor = color => {
         props.setResumeSettings({ ...props.resumeSettings, sidebarHeadingColor: color.hex });
-        changeFontColor('--color-sidebar-heading', color.hex);
+        changeCSSProperty('--color-sidebar-heading', color.hex);
         openColorToggle('sidebarHeadingColorToggle');
     };
 
@@ -98,18 +98,28 @@ const GlobalResumeSetting = props => {
         props.setResumeSettings({ ...props.resumeSettings, bodyFontSize: size });
     };
 
+    const changeNameFontSize = (e, size) => {
+        props.setResumeSettings({ ...props.resumeSettings, nameFontSize: size });
+        changeCSSProperty('--name-font-size', size);
+    }
+
+    const changeNameFontCase = (e, fontCase) => {
+        props.setResumeSettings({ ...props.resumeSettings, nameFontCase: fontCase });
+        changeCSSProperty('--name-font-case', fontCase);
+    }
+
     const changeFontFamily = (e, fontFamily) => {
         props.setResumeSettings({ ...props.resumeSettings, bodyFontFamily: fontFamily });
-    }
+        changeCSSProperty('--body-font-family', fontFamily);
+    };
 
     const changeHeadingAlignment = (e, alignment) => {
         props.setResumeSettings({ ...props.resumeSettings, headingAlignment: alignment });
     };
 
     const changeHeadingStyle = (e, style) => {
-        console.log(style);
         props.setResumeSettings({ ...props.resumeSettings, headingStyle: style });
-    }
+    };
 
     const onSave = () => {
         props.updateGlobalSetting(props.resumeSettings);
@@ -134,6 +144,52 @@ const GlobalResumeSetting = props => {
                     Close
                 </Button>
             </div>
+
+            <div className='resume-setting-section'>
+                <div className='resume-setting-heading'>
+                    <span>Name</span>
+                </div>
+                <div className='resume-setting-item'>
+                    <span className='resume-setting-item-label'>Name Font Size</span>
+                    <div className='resume-setting-item-body'>
+                        {nameFontSizes.map((font, index) => {
+                            return (
+                                <div
+                                    key={index}
+                                    className={`font-size-div ${
+                                        props.resumeSettings.nameFontSize === font.value ? 'active' : ''
+                                    }`}
+                                    onClick={event => changeNameFontSize(event, font.value)}
+                                >
+                                    {font.label}
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+
+                <div className='resume-setting-item'>
+                    <span className='resume-setting-item-label'>
+                        Name Font Case
+                    </span>
+                    <div className='resume-setting-item-body'>
+                        {nameFontCases.map((fontCase, index) => {
+                            return (
+                                <div
+                                    key={index}
+                                    className={`font-size-div ${
+                                        props.resumeSettings.nameFontCase === fontCase.value ? 'active' : ''
+                                    }`}
+                                    onClick={event => changeNameFontCase(event, fontCase.value)}
+                                >
+                                    {fontCase.label}
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            </div>
+
             <div className='resume-setting-section'>
                 {/* ABOUT SECTION SETTING */}
                 <div className='resume-setting-heading'>
@@ -440,11 +496,11 @@ const GlobalResumeSetting = props => {
                     <span>Font Styles</span>
                 </div>
                 <div className='resume-setting-item'>
-                <div className='resume-setting-item-body'>
+                    <div className='resume-setting-item-body'>
                         {bodyFontFamily.map((fontFamily, index) => {
                             return (
                                 <div
-                                    style={{fontFamily: fontFamily}}
+                                    style={{ fontFamily: fontFamily }}
                                     key={index}
                                     className={`font-style-div ${
                                         props.resumeSettings.bodyFontFamily === fontFamily ? 'active' : ''
@@ -457,8 +513,7 @@ const GlobalResumeSetting = props => {
                         })}
                     </div>
                 </div>
-
-            </div>    
+            </div>
             <div className='resume-setting-section'>
                 <div className='resume-setting-heading'>
                     <span>Heading Styles</span>
@@ -495,28 +550,39 @@ const GlobalResumeSetting = props => {
                     </div>
                 </div>
 
-
                 <div className='resume-setting-item'>
                     <span className='resume-setting-item-label'>Heading Style</span>
                     <div className='resume-setting-item-body'>
-                        <div className={`heading-style-div ${
+                        <div
+                            className={`heading-style-div ${
                                 props.resumeSettings.headingStyle === 'heading-style-with-background' ? 'active' : ''
-                            }`} onClick={event => changeHeadingStyle(event, 'heading-style-with-background')}>
+                            }`}
+                            onClick={event => changeHeadingStyle(event, 'heading-style-with-background')}
+                        >
                             <HeadingStyle1></HeadingStyle1>
                         </div>
-                        <div className={`heading-style-div ${
+                        <div
+                            className={`heading-style-div ${
                                 props.resumeSettings.headingStyle === 'heading-style-with-double-line' ? 'active' : ''
-                            }`} onClick={event => changeHeadingStyle(event, 'heading-style-with-double-line')}>
+                            }`}
+                            onClick={event => changeHeadingStyle(event, 'heading-style-with-double-line')}
+                        >
                             <HeadingStyle2></HeadingStyle2>
                         </div>
-                        <div className={`heading-style-div ${
+                        <div
+                            className={`heading-style-div ${
                                 props.resumeSettings.headingStyle === 'heading-style-with-underline' ? 'active' : ''
-                            }`} onClick={event => changeHeadingStyle(event, 'heading-style-with-underline')}>
+                            }`}
+                            onClick={event => changeHeadingStyle(event, 'heading-style-with-underline')}
+                        >
                             <HeadingStyle3></HeadingStyle3>
                         </div>
-                        <div className={`heading-style-div ${
+                        <div
+                            className={`heading-style-div ${
                                 props.resumeSettings.headingStyle === 'heading-style-with-none' ? 'active' : ''
-                            }`} onClick={event => changeHeadingStyle(event, 'heading-style-with-none')}>
+                            }`}
+                            onClick={event => changeHeadingStyle(event, 'heading-style-with-none')}
+                        >
                             <HeadingStyle4></HeadingStyle4>
                         </div>
                     </div>
