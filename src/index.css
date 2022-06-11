@@ -16,6 +16,8 @@ html {
     --color-sidebar-heading: #000000;
     --gutter: 16px;
     --body-font-family: 'Roboto';
+    --name-font-size: 36px;
+    --name-font-case: 'capitalize';
 }
 
 h1,
@@ -168,10 +170,12 @@ code {
 
 .resume-paper #main .resume-section-body {
     color: var(--color-font-body) !important;
+    font-family: var(--body-font-family) !important;
 }
 
 .resume-paper #sidebar .resume-section-body {
     color: var(--color-sidebar-body) !important;
+    font-family: var(--body-font-family) !important;
 }
 
 .resume-paper #main .resume-section-piechart svg text {
@@ -283,6 +287,15 @@ code {
     background-color: var(--color-sidebar-heading);
     opacity: 0.06;
     border-radius: 4px;
+}
+
+.resume-name {
+    font-size: var(--name-font-size) !important;
+    text-transform: var(--name-font-case) !important;
+}
+
+.body-font-family {
+    font-family: var(--body-font-family) !important;
 }
 
 .resume-paper .resume-section-devider .resume-section-title {

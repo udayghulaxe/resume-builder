@@ -19,3 +19,7 @@
 .MuiTimelineContent-root {
     font-family: inherit !important;
 }
+
+.MuiTimeline-root {
+    margin-bottom: 0;
+}

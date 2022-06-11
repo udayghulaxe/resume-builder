@@ -29,6 +29,8 @@ export const initialData = {
         sidebar: true,
         sidebarPosition: 'right',
         bodyFontFamily: 'Roboto',
+        nameFontSize: '36px',
+        nameFontCase: 'capitalize',
     },
     resumeJson: {
         header: [
@@ -78,24 +80,6 @@ export const initialData = {
                 },
             },
             {
-                name: 'Achievements',
-                componentType: 'Achievements',
-                path: 'Achievements/Achievement',
-                componentData: {
-                    title: 'Achievements',
-                    showIcon: true,
-                    items: [
-                        {
-                            title: 'Won Best Employee Award for last 2 consecutive year (2020 & 2021). Won Best Employee Award for last 2 consecutive year (2020 & 2021).',
-                        },
-                        { title: 'Won inter-zone cricket competition (2020). ' },
-                        {
-                            title: 'Runner up for state level table tennis competition (2020).',
-                        },
-                    ],
-                },
-            },
-            {
                 name: 'Experience',
                 componentType: 'Experience',
                 path: 'Experience/Experience',
@@ -118,6 +102,24 @@ export const initialData = {
                             location: 'New York',
                             experienceSummary:
                                 'Worked with team of 5 members and provided end-to-end solutions for clients & Lead developer in 4 key projects of major clients.',
+                        },
+                    ],
+                },
+            },
+            {
+                name: 'Achievements',
+                componentType: 'Achievements',
+                path: 'Achievements/Achievement',
+                componentData: {
+                    title: 'Achievements',
+                    showIcon: true,
+                    items: [
+                        {
+                            title: 'Won Best Employee Award for last 2 consecutive year (2020 & 2021). Won Best Employee Award for last 2 consecutive year (2020 & 2021).',
+                        },
+                        { title: 'Won inter-zone cricket competition (2020). ' },
+                        {
+                            title: 'Runner up for state level table tennis competition (2020).',
                         },
                     ],
                 },
@@ -336,6 +338,44 @@ export const fontSizes = [
     },
 ];
 
+export const nameFontCases = [
+    {
+        value: 'capitalize',
+        label: 'Capitalize',
+    },
+    {
+        value: 'lowercase',
+        label: 'lowercase',
+    },
+    {
+        value: 'uppercase',
+        label: 'UPPERCASE',
+    }
+];
+
+export const nameFontSizes = [
+    {
+        value: '28px',
+        label: 'XL',
+    },
+    {
+        value: '32px',
+        label: '2XL',
+    },
+    {
+        value: '36px',
+        label: '3XL',
+    },
+    {
+        value: '40px',
+        label: '4XL',
+    },
+    {
+        value: '44px',
+        label: '5XL',
+    },
+];
+
 export const headingAlignment = [
     {
         value: 'left',
@@ -367,7 +407,7 @@ export const bodyFontFamily = [
     'Raleway',
     'QuickSand',
     'Noto Serif',
-    'Source Code Pro',
+    'El Messiri',
     'IBM Plex Mono',
     'Lora',
     'Noto Sans Display',

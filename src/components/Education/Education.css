@@ -16,3 +16,11 @@
     font-size: 0.9em;
     margin-bottom: 2px;
 }
+
+.MuiTimelineContent-root {
+    font-family: inherit !important;
+}
+
+.MuiTimeline-root {
+    margin-bottom: 0;
+}
