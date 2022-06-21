@@ -412,3 +412,12 @@ export const bodyFontFamily = [
     'Lora',
     'Noto Sans Display',
 ];
+
+export const nameFontFamily = [
+    'Lobster',
+    'Sacramento',
+    'Pacifico',
+    'Bungee',
+    'Black Ops One',
+    'Stardos Stencil',
+]

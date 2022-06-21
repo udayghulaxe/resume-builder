@@ -4,7 +4,7 @@ import { TextField, Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateResumeDataByResumeId, updateOpenEditorName } from '../../reducers/resumeDataSlice';
 import { useParams } from 'react-router-dom';
-
+import ImageResizeCrop from '../ImageResizeCrop/ImageResizeCrop';
 const BasicInfoEditor = props => {
     const [editorData, setEditorData] = useState(props.editorData);
     const { resumeDataReducer } = useSelector(state => state);
@@ -35,6 +35,26 @@ const BasicInfoEditor = props => {
         dispatch(updateOpenEditorName(null));
     };
 
+    
+    // const onFileChange = (e) => {
+    //     const file = e.target.files[0];
+    //     console.log(file);
+    //     getBase64(file, (result) => {
+    //         console.log(result);
+    //    });
+    // }
+
+    // const getBase64 = (file, cb) => {
+    //     let reader = new FileReader();
+    //     reader.readAsDataURL(file);
+    //     reader.onload = function () {
+    //         cb(reader.result)
+    //     };
+    //     reader.onerror = function (error) {
+    //         console.log('Error: ', error);
+    //     };
+    // }
+
     return ReactDOM.createPortal(
         <div className='editor-wrap'>
             <div className='editor-section-header'>
@@ -51,6 +71,18 @@ const BasicInfoEditor = props => {
             <div className='editor-items-wrap'>
                 <div className='editor-item'>
                     <div>
+                        {/* <div>
+                            <label htmlFor="contained-button-file">
+                                <Input accept="image/*" id="contained-button-file" type="file" onChange={onFileChange}  />
+                                <Button variant="contained" component="span">
+                                    Upload
+                                </Button>
+                            </label>
+                        </div> */}
+                        <div>
+                            <ImageResizeCrop></ImageResizeCrop>
+                        </div>
+
                         <div>
                             <TextField
                                 label='Full Name'

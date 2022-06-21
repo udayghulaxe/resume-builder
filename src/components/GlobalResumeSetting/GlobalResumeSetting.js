@@ -101,17 +101,21 @@ const GlobalResumeSetting = props => {
     const changeNameFontSize = (e, size) => {
         props.setResumeSettings({ ...props.resumeSettings, nameFontSize: size });
         changeCSSProperty('--name-font-size', size);
-    }
+    };
 
     const changeNameFontCase = (e, fontCase) => {
         props.setResumeSettings({ ...props.resumeSettings, nameFontCase: fontCase });
         changeCSSProperty('--name-font-case', fontCase);
-    }
+    };
 
     const changeFontFamily = (e, fontFamily) => {
         props.setResumeSettings({ ...props.resumeSettings, bodyFontFamily: fontFamily });
         changeCSSProperty('--body-font-family', fontFamily);
     };
+    // const changeNameFontFamily = (e, fontFamily) => {
+    //     props.setResumeSettings({ ...props.resumeSettings, nameFontFamily: fontFamily });
+    //     changeCSSProperty('--name-font-family', fontFamily);
+    // }
 
     const changeHeadingAlignment = (e, alignment) => {
         props.setResumeSettings({ ...props.resumeSettings, headingAlignment: alignment });
@@ -169,9 +173,7 @@ const GlobalResumeSetting = props => {
                 </div>
 
                 <div className='resume-setting-item'>
-                    <span className='resume-setting-item-label'>
-                        Name Font Case
-                    </span>
+                    <span className='resume-setting-item-label'>Name Font Case</span>
                     <div className='resume-setting-item-body'>
                         {nameFontCases.map((fontCase, index) => {
                             return (
@@ -188,6 +190,40 @@ const GlobalResumeSetting = props => {
                         })}
                     </div>
                 </div>
+
+                {/* <div className='resume-setting-item'>
+                    <span className='resume-setting-item-label'>Name Font Style</span>
+                    <div className='resume-setting-item-body' >
+                      {props.resumeSettings.bodyFontFamily}
+                        <div className={`font-size-div ${
+                                props.resumeSettings.bodyFontFamily === props.resumeSettings.nameFontFamily ? 'active' : ''
+                            }`}
+                            onClick={event => changeNameFontFamily(event, props.resumeSettings.bodyFontFamily)}
+                        >
+                            Use Body Font
+                        </div>
+                            
+                    </div>
+                    <Box sx={{height: '10px'}}></Box>
+                    <Divider textAlign='left'>OR</Divider>
+                    <Box sx={{height: '10px'}}></Box>
+                    <div className='resume-setting-item-body'>
+                        {nameFontFamily.map((fontFamily, index) => {
+                            return (
+                                <div
+                                    key={index}
+                                    style={{ fontFamily: fontFamily }}
+                                    className={`font-size-div ${
+                                        props.resumeSettings.nameFontFamily === fontFamily ? 'active' : ''
+                                    }`}
+                                    onClick={event => changeNameFontFamily(event, fontFamily)}
+                                >
+                                    {fontFamily}
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div> */}
             </div>
 
             <div className='resume-setting-section'>
